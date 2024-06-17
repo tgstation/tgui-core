@@ -1,0 +1,25 @@
+/**
+ * @file
+ * @copyright 2020
+ * @author ThePotato97 (https://github.com/ThePotato97)
+ * @license ISC
+ */
+
+.iconStack > .icon {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.iconStack {
+  position: relative;
+  display: inline-block;
+  height: 1.2em;
+  line-height: 2em;
+  vertical-align: middle;
+
+  &:after {
+    color: transparent;
+    content: '.';
+  }
+}

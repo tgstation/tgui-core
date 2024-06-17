@@ -1,0 +1,130 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
+@use 'sass:color';
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss';
+
+$title-text-color: base.$color-fg !default;
+$background-color: base.$color-bg-section !default;
+$separator-color: colors.$primary !default;
+
+.section {
+  position: relative;
+  margin-bottom: 0.5em;
+  background-color: functions.fake-alpha($background-color, base.$color-bg);
+  background-color: $background-color;
+  box-sizing: border-box;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.title {
+  position: relative;
+  padding: 0.5em;
+  border-bottom: base.em(2px) solid $separator-color;
+}
+
+.titleText {
+  font-size: base.em(14px);
+  font-weight: bold;
+  color: $title-text-color;
+}
+
+.buttons {
+  position: absolute;
+  display: inline-block;
+  right: 0.5em;
+  margin-top: base.em(-1px);
+}
+
+.rest {
+  position: relative;
+}
+
+.content {
+  padding: 0.66em 0.5em;
+}
+
+.fitted > .rest > .content {
+  padding: 0;
+}
+
+.fill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fill > .rest {
+  flex-grow: 1;
+}
+
+.fill > .rest > .content {
+  height: 100%;
+}
+
+.fill.scrollable > .rest > .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.scrollable {
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  & > .rest > .content {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
+
+.scrollableHorizontal {
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  & > .rest > .content {
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
+}
+
+.scrollable.scrollableHorizontal {
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  & > .rest > .content {
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+}
+
+// Nested sections
+.section .section {
+  background-color: transparent;
+  margin-left: -0.5em;
+  margin-right: -0.5em;
+
+  // Remove extra space above the first nested section
+  &:first-child {
+    margin-top: -0.5em;
+  }
+}
+
+// Level 2 section title
+.section .section .titleText {
+  font-size: base.em(13px);
+}
+
+// Level 3 section title
+.section .section .section .titleText {
+  font-size: base.em(12px);
+}

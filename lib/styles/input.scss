@@ -1,0 +1,9 @@
+/**
+ * Colors for input elements
+ */
+@use './base.scss';
+
+$text-color: base.$color-fg !default;
+$background-color: #0a0a0a !default;
+$border-color: #88bfff !default;
+$border-radius: base.$border-radius !default;
