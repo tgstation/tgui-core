@@ -1,11 +1,6 @@
 var h = Object.defineProperty;
 var c = (e, s, t) => s in e ? h(e, s, { enumerable: !0, configurable: !0, writable: !0, value: t }) : e[s] = t;
-var n = (e, s, t) => (c(e, typeof s != "symbol" ? s + "" : s, t), t);
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
+var n = (e, s, t) => c(e, typeof s != "symbol" ? s + "" : s, t);
 class u {
   constructor() {
     n(this, "listeners");

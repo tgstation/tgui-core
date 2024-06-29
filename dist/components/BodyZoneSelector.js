@@ -1,11 +1,11 @@
 var g = Object.defineProperty;
 var _ = (e, t, s) => t in e ? g(e, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : e[t] = s;
-var l = (e, t, s) => (_(e, typeof t != "symbol" ? t + "" : t, s), s);
+var l = (e, t, s) => _(e, typeof t != "symbol" ? t + "" : t, s);
 import { jsxs as d, jsx as h } from "react/jsx-runtime";
 import { Component as v, createRef as $ } from "react";
 import { resolveAsset as p } from "../assets.js";
 import { Image as f } from "./Image.js";
-var b = /* @__PURE__ */ ((e) => (e.Head = "head", e.Chest = "chest", e.LeftArm = "l_arm", e.RightArm = "r_arm", e.LeftLeg = "l_leg", e.RightLeg = "r_leg", e.Eyes = "eyes", e.Mouth = "mouth", e.Groin = "groin", e))(b || {});
+var b = /* @__PURE__ */ ((e) => (e.Chest = "chest", e.Eyes = "eyes", e.Groin = "groin", e.Head = "head", e.LeftArm = "l_arm", e.LeftLeg = "l_leg", e.Mouth = "mouth", e.RightArm = "r_arm", e.RightLeg = "r_leg", e))(b || {});
 const C = (e, t) => {
   if (t < 1)
     return null;

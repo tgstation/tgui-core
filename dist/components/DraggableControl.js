@@ -2,7 +2,10 @@ import { jsxs as N, Fragment as T, jsx as F } from "react/jsx-runtime";
 import { clamp as m } from "../common/math.js";
 import { Component as b, createRef as I } from "react";
 import { AnimatedNumber as M } from "./AnimatedNumber.js";
-const R = 400, S = (v, u) => v.screenX * u[0] + v.screenY * u[1];
+const R = 400;
+function S(v, u) {
+  return v.screenX * u[0] + v.screenY * u[1];
+}
 class C extends b {
   constructor(u) {
     super(u), this.inputRef = I(), this.state = {
@@ -51,8 +54,7 @@ class C extends b {
             i,
             l
           ), n.origin = S(e, g);
-        } else
-          Math.abs(p) > 4 && (n.dragging = !0);
+        } else Math.abs(p) > 4 && (n.dragging = !0);
         return n;
       });
     }, this.handleDragEnd = (e) => {

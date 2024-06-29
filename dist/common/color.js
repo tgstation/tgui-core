@@ -1,11 +1,6 @@
 var b = Object.defineProperty;
 var l = (i, t, s) => t in i ? b(i, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : i[t] = s;
-var e = (i, t, s) => (l(i, typeof t != "symbol" ? t + "" : t, s), s);
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
+var e = (i, t, s) => l(i, typeof t != "symbol" ? t + "" : t, s);
 class n {
   constructor(t = 0, s = 0, r = 0, a = 1) {
     e(this, "r");

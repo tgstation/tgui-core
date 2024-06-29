@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 export { AnimatedNumber } from './AnimatedNumber';
 export { Autofocus } from './Autofocus';
 export { Blink } from './Blink';

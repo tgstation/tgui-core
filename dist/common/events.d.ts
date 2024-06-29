@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 type Fn = (...args: any[]) => void;
 export declare class EventEmitter {
     private listeners;

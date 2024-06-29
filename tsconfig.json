@@ -34,7 +34,7 @@
       "tgui-core/*": [
         "dist/*.d.ts"
       ],
-    }
+    },
   },
   "include": [
     "lib",

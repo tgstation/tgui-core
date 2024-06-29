@@ -1,9 +1,9 @@
 import '../assets/MenuBar.css';var z = Object.defineProperty;
 var M = (t, e, n) => e in t ? z(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
-var h = (t, e, n) => (M(t, typeof e != "symbol" ? e + "" : e, n), n);
+var h = (t, e, n) => M(t, typeof e != "symbol" ? e + "" : e, n);
 import { jsx as r, jsxs as v } from "react/jsx-runtime";
-import { classes as f } from "../common/react.js";
 import { Component as g, createRef as b } from "react";
+import { classes as f } from "../common/react.js";
 import { Box as m } from "./Box.js";
 import { Icon as B } from "./Icon.js";
 const N = "_menuBar_esza9_9", O = "_font_esza9_13", w = "_hover_esza9_19", R = "_button_esza9_24", y = "_menu_esza9_9", I = "_item_esza9_36", T = "_toggle_esza9_44", W = "_toggle__check_esza9_48", j = "_over_esza9_55", D = "_button__text_esza9_60", E = "_separator_esza9_66", o = {
@@ -93,7 +93,7 @@ class L extends g {
     ] });
   }
 }
-const _ = (t) => {
+function _(t) {
   const {
     entry: e,
     children: n,
@@ -126,7 +126,8 @@ const _ = (t) => {
       children: n
     }
   );
-}, S = (t) => {
+}
+function S(t) {
   const { value: e, displayText: n, onClick: s, checked: c } = t;
   return /* @__PURE__ */ v(
     m,
@@ -144,9 +145,9 @@ const _ = (t) => {
       ]
     }
   );
-};
+}
 _.MenuItemToggle = S;
-const P = (t) => {
+function P(t) {
   const { value: e, displayText: n, onClick: s } = t;
   return /* @__PURE__ */ r(
     m,
@@ -156,14 +157,16 @@ const P = (t) => {
       children: n
     }
   );
-};
+}
 _.MenuItem = P;
-const U = () => /* @__PURE__ */ r("div", { className: o.separator });
+function U() {
+  return /* @__PURE__ */ r("div", { className: o.separator });
+}
 _.Separator = U;
-const q = (t) => {
+function q(t) {
   const { children: e } = t;
   return /* @__PURE__ */ r(m, { className: o.menuBar, children: e });
-};
+}
 q.Dropdown = _;
 export {
   _ as Dropdown,

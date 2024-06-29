@@ -1,15 +1,15 @@
 import { Component } from 'react';
 
 export declare enum BodyZone {
-    Head = "head",
     Chest = "chest",
-    LeftArm = "l_arm",
-    RightArm = "r_arm",
-    LeftLeg = "l_leg",
-    RightLeg = "r_leg",
     Eyes = "eyes",
+    Groin = "groin",
+    Head = "head",
+    LeftArm = "l_arm",
+    LeftLeg = "l_leg",
     Mouth = "mouth",
-    Groin = "groin"
+    RightArm = "r_arm",
+    RightLeg = "r_leg"
 }
 type BodyZoneSelectorProps = {
     onClick?: (zone: BodyZone) => void;

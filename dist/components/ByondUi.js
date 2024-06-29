@@ -3,58 +3,59 @@ import { shallowDiffers as r } from "../common/react.js";
 import { debounce as a } from "../common/timer.js";
 import { Component as c, createRef as m } from "react";
 import { computeBoxProps as l } from "./Box.js";
-const o = [], h = (n) => {
-  const t = o.length;
+const o = [];
+function h(t) {
+  const n = o.length;
   o.push(null);
-  const e = n || "byondui_" + t;
+  const e = t || "byondui_" + n;
   return {
     render: (i) => {
-      o[t] = e, Byond.winset(e, i);
+      o[n] = e, Byond.winset(e, i);
     },
     unmount: () => {
-      o[t] = null, Byond.winset(e, {
+      o[n] = null, Byond.winset(e, {
         parent: ""
       });
     }
   };
-};
+}
 window.addEventListener("beforeunload", () => {
-  for (let n = 0; n < o.length; n++) {
-    const t = o[n];
-    typeof t == "string" && (o[n] = null, Byond.winset(t, {
+  for (let t = 0; t < o.length; t++) {
+    const n = o[t];
+    typeof n == "string" && (o[t] = null, Byond.winset(n, {
       parent: ""
     }));
   }
 });
-const u = (n) => {
-  const t = window.devicePixelRatio ?? 1, e = n.getBoundingClientRect();
+function u(t) {
+  const n = window.devicePixelRatio ?? 1, e = t.getBoundingClientRect();
   return {
-    pos: [e.left * t, e.top * t],
+    pos: [e.left * n, e.top * n],
     size: [
-      (e.right - e.left) * t,
-      (e.bottom - e.top) * t
+      (e.right - e.left) * n,
+      (e.bottom - e.top) * n
     ]
   };
-};
+}
 class U extends c {
-  constructor(t) {
+  constructor(n) {
     var e;
-    super(t), this.containerRef = m(), this.byondUiElement = h((e = t.params) == null ? void 0 : e.id), this.handleResize = a(() => {
+    super(n), this.containerRef = m(), this.byondUiElement = h((e = n.params) == null ? void 0 : e.id), this.handleResize = a(() => {
       this.forceUpdate();
     }, 100);
   }
-  shouldComponentUpdate(t) {
-    const { params: e = {}, ...i } = this.props, { params: d = {}, ...p } = t;
+  shouldComponentUpdate(n) {
+    const { params: e = {}, ...i } = this.props, { params: d = {}, ...p } = n;
     return r(e, d) || r(i, p);
   }
   componentDidMount() {
     window.addEventListener("resize", this.handleResize), this.componentDidUpdate(), this.handleResize();
   }
   componentDidUpdate() {
-    const { params: t = {} } = this.props, e = u(this.containerRef.current);
+    const { params: n = {} } = this.props, e = u(this.containerRef.current);
     this.byondUiElement.render({
       parent: Byond.windowId,
-      ...t,
+      ...n,
       pos: e.pos[0] + "," + e.pos[1],
       size: e.size[0] + "x" + e.size[1]
     });
@@ -63,7 +64,7 @@ class U extends c {
     window.removeEventListener("resize", this.handleResize), this.byondUiElement.unmount();
   }
   render() {
-    const { params: t, ...e } = this.props;
+    const { params: n, ...e } = this.props;
     return /* @__PURE__ */ s("div", { ref: this.containerRef, ...l(e), children: /* @__PURE__ */ s("div", { style: { minHeight: "22px" } }) });
   }
 }

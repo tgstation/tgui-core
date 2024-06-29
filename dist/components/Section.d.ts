@@ -30,20 +30,20 @@ import { ReactNode } from 'react';
 export declare const Section: import('react').ForwardRefExoticComponent<Partial<{
     /** Buttons to render aside the section title. */
     buttons: ReactNode;
+    /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
+    container_id: string;
     /** If true, fills all available vertical space. */
     fill: boolean;
     /** If true, removes all section padding. */
     fitted: boolean;
+    /** @member Callback function for the `scroll` event */
+    onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
     /** Shows or hides the scrollbar. */
     scrollable: boolean;
     /** Shows or hides the horizontal scrollbar. */
     scrollableHorizontal: boolean;
     /** Title of the section. */
     title: ReactNode;
-    /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
-    container_id: string;
-    /** @member Callback function for the `scroll` event */
-    onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
 }> & Partial<{
     as: string;
     children: ReactNode;

@@ -14,4 +14,4 @@
  *    exhaustiveCheck(color);
  * }
  */
-export declare const exhaustiveCheck: (input: never) => never;
+export declare function exhaustiveCheck(input: never): void;

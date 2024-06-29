@@ -1,9 +1,4 @@
 /**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-/**
  * Creates a search terms matcher. Returns true if given string matches the search text.
  *
  * @example

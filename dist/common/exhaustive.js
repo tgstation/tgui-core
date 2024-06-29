@@ -1,6 +1,6 @@
-const r = (e) => {
+function n(e) {
   throw new Error(`Unhandled case: ${e}`);
-};
+}
 export {
-  r as exhaustiveCheck
+  n as exhaustiveCheck
 };

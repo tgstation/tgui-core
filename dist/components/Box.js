@@ -1,60 +1,63 @@
-import { classes as y } from "../common/react.js";
-import { createElement as b } from "react";
-import { CSS_COLORS as x } from "../constants.js";
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-const p = (o) => {
+import { createElement as y } from "react";
+import { classes as b } from "../common/react.js";
+import { CSS_COLORS as u } from "../constants.js";
+function p(o) {
   if (typeof o == "string")
     return o.endsWith("px") ? parseFloat(o) / 12 + "rem" : o;
   if (typeof o == "number")
     return o + "rem";
-}, r = (o) => {
+}
+function r(o) {
   if (typeof o == "string")
     return p(o);
   if (typeof o == "number")
     return p(o * 0.5);
-}, C = (o) => !a(o), a = (o) => typeof o == "string" && x.includes(o), f = (o) => (t, i) => {
+}
+function x(o) {
+  return !a(o);
+}
+function a(o) {
+  return typeof o == "string" && u.includes(o);
+}
+const m = (o) => (t, i) => {
   (typeof i == "number" || typeof i == "string") && (t[o] = i);
 }, n = (o, t) => (i, e) => {
   (typeof e == "number" || typeof e == "string") && (i[o] = t(e));
-}, g = (o, t) => (i, e) => {
+}, l = (o, t) => (i, e) => {
   e && (i[o] = t);
-}, s = (o, t, i) => (e, m) => {
-  if (typeof m == "number" || typeof m == "string")
+}, g = (o, t, i) => (e, f) => {
+  if (typeof f == "number" || typeof f == "string")
     for (let c = 0; c < i.length; c++)
-      e[o + "-" + i[c]] = t(m);
-}, l = (o) => (t, i) => {
-  C(i) && (t[o] = i);
-}, w = {
-  align: f("textAlign"),
+      e[o + "-" + i[c]] = t(f);
+}, s = (o) => (t, i) => {
+  x(i) && (t[o] = i);
+}, C = {
+  align: m("textAlign"),
   bottom: n("bottom", p),
-  fontFamily: f("fontFamily"),
+  fontFamily: m("fontFamily"),
   fontSize: n("fontSize", p),
-  fontWeight: f("fontWeight"),
+  fontWeight: m("fontWeight"),
   height: n("height", p),
   left: n("left", p),
   maxHeight: n("maxHeight", p),
   maxWidth: n("maxWidth", p),
   minHeight: n("minHeight", p),
   minWidth: n("minWidth", p),
-  opacity: f("opacity"),
-  overflow: f("overflow"),
-  overflowX: f("overflowX"),
-  overflowY: f("overflowY"),
-  position: f("position"),
+  opacity: m("opacity"),
+  overflow: m("overflow"),
+  overflowX: m("overflowX"),
+  overflowY: m("overflowY"),
+  position: m("position"),
   right: n("right", p),
-  textAlign: f("textAlign"),
+  textAlign: m("textAlign"),
   top: n("top", p),
-  verticalAlign: f("verticalAlign"),
+  verticalAlign: m("verticalAlign"),
   width: n("width", p),
   lineHeight: (o, t) => {
     typeof t == "number" ? o.lineHeight = t : typeof t == "string" && (o.lineHeight = p(t));
   },
   // Margin
-  m: s("margin", r, [
+  m: g("margin", r, [
     "Top",
     "Bottom",
     "Left",
@@ -64,10 +67,10 @@ const p = (o) => {
   ml: n("marginLeft", r),
   mr: n("marginRight", r),
   mt: n("marginTop", r),
-  mx: s("margin", r, ["Left", "Right"]),
-  my: s("margin", r, ["Top", "Bottom"]),
+  mx: g("margin", r, ["Left", "Right"]),
+  my: g("margin", r, ["Top", "Bottom"]),
   // Padding
-  p: s("padding", r, [
+  p: g("padding", r, [
     "Top",
     "Bottom",
     "Left",
@@ -77,39 +80,42 @@ const p = (o) => {
   pl: n("paddingLeft", r),
   pr: n("paddingRight", r),
   pt: n("paddingTop", r),
-  px: s("padding", r, ["Left", "Right"]),
-  py: s("padding", r, ["Top", "Bottom"]),
+  px: g("padding", r, ["Left", "Right"]),
+  py: g("padding", r, ["Top", "Bottom"]),
   // Color props
-  color: l("color"),
-  textColor: l("color"),
-  backgroundColor: l("backgroundColor")
-}, u = {
-  bold: g("fontWeight", "bold"),
+  color: s("color"),
+  textColor: s("color"),
+  backgroundColor: s("backgroundColor")
+}, w = {
+  bold: l("fontWeight", "bold"),
   fillPositionedParent: (o, t) => {
     t && (o.position = "absolute", o.top = 0, o.bottom = 0, o.left = 0, o.right = 0);
   },
-  inline: g("display", "inline-block"),
-  italic: g("fontStyle", "italic"),
-  nowrap: g("whiteSpace", "nowrap"),
-  preserveWhitespace: g("whiteSpace", "pre-wrap")
-}, S = (o) => {
+  inline: l("display", "inline-block"),
+  italic: l("fontStyle", "italic"),
+  nowrap: l("whiteSpace", "nowrap"),
+  preserveWhitespace: l("whiteSpace", "pre-wrap")
+};
+function S(o) {
   const t = {}, i = {};
-  for (let e of Object.keys(o)) {
+  for (const e of Object.keys(o)) {
     if (e === "style")
       continue;
-    const m = o[e], c = w[e] || u[e];
-    c ? c(i, m) : t[e] = m;
+    const f = o[e], c = C[e] || w[e];
+    c ? c(i, f) : t[e] = f;
   }
   return t.style = { ...i, ...o.style }, t;
-}, d = (o) => {
+}
+function d(o) {
   const t = o.textColor || o.color, i = o.backgroundColor;
-  return y([
+  return b([
     a(t) && "color-" + t,
     a(i) && "color-bg-" + i
   ]);
-}, W = (o) => {
-  const { as: t = "div", className: i, children: e, ...m } = o, c = i ? `${i} ${d(m)}` : d(m), h = S(m);
-  return b(
+}
+function W(o) {
+  const { as: t = "div", className: i, children: e, ...f } = o, c = i ? `${i} ${d(f)}` : d(f), h = S(f);
+  return y(
     typeof t == "string" ? t : "div",
     {
       ...h,
@@ -117,7 +123,7 @@ const p = (o) => {
     },
     e
   );
-};
+}
 export {
   W as Box,
   d as computeBoxClassName,

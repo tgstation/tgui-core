@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 const t = 2, n = 1, i = 0, m = -1, c = {
   // Department colors
   department: {
@@ -272,25 +267,25 @@ const t = 2, n = 1, i = 0, m = -1, c = {
     label: "Nitrium",
     color: "brown"
   }
-], b = (a, o) => {
-  if (!a)
-    return o || "None";
+];
+function b(a, o) {
+  if (!a) return o || "None";
   const r = a.toLowerCase();
   for (let l = 0; l < e.length; l++)
     if (e[l].id === r)
       return e[l].label;
   return o || "None";
-}, s = (a) => {
-  if (!a)
-    return "black";
+}
+function s(a) {
+  if (!a) return "black";
   const o = a.toLowerCase();
   for (let r = 0; r < e.length; r++)
     if (e[r].id === o)
       return e[r].color;
   return "black";
-}, g = (a) => {
-  if (!a)
-    return;
+}
+const g = (a) => {
+  if (!a) return;
   const o = a.toLowerCase();
   for (let r = 0; r < e.length; r++)
     if (e[r].id === o)

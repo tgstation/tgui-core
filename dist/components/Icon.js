@@ -1,47 +1,49 @@
-import { jsx as f } from "react/jsx-runtime";
+import { jsx as l } from "react/jsx-runtime";
 import { classes as m } from "../common/react.js";
-import { computeBoxProps as p, computeBoxClassName as S } from "./Box.js";
-import '../assets/Icon.css';const x = "_iconStack_bg05l_7", y = "_icon_bg05l_7", _ = {
+import { computeBoxProps as p, computeBoxClassName as u } from "./Box.js";
+import '../assets/Icon.css';const x = "_iconStack_bg05l_7", y = "_icon_bg05l_7", S = {
   iconStack: x,
   icon: y
-}, l = /-o$/, b = (n) => {
-  const { name: t, size: o, spin: c, className: N, rotation: r, ...a } = n, e = a.style || {};
-  o && (e.fontSize = o * 100 + "%"), r && (e.transform = `rotate(${r}deg)`), a.style = e;
-  const k = p(a);
+}, f = /-o$/;
+function b(a) {
+  const { name: t, size: o, spin: c, className: _, rotation: i, ...n } = a, e = n.style || {};
+  o && (e.fontSize = o * 100 + "%"), i && (e.transform = `rotate(${i}deg)`), n.style = e;
+  const N = p(n);
   let s = "";
   if (t.startsWith("tg-"))
     s = t;
   else {
-    const u = l.test(t), i = t.replace(l, ""), g = !i.startsWith("fa-");
-    s = u ? "far " : "fas ", g && (s += "fa-"), s += i, c && (s += " fa-spin");
+    const k = f.test(t), r = t.replace(f, ""), g = !r.startsWith("fa-");
+    s = k ? "far " : "fas ", g && (s += "fa-"), s += r, c && (s += " fa-spin");
   }
-  return /* @__PURE__ */ f(
+  return /* @__PURE__ */ l(
     "i",
     {
       className: m([
-        _.icon,
+        S.icon,
         s,
-        N,
-        S(a)
+        _,
+        u(n)
       ]),
-      ...k
+      ...N
     }
   );
-}, d = (n) => {
-  const { className: t, children: o, ...c } = n;
-  return /* @__PURE__ */ f(
+}
+function d(a) {
+  const { className: t, children: o, ...c } = a;
+  return /* @__PURE__ */ l(
     "span",
     {
       className: m([
-        _.iconStack,
+        S.iconStack,
         t,
-        S(c)
+        u(c)
       ]),
       ...p(c),
       children: o
     }
   );
-};
+}
 b.Stack = d;
 export {
   b as Icon,

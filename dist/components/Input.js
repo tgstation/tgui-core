@@ -1,8 +1,8 @@
 import { jsxs as j, jsx as p } from "react/jsx-runtime";
+import { useRef as k, useEffect as B } from "react";
 import { KEY as m } from "../common/keys.js";
-import { classes as k } from "../common/react.js";
-import { debounce as B } from "../common/timer.js";
-import { useRef as E, useEffect as R } from "react";
+import { classes as E } from "../common/react.js";
+import { debounce as R } from "../common/timer.js";
 import { Box as S } from "./Box.js";
 import '../assets/Input.css';const V = "_input_17i79_20", F = "_fluid_17i79_35", L = "_baseline_17i79_40", Y = "_inner_17i79_45", q = "_monospace_17i79_71", u = {
   input: V,
@@ -14,7 +14,7 @@ import '../assets/Input.css';const V = "_input_17i79_20", F = "_fluid_17i79_35",
 function _(r) {
   return typeof r != "number" && typeof r != "string" ? "" : String(r);
 }
-const z = B((r) => r(), 250);
+const z = R((r) => r(), 250);
 function P(r) {
   const {
     autoFocus: d,
@@ -33,11 +33,10 @@ function P(r) {
     selfClear: N,
     value: l,
     ...w
-  } = r, a = E(null);
+  } = r, a = k(null);
   function D(e) {
     var f;
-    if (!s)
-      return;
+    if (!s) return;
     const t = (f = e.currentTarget) == null ? void 0 : f.value;
     T ? z(() => s(e, t)) : s(e, t);
   }
@@ -48,10 +47,9 @@ function P(r) {
     }
     e.key === m.Escape && (o == null || o(e), e.currentTarget.value = _(l), e.currentTarget.blur());
   }
-  return R(() => {
+  return B(() => {
     const e = a.current;
-    if (!e)
-      return;
+    if (!e) return;
     const t = _(l);
     e.value !== t && (e.value = t), !(!d && !c) && setTimeout(() => {
       e.focus(), c && e.select();
@@ -59,7 +57,7 @@ function P(r) {
   }, []), /* @__PURE__ */ j(
     S,
     {
-      className: k([
+      className: E([
         u.input,
         y && u.fluid,
         h && u.monospace,

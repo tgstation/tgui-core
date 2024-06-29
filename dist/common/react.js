@@ -1,28 +1,30 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-const o = (r) => {
-  let e = "";
+function f(r) {
+  let n = "";
   for (let t = 0; t < r.length; t++) {
-    const n = r[t];
-    typeof n == "string" && (e += n + " ");
+    const e = r[t];
+    typeof e == "string" && (n += e + " ");
   }
-  return e;
-}, f = (r) => Array.isArray(r) ? r.flat().filter((e) => e) : typeof r == "object" ? [r] : [], i = (r, e) => {
+  return n;
+}
+function i(r) {
+  return Array.isArray(r) ? r.flat().filter((n) => n) : typeof r == "object" ? [r] : [];
+}
+function o(r, n) {
   let t;
   for (t in r)
-    if (!(t in e))
+    if (!(t in n))
       return !0;
-  for (t in e)
-    if (r[t] !== e[t])
+  for (t in n)
+    if (r[t] !== n[t])
       return !0;
   return !1;
-}, s = (r) => r != null && typeof r != "boolean";
+}
+function u(r) {
+  return r != null && typeof r != "boolean";
+}
 export {
-  s as canRender,
-  o as classes,
-  f as normalizeChildren,
-  i as shallowDiffers
+  u as canRender,
+  f as classes,
+  i as normalizeChildren,
+  o as shallowDiffers
 };

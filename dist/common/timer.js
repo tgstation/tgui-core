@@ -1,28 +1,28 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-const c = (o, n, t = !1) => {
+function c(n, o, t = !1) {
   let e;
-  return (...u) => {
-    const s = () => {
-      e = null, t || o(...u);
-    }, l = t && !e;
-    clearTimeout(e), e = setTimeout(s, n), l && o(...u);
+  return (...i) => {
+    function l() {
+      e = null, t || n(...i);
+    }
+    const u = t && !e;
+    clearTimeout(e), e = setTimeout(l, o), u && n(...i);
   };
-}, i = (o, n) => {
+}
+function r(n, o) {
   let t, e;
-  return function u(...s) {
-    const l = Date.now();
-    e && clearTimeout(e), !t || l - t >= n ? (o.apply(null, s), t = l) : e = setTimeout(
-      () => u(...s),
-      n - (l - (t ?? 0))
+  return function i(...l) {
+    const u = Date.now();
+    e && clearTimeout(e), !t || u - t >= o ? (n(...l), t = u) : e = setTimeout(
+      () => i(...l),
+      o - (u - (t ?? 0))
     );
   };
-}, r = (o) => new Promise((n) => setTimeout(n, o));
+}
+function f(n) {
+  return new Promise((o) => setTimeout(o, n));
+}
 export {
   c as debounce,
-  r as sleep,
-  i as throttle
+  f as sleep,
+  r as throttle
 };

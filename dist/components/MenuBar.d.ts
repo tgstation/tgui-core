@@ -1,33 +1,28 @@
 import { ReactNode } from 'react';
 
 type MenuBarItemProps = {
-    entry: string;
     children: any;
-    openWidth: string;
-    display: ReactNode;
-    setOpenMenuBar: (entry: string | null) => void;
-    openMenuBar: string | null;
-    setOpenOnHover: (flag: boolean) => void;
-    openOnHover: boolean;
-    disabled?: boolean;
     className?: string;
+    disabled?: boolean;
+    display: ReactNode;
+    entry: string;
+    openMenuBar: string | null;
+    openOnHover: boolean;
+    openWidth: string;
+    setOpenMenuBar: (entry: string | null) => void;
+    setOpenOnHover: (flag: boolean) => void;
 };
-export declare const Dropdown: {
-    (props: MenuBarItemProps): import("react/jsx-runtime").JSX.Element;
-    MenuItemToggle: (props: any) => import("react/jsx-runtime").JSX.Element;
-    MenuItem: (props: any) => import("react/jsx-runtime").JSX.Element;
-    Separator: () => import("react/jsx-runtime").JSX.Element;
-};
+export declare function Dropdown(props: MenuBarItemProps): import("react/jsx-runtime").JSX.Element;
+export declare namespace Dropdown {
+    var MenuItemToggle: (props: any) => import("react/jsx-runtime").JSX.Element;
+    var MenuItem: (props: any) => import("react/jsx-runtime").JSX.Element;
+    var Separator: () => import("react/jsx-runtime").JSX.Element;
+}
 type MenuBarProps = {
     children: any;
 };
-export declare const MenuBar: {
-    (props: MenuBarProps): import("react/jsx-runtime").JSX.Element;
-    Dropdown: {
-        (props: MenuBarItemProps): import("react/jsx-runtime").JSX.Element;
-        MenuItemToggle: (props: any) => import("react/jsx-runtime").JSX.Element;
-        MenuItem: (props: any) => import("react/jsx-runtime").JSX.Element;
-        Separator: () => import("react/jsx-runtime").JSX.Element;
-    };
-};
+export declare function MenuBar(props: MenuBarProps): import("react/jsx-runtime").JSX.Element;
+export declare namespace MenuBar {
+    var Dropdown: typeof import("./MenuBar").Dropdown;
+}
 export {};

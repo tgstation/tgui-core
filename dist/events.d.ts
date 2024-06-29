@@ -4,9 +4,9 @@ export declare const globalEvents: EventEmitter;
 export declare const setupGlobalEvents: (options?: {
     ignoreWindowFocus?: boolean;
 }) => void;
-export declare const canStealFocus: (node: HTMLElement) => boolean;
-export declare const addScrollableNode: (node: HTMLElement) => void;
-export declare const removeScrollableNode: (node: HTMLElement) => void;
+export declare function canStealFocus(node: HTMLElement): boolean;
+export declare function addScrollableNode(node: HTMLElement): void;
+export declare function removeScrollableNode(node: HTMLElement): void;
 export declare class KeyEvent {
     event: KeyboardEvent;
     type: 'keydown' | 'keyup';

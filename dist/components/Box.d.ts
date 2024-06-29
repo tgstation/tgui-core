@@ -1,5 +1,5 @@
-import { BooleanLike } from '../common/react';
 import { KeyboardEventHandler, MouseEventHandler, ReactNode, UIEventHandler } from 'react';
+import { BooleanLike } from '../common/react';
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
 type StringProps = Partial<Record<keyof typeof stringStyleMap, string | BooleanLike>>;
@@ -29,11 +29,11 @@ type DangerDoNotUse = {
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export declare const unit: (value: unknown) => string | undefined;
+export declare function unit(value: unknown): string | undefined;
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export declare const halfUnit: (value: unknown) => string | undefined;
+export declare function halfUnit(value: unknown): string | undefined;
 declare const stringStyleMap: {
     readonly align: (style: any, value: any) => void;
     readonly bottom: (style: any, value: any) => void;
@@ -83,9 +83,9 @@ declare const booleanStyleMap: {
     readonly nowrap: (style: any, value: any) => void;
     readonly preserveWhitespace: (style: any, value: any) => void;
 };
-export declare const computeBoxProps: (props: any) => Record<string, any>;
-export declare const computeBoxClassName: (props: BoxProps) => string;
-export declare const Box: (props: BoxProps & DangerDoNotUse) => import('react').ReactElement<{
+export declare function computeBoxProps(props: any): Record<string, any>;
+export declare function computeBoxClassName(props: BoxProps): string;
+export declare function Box(props: BoxProps & DangerDoNotUse): import('react').ReactElement<{
     className: string;
 }, string | import('react').JSXElementConstructor<any>>;
 export {};

@@ -1,65 +1,72 @@
-import { jsx as m } from "react/jsx-runtime";
-import { classes as r } from "../common/react.js";
-import { computeBoxClassName as x, computeBoxProps as u, unit as p } from "./Box.js";
-import '../assets/Flex.css';const N = "_flex_djoni_5", y = "_inline_djoni_10", a = {
-  flex: N,
-  inline: y
-}, v = (e) => r([
-  a.flex,
-  e.inline && a.inline,
-  x(e)
-]), _ = (e) => {
-  const { className: n, direction: s, wrap: t, align: l, justify: i, inline: c, ...o } = e;
-  return u({
+import { jsx as c } from "react/jsx-runtime";
+import { classes as l } from "../common/react.js";
+import { computeBoxClassName as m, computeBoxProps as a, unit as d } from "./Box.js";
+import '../assets/Flex.css';const p = "_flex_djoni_5", N = "_inline_djoni_10", r = {
+  flex: p,
+  inline: N
+};
+function y(e) {
+  return l([
+    r.flex,
+    e.inline && r.inline,
+    m(e)
+  ]);
+}
+function v(e) {
+  const { direction: n, wrap: t, align: o, justify: s, ...i } = e;
+  return a({
     style: {
-      ...o.style,
-      flexDirection: s,
+      ...i.style,
+      flexDirection: n,
       flexWrap: t === !0 ? "wrap" : t,
-      alignItems: l,
-      justifyContent: i
+      alignItems: o,
+      justifyContent: s
     },
-    ...o
+    ...i
   });
-}, g = (e) => {
-  const { className: n, ...s } = e;
-  return /* @__PURE__ */ m(
+}
+function _(e) {
+  const { className: n, ...t } = e;
+  return /* @__PURE__ */ c(
     "div",
     {
-      className: r([n, v(s)]),
-      ..._(s)
+      className: l([n, y(t)]),
+      ...v(t)
     }
   );
-}, j = (e) => {
-  const { className: n, style: s, grow: t, order: l, shrink: i, basis: c, align: o, ...f } = e, d = c ?? // IE11: Set basis to specified width if it's known, which fixes certain
+}
+function g(e) {
+  const { style: n, grow: t, order: o, shrink: s, basis: i, align: u, ...f } = e, x = i ?? // IE11: Set basis to specified width if it's known, which fixes certain
   // bugs when rendering tables inside the flex.
   e.width ?? // If grow is used, basis should be set to 0 to be consistent with
   // flex css shorthand `flex: 1`.
   (t !== void 0 ? 0 : void 0);
-  return u({
+  return a({
     style: {
-      ...s,
+      ...n,
       flexGrow: t !== void 0 && Number(t),
-      flexShrink: i !== void 0 && Number(i),
-      flexBasis: p(d),
-      order: l,
-      alignSelf: o
+      flexShrink: s !== void 0 && Number(s),
+      flexBasis: d(x),
+      order: o,
+      alignSelf: u
     },
     ...f
   });
-}, w = (e) => {
-  const { className: n, ...s } = e;
-  return /* @__PURE__ */ m(
+}
+function j(e) {
+  const { className: n, ...t } = e;
+  return /* @__PURE__ */ c(
     "div",
     {
-      className: r([n, x(e)]),
-      ...j(s)
+      className: l([n, m(e)]),
+      ...g(t)
     }
   );
-};
-g.Item = w;
+}
+_.Item = j;
 export {
-  g as Flex,
-  v as computeFlexClassName,
-  j as computeFlexItemProps,
-  _ as computeFlexProps
+  _ as Flex,
+  y as computeFlexClassName,
+  g as computeFlexItemProps,
+  v as computeFlexProps
 };

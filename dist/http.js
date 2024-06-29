@@ -1,8 +1,10 @@
-const n = (e, t, c = 1e3) => fetch(e, t).catch(() => new Promise((h) => {
-  setTimeout(() => {
-    n(e, t, c).then(h);
-  }, c);
-}));
+function h(e, t, c = 1e3) {
+  return fetch(e, t).catch(() => new Promise((n) => {
+    setTimeout(() => {
+      h(e, t, c).then(n);
+    }, c);
+  }));
+}
 export {
-  n as fetchRetry
+  h as fetchRetry
 };

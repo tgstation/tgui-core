@@ -1,7 +1,7 @@
 import { jsx as s, jsxs as m } from "react/jsx-runtime";
-import { s as e } from "../ProgressBar.module-BkAFfFy0.js";
 import { keyOfMatchingRange as R, clamp01 as t, scale as f } from "../common/math.js";
 import { classes as _ } from "../common/react.js";
+import { s as e } from "../ProgressBar.module-BkAFfFy0.js";
 import { computeBoxClassName as $, computeBoxProps as q } from "./Box.js";
 import { DraggableControl as A } from "./DraggableControl.js";
 import '../assets/Slider.css';const G = "_slider_1assx_9", H = "_cursorOffset_1assx_13", I = "_cursor_1assx_13", J = "_pointer_1assx_30", K = "_popupValue_1assx_41", a = {

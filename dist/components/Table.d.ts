@@ -15,11 +15,11 @@ type RowProps = Partial<{
 }> & BoxProps;
 export declare function TableRow(props: RowProps): import("react/jsx-runtime").JSX.Element;
 type CellProps = Partial<{
+    /** Additional columns for this cell to expand, assuming there is room. */
+    colSpan: number;
     /** Collapses table cell to the smallest possible size,
     and stops any text inside from wrapping. */
     collapsing: boolean;
-    /** Additional columns for this cell to expand, assuming there is room. */
-    colSpan: number;
     /** Whether this is a header cell. */
     header: boolean;
     /** Rows for this cell to expand, assuming there is room. */

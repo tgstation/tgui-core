@@ -1,6 +1,6 @@
 import { Placement } from '@popperjs/core';
-import { BooleanLike } from '../common/react';
 import { ReactNode } from 'react';
+import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
 
 /**
@@ -10,15 +10,15 @@ import { BoxProps } from './Box';
  * 3. Children prop rather than content
  */
 type EllipsisUnion = {
-    ellipsis: true;
     children: string;
     /** @deprecated use children instead */
     content?: never;
+    ellipsis: true;
 } | Partial<{
-    ellipsis: undefined;
     children: ReactNode;
     /** @deprecated use children instead */
     content: ReactNode;
+    ellipsis: undefined;
 }>;
 type Props = Partial<{
     captureKeys: boolean;
@@ -38,23 +38,25 @@ type Props = Partial<{
     verticalAlignContent: string;
 }> & EllipsisUnion & BoxProps;
 /** Clickable button. Comes with variants. Read more in the documentation. */
-export declare const Button: {
-    (props: Props): import("react/jsx-runtime").JSX.Element;
-    Checkbox: (props: CheckProps) => import("react/jsx-runtime").JSX.Element;
-    Confirm: (props: ConfirmProps) => import("react/jsx-runtime").JSX.Element;
-    Input: (props: InputProps) => import("react/jsx-runtime").JSX.Element;
-    File: typeof ButtonFile;
-};
+export declare function Button(props: Props): import("react/jsx-runtime").JSX.Element;
+export declare namespace Button {
+    var Checkbox: typeof ButtonCheckbox;
+    var Confirm: typeof ButtonConfirm;
+    var Input: typeof ButtonInput;
+    var File: typeof ButtonFile;
+}
 type CheckProps = Partial<{
     checked: BooleanLike;
 }> & Props;
 /** Visually toggles between checked and unchecked states. */
-export declare const ButtonCheckbox: (props: CheckProps) => import("react/jsx-runtime").JSX.Element;
+export declare function ButtonCheckbox(props: CheckProps): import("react/jsx-runtime").JSX.Element;
 type ConfirmProps = Partial<{
     confirmColor: string;
     confirmContent: ReactNode;
     confirmIcon: string;
 }> & Props;
+/**  Requires user confirmation before triggering its action. */
+declare function ButtonConfirm(props: ConfirmProps): import("react/jsx-runtime").JSX.Element;
 type InputProps = Partial<{
     currentValue: string;
     defaultValue: string;
@@ -63,6 +65,8 @@ type InputProps = Partial<{
     onCommit: (e: any, value: string) => void;
     placeholder: string;
 }> & Props;
+/** Accepts and handles user input. */
+declare function ButtonInput(props: InputProps): import("react/jsx-runtime").JSX.Element;
 type FileProps = {
     accept: string;
     multiple?: boolean;

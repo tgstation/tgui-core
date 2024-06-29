@@ -1,6 +1,8 @@
 import { Component as r } from "react";
 import { formatTime as u } from "../format.js";
-const s = (e) => typeof e == "number" && Number.isFinite(e) && !Number.isNaN(e);
+function s(e) {
+  return typeof e == "number" && Number.isFinite(e) && !Number.isNaN(e);
+}
 class o extends r {
   constructor(t) {
     super(t), this.timer = null, this.last_seen_value = void 0, this.state = {

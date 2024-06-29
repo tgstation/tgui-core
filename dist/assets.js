@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 const l = [/v4shim/i], d = {}, r = (t) => d[t] || t, f = (t) => (p) => (n) => {
   const { type: i, payload: e } = n;
   if (i === "asset/stylesheet") {

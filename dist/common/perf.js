@@ -9,22 +9,20 @@
  */
 const i = 16.666666666666668;
 var c;
-const a = !!((c = window.performance) != null && c.now);
-let t = {}, s = {};
-function p(r, o) {
-  process.env.NODE_ENV !== "production" && (a && !o && (t[r] = performance.now()), s[r] = o || Date.now());
+const a = !!((c = window.performance) != null && c.now), t = {}, s = {};
+function p(o, n) {
+  process.env.NODE_ENV !== "production" && (a && !n && (t[o] = performance.now()), s[o] = n || Date.now());
 }
-function u(r, o) {
-  if (process.env.NODE_ENV === "production")
-    return;
-  let e = t[r], n = t[o];
-  (!e || !n) && (e = s[r], n = s[o]);
-  const f = Math.abs(n - e);
+function u(o, n) {
+  if (process.env.NODE_ENV === "production") return;
+  let r = t[o], e = t[n];
+  (!r || !e) && (r = s[o], e = s[n]);
+  const f = Math.abs(e - r);
   return F(f);
 }
-function F(r) {
-  const o = r / i;
-  return r.toFixed(r < 10 ? 1 : 0) + "ms (" + o.toFixed(2) + " frames)";
+function F(o) {
+  const n = o / i;
+  return o.toFixed(o < 10 ? 1 : 0) + "ms (" + n.toFixed(2) + " frames)";
 }
 const d = {
   mark: p,

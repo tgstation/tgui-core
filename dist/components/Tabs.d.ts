@@ -16,8 +16,8 @@ type TabProps = Partial<{
     rightSlot: ReactNode;
     selected: boolean;
 }> & BoxProps & PropsWithChildren;
-export declare const Tabs: {
-    (props: Props): import("react/jsx-runtime").JSX.Element;
-    Tab: (props: TabProps) => import("react/jsx-runtime").JSX.Element;
-};
+export declare function Tabs(props: Props): import("react/jsx-runtime").JSX.Element;
+export declare namespace Tabs {
+    var Tab: (props: TabProps) => import("react/jsx-runtime").JSX.Element;
+}
 export {};

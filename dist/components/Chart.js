@@ -1,41 +1,40 @@
-var R = Object.defineProperty;
-var g = (t, o, e) => o in t ? R(t, o, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[o] = e;
-var a = (t, o, e) => (g(t, typeof o != "symbol" ? o + "" : o, e), e);
+var w = Object.defineProperty;
+var R = (t, o, e) => o in t ? w(t, o, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[o] = e;
+var p = (t, o, e) => R(t, typeof o != "symbol" ? o + "" : o, e);
 import { jsx as c } from "react/jsx-runtime";
-import { map as p, zip as m } from "../common/collections.js";
-import { Component as B, createRef as C } from "react";
+import { Component as g, createRef as B } from "react";
+import { zip as u } from "../common/collections.js";
 import { Box as v } from "./Box.js";
-const L = (t, o, e, r) => {
+function C(t, o, e, n) {
   if (t.length === 0)
     return [];
-  const l = p(m(...t), (s) => Math.min(...s)), h = p(m(...t), (s) => Math.max(...s));
-  return e !== void 0 && (l[0] = e[0], h[0] = e[1]), r !== void 0 && (l[1] = r[0], h[1] = r[1]), p(
-    t,
-    (s) => p(
-      m(s, l, h, o),
-      ([f, n, i, d]) => (f - n) / (i - n) * d
+  const f = u(...t), h = f.map((r) => Math.min(...r)), a = f.map((r) => Math.max(...r));
+  return e !== void 0 && (h[0] = e[0], a[0] = e[1]), n !== void 0 && (h[1] = n[0], a[1] = n[1]), t.map(
+    (r) => u(r, h, a, o).map(
+      ([l, i, m, d]) => (l - i) / (m - i) * d
     )
   );
-}, b = (t) => {
+}
+function L(t) {
   let o = "";
   for (let e = 0; e < t.length; e++) {
-    const r = t[e];
-    o += r[0] + "," + r[1] + " ";
+    const n = t[e];
+    o += n[0] + "," + n[1] + " ";
   }
   return o;
-};
-class k extends B {
+}
+class b extends g {
   constructor(e) {
     super(e);
-    a(this, "ref");
-    a(this, "state");
-    a(this, "handleResize", () => {
+    p(this, "ref");
+    p(this, "state");
+    p(this, "handleResize", () => {
       const e = this.ref.current;
       e && this.setState({
         viewBox: [e.offsetWidth, e.offsetHeight]
       });
     });
-    this.ref = C(), this.state = {
+    this.ref = B(), this.state = {
       // Initial guess
       viewBox: [600, 200]
     }, this.handleResize = this.handleResize.bind(this);
@@ -49,22 +48,22 @@ class k extends B {
   render() {
     const {
       data: e = [],
-      rangeX: r,
-      rangeY: l,
+      rangeX: n,
+      rangeY: f,
       fillColor: h = "none",
-      strokeColor: u = "#ffffff",
+      strokeColor: a = "#ffffff",
       strokeWidth: s = 2,
-      ...f
-    } = this.props, { viewBox: n } = this.state, i = L(e, n, r, l);
+      ...r
+    } = this.props, { viewBox: l } = this.state, i = C(e, l, n, f);
     if (i.length > 0) {
-      const x = i[0], w = i[i.length - 1];
-      i.push([n[0] + s, w[1]]), i.push([n[0] + s, -s]), i.push([-s, -s]), i.push([-s, x[1]]);
+      const z = i[0], x = i[i.length - 1];
+      i.push([l[0] + s, x[1]]), i.push([l[0] + s, -s]), i.push([-s, -s]), i.push([-s, z[1]]);
     }
-    const d = b(i), z = { ...f, className: "", ref: this.ref };
-    return /* @__PURE__ */ c(v, { position: "relative", ...f, children: /* @__PURE__ */ c(v, { ...z, children: /* @__PURE__ */ c(
+    const m = L(i), d = { ...r, className: "", ref: this.ref };
+    return /* @__PURE__ */ c(v, { position: "relative", ...r, children: /* @__PURE__ */ c(v, { ...d, children: /* @__PURE__ */ c(
       "svg",
       {
-        viewBox: `0 0 ${n[0]} ${n[1]}`,
+        viewBox: `0 0 ${l[0]} ${l[1]}`,
         preserveAspectRatio: "none",
         style: {
           position: "absolute",
@@ -77,20 +76,20 @@ class k extends B {
         children: /* @__PURE__ */ c(
           "polyline",
           {
-            transform: `scale(1, -1) translate(0, -${n[1]})`,
+            transform: `scale(1, -1) translate(0, -${l[1]})`,
             fill: h,
-            stroke: u,
+            stroke: a,
             strokeWidth: s,
-            points: d
+            points: m
           }
         )
       }
     ) }) });
   }
 }
-const D = {
-  Line: k
+const $ = {
+  Line: b
 };
 export {
-  D as Chart
+  $ as Chart
 };

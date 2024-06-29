@@ -1,20 +1,21 @@
 import { jsx as t, jsxs as c } from "react/jsx-runtime";
-import { Box as r } from "./Box.js";
+import { Box as s } from "./Box.js";
 import { Button as a } from "./Button.js";
-import '../assets/Dialog.css';const m = "_dialog_1hdv8_5", v = "_content_1hdv8_17", g = "_header_1hdv8_25", p = "_title_1hdv8_33", u = "_body_1hdv8_42", C = "_footer_1hdv8_47", b = "_button_1hdv8_55", o = {
+import '../assets/Dialog.css';const m = "_dialog_1hdv8_5", v = "_content_1hdv8_17", u = "_header_1hdv8_25", g = "_title_1hdv8_33", p = "_body_1hdv8_42", C = "_footer_1hdv8_47", f = "_button_1hdv8_55", o = {
   dialog: m,
   content: v,
-  header: g,
-  title: p,
-  body: u,
+  header: u,
+  title: g,
+  body: p,
   footer: C,
-  button: b
-}, h = (e) => {
-  const { title: n, onClose: i, children: s, width: l, height: _ } = e;
-  return /* @__PURE__ */ t("div", { className: o.dialog, children: /* @__PURE__ */ c(r, { className: o.content, width: l || "370px", height: _, children: [
+  button: f
+};
+function h(n) {
+  const { title: e, onClose: i, children: r, width: l, height: _ } = n;
+  return /* @__PURE__ */ t("div", { className: o.dialog, children: /* @__PURE__ */ c(s, { className: o.content, width: l || "370px", height: _, children: [
     /* @__PURE__ */ c("div", { className: o.header, children: [
-      /* @__PURE__ */ t("div", { className: o.title, children: n }),
-      /* @__PURE__ */ t(r, { mr: 2, children: /* @__PURE__ */ t(
+      /* @__PURE__ */ t("div", { className: o.title, children: e }),
+      /* @__PURE__ */ t(s, { mr: 2, children: /* @__PURE__ */ t(
         a,
         {
           mr: "-3px",
@@ -29,36 +30,37 @@ import '../assets/Dialog.css';const m = "_dialog_1hdv8_5", v = "_content_1hdv8_1
         }
       ) })
     ] }),
-    s
+    r
   ] }) });
-}, d = (e) => {
-  const { onClick: n, children: i } = e;
+}
+function d(n) {
+  const { onClick: e, children: i } = n;
   return /* @__PURE__ */ t(
     a,
     {
-      onClick: n,
+      onClick: e,
       className: o.button,
       verticalAlignContent: "middle",
       children: i
     }
   );
-};
+}
 h.Button = d;
-const w = (e) => {
-  const { documentName: n, onSave: i, onDiscard: s, onClose: l } = e;
+function w(n) {
+  const { documentName: e, onSave: i, onDiscard: r, onClose: l } = n;
   return /* @__PURE__ */ c(h, { title: "Notepad", onClose: l, children: [
     /* @__PURE__ */ c("div", { className: o.body, children: [
       "Do you want to save changes to ",
-      n,
+      e,
       "?"
     ] }),
     /* @__PURE__ */ c("div", { className: o.footer, children: [
       /* @__PURE__ */ t(d, { onClick: i, children: "Save" }),
-      /* @__PURE__ */ t(d, { onClick: s, children: "Don't Save" }),
+      /* @__PURE__ */ t(d, { onClick: r, children: "Don't Save" }),
       /* @__PURE__ */ t(d, { onClick: l, children: "Cancel" })
     ] })
   ] });
-};
+}
 export {
   h as Dialog,
   w as UnsavedChangesDialog

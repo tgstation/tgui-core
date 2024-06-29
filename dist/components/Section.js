@@ -1,10 +1,10 @@
 import { jsxs as r, jsx as s } from "react/jsx-runtime";
-import { s as t } from "../Section.module-CLVHJ4yA.js";
-import { classes as S, canRender as m } from "../common/react.js";
-import { forwardRef as j, useEffect as z } from "react";
+import { forwardRef as S, useEffect as j } from "react";
+import { classes as z, canRender as m } from "../common/react.js";
 import { addScrollableNode as B, removeScrollableNode as H } from "../events.js";
+import { s as t } from "../Section.module-CLVHJ4yA.js";
 import { computeBoxClassName as T, computeBoxProps as y } from "./Box.js";
-const q = j(
+const q = S(
   (a, l) => {
     const {
       buttons: c,
@@ -19,7 +19,7 @@ const q = j(
       container_id: v,
       ...o
     } = a, x = m(n) || m(c);
-    return z(() => {
+    return j(() => {
       if (l != null && l.current && !(!i && !e))
         return B(l.current), () => {
           l != null && l.current && H(l.current);
@@ -28,7 +28,7 @@ const q = j(
       "div",
       {
         id: v || "",
-        className: S([
+        className: z([
           t.section,
           N && t.fill,
           b && t.fitted,

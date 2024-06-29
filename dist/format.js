@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 const d = [
   "f",
   // femto
@@ -43,24 +38,33 @@ const d = [
   "F",
   "N",
   "H"
-], m = d.indexOf(" "), f = (t, s = -m, e = "") => {
+], l = d.indexOf(" "), m = (t, n = -l, s = "") => {
   if (!isFinite(t))
     return t.toString();
-  const o = Math.floor(Math.log10(Math.abs(t))), r = Math.max(s * 3, o), n = Math.floor(r / 3), i = d[Math.min(n + m, d.length - 1)];
-  let a = (t / Math.pow(1e3, n)).toFixed(2);
-  return a.endsWith(".00") ? a = a.slice(0, -3) : a.endsWith(".0") && (a = a.slice(0, -2)), `${a} ${i.trim()}${e}`.trim();
-}, S = (t, s = 0) => f(t, s, "W"), $ = (t, s = 0) => f(t, s, "J"), b = (t, s = 0) => {
+  const o = Math.floor(Math.log10(Math.abs(t))), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = d[Math.min(e + l, d.length - 1)];
+  let a = (t / Math.pow(1e3, e)).toFixed(2);
+  return a.endsWith(".00") ? a = a.slice(0, -3) : a.endsWith(".0") && (a = a.slice(0, -2)), `${a} ${i.trim()}${s}`.trim();
+};
+function S(t, n = 0) {
+  return m(t, n, "W");
+}
+function $(t, n = 0) {
+  return m(t, n, "J");
+}
+function b(t, n = 0) {
   if (!Number.isFinite(t))
     return String(t);
-  const e = Number(t.toFixed(s)), o = e < 0, n = Math.abs(e).toString().split(".");
-  n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  const i = n.join(".");
+  const s = Number(t.toFixed(n)), o = s < 0, e = Math.abs(s).toString().split(".");
+  e[0] = e[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  const i = e.join(".");
   return o ? `-${i}` : i;
-}, g = (t) => {
-  const s = 20 * Math.log10(t), e = s >= 0 ? "+" : "-";
-  let o = Math.abs(s);
-  return o === 1 / 0 ? o = "Inf" : o = o.toFixed(2), `${e}${o} dB`;
-}, M = [
+}
+function g(t) {
+  const n = 20 * Math.log10(t), s = n >= 0 ? "+" : "-";
+  let o = Math.abs(n);
+  return o === 1 / 0 ? o = "Inf" : o = o.toFixed(2), `${s}${o} dB`;
+}
+const M = [
   "",
   "· 10³",
   // kilo
@@ -85,18 +89,18 @@ const d = [
   "· 10³³",
   "· 10³⁶",
   "· 10³⁹"
-], p = (t, s = 0, e = "") => {
+], p = (t, n = 0, s = "") => {
   if (!isFinite(t))
     return "NaN";
-  const o = Math.floor(Math.log10(t)), r = Math.max(s * 3, o), n = Math.floor(r / 3), i = M[n], c = t / Math.pow(1e3, n), a = Math.max(0, 2 - r % 3);
-  return `${c.toFixed(a)} ${i} ${e}`.trim();
-}, F = (t, s = "default") => {
-  const e = Math.floor(t / 10), o = Math.floor(e / 3600), r = Math.floor(e % 3600 / 60), n = e % 60;
-  if (s === "short") {
-    const l = o > 0 ? `${o}h` : "", h = r > 0 ? `${r}m` : "", u = n > 0 ? `${n}s` : "";
-    return `${l}${h}${u}`;
+  const o = Math.floor(Math.log10(t)), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = M[e], c = t / Math.pow(1e3, e), a = Math.max(0, 2 - r % 3);
+  return `${c.toFixed(a)} ${i} ${s}`.trim();
+}, F = (t, n = "default") => {
+  const s = Math.floor(t / 10), o = Math.floor(s / 3600), r = Math.floor(s % 3600 / 60), e = s % 60;
+  if (n === "short") {
+    const f = o > 0 ? `${o}h` : "", u = r > 0 ? `${r}m` : "", h = e > 0 ? `${e}s` : "";
+    return `${f}${u}${h}`;
   }
-  const i = String(o).padStart(2, "0"), c = String(r).padStart(2, "0"), a = String(n).padStart(2, "0");
+  const i = String(o).padStart(2, "0"), c = String(r).padStart(2, "0"), a = String(e).padStart(2, "0");
   return `${i}:${c}:${a}`;
 };
 export {
@@ -105,6 +109,6 @@ export {
   b as formatMoney,
   S as formatPower,
   p as formatSiBaseTenUnit,
-  f as formatSiUnit,
+  m as formatSiUnit,
   F as formatTime
 };

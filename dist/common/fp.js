@@ -1,14 +1,9 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-const l = (...t) => (e, ...o) => {
-  let r = e;
-  for (let f of t)
-    Array.isArray(f) ? r = l(...f)(r, ...o) : f && (r = f(r, ...o));
-  return r;
+const n = (...t) => (e, ...f) => {
+  let o = e;
+  for (const r of t)
+    Array.isArray(r) ? o = n(...r)(o, ...f) : r && (o = r(o, ...f));
+  return o;
 };
 export {
-  l as flow
+  n as flow
 };

@@ -570,8 +570,7 @@ function Ge(t) {
           return P = rt, "break";
       }, et = ut; et > 0; et--) {
         var lt = bt(et);
-        if (lt === "break")
-          break;
+        if (lt === "break") break;
       }
     e.placement !== P && (e.modifiersData[n]._skip = !0, e.placement = P, e.reset = !0);
   }

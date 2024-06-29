@@ -1,11 +1,11 @@
 import { jsx as l, jsxs as E, Fragment as S } from "react/jsx-runtime";
+import { useState as F, createRef as K, useEffect as M, useRef as V } from "react";
 import { KEY as I } from "../common/keys.js";
 import { classes as R } from "../common/react.js";
-import { useState as F, createRef as K, useEffect as M, useRef as V } from "react";
 import { computeBoxClassName as j, computeBoxProps as q, Box as O } from "./Box.js";
 import { Icon as D } from "./Icon.js";
 import { Tooltip as P } from "./Tooltip.js";
-import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", Y = "_fas_433yx_35", z = "_far_433yx_36", G = "_dropdown_433yx_43", H = "_ellipsis_433yx_49", J = "_fluid_433yx_54", Q = "_circular_433yx_60", U = "_compact_433yx_64", W = "_color__black_433yx_69", X = "_color__white_433yx_82", Z = "_color__red_433yx_95", $ = "_color__orange_433yx_108", oo = "_color__yellow_433yx_121", to = "_color__olive_433yx_134", _o = "_color__green_433yx_147", eo = "_color__teal_433yx_160", no = "_color__blue_433yx_173", lo = "_color__violet_433yx_186", co = "_color__purple_433yx_199", ro = "_color__pink_433yx_212", io = "_color__brown_433yx_225", so = "_color__grey_433yx_238", ao = "_color__good_433yx_264", uo = "_color__average_433yx_277", fo = "_color__bad_433yx_290", po = "_color__label_433yx_303", yo = "_color__default_433yx_316", xo = "_color__caution_433yx_329", mo = "_color__danger_433yx_342", go = "_color__transparent_433yx_355", bo = "_disabled_433yx_370", ho = "_selected_433yx_374", Co = "_flex_433yx_387", ko = "_flex__fluid_433yx_392", vo = "_verticalAlignContent__top_433yx_396", wo = "_verticalAlignContent__middle_433yx_400", Ao = "_verticalAlignContent__bottom_433yx_404", Bo = "_content_433yx_408", Io = "_textMargin_433yx_413", _ = {
+import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", Y = "_fas_433yx_35", z = "_far_433yx_36", G = "_dropdown_433yx_43", H = "_ellipsis_433yx_49", J = "_fluid_433yx_54", Q = "_circular_433yx_60", U = "_compact_433yx_64", W = "_color__black_433yx_69", X = "_color__white_433yx_82", Z = "_color__red_433yx_95", $ = "_color__orange_433yx_108", oo = "_color__yellow_433yx_121", to = "_color__olive_433yx_134", _o = "_color__green_433yx_147", no = "_color__teal_433yx_160", eo = "_color__blue_433yx_173", lo = "_color__violet_433yx_186", co = "_color__purple_433yx_199", ro = "_color__pink_433yx_212", io = "_color__brown_433yx_225", so = "_color__grey_433yx_238", ao = "_color__good_433yx_264", uo = "_color__average_433yx_277", fo = "_color__bad_433yx_290", po = "_color__label_433yx_303", yo = "_color__default_433yx_316", xo = "_color__caution_433yx_329", mo = "_color__danger_433yx_342", go = "_color__transparent_433yx_355", bo = "_disabled_433yx_370", ho = "_selected_433yx_374", Co = "_flex_433yx_387", ko = "_flex__fluid_433yx_392", vo = "_verticalAlignContent__top_433yx_396", wo = "_verticalAlignContent__middle_433yx_400", Ao = "_verticalAlignContent__bottom_433yx_404", Bo = "_content_433yx_408", Io = "_textMargin_433yx_413", _ = {
   button: T,
   fa: L,
   fas: Y,
@@ -22,8 +22,8 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
   color__yellow: oo,
   color__olive: to,
   color__green: _o,
-  color__teal: eo,
-  color__blue: no,
+  color__teal: no,
+  color__blue: eo,
   color__violet: lo,
   color__purple: co,
   color__pink: ro,
@@ -47,20 +47,21 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
   verticalAlignContent__bottom: Ao,
   content: Bo,
   textMargin: Io
-}, m = (u) => {
+};
+function m(u) {
   const {
     captureKeys: s = !0,
     children: a,
     circular: p,
-    className: d,
+    className: f,
     color: i,
     compact: g,
     content: y,
     disabled: o,
     ellipsis: c,
-    fluid: e,
-    icon: n,
-    iconColor: f,
+    fluid: n,
+    icon: e,
+    iconColor: d,
     iconPosition: v,
     iconRotation: w,
     iconSpin: N,
@@ -76,16 +77,16 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
     {
       className: R([
         _.button,
-        e && _.fluid,
+        n && _.fluid,
         o && _.disabled,
         h && _.selected,
         p && _.circular,
         g && _.compact,
         C && _.flex,
-        C && e && _.flex__fluid,
+        C && n && _.flex__fluid,
         C && _["verticalAlignContent__" + C],
         i && typeof i == "string" ? _["color__" + i] : _.color__default,
-        d,
+        f,
         j(B)
       ]),
       tabIndex: o ? void 0 : 0,
@@ -103,12 +104,12 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
       },
       ...q(B),
       children: /* @__PURE__ */ E("div", { className: _.content, children: [
-        n && v !== "right" && /* @__PURE__ */ l(
+        e && v !== "right" && /* @__PURE__ */ l(
           D,
           {
             mr: 1,
-            name: n,
-            color: f,
+            name: e,
+            color: d,
             rotation: w,
             spin: N
           }
@@ -116,16 +117,16 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
         c ? /* @__PURE__ */ l(
           "span",
           {
-            className: R([_.ellipsis, n && _.textMargin]),
+            className: R([_.ellipsis, e && _.textMargin]),
             children: k
           }
         ) : k,
-        n && v === "right" && /* @__PURE__ */ l(
+        e && v === "right" && /* @__PURE__ */ l(
           D,
           {
             ml: 1,
-            name: n,
-            color: f,
+            name: e,
+            color: d,
             rotation: w,
             spin: N
           }
@@ -134,7 +135,8 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
     }
   );
   return x && (t = /* @__PURE__ */ l(P, { content: x, position: A, children: t })), t;
-}, No = (u) => {
+}
+function No(u) {
   const { checked: s, ...a } = u;
   return /* @__PURE__ */ l(
     m,
@@ -145,72 +147,73 @@ import '../assets/Button.css';const T = "_button_433yx_17", L = "_fa_433yx_34", 
       ...a
     }
   );
-};
+}
 m.Checkbox = No;
-const Ro = (u) => {
+function Ro(u) {
   const {
     children: s,
     color: a,
     confirmColor: p = "bad",
-    confirmContent: d = "Confirm?",
+    confirmContent: f = "Confirm?",
     confirmIcon: i,
     ellipsis: g = !0,
     icon: y,
     onClick: o,
     ...c
-  } = u, [e, n] = F(!1);
+  } = u, [n, e] = F(!1);
+  function d(v) {
+    if (!n) {
+      e(!0);
+      return;
+    }
+    o == null || o(v), e(!1);
+  }
   return /* @__PURE__ */ l(
     m,
     {
-      icon: e ? i : y,
-      color: e ? p : a,
-      onClick: (v) => {
-        if (!e) {
-          n(!0);
-          return;
-        }
-        o == null || o(v), n(!1);
-      },
+      icon: n ? i : y,
+      color: n ? p : a,
+      onClick: d,
       ...c,
-      children: e ? d : s
+      children: n ? f : s
     }
   );
-};
+}
 m.Confirm = Ro;
-const Do = (u) => {
+function Do(u) {
   const {
     children: s,
     color: a = "default",
     content: p,
-    currentValue: d,
+    currentValue: f,
     defaultValue: i,
     disabled: g,
     fluid: y,
     icon: o,
     iconRotation: c,
-    iconSpin: e,
-    maxLength: n,
-    onCommit: f = () => null,
+    iconSpin: n,
+    maxLength: e,
+    onCommit: d = () => null,
     placeholder: v,
     tooltip: w,
     tooltipPosition: N,
     ...b
-  } = u, [h, x] = F(!1), A = K(), C = p || s, B = (t) => {
+  } = u, [h, x] = F(!1), A = K(), C = p || s;
+  function B(t) {
     const r = A.current;
-    if (!r)
-      return;
-    r.value !== "" ? f(t, r.value) : i && f(t, i);
-  };
+    if (!r) return;
+    r.value !== "" ? d(t, r.value) : i && d(t, i);
+  }
   M(() => {
     const t = A.current;
     if (t && h) {
-      t.value = d || "";
+      t.value = f || "";
       try {
         t.focus(), t.select();
       } catch {
       }
     }
-  }, [h, d]);
+  }, [h, f]);
   let k = /* @__PURE__ */ E(
     O,
     {
@@ -222,7 +225,7 @@ const Do = (u) => {
       ...b,
       onClick: () => x(!0),
       children: [
-        o && /* @__PURE__ */ l(D, { name: o, rotation: c, spin: e }),
+        o && /* @__PURE__ */ l(D, { name: o, rotation: c, spin: n }),
         /* @__PURE__ */ l("div", { children: C }),
         /* @__PURE__ */ l(
           "input",
@@ -250,15 +253,15 @@ const Do = (u) => {
     }
   );
   return w && (k = /* @__PURE__ */ l(P, { content: w, position: N, children: k })), k;
-};
+}
 m.Input = Do;
 function Eo(u) {
-  const { accept: s, multiple: a, onSelectFiles: p, ...d } = u, i = V(null);
+  const { accept: s, multiple: a, onSelectFiles: p, ...f } = u, i = V(null);
   async function g(o) {
-    const c = Array.from(o).map((e) => {
-      const n = new FileReader();
-      return new Promise((f) => {
-        n.onload = () => f(n.result), n.readAsText(e);
+    const c = Array.from(o).map((n) => {
+      const e = new FileReader();
+      return new Promise((d) => {
+        e.onload = () => d(e.result), e.readAsText(n);
       });
     });
     return await Promise.all(c);
@@ -266,15 +269,15 @@ function Eo(u) {
   async function y(o) {
     const c = o.target.files;
     if (c != null && c.length) {
-      const e = await g(c);
-      p(a ? e : e[0]);
+      const n = await g(c);
+      p(a ? n : n[0]);
     }
   }
   return /* @__PURE__ */ E(S, { children: [
     /* @__PURE__ */ l(m, { onClick: () => {
       var o;
       return (o = i.current) == null ? void 0 : o.click();
-    }, ...d }),
+    }, ...f }),
     /* @__PURE__ */ l(
       "input",
       {

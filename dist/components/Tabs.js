@@ -33,7 +33,8 @@ import '../assets/Tabs.css';const v = "_tabs_9h380_13", p = "_fill_9h380_20", u 
   color__average: L,
   color__bad: M,
   color__label: O
-}, Q = (r) => {
+};
+function Q(r) {
   const { className: e, vertical: a, fill: s, fluid: c, children: t, ...l } = r;
   return /* @__PURE__ */ o(
     "div",
@@ -50,7 +51,8 @@ import '../assets/Tabs.css';const v = "_tabs_9h380_13", p = "_fill_9h380_20", u 
       children: t
     }
   );
-}, U = (r) => {
+}
+function U(r) {
   const {
     className: e,
     selected: a,
@@ -80,7 +82,7 @@ import '../assets/Tabs.css';const v = "_tabs_9h380_13", p = "_fill_9h380_20", u 
       ]
     }
   );
-};
+}
 Q.Tab = U;
 export {
   Q as Tabs

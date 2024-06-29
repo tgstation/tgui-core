@@ -2,7 +2,7 @@ import { jsxs as M, Fragment as P, jsx as S } from "react/jsx-runtime";
 import * as l from "react";
 import { useState as E, useRef as g, useEffect as F } from "react";
 import * as _ from "react-dom";
-import { c as A } from "../popper-Dm3m9eeZ.js";
+import { c as A } from "../popper-CiqSDJTE.js";
 var j = function(r) {
   return r.reduce(function(n, t) {
     var o = t[0], u = t[1];
@@ -14,61 +14,44 @@ function I(e) {
 }
 var U = typeof Element < "u", x = typeof Map == "function", z = typeof Set == "function", B = typeof ArrayBuffer == "function" && !!ArrayBuffer.isView;
 function w(e, r) {
-  if (e === r)
-    return !0;
+  if (e === r) return !0;
   if (e && r && typeof e == "object" && typeof r == "object") {
-    if (e.constructor !== r.constructor)
-      return !1;
+    if (e.constructor !== r.constructor) return !1;
     var n, t, o;
     if (Array.isArray(e)) {
-      if (n = e.length, n != r.length)
-        return !1;
+      if (n = e.length, n != r.length) return !1;
       for (t = n; t-- !== 0; )
-        if (!w(e[t], r[t]))
-          return !1;
+        if (!w(e[t], r[t])) return !1;
       return !0;
     }
     var u;
     if (x && e instanceof Map && r instanceof Map) {
-      if (e.size !== r.size)
-        return !1;
+      if (e.size !== r.size) return !1;
       for (u = e.entries(); !(t = u.next()).done; )
-        if (!r.has(t.value[0]))
-          return !1;
+        if (!r.has(t.value[0])) return !1;
       for (u = e.entries(); !(t = u.next()).done; )
-        if (!w(t.value[1], r.get(t.value[0])))
-          return !1;
+        if (!w(t.value[1], r.get(t.value[0]))) return !1;
       return !0;
     }
     if (z && e instanceof Set && r instanceof Set) {
-      if (e.size !== r.size)
-        return !1;
+      if (e.size !== r.size) return !1;
       for (u = e.entries(); !(t = u.next()).done; )
-        if (!r.has(t.value[0]))
-          return !1;
+        if (!r.has(t.value[0])) return !1;
       return !0;
     }
     if (B && ArrayBuffer.isView(e) && ArrayBuffer.isView(r)) {
-      if (n = e.length, n != r.length)
-        return !1;
+      if (n = e.length, n != r.length) return !1;
       for (t = n; t-- !== 0; )
-        if (e[t] !== r[t])
-          return !1;
+        if (e[t] !== r[t]) return !1;
       return !0;
     }
-    if (e.constructor === RegExp)
-      return e.source === r.source && e.flags === r.flags;
-    if (e.valueOf !== Object.prototype.valueOf && typeof e.valueOf == "function" && typeof r.valueOf == "function")
-      return e.valueOf() === r.valueOf();
-    if (e.toString !== Object.prototype.toString && typeof e.toString == "function" && typeof r.toString == "function")
-      return e.toString() === r.toString();
-    if (o = Object.keys(e), n = o.length, n !== Object.keys(r).length)
-      return !1;
+    if (e.constructor === RegExp) return e.source === r.source && e.flags === r.flags;
+    if (e.valueOf !== Object.prototype.valueOf && typeof e.valueOf == "function" && typeof r.valueOf == "function") return e.valueOf() === r.valueOf();
+    if (e.toString !== Object.prototype.toString && typeof e.toString == "function" && typeof r.toString == "function") return e.toString() === r.toString();
+    if (o = Object.keys(e), n = o.length, n !== Object.keys(r).length) return !1;
     for (t = n; t-- !== 0; )
-      if (!Object.prototype.hasOwnProperty.call(r, o[t]))
-        return !1;
-    if (U && e instanceof Element)
-      return !1;
+      if (!Object.prototype.hasOwnProperty.call(r, o[t])) return !1;
+    if (U && e instanceof Element) return !1;
     for (t = n; t-- !== 0; )
       if (!((o[t] === "_owner" || o[t] === "__v" || o[t] === "__o") && e.$$typeof) && !w(e[o[t]], r[o[t]]))
         return !1;

@@ -2,8 +2,8 @@ import { Component, HTMLAttributes, PropsWithChildren, RefObject } from 'react';
 
 type Props = {
     acceptableDifference?: number;
-    maxWidth: number;
     maxFontSize: number;
+    maxWidth: number;
     native?: HTMLAttributes<HTMLDivElement>;
 } & PropsWithChildren;
 type State = {

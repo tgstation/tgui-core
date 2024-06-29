@@ -15,5 +15,5 @@ type Props = {
     title: string;
     width: string | number;
 }> & BoxProps & PropsWithChildren;
-export declare const ProgressBar: (props: Props) => import("react/jsx-runtime").JSX.Element;
+export declare function ProgressBar(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

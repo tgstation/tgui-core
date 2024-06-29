@@ -4,13 +4,13 @@ import { KeyEvent } from './events';
  * Acquires a lock on the hotkey, which prevents it from being
  * passed through to BYOND.
  */
-export declare const acquireHotKey: (keyCode: number) => void;
+export declare function acquireHotKey(keyCode: number): void;
 /**
  * Makes the hotkey available to BYOND again.
  */
-export declare const releaseHotKey: (keyCode: number) => void;
-export declare const releaseHeldKeys: () => void;
-export declare const setupHotKeys: () => void;
+export declare function releaseHotKey(keyCode: number): void;
+export declare function releaseHeldKeys(): void;
+export declare function setupHotKeys(): void;
 /**
  * Registers for any key events, such as key down or key up.
  * This should be preferred over directly connecting to keydown/keyup
@@ -22,4 +22,4 @@ export declare const setupHotKeys: () => void;
  * @param callback The function to call whenever a key event occurs
  * @returns A callback to stop listening
  */
-export declare const listenForKeyEvents: (callback: (key: KeyEvent) => void) => () => void;
+export declare function listenForKeyEvents(callback: (key: KeyEvent) => void): () => void;

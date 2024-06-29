@@ -1,6 +1,6 @@
 var n = Object.defineProperty;
 var a = (i, e, t) => e in i ? n(i, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : i[e] = t;
-var s = (i, e, t) => (a(i, typeof e != "symbol" ? e + "" : e, t), t);
+var s = (i, e, t) => a(i, typeof e != "symbol" ? e + "" : e, t);
 import { jsx as l } from "react/jsx-runtime";
 import { Component as o } from "react";
 const h = 1e3, m = 1e3;

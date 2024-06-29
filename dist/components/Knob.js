@@ -35,7 +35,7 @@ import '../assets/Knob.css';const R = "_knob_69dqe_17", $ = "_circle_69dqe_32", 
   color__bad: mo,
   color__label: qo
 };
-function fo(t) {
+function xo(t) {
   const {
     // Draggable props (passthrough)
     animated: d,
@@ -52,7 +52,6 @@ function fo(t) {
     value: h,
     // Own props
     bipolar: c,
-    children: vo,
     className: y,
     color: x,
     fillValue: n,
@@ -159,5 +158,5 @@ function fo(t) {
   );
 }
 export {
-  fo as Knob
+  xo as Knob
 };

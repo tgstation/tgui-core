@@ -1,17 +1,20 @@
 var f = Object.defineProperty;
 var p = (i, r, t) => r in i ? f(i, r, { enumerable: !0, configurable: !0, writable: !0, value: t }) : i[r] = t;
-var s = (i, r, t) => (p(i, typeof r != "symbol" ? r + "" : r, t), t);
+var s = (i, r, t) => p(i, typeof r != "symbol" ? r + "" : r, t);
 import { jsx as m } from "react/jsx-runtime";
-import { toFixed as v, clamp as g } from "../common/math.js";
-import { Component as d, createRef as T } from "react";
-const o = (i) => typeof i == "number" && Number.isFinite(i) && !Number.isNaN(i), V = 1e3 / 60, a = 0.8333, l = 1e-3;
-class S extends d {
+import { Component as v, createRef as g } from "react";
+import { toFixed as d, clamp as T } from "../common/math.js";
+function o(i) {
+  return typeof i == "number" && Number.isFinite(i) && !Number.isNaN(i);
+}
+const V = 1e3 / 60, a = 0.8333, l = 1e-3;
+class S extends v {
   constructor(t) {
     super(t);
     /**
      * The inner `<span/>` being updated sixty times per second.
      */
-    s(this, "ref", T());
+    s(this, "ref", g());
     /**
      * The interval being used to update the inner span.
      */
@@ -62,7 +65,7 @@ class S extends d {
     if (n)
       return n(this.currentValue);
     const c = String(u).split(".")[1], h = c ? c.length : 0;
-    return v(e, g(h, 0, 8));
+    return d(e, T(h, 0, 8));
   }
   render() {
     return /* @__PURE__ */ m("span", { ref: this.ref, children: this.getText() });

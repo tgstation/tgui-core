@@ -1,14 +1,9 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 type Gas = {
-    id: string;
-    path: string;
-    name: string;
-    label: string;
     color: string;
+    id: string;
+    label: string;
+    name: string;
+    path: string;
 };
 export declare const UI_INTERACTIVE = 2;
 export declare const UI_UPDATE = 1;
@@ -100,8 +95,8 @@ export declare const RADIO_CHANNELS: readonly [{
     readonly freq: 1459;
     readonly color: "#1ecc43";
 }];
-export declare const getGasLabel: (gasId: string, fallbackValue?: string) => string;
-export declare const getGasColor: (gasId: string) => "black" | "blue" | "brown" | "grey" | "olive" | "pink" | "purple" | "teal" | "white" | "yellow" | "lightsteelblue" | "bisque" | "limegreen" | "mediumpurple" | "mediumslateblue" | "paleturquoise" | "salmon" | "greenyellow" | "darkgreen" | "aliceblue" | "maroon";
+export declare function getGasLabel(gasId: string, fallbackValue?: string): string;
+export declare function getGasColor(gasId: string): "black" | "blue" | "brown" | "grey" | "olive" | "pink" | "purple" | "teal" | "white" | "yellow" | "lightsteelblue" | "bisque" | "limegreen" | "mediumpurple" | "mediumslateblue" | "paleturquoise" | "salmon" | "greenyellow" | "darkgreen" | "aliceblue" | "maroon";
 export declare const getGasFromId: (gasId: string) => Gas | undefined;
 export declare const getGasFromPath: (gasPath: string) => Gas | undefined;
 export {};

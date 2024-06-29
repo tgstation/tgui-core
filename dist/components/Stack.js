@@ -1,7 +1,7 @@
 import { jsx as l } from "react/jsx-runtime";
 import { classes as o } from "../common/react.js";
-import { computeFlexClassName as f, computeFlexProps as w, computeFlexItemProps as _ } from "./Flex.js";
-import { computeBoxClassName as n } from "./Box.js";
+import { computeBoxClassName as _ } from "./Box.js";
+import { computeFlexClassName as f, computeFlexProps as w, computeFlexItemProps as n } from "./Flex.js";
 import '../assets/Stack.css';const h = "_fill_wrul1_9", p = "_horizontal_wrul1_13", z = "_item_wrul1_13", x = "_vertical_wrul1_20", N = "_reverse_wrul1_27", b = "_reverse__vertical_wrul1_35", S = "_zebra_wrul1_43", k = "_divider_wrul1_47", F = "_divider__hidden_wrul1_47", e = {
   fill: h,
   horizontal: p,
@@ -38,9 +38,9 @@ function I(t) {
   return /* @__PURE__ */ l(
     "div",
     {
-      className: o([e.item, s, n(i)]),
+      className: o([e.item, s, _(i)]),
       ref: r,
-      ..._(i)
+      ...n(i)
     }
   );
 }
@@ -55,9 +55,9 @@ function P(t) {
         e.divider,
         r && e.divider__hidden,
         s,
-        n(i)
+        _(i)
       ]),
-      ..._(i)
+      ...n(i)
     }
   );
 }

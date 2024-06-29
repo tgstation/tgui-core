@@ -1,9 +1,4 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-function s(e, t = (r) => JSON.stringify(r)) {
+function p(e, t = (r) => JSON.stringify(r)) {
   const r = e.toLowerCase().trim();
   return (n) => {
     if (!r)
@@ -21,7 +16,7 @@ function u(e) {
 function l(e) {
   return e.replace(/^\w/, (t) => t.toUpperCase());
 }
-const c = ["Id", "Tv"], i = [
+const c = ["Id", "Tv"], s = [
   "A",
   "An",
   "And",
@@ -45,20 +40,19 @@ const c = ["Id", "Tv"], i = [
   "With"
 ];
 function f(e) {
-  if (!e)
-    return e;
+  if (!e) return e;
   let t = e.replace(/([^\W_]+[^\s-]*) */g, (r) => a(r));
-  for (let r of i) {
+  for (const r of s) {
     const n = new RegExp("\\s" + r + "\\s", "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
-  for (let r of c) {
+  for (const r of c) {
     const n = new RegExp("\\b" + r + "\\b", "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
   return t;
 }
-const p = {
+const i = {
   amp: "&",
   apos: "'",
   gt: ">",
@@ -68,7 +62,10 @@ const p = {
 };
 function g(e) {
   return e && e.replace(/<br>/gi, `
-`).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(/&(nbsp|amp|quot|lt|gt|apos);/g, (t, r) => p[r]).replace(/&#?([0-9]+);/gi, (t, r) => {
+`).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(
+    /&(nbsp|amp|quot|lt|gt|apos);/g,
+    (t, r) => i[r]
+  ).replace(/&#?([0-9]+);/gi, (t, r) => {
     const n = parseInt(r, 10);
     return String.fromCharCode(n);
   }).replace(/&#x?([0-9a-f]+);/gi, (t, r) => {
@@ -80,7 +77,7 @@ export {
   a as capitalize,
   u as capitalizeAll,
   l as capitalizeFirst,
-  s as createSearch,
+  p as createSearch,
   g as decodeHtmlEntities,
   f as toTitleCase
 };

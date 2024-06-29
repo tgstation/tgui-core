@@ -1,32 +1,32 @@
-import { BooleanLike } from '../common/react';
 import { Component, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject } from 'react';
+import { BooleanLike } from '../common/react';
 
 type Props = Required<{
-    value: number | string;
-    minValue: number;
     maxValue: number;
+    minValue: number;
     step: number;
+    value: number | string;
 }> & Partial<{
-    stepPixelSize: number;
-    disabled: BooleanLike;
-    className: string;
-    fluid: BooleanLike;
     animated: BooleanLike;
-    unit: string;
-    height: string;
-    width: string;
-    lineHeight: string;
+    className: string;
+    disabled: BooleanLike;
+    fluid: BooleanLike;
     fontSize: string;
     format: (value: number) => string;
+    height: string;
+    lineHeight: string;
     onChange: (value: number) => void;
     onDrag: (value: number) => void;
+    stepPixelSize: number;
+    unit: string;
+    width: string;
 }>;
 type State = {
-    editing: BooleanLike;
-    dragging: BooleanLike;
     currentValue: number;
-    previousValue: number;
+    dragging: BooleanLike;
+    editing: BooleanLike;
     origin: number;
+    previousValue: number;
 };
 export declare class NumberInput extends Component<Props, State> {
     inputRef: RefObject<HTMLInputElement>;

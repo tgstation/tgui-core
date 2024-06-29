@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 type Func = (...args: any[]) => any;
 /**
  * Creates a function that returns the result of invoking the given

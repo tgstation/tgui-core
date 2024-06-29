@@ -1,27 +1,29 @@
-import { BooleanLike } from '../common/react';
 import { PropsWithChildren, ReactNode } from 'react';
+import { BooleanLike } from '../common/react';
 
-export declare const LabeledList: {
-    (props: PropsWithChildren): import("react/jsx-runtime").JSX.Element;
-    Item: (props: LabeledListItemProps) => import("react/jsx-runtime").JSX.Element;
-    Divider: (props: LabeledListDividerProps) => import("react/jsx-runtime").JSX.Element;
-};
+export declare function LabeledList(props: PropsWithChildren): import("react/jsx-runtime").JSX.Element;
+export declare namespace LabeledList {
+    var Item: typeof LabeledListItem;
+    var Divider: typeof LabeledListDivider;
+}
 type LabeledListItemProps = Partial<{
     buttons: ReactNode;
+    children: ReactNode;
     className: string | BooleanLike;
     color: string;
+    /** @deprecated */
+    content: any;
     key: string | number;
     label: string | ReactNode | BooleanLike;
     labelColor: string;
     labelWrap: boolean;
     textAlign: string;
-    /** @deprecated */
-    content: any;
-    children: ReactNode;
-    verticalAlign: string;
     tooltip: string;
+    verticalAlign: string;
 }>;
+declare function LabeledListItem(props: LabeledListItemProps): import("react/jsx-runtime").JSX.Element;
 type LabeledListDividerProps = {
     size?: number;
 };
+declare function LabeledListDivider(props: LabeledListDividerProps): import("react/jsx-runtime").JSX.Element;
 export {};

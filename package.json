@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.0.18",
+  "version": "1.1.0",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint lib/**",
     "lint-fix": "eslint lib/** --fix"
   },

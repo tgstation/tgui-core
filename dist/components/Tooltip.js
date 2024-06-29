@@ -1,10 +1,10 @@
 import '../assets/Tooltip.css';var s = Object.defineProperty;
-var p = (o, e, t) => e in o ? s(o, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : o[e] = t;
-var r = (o, e, t) => (p(o, typeof e != "symbol" ? e + "" : e, t), t);
+var p = (o, e, n) => e in o ? s(o, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : o[e] = n;
+var r = (o, e, n) => p(o, typeof e != "symbol" ? e + "" : e, n);
 import { jsx as l } from "react/jsx-runtime";
 import { Component as c } from "react";
 import { findDOMNode as m, render as a } from "react-dom";
-import { c as u } from "../popper-Dm3m9eeZ.js";
+import { c as u } from "../popper-CiqSDJTE.js";
 const h = "_tooltip_1pib4_13", f = {
   tooltip: h
 }, i = {
@@ -24,41 +24,41 @@ const h = "_tooltip_1pib4_13", f = {
   x: 0,
   y: 0,
   toJSON: () => null
-}, n = class n extends c {
+}, t = class t extends c {
   getDOMNode() {
     return m(this);
   }
   componentDidMount() {
     const e = this.getDOMNode();
     e && (e.addEventListener("mouseenter", () => {
-      let t = n.renderedTooltip;
-      t === void 0 && (t = document.createElement("div"), t.className = f.tooltip, document.body.appendChild(t), n.renderedTooltip = t), n.currentHoveredElement = e, t.style.opacity = "1", this.renderPopperContent();
+      let n = t.renderedTooltip;
+      n === void 0 && (n = document.createElement("div"), n.className = f.tooltip, document.body.appendChild(n), t.renderedTooltip = n), t.currentHoveredElement = e, n.style.opacity = "1", this.renderPopperContent();
     }), e.addEventListener("mouseleave", () => {
       this.fadeOut();
     }));
   }
   fadeOut() {
-    n.currentHoveredElement === this.getDOMNode() && (n.currentHoveredElement = void 0, n.renderedTooltip.style.opacity = "0");
+    t.currentHoveredElement === this.getDOMNode() && (t.currentHoveredElement = void 0, t.renderedTooltip.style.opacity = "0");
   }
   renderPopperContent() {
-    const e = n.renderedTooltip;
+    const e = t.renderedTooltip;
     e && a(/* @__PURE__ */ l("span", { children: this.props.content }), e, () => {
-      let t = n.singletonPopper;
-      t === void 0 ? (t = u(
-        n.virtualElement,
+      let n = t.singletonPopper;
+      n === void 0 ? (n = u(
+        t.virtualElement,
         e,
         {
           ...i,
           placement: this.props.position || "auto"
         }
-      ), n.singletonPopper = t) : (t.setOptions({
+      ), t.singletonPopper = n) : (n.setOptions({
         ...i,
         placement: this.props.position || "auto"
-      }), t.update());
+      }), n.update());
     });
   }
   componentDidUpdate() {
-    n.currentHoveredElement === this.getDOMNode() && this.renderPopperContent();
+    t.currentHoveredElement === this.getDOMNode() && this.renderPopperContent();
   }
   componentWillUnmount() {
     this.fadeOut();
@@ -71,13 +71,13 @@ const h = "_tooltip_1pib4_13", f = {
 // Thus, instead of using the Popper component, Tooltip creates ONE popper
 // and stores every tooltip inside that.
 // This means you can never have two tooltips at once, for instance.
-r(n, "renderedTooltip"), r(n, "singletonPopper"), r(n, "currentHoveredElement"), r(n, "virtualElement", {
+r(t, "renderedTooltip"), r(t, "singletonPopper"), r(t, "currentHoveredElement"), r(t, "virtualElement", {
   getBoundingClientRect: () => {
     var e;
-    return ((e = n.currentHoveredElement) == null ? void 0 : e.getBoundingClientRect()) ?? v;
+    return ((e = t.currentHoveredElement) == null ? void 0 : e.getBoundingClientRect()) ?? v;
   }
 });
-let d = n;
+let d = t;
 export {
   d as Tooltip
 };

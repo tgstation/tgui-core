@@ -1,6 +1,6 @@
 var d = Object.defineProperty;
 var c = (i, t, e) => t in i ? d(i, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : i[t] = e;
-var o = (i, t, e) => (c(i, typeof t != "symbol" ? t + "" : t, e), e);
+var o = (i, t, e) => c(i, typeof t != "symbol" ? t + "" : t, e);
 import { jsx as a } from "react/jsx-runtime";
 import { Component as l, createRef as m } from "react";
 const z = 5;
