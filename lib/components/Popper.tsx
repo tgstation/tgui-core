@@ -16,14 +16,14 @@ type RequiredProps = {
 };
 
 type OptionalProps = Partial<{
-  /** Called when the user clicks outside the popper */
-  onClickOutside: () => void;
-  /** Where to place the popper relative to the reference element */
-  placement: Placement;
   /** Base z-index of the popper div
    * @default 5
    */
   baseZIndex: number;
+  /** Called when the user clicks outside the popper */
+  onClickOutside: () => void;
+  /** Where to place the popper relative to the reference element */
+  placement: Placement;
 }>;
 
 type Props = RequiredProps & OptionalProps;

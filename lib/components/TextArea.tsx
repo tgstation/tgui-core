@@ -4,10 +4,6 @@
  * @author Warlockd
  * @license MIT
  */
-import styles from '../styles/components/TextArea.module.scss';
-
-import { KEY } from '../common/keys';
-import { classes } from '../common/react';
 import {
   forwardRef,
   RefObject,
@@ -18,6 +14,9 @@ import {
 } from 'react';
 import { KeyboardEvent, SyntheticEvent } from 'react';
 
+import { KEY } from '../common/keys';
+import { classes } from '../common/react';
+import styles from '../styles/components/TextArea.module.scss';
 import { Box, BoxProps } from './Box';
 import { toInputValue } from './Input';
 

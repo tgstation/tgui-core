@@ -1,8 +1,6 @@
-import styles from '../styles/components/Knob.module.scss';
-
 import { keyOfMatchingRange, scale } from '../common/math';
 import { BooleanLike, classes } from '../common/react';
-
+import styles from '../styles/components/Knob.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -38,10 +36,10 @@ type Props = {
   stepPixelSize: number;
   /** A number in milliseconds, for which the input will hold off from updating while events propagate through the backend. Default is about 250ms, increase it if you still see flickering. */
   suppressFlicker: boolean;
-  /** Unit to display to the right of value. */
-  unit: string;
   /** Whether to clamp the value to the range. */
   unclamped: boolean;
+  /** Unit to display to the right of value. */
+  unit: string;
 }> &
   BoxProps;
 
@@ -69,7 +67,6 @@ export function Knob(props: Props) {
     value,
     // Own props
     bipolar,
-    children,
     className,
     color,
     fillValue,

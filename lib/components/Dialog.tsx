@@ -4,16 +4,15 @@
  * @license MIT
  */
 import styles from '../styles/components/Dialog.module.scss';
-
 import { Box } from './Box';
 import { Button } from './Button';
 
 type DialogProps = {
-  title: any;
-  onClose: () => void;
   children: any;
-  width?: string;
   height?: string;
+  onClose: () => void;
+  title: any;
+  width?: string;
 };
 
 export function Dialog(props: DialogProps) {
@@ -44,8 +43,8 @@ export function Dialog(props: DialogProps) {
 }
 
 type DialogButtonProps = {
-  onClick: () => void;
   children: any;
+  onClick: () => void;
 };
 
 function DialogButton(props: DialogButtonProps) {
@@ -65,9 +64,9 @@ Dialog.Button = DialogButton;
 
 type UnsavedChangesDialogProps = {
   documentName: string;
-  onSave: () => void;
-  onDiscard: () => void;
   onClose: () => void;
+  onDiscard: () => void;
+  onSave: () => void;
 };
 
 export function UnsavedChangesDialog(props: UnsavedChangesDialogProps) {

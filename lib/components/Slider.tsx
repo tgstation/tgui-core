@@ -1,10 +1,9 @@
-import styles from '../styles/components/Slider.module.scss';
-import progStyles from '../styles/components/ProgressBar.module.scss';
+import { PropsWithChildren } from 'react';
 
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
-import { PropsWithChildren } from 'react';
-
+import progStyles from '../styles/components/ProgressBar.module.scss';
+import styles from '../styles/components/Slider.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 

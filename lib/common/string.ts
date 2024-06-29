@@ -111,12 +111,12 @@ export function toTitleCase(str: string): string {
     return capitalize(str);
   });
 
-  for (let word of WORDS_LOWER) {
+  for (const word of WORDS_LOWER) {
     const regex = new RegExp('\\s' + word + '\\s', 'g');
     currentStr = currentStr.replace(regex, (str) => str.toLowerCase());
   }
 
-  for (let word of WORDS_UPPER) {
+  for (const word of WORDS_UPPER) {
     const regex = new RegExp('\\b' + word + '\\b', 'g');
     currentStr = currentStr.replace(regex, (str) => str.toLowerCase());
   }

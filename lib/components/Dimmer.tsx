@@ -1,7 +1,5 @@
-import styles from '../styles/components/Dimmer.module.scss';
-
 import { classes } from '../common/react';
-
+import styles from '../styles/components/Dimmer.module.scss';
 import { Box, BoxProps } from './Box';
 
 export function Dimmer(props: BoxProps) {

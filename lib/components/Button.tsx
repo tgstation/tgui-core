@@ -1,8 +1,4 @@
-import styles from '../styles/components/Button.module.scss';
-
 import { Placement } from '@popperjs/core';
-import { KEY } from '../common/keys';
-import { BooleanLike, classes } from '../common/react';
 import {
   ChangeEvent,
   createRef,
@@ -13,6 +9,9 @@ import {
   useState,
 } from 'react';
 
+import { KEY } from '../common/keys';
+import { BooleanLike, classes } from '../common/react';
+import styles from '../styles/components/Button.module.scss';
 import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
@@ -25,16 +24,16 @@ import { Tooltip } from './Tooltip';
  */
 type EllipsisUnion =
   | {
-      ellipsis: true;
       children: string;
       /** @deprecated use children instead */
       content?: never;
+      ellipsis: true;
     }
   | Partial<{
-      ellipsis: undefined;
       children: ReactNode;
       /** @deprecated use children instead */
       content: ReactNode;
+      ellipsis: undefined;
     }>;
 
 type Props = Partial<{
@@ -299,7 +298,9 @@ function ButtonInput(props: InputProps) {
       try {
         input.focus();
         input.select();
-      } catch {}
+      } catch {
+        // Ignore errors
+      }
     }
   }, [inInput, currentValue]);
 

@@ -1,11 +1,13 @@
-import { clamp, toFixed } from '../common/math';
 import { Component, createRef } from 'react';
+
+import { clamp, toFixed } from '../common/math';
 
 export type AnimatedNumberProps = {
   /**
-   * The target value to approach.
+   * If provided, a function that formats the inner string. By default,
+   * attempts to match the numeric precision of `value`.
    */
-  value: number;
+  format?: (value: number) => string;
 
   /**
    * If provided, the initial value displayed. By default, the same as `value`.
@@ -15,10 +17,9 @@ export type AnimatedNumberProps = {
   initial?: number;
 
   /**
-   * If provided, a function that formats the inner string. By default,
-   * attempts to match the numeric precision of `value`.
+   * The target value to approach.
    */
-  format?: (value: number) => string;
+  value: number;
 };
 
 function isSafeNumber(value: number) {

@@ -1,28 +1,27 @@
-import styles from '../styles/components/Section.module.scss';
-
-import { canRender, classes } from '../common/react';
 import { forwardRef, ReactNode, RefObject, useEffect } from 'react';
 
+import { canRender, classes } from '../common/react';
 import { addScrollableNode, removeScrollableNode } from '../events';
+import styles from '../styles/components/Section.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
   /** Buttons to render aside the section title. */
   buttons: ReactNode;
+  /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
+  container_id: string;
   /** If true, fills all available vertical space. */
   fill: boolean;
   /** If true, removes all section padding. */
   fitted: boolean;
+  /** @member Callback function for the `scroll` event */
+  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /** Shows or hides the scrollbar. */
   scrollable: boolean;
   /** Shows or hides the horizontal scrollbar. */
   scrollableHorizontal: boolean;
   /** Title of the section. */
   title: ReactNode;
-  /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
-  container_id: string;
-  /** @member Callback function for the `scroll` event */
-  onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
 }> &
   BoxProps;
 

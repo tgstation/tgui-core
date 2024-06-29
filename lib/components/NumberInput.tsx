@@ -1,8 +1,3 @@
-import styles from '../styles/components/NumberInput.module.scss';
-
-import { KEY } from '../common/keys';
-import { clamp } from '../common/math';
-import { BooleanLike, classes } from '../common/react';
 import {
   Component,
   createRef,
@@ -12,38 +7,42 @@ import {
   RefObject,
 } from 'react';
 
+import { KEY } from '../common/keys';
+import { clamp } from '../common/math';
+import { BooleanLike, classes } from '../common/react';
+import styles from '../styles/components/NumberInput.module.scss';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
 type Props = Required<{
-  value: number | string;
-  minValue: number;
   maxValue: number;
+  minValue: number;
   step: number;
+  value: number | string;
 }> &
   Partial<{
-    stepPixelSize: number;
-    disabled: BooleanLike;
-
-    className: string;
-    fluid: BooleanLike;
     animated: BooleanLike;
-    unit: string;
-    height: string;
-    width: string;
-    lineHeight: string;
+    className: string;
+
+    disabled: BooleanLike;
+    fluid: BooleanLike;
     fontSize: string;
     format: (value: number) => string;
+    height: string;
+    lineHeight: string;
     onChange: (value: number) => void;
     onDrag: (value: number) => void;
+    stepPixelSize: number;
+    unit: string;
+    width: string;
   }>;
 
 type State = {
-  editing: BooleanLike;
-  dragging: BooleanLike;
   currentValue: number;
-  previousValue: number;
+  dragging: BooleanLike;
+  editing: BooleanLike;
   origin: number;
+  previousValue: number;
 };
 
 export class NumberInput extends Component<Props, State> {
@@ -70,7 +69,7 @@ export class NumberInput extends Component<Props, State> {
   }
 
   componentDidMount(): void {
-    let displayValue = parseFloat(this.props.value.toString());
+    const displayValue = parseFloat(this.props.value.toString());
 
     this.setState({
       currentValue: displayValue,

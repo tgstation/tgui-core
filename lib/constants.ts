@@ -1,9 +1,9 @@
 type Gas = {
-  id: string;
-  path: string;
-  name: string;
-  label: string;
   color: string;
+  id: string;
+  label: string;
+  name: string;
+  path: string;
 };
 
 // UI states, which are mirrored from the BYOND code.

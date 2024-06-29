@@ -42,7 +42,7 @@ export function throttle<F extends (...args: any[]) => any>(
       clearTimeout(queuedToRun);
     }
     if (!previouslyRun || now - previouslyRun >= time) {
-      fn.apply(null, args);
+      fn(...args);
       previouslyRun = now;
     } else {
       queuedToRun = setTimeout(

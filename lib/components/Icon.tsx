@@ -5,18 +5,17 @@
  * @author Changes ThePotato97
  * @license MIT
  */
-import style from '../styles/components/Icon.module.scss';
-
-import { BooleanLike, classes } from '../common/react';
 import { CSSProperties, ReactNode } from 'react';
 
+import { BooleanLike, classes } from '../common/react';
+import style from '../styles/components/Icon.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type IconPropsUnique = { name: string } & Partial<{
-  size: number;
-  spin: BooleanLike;
   className: string;
   rotation: number;
+  size: number;
+  spin: BooleanLike;
   style: CSSProperties;
 }>;
 

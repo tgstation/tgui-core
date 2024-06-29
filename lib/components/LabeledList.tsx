@@ -1,8 +1,7 @@
-import styles from '../styles/components/LabeledList.module.scss';
-
-import { BooleanLike, classes } from '../common/react';
 import { PropsWithChildren, ReactNode } from 'react';
 
+import { BooleanLike, classes } from '../common/react';
+import styles from '../styles/components/LabeledList.module.scss';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';
@@ -14,18 +13,18 @@ export function LabeledList(props: PropsWithChildren) {
 
 type LabeledListItemProps = Partial<{
   buttons: ReactNode;
+  children: ReactNode;
   className: string | BooleanLike;
   color: string;
+  /** @deprecated */
+  content: any;
   key: string | number;
   label: string | ReactNode | BooleanLike;
   labelColor: string;
   labelWrap: boolean;
   textAlign: string;
-  /** @deprecated */
-  content: any;
-  children: ReactNode;
-  verticalAlign: string;
   tooltip: string;
+  verticalAlign: string;
 }>;
 
 function LabeledListItem(props: LabeledListItemProps) {
@@ -64,7 +63,7 @@ function LabeledListItem(props: LabeledListItemProps) {
     );
   }
 
-  let labelChild = (
+  const labelChild = (
     <Box
       as="td"
       color={labelColor}

@@ -1,11 +1,11 @@
 declare const classNames: {
-  readonly textArea: "textArea";
-  readonly fluid: "fluid";
-  readonly noborder: "noborder";
-  readonly inner: "inner";
-  readonly scrollable: "scrollable";
-  readonly custom: "custom";
-  readonly nowrap: "nowrap";
-  readonly wrapper: "wrapper";
+  readonly custom: 'custom';
+  readonly fluid: 'fluid';
+  readonly inner: 'inner';
+  readonly noborder: 'noborder';
+  readonly nowrap: 'nowrap';
+  readonly scrollable: 'scrollable';
+  readonly textArea: 'textArea';
+  readonly wrapper: 'wrapper';
 };
 export = classNames;

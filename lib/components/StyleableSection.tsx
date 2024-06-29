@@ -1,14 +1,13 @@
-import styles from '../styles/components/Section.module.scss';
-
 import { PropsWithChildren, ReactNode } from 'react';
 
+import styles from '../styles/components/Section.module.scss';
 import { Box } from './Box';
 
 type Props = Partial<{
   style: Record<string, any>;
-  titleStyle: Record<string, any>;
   textStyle: Record<string, any>;
   title: ReactNode;
+  titleStyle: Record<string, any>;
   titleSubtext: string;
 }> &
   PropsWithChildren;

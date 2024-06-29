@@ -1,6 +1,5 @@
-import styles from '../styles/components/Divider.module.scss';
-
 import { classes } from '../common/react';
+import styles from '../styles/components/Divider.module.scss';
 
 type Props = Partial<{
   hidden: boolean;

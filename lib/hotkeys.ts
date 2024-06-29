@@ -1,5 +1,4 @@
 import * as keycodes from './common/keycodes';
-
 import { globalEvents, KeyEvent } from './events';
 
 // BYOND macros, in `key: command` format.
@@ -124,7 +123,7 @@ export function releaseHotKey(keyCode: number) {
 }
 
 export function releaseHeldKeys() {
-  for (let byondKeyCode of Object.keys(keyState)) {
+  for (const byondKeyCode of Object.keys(keyState)) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
       Byond.command(`KeyUp "${byondKeyCode}"`);
@@ -142,7 +141,7 @@ export function setupHotKeys() {
   Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref
     const groupedByRef: Record<string, ByondSkinMacro> = {};
-    for (let key of Object.keys(data)) {
+    for (const key of Object.keys(data)) {
       const keyPath = key.split('.');
       const ref = keyPath[1];
       const prop = keyPath[2];
@@ -163,7 +162,7 @@ export function setupHotKeys() {
       return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
     }
 
-    for (let ref of Object.keys(groupedByRef)) {
+    for (const ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
       const byondKeyName = unescape(macro.name);
       byondMacros[byondKeyName] = unescape(macro.command);

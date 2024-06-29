@@ -20,34 +20,18 @@ export function scale(value, min, max) {
 }
 
 /**
- * Robust number rounding.
+ * Robust number rounding, similar to PHP's round() function.
  *
- * Adapted from Locutus, see: http://locutus.io/php/math/round/
- *
- * @param  {number} value
- * @param  {number} precision
- * @return {number}
+ * @url https://stackoverflow.com/questions/53450248/how-to-round-in-javascript-like-php-do/54721202#54721202
  */
-export function round(value, precision) {
-  if (!value || isNaN(value)) {
-    return value;
-  }
-  // helper variables
-  let m, f, isHalf, sgn;
-  // making sure precision is integer
-  precision |= 0;
-  m = Math.pow(10, precision);
-  value *= m;
-  // sign of the number
-  sgn = +(value > 0) | -(value < 0);
-  // isHalf = value % 1 === 0.5 * sgn;
-  isHalf = Math.abs(value % 1) >= 0.4999999999854481;
-  f = Math.floor(value);
-  if (isHalf) {
-    // rounds .5 away from zero
-    value = f + (sgn > 0);
-  }
-  return (isHalf ? value : Math.round(value)) / m;
+export function round(num, dec) {
+  const num_sign = num >= 0 ? 1 : -1;
+  return parseFloat(
+    (
+      Math.round(num * Math.pow(10, dec) + num_sign * 0.0001) /
+      Math.pow(10, dec)
+    ).toFixed(dec),
+  );
 }
 
 /**
@@ -73,7 +57,7 @@ export function inRange(value, range) {
  * Range is an array of two numbers, for example: [0, 15].
  */
 export function keyOfMatchingRange(value, ranges) {
-  for (let rangeName of Object.keys(ranges)) {
+  for (const rangeName of Object.keys(ranges)) {
     const range = ranges[rangeName];
     if (inRange(value, range)) {
       return rangeName;

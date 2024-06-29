@@ -5,9 +5,9 @@ import { Button } from './Button';
 
 type Props = Partial<{
   buttons: ReactNode;
+  icon: string;
   open: boolean;
   title: ReactNode;
-  icon: string;
 }> &
   BoxProps;
 

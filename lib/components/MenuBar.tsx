@@ -3,19 +3,18 @@
  * @copyright 2022 Aleksej Komarov
  * @license MIT
  */
-import styles from '../styles/components/MenuBar.module.scss';
-
-import { classes } from '../common/react';
 import { Component, createRef, ReactNode, RefObject } from 'react';
 
+import { classes } from '../common/react';
+import styles from '../styles/components/MenuBar.module.scss';
 import { Box } from './Box';
 import { Icon } from './Icon';
 
 type MenuProps = {
   children: any;
-  width: string;
   menuRef: RefObject<HTMLElement>;
   onOutsideClick: () => void;
+  width: string;
 };
 
 class Menu extends Component<MenuProps> {
@@ -28,8 +27,7 @@ class Menu extends Component<MenuProps> {
         return;
       }
 
-      if (this.props.menuRef.current.contains(event.target)) {
-      } else {
+      if (!this.props.menuRef.current.contains(event.target)) {
         this.props.onOutsideClick();
       }
     };
@@ -59,15 +57,15 @@ class Menu extends Component<MenuProps> {
 }
 
 type MenuBarDropdownProps = {
-  open: boolean;
-  openWidth: string;
   children: any;
+  className?: string;
   disabled?: boolean;
   display: any;
-  onMouseOver: () => void;
   onClick: () => void;
+  onMouseOver: () => void;
   onOutsideClick: () => void;
-  className?: string;
+  open: boolean;
+  openWidth: string;
 };
 
 class MenuBarButton extends Component<MenuBarDropdownProps> {
@@ -123,16 +121,16 @@ class MenuBarButton extends Component<MenuBarDropdownProps> {
 }
 
 type MenuBarItemProps = {
-  entry: string;
   children: any;
-  openWidth: string;
-  display: ReactNode;
-  setOpenMenuBar: (entry: string | null) => void;
-  openMenuBar: string | null;
-  setOpenOnHover: (flag: boolean) => void;
-  openOnHover: boolean;
-  disabled?: boolean;
   className?: string;
+  disabled?: boolean;
+  display: ReactNode;
+  entry: string;
+  openMenuBar: string | null;
+  openOnHover: boolean;
+  openWidth: string;
+  setOpenMenuBar: (entry: string | null) => void;
+  setOpenOnHover: (flag: boolean) => void;
 };
 
 export function Dropdown(props: MenuBarItemProps) {

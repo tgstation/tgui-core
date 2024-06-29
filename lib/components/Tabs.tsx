@@ -1,8 +1,7 @@
-import styles from '../styles/components/Tabs.module.scss';
-
-import { canRender, classes } from '../common/react';
 import { PropsWithChildren, ReactNode } from 'react';
 
+import { canRender, classes } from '../common/react';
+import styles from '../styles/components/Tabs.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 

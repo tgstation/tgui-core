@@ -3,11 +3,11 @@
  * @copyright 2021 Aleksej Komarov
  * @license MIT
  */
-import styles from '../styles/components/Stack.module.scss';
-
-import { classes } from '../common/react';
 import { RefObject } from 'react';
 
+import { classes } from '../common/react';
+import styles from '../styles/components/Stack.module.scss';
+import { computeBoxClassName } from './Box';
 import {
   computeFlexClassName,
   computeFlexItemProps,
@@ -15,7 +15,6 @@ import {
   FlexItemProps,
   FlexProps,
 } from './Flex';
-import { computeBoxClassName } from './Box';
 
 type Props = Partial<{
   /** Fills available space. */

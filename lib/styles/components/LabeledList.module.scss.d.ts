@@ -1,8 +1,8 @@
 declare const classNames: {
-  readonly labeledList: "labeledList";
-  readonly row: "row";
-  readonly cell: "cell";
-  readonly label__nowrap: "label__nowrap";
-  readonly buttons: "buttons";
+  readonly buttons: 'buttons';
+  readonly cell: 'cell';
+  readonly label__nowrap: 'label__nowrap';
+  readonly labeledList: 'labeledList';
+  readonly row: 'row';
 };
 export = classNames;

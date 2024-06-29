@@ -1,8 +1,8 @@
 declare const classNames: {
-  readonly input: "input";
-  readonly fluid: "fluid";
-  readonly baseline: "baseline";
-  readonly inner: "inner";
-  readonly monospace: "monospace";
+  readonly baseline: 'baseline';
+  readonly fluid: 'fluid';
+  readonly inner: 'inner';
+  readonly input: 'input';
+  readonly monospace: 'monospace';
 };
 export = classNames;

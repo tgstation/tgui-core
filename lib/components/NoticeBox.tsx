@@ -1,6 +1,5 @@
-import styles from '../styles/components/NoticeBox.module.scss';
 import { classes } from '../common/react';
-
+import styles from '../styles/components/NoticeBox.module.scss';
 import { Box, BoxProps } from './Box';
 
 type Props = ExclusiveProps & BoxProps;

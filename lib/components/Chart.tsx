@@ -1,6 +1,6 @@
-import { zip } from '../common/collections';
 import { Component, createRef, RefObject } from 'react';
 
+import { zip } from '../common/collections';
 import { Box, BoxProps } from './Box';
 
 type Props = {

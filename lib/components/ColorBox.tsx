@@ -1,8 +1,7 @@
-import styles from '../styles/components/ColorBox.module.scss';
-
-import { classes } from '../common/react';
 import { ReactNode } from 'react';
 
+import { classes } from '../common/react';
+import styles from '../styles/components/ColorBox.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {

@@ -1,9 +1,8 @@
-import styles from '../styles/components/Flex.module.scss';
+import { CSSProperties } from 'react';
 
 import { classes } from '../common/react';
-
+import styles from '../styles/components/Flex.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
-import { CSSProperties } from 'react';
 
 export type FlexProps = Partial<{
   align: string | boolean;
@@ -25,7 +24,7 @@ export function computeFlexClassName(props: FlexProps) {
 }
 
 export function computeFlexProps(props: FlexProps) {
-  const { className, direction, wrap, align, justify, inline, ...rest } = props;
+  const { direction, wrap, align, justify, ...rest } = props;
 
   return computeBoxProps({
     style: {
@@ -51,17 +50,16 @@ export function Flex(props) {
 
 export type FlexItemProps = BoxProps &
   Partial<{
+    align: string | boolean;
+    basis: string | number;
     grow: number | boolean;
     order: number;
     shrink: number | boolean;
-    basis: string | number;
-    align: string | boolean;
     style: Partial<HTMLDivElement['style']>;
   }>;
 
 export function computeFlexItemProps(props: FlexItemProps) {
-  const { className, style, grow, order, shrink, basis, align, ...rest } =
-    props;
+  const { style, grow, order, shrink, basis, align, ...rest } = props;
 
   const computedBasis =
     basis ??

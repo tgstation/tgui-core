@@ -1,6 +1,6 @@
-import { classes } from '../common/react';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
+import { classes } from '../common/react';
 import { BoxProps, unit } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -14,11 +14,11 @@ export type DropdownEntry = {
 type DropdownOption = string | DropdownEntry;
 
 type Props = {
+  /** Called when a value is picked from the list, `value` is the value that was picked */
+  onSelected: (value: any) => void;
   /** An array of strings which will be displayed in the
   dropdown when open. See Dropdown.tsx for more advanced usage with DropdownEntry */
   options: DropdownOption[];
-  /** Called when a value is picked from the list, `value` is the value that was picked */
-  onSelected: (value: any) => void;
   /** Currently selected entry to display. Can be left stateless to permanently display this value. */
   selected: DropdownOption | null | undefined;
 } & Partial<{
@@ -54,9 +54,9 @@ type Props = {
   BoxProps;
 
 enum DIRECTION {
-  Previous = 'previous',
-  Next = 'next',
   Current = 'current',
+  Next = 'next',
+  Previous = 'previous'
 }
 
 const NONE = -1;

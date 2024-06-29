@@ -5,13 +5,13 @@ export type Reducer<State = any, ActionType extends Action = AnyAction> = (
 
 export type Store<State = any, ActionType extends Action = AnyAction> = {
   dispatch: Dispatch<ActionType>;
-  subscribe: (listener: () => void) => void;
   getState: () => State;
+  subscribe: (listener: () => void) => void;
 };
 
 type MiddlewareAPI<State = any, ActionType extends Action = AnyAction> = {
-  getState: () => State;
   dispatch: Dispatch<ActionType>;
+  getState: () => State;
 };
 
 export type Middleware = <State = any, ActionType extends Action = AnyAction>(
@@ -30,11 +30,12 @@ export type Dispatch<ActionType extends Action = AnyAction> = (
   action: ActionType,
 ) => void;
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 type StoreEnhancer = (createStoreFunction: Function) => Function;
 
 type PreparedAction = {
-  payload?: any;
   meta?: any;
+  payload?: any;
 };
 
 /**
@@ -50,7 +51,7 @@ export function createStore<State, ActionType extends Action = AnyAction>(
   }
 
   let currentState: State;
-  let listeners: Array<() => void> = [];
+  const listeners: Array<() => void> = [];
 
   const getState = (): State => currentState;
 

@@ -1,7 +1,5 @@
-import styles from '../styles/components/Table.module.scss';
-
 import { classes } from '../common/react';
-
+import styles from '../styles/components/Table.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -53,11 +51,11 @@ export function TableRow(props: RowProps) {
 Table.Row = TableRow;
 
 type CellProps = Partial<{
+  /** Additional columns for this cell to expand, assuming there is room. */
+  colSpan: number;
   /** Collapses table cell to the smallest possible size,
   and stops any text inside from wrapping. */
   collapsing: boolean;
-  /** Additional columns for this cell to expand, assuming there is room. */
-  colSpan: number;
   /** Whether this is a header cell. */
   header: boolean;
   /** Rows for this cell to expand, assuming there is room. */

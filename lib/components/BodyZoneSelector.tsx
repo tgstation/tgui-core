@@ -4,15 +4,15 @@ import { resolveAsset } from '../assets';
 import { Image } from './Image';
 
 export enum BodyZone {
-  Head = 'head',
   Chest = 'chest',
-  LeftArm = 'l_arm',
-  RightArm = 'r_arm',
-  LeftLeg = 'l_leg',
-  RightLeg = 'r_leg',
   Eyes = 'eyes',
-  Mouth = 'mouth',
   Groin = 'groin',
+  Head = 'head',
+  LeftArm = 'l_arm',
+  LeftLeg = 'l_leg',
+  Mouth = 'mouth',
+  RightArm = 'r_arm',
+  RightLeg = 'r_leg'
 }
 
 const bodyZonePixelToZone = (x: number, y: number): BodyZone | null => {

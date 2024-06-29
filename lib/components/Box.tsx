@@ -1,4 +1,3 @@
-import { BooleanLike, classes } from '../common/react';
 import {
   createElement,
   KeyboardEventHandler,
@@ -7,6 +6,7 @@ import {
   UIEventHandler,
 } from 'react';
 
+import { BooleanLike, classes } from '../common/react';
 import { CSS_COLORS } from '../constants';
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
@@ -198,7 +198,7 @@ export function computeBoxProps(props) {
   const computedStyles: Record<string, string | number> = {};
 
   // Compute props
-  for (let propName of Object.keys(props)) {
+  for (const propName of Object.keys(props)) {
     if (propName === 'style') {
       continue;
     }
