@@ -12,8 +12,6 @@ import { CSSProperties, ReactNode } from 'react';
 
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
-const FA_OUTLINE_REGEX = /-o$/;
-
 type IconPropsUnique = { name: string } & Partial<{
   size: number;
   spin: BooleanLike;
@@ -24,7 +22,9 @@ type IconPropsUnique = { name: string } & Partial<{
 
 export type IconProps = IconPropsUnique & BoxProps;
 
-export const Icon = (props: IconProps) => {
+const FA_OUTLINE_REGEX = /-o$/;
+
+export function Icon(props: IconProps) {
   const { name, size, spin, className, rotation, ...rest } = props;
 
   const customStyle = rest.style || {};
@@ -68,7 +68,7 @@ export const Icon = (props: IconProps) => {
       {...boxProps}
     />
   );
-};
+}
 
 type IconStackUnique = {
   children: ReactNode;
@@ -77,7 +77,7 @@ type IconStackUnique = {
 
 export type IconStackProps = IconStackUnique & BoxProps;
 
-export const IconStack = (props: IconStackProps) => {
+export function IconStack(props: IconStackProps) {
   const { className, children, ...rest } = props;
   return (
     <span
@@ -91,6 +91,6 @@ export const IconStack = (props: IconStackProps) => {
       {children}
     </span>
   );
-};
+}
 
 Icon.Stack = IconStack;

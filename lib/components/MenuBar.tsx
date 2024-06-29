@@ -135,7 +135,7 @@ type MenuBarItemProps = {
   className?: string;
 };
 
-export const Dropdown = (props: MenuBarItemProps) => {
+export function Dropdown(props: MenuBarItemProps) {
   const {
     entry,
     children,
@@ -174,9 +174,9 @@ export const Dropdown = (props: MenuBarItemProps) => {
       {children}
     </MenuBarButton>
   );
-};
+}
 
-const MenuItemToggle = (props) => {
+function MenuItemToggle(props) {
   const { value, displayText, onClick, checked } = props;
   return (
     <Box
@@ -194,11 +194,11 @@ const MenuItemToggle = (props) => {
       {displayText}
     </Box>
   );
-};
+}
 
 Dropdown.MenuItemToggle = MenuItemToggle;
 
-const MenuItem = (props) => {
+function MenuItem(props) {
   const { value, displayText, onClick } = props;
   return (
     <Box
@@ -208,13 +208,13 @@ const MenuItem = (props) => {
       {displayText}
     </Box>
   );
-};
+}
 
 Dropdown.MenuItem = MenuItem;
 
-const Separator = () => {
+function Separator() {
   return <div className={styles.separator} />;
-};
+}
 
 Dropdown.Separator = Separator;
 
@@ -222,9 +222,9 @@ type MenuBarProps = {
   children: any;
 };
 
-export const MenuBar = (props: MenuBarProps) => {
+export function MenuBar(props: MenuBarProps) {
   const { children } = props;
   return <Box className={styles.menuBar}>{children}</Box>;
-};
+}
 
 MenuBar.Dropdown = Dropdown;

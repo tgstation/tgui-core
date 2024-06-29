@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/Slider.module.scss';
 import progStyles from '../styles/components/ProgressBar.module.scss';
 

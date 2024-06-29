@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { ReactNode, useState } from 'react';
 
 import { Box, BoxProps } from './Box';

@@ -1,10 +1,4 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-import { map, zip } from '../common/collections';
+import { zip } from '../common/collections';
 import { Component, createRef, RefObject } from 'react';
 
 import { Box, BoxProps } from './Box';
@@ -27,18 +21,20 @@ type State = {
 type Point = number[];
 type Range = [number, number];
 
-const normalizeData = (
+function normalizeData(
   data: Point[],
   scale: number[],
   rangeX?: Range,
-  rangeY?: Range
-) => {
+  rangeY?: Range,
+) {
   if (data.length === 0) {
     return [];
   }
 
-  const min = map(zip(...data), (p) => Math.min(...p));
-  const max = map(zip(...data), (p) => Math.max(...p));
+  const zipped = zip(...data);
+
+  const min = zipped.map((p) => Math.min(...p));
+  const max = zipped.map((p) => Math.max(...p));
 
   if (rangeX !== undefined) {
     min[0] = rangeX[0];
@@ -50,24 +46,23 @@ const normalizeData = (
     max[1] = rangeY[1];
   }
 
-  const normalized = map(data, (point) =>
-    map(
-      zip(point, min, max, scale),
-      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale
-    )
+  const normalized = data.map((point) =>
+    zip(point, min, max, scale).map(
+      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale,
+    ),
   );
 
   return normalized;
-};
+}
 
-const dataToPolylinePoints = (data) => {
+function dataToPolylinePoints(data) {
   let points = '';
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
     points += point[0] + ',' + point[1] + ' ';
   }
   return points;
-};
+}
 
 class LineChart extends Component<Props> {
   ref: RefObject<HTMLDivElement>;

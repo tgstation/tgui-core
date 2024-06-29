@@ -68,7 +68,7 @@ export const TextArea = forwardRef(
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [scrolledAmount, setScrolledAmount] = useState(0);
 
-    const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
       if (event.key === KEY.Enter) {
         if (event.shiftKey) {
           event.currentTarget.focus();
@@ -104,7 +104,7 @@ export const TextArea = forwardRef(
           value.substring(selectionEnd);
         event.currentTarget.selectionEnd = selectionStart + 1;
       }
-    };
+    }
 
     useImperativeHandle(
       forwardedRef,

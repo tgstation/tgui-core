@@ -17,7 +17,7 @@ const DEFAULT_MAX = 10000;
  * @param allowFloats {Boolean}
  * @returns {String}
  */
-const softSanitizeNumber = (value, minValue, maxValue, allowFloats) => {
+function softSanitizeNumber(value, minValue, maxValue, allowFloats) {
   const minimum = minValue || DEFAULT_MIN;
   const maximum = maxValue || maxValue === 0 ? maxValue : DEFAULT_MAX;
 
@@ -39,7 +39,7 @@ const softSanitizeNumber = (value, minValue, maxValue, allowFloats) => {
     return clampGuessedNumber(sanitizedString, minimum, maximum, allowFloats);
   }
   return sanitizedString;
-};
+}
 
 /**
  * Clamping the input to the restricted range, making the Input smart for min <= 1 and max >= 0
@@ -51,7 +51,7 @@ const clampGuessedNumber = (
   softSanitizedNumber,
   minValue,
   maxValue,
-  allowFloats
+  allowFloats,
 ) => {
   let parsed = allowFloats
     ? parseFloat(softSanitizedNumber)
@@ -73,7 +73,7 @@ const clampGuessedNumber = (
  * @param string {String}
  * @returns {string}
  */
-const maybeMoveMinusSign = (string) => {
+function maybeMoveMinusSign(string) {
   let retString = string;
   // if minus sign is present but not first
   let minusIdx = string.indexOf('-');
@@ -86,13 +86,13 @@ const maybeMoveMinusSign = (string) => {
     }
   }
   return retString;
-};
+}
 
 /**
  * Translate . to min. or .x to mim.x or -. to -min.
  * @param string {String}
  */
-const maybeLeadWithMin = (string, min) => {
+function maybeLeadWithMin(string, min) {
   let retString = string;
   let cuttedVal = Math.sign(min) * Math.floor(Math.abs(min));
   if (string.indexOf('.') === 0) {
@@ -101,7 +101,7 @@ const maybeLeadWithMin = (string, min) => {
     retString = cuttedVal + '.'.concat(string.slice(2));
   }
   return retString;
-};
+}
 
 /**
  * Keep only the first occurrence of a string in another string.
@@ -109,7 +109,7 @@ const maybeLeadWithMin = (string, min) => {
  * @param haystack {String}
  * @returns {string}
  */
-const keepOnlyFirstOccurrence = (needle, haystack) => {
+function keepOnlyFirstOccurrence(needle, haystack) {
   const idx = haystack.indexOf(needle);
   const len = haystack.length;
   let newHaystack = haystack;
@@ -119,14 +119,14 @@ const keepOnlyFirstOccurrence = (needle, haystack) => {
     newHaystack = haystack.slice(0, idx + 1).concat(trailingString);
   }
   return newHaystack;
-};
+}
 
 /**
  * Takes a string input and parses integers or floats from it.
  * If none: Minimum is set.
  * Else: Clamps it to the given range.
  */
-const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
+function getClampedNumber(value, minValue, maxValue, allowFloats) {
   const minimum = minValue || DEFAULT_MIN;
   const maximum = maxValue || maxValue === 0 ? maxValue : DEFAULT_MAX;
   if (!value || !value.length) {
@@ -140,7 +140,7 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
   } else {
     return String(clamp(parsedValue, minimum, maximum));
   }
-};
+}
 
 export class RestrictedInput extends Component {
   constructor(props) {
@@ -159,7 +159,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
       if (onBlur) {
         onBlur(e, +safeNum);
@@ -171,7 +171,7 @@ export class RestrictedInput extends Component {
         e.target.value,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
       if (onChange) {
         onChange(e, +e.target.value);
@@ -200,7 +200,7 @@ export class RestrictedInput extends Component {
           e.target.value,
           minValue,
           maxValue,
-          allowFloats
+          allowFloats,
         );
         this.setEditing(false);
         if (onChange) {
@@ -234,7 +234,7 @@ export class RestrictedInput extends Component {
         nextValue,
         minValue,
         maxValue,
-        allowFloats
+        allowFloats,
       );
     }
     if (this.props.autoFocus || this.props.autoSelect) {
@@ -260,7 +260,7 @@ export class RestrictedInput extends Component {
           nextValue,
           minValue,
           maxValue,
-          allowFloats
+          allowFloats,
         );
       }
     }

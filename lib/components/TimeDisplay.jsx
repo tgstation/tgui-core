@@ -3,11 +3,11 @@ import { Component } from 'react';
 import { formatTime } from '../format';
 
 // AnimatedNumber Copypaste
-const isSafeNumber = (value) => {
+function isSafeNumber(value) {
   return (
     typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
   );
-};
+}
 
 export class TimeDisplay extends Component {
   constructor(props) {

@@ -19,7 +19,7 @@ export const globalEvents = new EventEmitter();
 let ignoreWindowFocus = false;
 
 export const setupGlobalEvents = (
-  options: { ignoreWindowFocus?: boolean } = {}
+  options: { ignoreWindowFocus?: boolean } = {},
 ): void => {
   ignoreWindowFocus = !!options.ignoreWindowFocus;
 };
@@ -31,7 +31,7 @@ let windowFocusTimeout: ReturnType<typeof setTimeout> | null;
 let windowFocused = true;
 
 // Pretend to always be in focus.
-const setWindowFocus = (value: boolean, delayed?: boolean) => {
+function setWindowFocus(value: boolean, delayed?: boolean) {
   if (ignoreWindowFocus) {
     windowFocused = true;
     return;
@@ -49,30 +49,30 @@ const setWindowFocus = (value: boolean, delayed?: boolean) => {
     globalEvents.emit(value ? 'window-focus' : 'window-blur');
     globalEvents.emit('window-focus-change', value);
   }
-};
+}
 
 // Focus stealing
 // --------------------------------------------------------
 
 let focusStolenBy: HTMLElement | null = null;
 
-export const canStealFocus = (node: HTMLElement) => {
+export function canStealFocus(node: HTMLElement) {
   const tag = String(node.tagName).toLowerCase();
   return tag === 'input' || tag === 'textarea';
-};
+}
 
-const stealFocus = (node: HTMLElement) => {
+function stealFocus(node: HTMLElement) {
   releaseStolenFocus();
   focusStolenBy = node;
   focusStolenBy.addEventListener('blur', releaseStolenFocus);
-};
+}
 
-const releaseStolenFocus = () => {
+function releaseStolenFocus() {
   if (focusStolenBy) {
     focusStolenBy.removeEventListener('blur', releaseStolenFocus);
     focusStolenBy = null;
   }
-};
+}
 
 // Focus follows the mouse
 // --------------------------------------------------------
@@ -81,18 +81,18 @@ let focusedNode: HTMLElement | null = null;
 let lastVisitedNode: HTMLElement | null = null;
 const trackedNodes: HTMLElement[] = [];
 
-export const addScrollableNode = (node: HTMLElement) => {
+export function addScrollableNode(node: HTMLElement) {
   trackedNodes.push(node);
-};
+}
 
-export const removeScrollableNode = (node: HTMLElement) => {
+export function removeScrollableNode(node: HTMLElement) {
   const index = trackedNodes.indexOf(node);
   if (index >= 0) {
     trackedNodes.splice(index, 1);
   }
-};
+}
 
-const focusNearestTrackedParent = (node: HTMLElement | null) => {
+function focusNearestTrackedParent(node: HTMLElement | null) {
   if (focusStolenBy || !windowFocused) {
     return;
   }
@@ -109,7 +109,7 @@ const focusNearestTrackedParent = (node: HTMLElement | null) => {
     }
     node = node.parentElement;
   }
-};
+}
 
 window.addEventListener('mousemove', (e) => {
   const node = e.target as HTMLElement;

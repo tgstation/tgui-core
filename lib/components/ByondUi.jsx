@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { shallowDiffers } from '../common/react';
 import { debounce } from '../common/timer';
 import { Component, createRef } from 'react';
@@ -13,7 +7,7 @@ import { computeBoxProps } from './Box';
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];
 
-const createByondUiElement = (elementId) => {
+function createByondUiElement(elementId) {
   // Reserve an index in the stack
   const index = byondUiStack.length;
   byondUiStack.push(null);
@@ -32,7 +26,7 @@ const createByondUiElement = (elementId) => {
       });
     },
   };
-};
+}
 
 window.addEventListener('beforeunload', () => {
   // Cleanly unmount all visible UI elements
@@ -50,7 +44,7 @@ window.addEventListener('beforeunload', () => {
 /**
  * Get the bounding box of the DOM element in display-pixels.
  */
-const getBoundingBox = (element) => {
+function getBoundingBox(element) {
   const pixelRatio = window.devicePixelRatio ?? 1;
   const rect = element.getBoundingClientRect();
 
@@ -61,7 +55,7 @@ const getBoundingBox = (element) => {
       (rect.bottom - rect.top) * pixelRatio,
     ],
   };
-};
+}
 
 export class ByondUi extends Component {
   constructor(props) {

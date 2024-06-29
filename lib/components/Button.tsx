@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import styles from '../styles/components/Button.module.scss';
 
 import { Placement } from '@popperjs/core';
@@ -64,7 +58,7 @@ type Props = Partial<{
   BoxProps;
 
 /** Clickable button. Comes with variants. Read more in the documentation. */
-export const Button = (props: Props) => {
+export function Button(props: Props) {
   const {
     captureKeys = true,
     children,
@@ -178,7 +172,7 @@ export const Button = (props: Props) => {
   }
 
   return buttonContent;
-};
+}
 
 type CheckProps = Partial<{
   checked: BooleanLike;
@@ -186,7 +180,7 @@ type CheckProps = Partial<{
   Props;
 
 /** Visually toggles between checked and unchecked states. */
-export const ButtonCheckbox = (props: CheckProps) => {
+export function ButtonCheckbox(props: CheckProps) {
   const { checked, ...rest } = props;
 
   return (
@@ -197,7 +191,7 @@ export const ButtonCheckbox = (props: CheckProps) => {
       {...rest}
     />
   );
-};
+}
 
 Button.Checkbox = ButtonCheckbox;
 
@@ -209,7 +203,7 @@ type ConfirmProps = Partial<{
   Props;
 
 /**  Requires user confirmation before triggering its action. */
-const ButtonConfirm = (props: ConfirmProps) => {
+function ButtonConfirm(props: ConfirmProps) {
   const {
     children,
     color,
@@ -223,7 +217,7 @@ const ButtonConfirm = (props: ConfirmProps) => {
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
 
-  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+  function handleClick(event: MouseEvent<HTMLDivElement>) {
     if (!clickedOnce) {
       setClickedOnce(true);
       return;
@@ -231,7 +225,7 @@ const ButtonConfirm = (props: ConfirmProps) => {
 
     onClick?.(event);
     setClickedOnce(false);
-  };
+  }
 
   return (
     <Button
@@ -243,7 +237,7 @@ const ButtonConfirm = (props: ConfirmProps) => {
       {clickedOnce ? confirmContent : children}
     </Button>
   );
-};
+}
 
 Button.Confirm = ButtonConfirm;
 
@@ -258,7 +252,7 @@ type InputProps = Partial<{
   Props;
 
 /** Accepts and handles user input. */
-const ButtonInput = (props: InputProps) => {
+function ButtonInput(props: InputProps) {
   const {
     children,
     color = 'default',
@@ -282,7 +276,7 @@ const ButtonInput = (props: InputProps) => {
 
   const toDisplay = content || children;
 
-  const commitResult = (e) => {
+  function commitResult(e) {
     const input = inputRef.current;
     if (!input) return;
 
@@ -294,7 +288,7 @@ const ButtonInput = (props: InputProps) => {
         onCommit(e, defaultValue);
       }
     }
-  };
+  }
 
   useEffect(() => {
     const input = inputRef.current;
@@ -359,7 +353,7 @@ const ButtonInput = (props: InputProps) => {
   }
 
   return buttonContent;
-};
+}
 
 Button.Input = ButtonInput;
 

@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 const SI_SYMBOLS = [
   'f', // femto
   'p', // pico
@@ -61,16 +55,16 @@ export const formatSiUnit = (
 };
 
 // Formats a number to a human readable form, with power (W) as the unit
-export const formatPower = (value: number, minBase1000 = 0) => {
+export function formatPower(value: number, minBase1000 = 0) {
   return formatSiUnit(value, minBase1000, 'W');
-};
+}
 
-export const formatEnergy = (value: number, minBase1000 = 0) => {
+export function formatEnergy(value: number, minBase1000 = 0) {
   return formatSiUnit(value, minBase1000, 'J');
-};
+}
 
 // Formats a number as a currency string
-export const formatMoney = (value: number, precision = 0) => {
+export function formatMoney(value: number, precision = 0) {
   if (!Number.isFinite(value)) {
     return String(value);
   }
@@ -89,10 +83,10 @@ export const formatMoney = (value: number, precision = 0) => {
   const formattedValue = parts.join('.');
 
   return isNegative ? `-${formattedValue}` : formattedValue;
-};
+}
 
 // Formats a floating point number as a number on the decibel scale
-export const formatDb = (value: number) => {
+export function formatDb(value: number) {
   const db = 20 * Math.log10(value);
   const sign = db >= 0 ? '+' : '-';
   let formatted: string | number = Math.abs(db);
@@ -104,7 +98,7 @@ export const formatDb = (value: number) => {
   }
 
   return `${sign}${formatted} dB`;
-};
+}
 
 const SI_BASE_TEN_UNITS = [
   '',

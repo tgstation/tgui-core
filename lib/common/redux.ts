@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 export type Reducer<State = any, ActionType extends Action = AnyAction> = (
   state: State | undefined,
   action: ActionType,
@@ -46,10 +40,10 @@ type PreparedAction = {
 /**
  * Creates a Redux store.
  */
-export const createStore = <State, ActionType extends Action = AnyAction>(
+export function createStore<State, ActionType extends Action = AnyAction>(
   reducer: Reducer<State, ActionType>,
   enhancer?: StoreEnhancer,
-): Store<State, ActionType> => {
+): Store<State, ActionType> {
   // Apply a store enhancer (applyMiddleware is one of them).
   if (enhancer) {
     return enhancer(createStore)(reducer);
@@ -60,16 +54,16 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
 
   const getState = (): State => currentState;
 
-  const subscribe = (listener: () => void): void => {
+  function subscribe(listener: () => void): void {
     listeners.push(listener);
-  };
+  }
 
-  const dispatch = (action: ActionType): void => {
+  function dispatch(action: ActionType): void {
     currentState = reducer(currentState, action);
     for (let i = 0; i < listeners.length; i++) {
       listeners[i]();
     }
-  };
+  }
 
   // This creates the initial store by causing each reducer to be called
   // with an undefined state
@@ -80,15 +74,13 @@ export const createStore = <State, ActionType extends Action = AnyAction>(
     subscribe,
     getState,
   };
-};
+}
 
 /**
  * Creates a store enhancer which applies middleware to all dispatched
  * actions.
  */
-export const applyMiddleware = (
-  ...middlewares: Middleware[]
-): StoreEnhancer => {
+export function applyMiddleware(...middlewares: Middleware[]): StoreEnhancer {
   return (
     createStoreFunction: (reducer: Reducer, enhancer?: StoreEnhancer) => Store,
   ) => {
@@ -118,7 +110,7 @@ export const applyMiddleware = (
       };
     };
   };
-};
+}
 
 /**
  * Combines reducers by running them in their own object namespaces as
@@ -128,9 +120,7 @@ export const applyMiddleware = (
  * in the state that are not present in the reducers object. This function
  * is also more flexible than the redux counterpart.
  */
-export const combineReducers = (
-  reducersObj: Record<string, Reducer>,
-): Reducer => {
+export function combineReducers(reducersObj: Record<string, Reducer>): Reducer {
   const keys = Object.keys(reducersObj);
 
   return (prevState = {}, action) => {
@@ -150,7 +140,7 @@ export const combineReducers = (
 
     return hasChanged ? nextState : prevState;
   };
-};
+}
 
 /**
  * A utility function to create an action creator for the given action
@@ -168,11 +158,11 @@ export const combineReducers = (
  *
  * @public
  */
-export const createAction = <TAction extends string>(
+export function createAction<TAction extends string>(
   type: TAction,
   prepare?: (...args: any[]) => PreparedAction,
-) => {
-  const actionCreator = (...args: any[]) => {
+) {
+  function actionCreator(...args: any[]) {
     let action: Action<TAction> & PreparedAction = { type };
 
     if (prepare) {
@@ -186,11 +176,11 @@ export const createAction = <TAction extends string>(
     }
 
     return action;
-  };
+  }
 
   actionCreator.toString = () => type;
   actionCreator.type = type;
   actionCreator.match = (action) => action.type === type;
 
   return actionCreator;
-};
+}

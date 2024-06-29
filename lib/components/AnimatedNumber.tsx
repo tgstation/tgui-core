@@ -1,17 +1,5 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { clamp, toFixed } from '../common/math';
 import { Component, createRef } from 'react';
-
-const isSafeNumber = (value: number) => {
-  return (
-    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
-  );
-};
 
 export type AnimatedNumberProps = {
   /**
@@ -32,6 +20,12 @@ export type AnimatedNumberProps = {
    */
   format?: (value: number) => string;
 };
+
+function isSafeNumber(value: number) {
+  return (
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
+  );
+}
 
 /**
  * Animated numbers are animated at roughly 60 frames per second.

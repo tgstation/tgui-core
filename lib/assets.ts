@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { Action, AnyAction, Dispatch, Middleware } from './common/redux';
 
 const EXCLUDED_PATTERNS = [/v4shim/i];

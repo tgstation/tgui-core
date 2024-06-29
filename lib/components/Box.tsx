@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { BooleanLike, classes } from '../common/react';
 import {
   createElement,
@@ -53,7 +47,7 @@ type DangerDoNotUse = {
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export const unit = (value: unknown) => {
+export function unit(value: unknown) {
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px')) {
@@ -64,25 +58,27 @@ export const unit = (value: unknown) => {
   if (typeof value === 'number') {
     return value + 'rem';
   }
-};
+}
 
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export const halfUnit = (value: unknown) => {
+export function halfUnit(value: unknown) {
   if (typeof value === 'string') {
     return unit(value);
   }
   if (typeof value === 'number') {
     return unit(value * 0.5);
   }
-};
+}
 
-const isColorCode = (str: unknown) => !isColorClass(str);
+function isColorCode(str: unknown) {
+  return !isColorClass(str);
+}
 
-const isColorClass = (str: unknown): boolean => {
+function isColorClass(str: unknown): boolean {
   return typeof str === 'string' && CSS_COLORS.includes(str as any);
-};
+}
 
 const mapRawPropTo = (attrName) => (style, value) => {
   if (typeof value === 'number' || typeof value === 'string') {
@@ -197,7 +193,7 @@ const booleanStyleMap = {
   preserveWhitespace: mapBooleanPropTo('whiteSpace', 'pre-wrap'),
 } as const;
 
-export const computeBoxProps = (props) => {
+export function computeBoxProps(props) {
   const computedProps: Record<string, any> = {};
   const computedStyles: Record<string, string | number> = {};
 
@@ -223,18 +219,18 @@ export const computeBoxProps = (props) => {
   computedProps.style = { ...computedStyles, ...props.style };
 
   return computedProps;
-};
+}
 
-export const computeBoxClassName = (props: BoxProps) => {
+export function computeBoxClassName(props: BoxProps) {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
   return classes([
     isColorClass(color) && 'color-' + color,
     isColorClass(backgroundColor) && 'color-bg-' + backgroundColor,
   ]);
-};
+}
 
-export const Box = (props: BoxProps & DangerDoNotUse) => {
+export function Box(props: BoxProps & DangerDoNotUse) {
   const { as = 'div', className, children, ...rest } = props;
 
   // Compute class name and styles
@@ -252,4 +248,4 @@ export const Box = (props: BoxProps & DangerDoNotUse) => {
     },
     children,
   );
-};
+}

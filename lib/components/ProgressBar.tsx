@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/ProgressBar.module.scss';
 
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
@@ -29,7 +24,7 @@ type Props = {
   BoxProps &
   PropsWithChildren;
 
-export const ProgressBar = (props: Props) => {
+export function ProgressBar(props: Props) {
   const {
     className,
     value,
@@ -81,4 +76,4 @@ export const ProgressBar = (props: Props) => {
       </div>
     </div>
   );
-};
+}

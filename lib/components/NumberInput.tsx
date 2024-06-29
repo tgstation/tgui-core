@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/NumberInput.module.scss';
 
 import { KEY } from '../common/keys';

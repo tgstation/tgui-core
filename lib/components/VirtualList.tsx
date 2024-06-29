@@ -11,7 +11,7 @@ import {
  * current window, and then defers rendering of other items until they come
  * into view.
  */
-export const VirtualList = (props: PropsWithChildren) => {
+export function VirtualList(props: PropsWithChildren) {
   const { children } = props;
   const containerRef = useRef(null as HTMLDivElement | null);
   const [visibleElements, setVisibleElements] = useState(1);
@@ -66,4 +66,4 @@ export const VirtualList = (props: PropsWithChildren) => {
       />
     </div>
   );
-};
+}

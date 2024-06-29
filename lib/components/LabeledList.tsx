@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/LabeledList.module.scss';
 
 import { BooleanLike, classes } from '../common/react';
@@ -12,10 +7,10 @@ import { Box, unit } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';
 
-export const LabeledList = (props: PropsWithChildren) => {
+export function LabeledList(props: PropsWithChildren) {
   const { children } = props;
   return <table className="LabeledList">{children}</table>;
-};
+}
 
 type LabeledListItemProps = Partial<{
   buttons: ReactNode;
@@ -33,7 +28,7 @@ type LabeledListItemProps = Partial<{
   tooltip: string;
 }>;
 
-const LabeledListItem = (props: LabeledListItemProps) => {
+function LabeledListItem(props: LabeledListItemProps) {
   const {
     className,
     label,
@@ -104,13 +99,13 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       )}
     </tr>
   );
-};
+}
 
 type LabeledListDividerProps = {
   size?: number;
 };
 
-const LabeledListDivider = (props: LabeledListDividerProps) => {
+function LabeledListDivider(props: LabeledListDividerProps) {
   const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
   return (
     <tr className="LabeledList__row">
@@ -125,7 +120,7 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
       </td>
     </tr>
   );
-};
+}
 
 LabeledList.Item = LabeledListItem;
 LabeledList.Divider = LabeledListDivider;

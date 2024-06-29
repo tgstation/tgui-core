@@ -1,10 +1,4 @@
 /**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-/**
  * Creates a search terms matcher. Returns true if given string matches the search text.
  *
  * @example
@@ -157,7 +151,10 @@ export function decodeHtmlEntities(str: string): string {
       .replace(/<br>/gi, '\n')
       .replace(/<\/?[a-z0-9-_]+[^>]*>/gi, '')
       // Basic entities
-      .replace(/&(nbsp|amp|quot|lt|gt|apos);/g, (_match, entity) => TRANSLATIONS[entity])
+      .replace(
+        /&(nbsp|amp|quot|lt|gt|apos);/g,
+        (_match, entity) => TRANSLATIONS[entity],
+      )
       // Decimal entities
       .replace(/&#?([0-9]+);/gi, (_match, numStr) => {
         const num = parseInt(numStr, 10);

@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/Knob.module.scss';
 
 import { keyOfMatchingRange, scale } from '../common/math';

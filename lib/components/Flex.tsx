@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/Flex.module.scss';
 
 import { classes } from '../common/react';
@@ -21,15 +16,15 @@ export type FlexProps = Partial<{
 }> &
   BoxProps;
 
-export const computeFlexClassName = (props: FlexProps) => {
+export function computeFlexClassName(props: FlexProps) {
   return classes([
     styles.flex,
     props.inline && styles.inline,
     computeBoxClassName(props),
   ]);
-};
+}
 
-export const computeFlexProps = (props: FlexProps) => {
+export function computeFlexProps(props: FlexProps) {
   const { className, direction, wrap, align, justify, inline, ...rest } = props;
 
   return computeBoxProps({
@@ -42,9 +37,9 @@ export const computeFlexProps = (props: FlexProps) => {
     },
     ...rest,
   });
-};
+}
 
-export const Flex = (props) => {
+export function Flex(props) {
   const { className, ...rest } = props;
   return (
     <div
@@ -52,7 +47,7 @@ export const Flex = (props) => {
       {...computeFlexProps(rest)}
     />
   );
-};
+}
 
 export type FlexItemProps = BoxProps &
   Partial<{
@@ -64,7 +59,7 @@ export type FlexItemProps = BoxProps &
     style: Partial<HTMLDivElement['style']>;
   }>;
 
-export const computeFlexItemProps = (props: FlexItemProps) => {
+export function computeFlexItemProps(props: FlexItemProps) {
   const { className, style, grow, order, shrink, basis, align, ...rest } =
     props;
 
@@ -88,9 +83,9 @@ export const computeFlexItemProps = (props: FlexItemProps) => {
     },
     ...rest,
   });
-};
+}
 
-const FlexItem = (props) => {
+function FlexItem(props) {
   const { className, ...rest } = props;
   return (
     <div
@@ -98,6 +93,6 @@ const FlexItem = (props) => {
       {...computeFlexItemProps(rest)}
     />
   );
-};
+}
 
 Flex.Item = FlexItem;

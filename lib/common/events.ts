@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 type Fn = (...args: any[]) => void;
 
 export class EventEmitter {

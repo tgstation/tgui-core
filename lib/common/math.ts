@@ -1,29 +1,23 @@
 /**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-/**
  * Limits a number to the range between 'min' and 'max'.
  */
-export const clamp = (value, min, max) => {
+export function clamp(value, min, max) {
   return value < min ? min : value > max ? max : value;
-};
+}
 
 /**
  * Limits a number between 0 and 1.
  */
-export const clamp01 = (value) => {
+export function clamp01(value) {
   return value < 0 ? 0 : value > 1 ? 1 : value;
-};
+}
 
 /**
  * Scales a number to fit into the range between min and max.
  */
-export const scale = (value, min, max) => {
+export function scale(value, min, max) {
   return (value - min) / (max - min);
-};
+}
 
 /**
  * Robust number rounding.
@@ -34,7 +28,7 @@ export const scale = (value, min, max) => {
  * @param  {number} precision
  * @return {number}
  */
-export const round = (value, precision) => {
+export function round(value, precision) {
   if (!value || isNaN(value)) {
     return value;
   }
@@ -54,23 +48,23 @@ export const round = (value, precision) => {
     value = f + (sgn > 0);
   }
   return (isHalf ? value : Math.round(value)) / m;
-};
+}
 
 /**
  * Returns a string representing a number in fixed point notation.
  */
-export const toFixed = (value, fractionDigits = 0) => {
+export function toFixed(value, fractionDigits = 0) {
   return Number(value).toFixed(Math.max(fractionDigits, 0));
-};
+}
 
 /**
  * Checks whether a value is within the provided range.
  *
  * Range is an array of two numbers, for example: [0, 15].
  */
-export const inRange = (value, range) => {
+export function inRange(value, range) {
   return range && value >= range[0] && value <= range[1];
-};
+}
 
 /**
  * Walks over the object with ranges, comparing value against every range,
@@ -78,21 +72,21 @@ export const inRange = (value, range) => {
  *
  * Range is an array of two numbers, for example: [0, 15].
  */
-export const keyOfMatchingRange = (value, ranges) => {
+export function keyOfMatchingRange(value, ranges) {
   for (let rangeName of Object.keys(ranges)) {
     const range = ranges[rangeName];
     if (inRange(value, range)) {
       return rangeName;
     }
   }
-};
+}
 
 /**
  * Get number of digits following the decimal point in a number
  */
-export const numberOfDecimalDigits = (value) => {
+export function numberOfDecimalDigits(value) {
   if (Math.floor(value) !== value) {
     return value.toString().split('.')[1].length || 0;
   }
   return 0;
-};
+}

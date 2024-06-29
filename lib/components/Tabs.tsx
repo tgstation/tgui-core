@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
 import styles from '../styles/components/Tabs.module.scss';
 
 import { canRender, classes } from '../common/react';
@@ -32,7 +27,7 @@ type TabProps = Partial<{
   BoxProps &
   PropsWithChildren;
 
-export const Tabs = (props: Props) => {
+export function Tabs(props: Props) {
   const { className, vertical, fill, fluid, children, ...rest } = props;
 
   return (
@@ -50,9 +45,9 @@ export const Tabs = (props: Props) => {
       {children}
     </div>
   );
-};
+}
 
-const Tab = (props: TabProps) => {
+function Tab(props: TabProps) {
   const {
     className,
     selected,
@@ -90,6 +85,6 @@ const Tab = (props: TabProps) => {
       )}
     </div>
   );
-};
+}
 
 Tabs.Tab = Tab;

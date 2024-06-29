@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import styles from '../styles/components/ColorBox.module.scss';
 
 import { classes } from '../common/react';

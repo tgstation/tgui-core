@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 import { Flex, FlexProps } from './Flex';
 
 export function LabeledControls(props: FlexProps) {
