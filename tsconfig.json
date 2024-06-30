@@ -28,11 +28,8 @@
       "tgui-core/components/*": [
         "dist/components/*.d.ts"
       ],
-      "tgui-core/common/*": [
-        "dist/common/*.d.ts"
-      ],
       "tgui-core/*": [
-        "dist/*.d.ts"
+        "dist/common/*.d.ts"
       ],
     },
   },
