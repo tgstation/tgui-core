@@ -10,7 +10,7 @@
  * @url https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
  * @usage
  * ```ts
- * import { KEY } from 'tgui/common/keys';
+ * import { KEY } from 'tgui/keys';
  *
  * if (event.key === KEY.Enter) {
  *   // do something

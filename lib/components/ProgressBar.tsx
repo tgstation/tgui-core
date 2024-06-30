@@ -1,8 +1,8 @@
 import { CSSProperties, PropsWithChildren } from 'react';
 
+import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
-import { CSS_COLORS } from '../constants';
 import styles from '../styles/components/ProgressBar.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 

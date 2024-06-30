@@ -1,5 +1,5 @@
-import { KEY_ESCAPE as K, KEY_ENTER as E, KEY_SPACE as p, KEY_TAB as h, KEY_CTRL as d, KEY_SHIFT as g, KEY_UP as S, KEY_DOWN as Y, KEY_LEFT as _, KEY_RIGHT as b, KEY_F5 as B } from "./common/keycodes.js";
 import { globalEvents as l } from "./events.js";
+import { KEY_ESCAPE as K, KEY_ENTER as E, KEY_SPACE as p, KEY_TAB as h, KEY_CTRL as d, KEY_SHIFT as g, KEY_UP as S, KEY_DOWN as Y, KEY_LEFT as _, KEY_RIGHT as b, KEY_F5 as B } from "./keycodes.js";
 const m = {}, c = [
   K,
   E,

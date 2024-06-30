@@ -1,7 +1,7 @@
 import { jsx as s } from "react/jsx-runtime";
+import { Component as a, createRef as c } from "react";
 import { shallowDiffers as r } from "../common/react.js";
-import { debounce as a } from "../common/timer.js";
-import { Component as c, createRef as m } from "react";
+import { debounce as m } from "../common/timer.js";
 import { computeBoxProps as l } from "./Box.js";
 const o = [];
 function h(t) {
@@ -37,10 +37,10 @@ function u(t) {
     ]
   };
 }
-class U extends c {
+class U extends a {
   constructor(n) {
     var e;
-    super(n), this.containerRef = m(), this.byondUiElement = h((e = n.params) == null ? void 0 : e.id), this.handleResize = a(() => {
+    super(n), this.containerRef = c(), this.byondUiElement = h((e = n.params) == null ? void 0 : e.id), this.handleResize = m(() => {
       this.forceUpdate();
     }, 100);
   }

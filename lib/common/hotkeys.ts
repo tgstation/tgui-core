@@ -1,5 +1,5 @@
-import * as keycodes from './common/keycodes';
 import { globalEvents, KeyEvent } from './events';
+import * as keycodes from './keycodes';
 
 // BYOND macros, in `key: command` format.
 const byondMacros: Record<string, string> = {};

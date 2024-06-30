@@ -1,7 +1,7 @@
 import { jsx as $ } from "react/jsx-runtime";
 import { useState as R, useEffect as d } from "react";
-import { resolveAsset as j } from "../assets.js";
-import { fetchRetry as v } from "../http.js";
+import { resolveAsset as j } from "../common/assets.js";
+import { fetchRetry as v } from "../common/http.js";
 import { Image as x } from "./Image.js";
 let e;
 function b(n) {

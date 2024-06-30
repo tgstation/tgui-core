@@ -1,5 +1,5 @@
 import { Component as r } from "react";
-import { formatTime as u } from "../format.js";
+import { formatTime as u } from "../common/format.js";
 function s(e) {
   return typeof e == "number" && Number.isFinite(e) && !Number.isNaN(e);
 }

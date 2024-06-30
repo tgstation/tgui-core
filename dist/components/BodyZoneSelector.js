@@ -3,7 +3,7 @@ var _ = (e, t, s) => t in e ? g(e, t, { enumerable: !0, configurable: !0, writab
 var l = (e, t, s) => _(e, typeof t != "symbol" ? t + "" : t, s);
 import { jsxs as d, jsx as h } from "react/jsx-runtime";
 import { Component as v, createRef as $ } from "react";
-import { resolveAsset as p } from "../assets.js";
+import { resolveAsset as p } from "../common/assets.js";
 import { Image as f } from "./Image.js";
 var b = /* @__PURE__ */ ((e) => (e.Chest = "chest", e.Eyes = "eyes", e.Groin = "groin", e.Head = "head", e.LeftArm = "l_arm", e.LeftLeg = "l_leg", e.Mouth = "mouth", e.RightArm = "r_arm", e.RightLeg = "r_leg", e))(b || {});
 const C = (e, t) => {

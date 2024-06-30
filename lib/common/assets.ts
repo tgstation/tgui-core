@@ -1,4 +1,4 @@
-import { Action, AnyAction, Dispatch, Middleware } from './common/redux';
+import { Action, AnyAction, Dispatch, Middleware } from './redux';
 
 const EXCLUDED_PATTERNS = [/v4shim/i];
 const loadedMappings: Record<string, string> = {};

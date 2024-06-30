@@ -6,8 +6,8 @@ import {
   UIEventHandler,
 } from 'react';
 
+import { CSS_COLORS } from '../common/constants';
 import { BooleanLike, classes } from '../common/react';
-import { CSS_COLORS } from '../constants';
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
 type StringProps = Partial<

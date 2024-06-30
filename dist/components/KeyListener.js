@@ -2,7 +2,7 @@ var t = Object.defineProperty;
 var e = (s, o, p) => o in s ? t(s, o, { enumerable: !0, configurable: !0, writable: !0, value: p }) : s[o] = p;
 var i = (s, o, p) => e(s, typeof o != "symbol" ? o + "" : o, p);
 import { Component as r } from "react";
-import { listenForKeyEvents as h } from "../hotkeys.js";
+import { listenForKeyEvents as h } from "../common/hotkeys.js";
 class d extends r {
   constructor(p) {
     super(p);

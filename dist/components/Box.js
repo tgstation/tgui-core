@@ -1,6 +1,6 @@
 import { createElement as y } from "react";
-import { classes as b } from "../common/react.js";
-import { CSS_COLORS as u } from "../constants.js";
+import { CSS_COLORS as b } from "../common/constants.js";
+import { classes as u } from "../common/react.js";
 function p(o) {
   if (typeof o == "string")
     return o.endsWith("px") ? parseFloat(o) / 12 + "rem" : o;
@@ -17,7 +17,7 @@ function x(o) {
   return !a(o);
 }
 function a(o) {
-  return typeof o == "string" && u.includes(o);
+  return typeof o == "string" && b.includes(o);
 }
 const m = (o) => (t, i) => {
   (typeof i == "number" || typeof i == "string") && (t[o] = i);
@@ -108,7 +108,7 @@ function S(o) {
 }
 function d(o) {
   const t = o.textColor || o.color, i = o.backgroundColor;
-  return b([
+  return u([
     a(t) && "color-" + t,
     a(i) && "color-bg-" + i
   ]);

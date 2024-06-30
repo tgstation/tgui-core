@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -11,10 +11,6 @@
     "dist"
   ],
   "exports": {
-    "./common/*": {
-      "import": "./dist/*.js",
-      "require": "./dist/*.cjs"
-    },
     "./components": {
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.cjs"

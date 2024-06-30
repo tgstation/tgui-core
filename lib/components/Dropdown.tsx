@@ -56,7 +56,7 @@ type Props = {
 enum DIRECTION {
   Current = 'current',
   Next = 'next',
-  Previous = 'previous'
+  Previous = 'previous',
 }
 
 const NONE = -1;

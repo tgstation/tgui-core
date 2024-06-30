@@ -1,6 +1,6 @@
 import { Component, createRef } from 'react';
 
-import { resolveAsset } from '../assets';
+import { resolveAsset } from '../common/assets';
 import { Image } from './Image';
 
 export enum BodyZone {
@@ -12,7 +12,7 @@ export enum BodyZone {
   LeftLeg = 'l_leg',
   Mouth = 'mouth',
   RightArm = 'r_arm',
-  RightLeg = 'r_leg'
+  RightLeg = 'r_leg',
 }
 
 const bodyZonePixelToZone = (x: number, y: number): BodyZone | null => {
