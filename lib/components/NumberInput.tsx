@@ -23,7 +23,6 @@ type Props = Required<{
   Partial<{
     animated: BooleanLike;
     className: string;
-
     disabled: BooleanLike;
     fluid: BooleanLike;
     fontSize: string;

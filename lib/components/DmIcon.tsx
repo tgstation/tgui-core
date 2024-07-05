@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from 'react';
 
 import { resolveAsset } from '../common/assets';
 import { fetchRetry } from '../common/http';
+import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
 import { Image } from './Image';
 
@@ -29,7 +30,7 @@ type Props = {
   /** Frame number. Default is 1 */
   frame: number;
   /** Movement state. Default is false */
-  movement: boolean;
+  movement: BooleanLike;
 }> &
   BoxProps;
 

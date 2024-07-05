@@ -73,6 +73,7 @@ function z(e) {
     a && /* @__PURE__ */ l("td", { className: i([o.cell, o.buttons]), children: a })
   ] });
 }
+p.Item = z;
 function A(e) {
   const t = e.size ? g(Math.max(0, e.size - 1)) : 0;
   return /* @__PURE__ */ l("tr", { className: "LabeledList__row", children: /* @__PURE__ */ l(
@@ -87,7 +88,6 @@ function A(e) {
     }
   ) });
 }
-p.Item = z;
 p.Divider = A;
 export {
   p as LabeledList

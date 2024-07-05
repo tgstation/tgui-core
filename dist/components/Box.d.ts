@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, MouseEventHandler, ReactNode, UIEventHandler } from 'react';
+import { CSSProperties, KeyboardEventHandler, MouseEventHandler, ReactNode, UIEventHandler } from 'react';
 import { BooleanLike } from '../common/react';
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
@@ -19,7 +19,7 @@ export type BoxProps = Partial<{
     as: string;
     children: ReactNode;
     className: string | BooleanLike;
-    style: Partial<CSSStyleDeclaration>;
+    style: CSSProperties;
 }> & BooleanProps & StringProps & EventHandlers;
 type DangerDoNotUse = {
     dangerouslySetInnerHTML?: {

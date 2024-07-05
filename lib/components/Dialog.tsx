@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2022 raffclar
- * @license MIT
- */
 import styles from '../styles/components/Dialog.module.scss';
 import { Box } from './Box';
 import { Button } from './Button';

@@ -1,4 +1,3 @@
- 
 // TODO: Rewrite as an FC, remove this lint disable
 import { createPopper, Placement, VirtualElement } from '@popperjs/core';
 import { Component, ReactNode } from 'react';
@@ -6,13 +5,17 @@ import { findDOMNode, render } from 'react-dom';
 
 import styles from '../styles/components/Tooltip.module.scss';
 
-type TooltipProps = {
-  children?: ReactNode;
+type Props = {
+  /** The content to display in the tooltip */
   content: ReactNode;
-  position?: Placement;
-};
+} & Partial<{
+  /** Hovering this element will show the tooltip */
+  children: ReactNode;
+  /** Where to place the tooltip relative to the reference element */
+  position: Placement;
+}>;
 
-type TooltipState = {
+type State = {
   hovered: boolean;
 };
 
@@ -37,7 +40,7 @@ const NULL_RECT: DOMRect = {
   toJSON: () => null,
 };
 
-export class Tooltip extends Component<TooltipProps, TooltipState> {
+export class Tooltip extends Component<Props, State> {
   // Mounting poppers is really laggy because popper.js is very slow.
   // Thus, instead of using the Popper component, Tooltip creates ONE popper
   // and stores every tooltip inside that.
@@ -60,7 +63,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
     // Because this component is written in TypeScript, we will know
     // immediately if this internal variable is removed.
     //
-     
+
     return findDOMNode(this) as Element;
   }
 

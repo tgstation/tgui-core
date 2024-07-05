@@ -2,7 +2,7 @@ import { Component, createRef } from 'react';
 
 import { clamp, toFixed } from '../common/math';
 
-export type AnimatedNumberProps = {
+type Props = {
   /**
    * If provided, a function that formats the inner string. By default,
    * attempts to match the numeric precision of `value`.
@@ -22,7 +22,7 @@ export type AnimatedNumberProps = {
   value: number;
 };
 
-function isSafeNumber(value: number) {
+function isSafeNumber(value: number): boolean {
   return (
     typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
   );
@@ -48,7 +48,7 @@ const EPSILON = 10e-4;
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.
  */
-export class AnimatedNumber extends Component<AnimatedNumberProps> {
+export class AnimatedNumber extends Component<Props> {
   /**
    * The inner `<span/>` being updated sixty times per second.
    */
@@ -64,7 +64,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
    */
   currentValue: number = 0;
 
-  constructor(props: AnimatedNumberProps) {
+  constructor(props: Props) {
     super(props);
 
     const { initial, value } = props;
@@ -87,7 +87,7 @@ export class AnimatedNumber extends Component<AnimatedNumberProps> {
     this.stopTicking();
   }
 
-  shouldComponentUpdate(newProps: AnimatedNumberProps) {
+  shouldComponentUpdate(newProps: Props) {
     if (newProps.value !== this.props.value) {
       // The target value has been adjusted; start animating if we aren't
       // already.

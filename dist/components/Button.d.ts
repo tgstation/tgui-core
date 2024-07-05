@@ -13,6 +13,7 @@ type EllipsisUnion = {
     children: string;
     /** @deprecated use children instead */
     content?: never;
+    /** Cuts off text with an ellipsis */
     ellipsis: true;
 } | Partial<{
     children: ReactNode;
@@ -21,20 +22,35 @@ type EllipsisUnion = {
     ellipsis: undefined;
 }>;
 type Props = Partial<{
+    /** Captures keyboard events */
     captureKeys: boolean;
+    /** Makes the button circular */
     circular: boolean;
+    /** Reduces the padding of the button */
     compact: boolean;
+    /** Disables and greys out the button */
     disabled: BooleanLike;
+    /** Fill all available horizontal space */
     fluid: boolean;
+    /** Adds an icon to the button */
     icon: string | false;
+    /** Icon color */
     iconColor: string;
+    /** Icon position */
     iconPosition: string;
+    /** Icon rotation */
     iconRotation: number;
+    /** Makes the icon spin */
     iconSpin: BooleanLike;
+    /** Called when element is clicked */
     onClick: (e: any) => void;
+    /** Activates the button (gives it a green color) */
     selected: BooleanLike;
+    /** A fancy, boxy tooltip, which appears when hovering over the button */
     tooltip: ReactNode;
+    /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
     tooltipPosition: Placement;
+    /** Align content vertically using flex. Use lineHeight if the height is static. */
     verticalAlignContent: string;
 }> & EllipsisUnion & BoxProps;
 /** Clickable button. Comes with variants. Read more in the documentation. */

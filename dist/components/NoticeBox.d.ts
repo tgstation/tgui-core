@@ -7,10 +7,13 @@ type None = {
     [K in NoticeType]?: undefined;
 };
 type ExclusiveProps = None | (Omit<None, 'info'> & {
+    /** Blue notice */
     info: boolean;
 }) | (Omit<None, 'success'> & {
+    /** Green notice */
     success: boolean;
 }) | (Omit<None, 'danger'> & {
+    /** Red notice */
     danger: boolean;
 });
 export declare function NoticeBox(props: Props): import("react/jsx-runtime").JSX.Element;

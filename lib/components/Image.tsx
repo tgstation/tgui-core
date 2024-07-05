@@ -18,7 +18,6 @@ type Props = Partial<{
 
 const maxAttempts = 5;
 
-/** Image component. Use this instead of Box as="img". */
 export function Image(props: Props) {
   const {
     fixBlur = true,

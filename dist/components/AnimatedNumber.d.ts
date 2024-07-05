@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-export type AnimatedNumberProps = {
+type Props = {
     /**
      * If provided, a function that formats the inner string. By default,
      * attempts to match the numeric precision of `value`.
@@ -21,7 +21,7 @@ export type AnimatedNumberProps = {
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.
  */
-export declare class AnimatedNumber extends Component<AnimatedNumberProps> {
+export declare class AnimatedNumber extends Component<Props> {
     /**
      * The inner `<span/>` being updated sixty times per second.
      */
@@ -34,10 +34,10 @@ export declare class AnimatedNumber extends Component<AnimatedNumberProps> {
      * The current value. This values approaches the target value.
      */
     currentValue: number;
-    constructor(props: AnimatedNumberProps);
+    constructor(props: Props);
     componentDidMount(): void;
     componentWillUnmount(): void;
-    shouldComponentUpdate(newProps: AnimatedNumberProps): boolean;
+    shouldComponentUpdate(newProps: Props): boolean;
     /**
      * Starts animating the inner span. If the inner span is already animating,
      * this is a no-op.
@@ -57,3 +57,4 @@ export declare class AnimatedNumber extends Component<AnimatedNumberProps> {
     getText(): string;
     render(): import("react/jsx-runtime").JSX.Element;
 }
+export {};

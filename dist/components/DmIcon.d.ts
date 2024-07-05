@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
 
 declare enum Direction {
@@ -24,7 +25,7 @@ type Props = {
     /** Frame number. Default is 1 */
     frame: number;
     /** Movement state. Default is false */
-    movement: boolean;
+    movement: BooleanLike;
 }> & BoxProps;
 export declare function DmIcon(props: Props): string | number | boolean | Iterable<ReactNode> | import("react/jsx-runtime").JSX.Element | null | undefined;
 export {};

@@ -1,5 +1,6 @@
 import {
   createElement,
+  CSSProperties,
   KeyboardEventHandler,
   MouseEventHandler,
   ReactNode,
@@ -31,7 +32,7 @@ export type BoxProps = Partial<{
   as: string;
   children: ReactNode;
   className: string | BooleanLike;
-  style: Partial<CSSStyleDeclaration>;
+  style: CSSProperties;
 }> &
   BooleanProps &
   StringProps &
@@ -63,7 +64,7 @@ export function unit(value: unknown) {
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export function halfUnit(value: unknown) {
+export function halfUnit(value: unknown): string | undefined {
   if (typeof value === 'string') {
     return unit(value);
   }
@@ -72,7 +73,7 @@ export function halfUnit(value: unknown) {
   }
 }
 
-function isColorCode(str: unknown) {
+function isColorCode(str: unknown): boolean {
   return !isColorClass(str);
 }
 
@@ -193,7 +194,7 @@ const booleanStyleMap = {
   preserveWhitespace: mapBooleanPropTo('whiteSpace', 'pre-wrap'),
 } as const;
 
-export function computeBoxProps(props) {
+export function computeBoxProps(props): Record<string, any> {
   const computedProps: Record<string, any> = {};
   const computedStyles: Record<string, string | number> = {};
 
@@ -221,7 +222,7 @@ export function computeBoxProps(props) {
   return computedProps;
 }
 
-export function computeBoxClassName(props: BoxProps) {
+export function computeBoxClassName(props: BoxProps): string {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
   return classes([

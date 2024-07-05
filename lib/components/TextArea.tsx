@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @author Warlockd
- * @license MIT
- */
 import {
   forwardRef,
   RefObject,

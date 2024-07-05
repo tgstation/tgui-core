@@ -10,6 +10,5 @@ type Props = Partial<{
     objectFit: 'contain' | 'cover';
     src: string;
 }> & BoxProps;
-/** Image component. Use this instead of Box as="img". */
 export declare function Image(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

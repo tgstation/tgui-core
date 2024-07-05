@@ -1,29 +1,29 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @author Original Aleksej Komarov
- * @author Changes ThePotato97
- * @license MIT
- */
 import { CSSProperties, ReactNode } from 'react';
 
 import { BooleanLike, classes } from '../common/react';
 import style from '../styles/components/Icon.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
-type IconPropsUnique = { name: string } & Partial<{
+type Props = {
+  /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */
+  name: string;
+} & Partial<{
+  /** Custom CSS class. */
   className: string;
+  /** Icon rotation, in degrees. */
   rotation: number;
+  /** Icon size. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
   size: number;
+  /** Whether an icon should be spinning. Good for load indicators. */
   spin: BooleanLike;
+  /** Custom CSS. */
   style: CSSProperties;
-}>;
-
-export type IconProps = IconPropsUnique & BoxProps;
+}> &
+  BoxProps;
 
 const FA_OUTLINE_REGEX = /-o$/;
 
-export function Icon(props: IconProps) {
+export function Icon(props: Props) {
   const { name, size, spin, className, rotation, ...rest } = props;
 
   const customStyle = rest.style || {};
