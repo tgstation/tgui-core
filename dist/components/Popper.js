@@ -1,86 +1,85 @@
-import { jsxs as M, Fragment as j, jsx as E } from "react/jsx-runtime";
-import * as c from "react";
-import { useState as O, useRef as R, useEffect as N } from "react";
-import * as x from "react-dom";
-import { c as A } from "../index-jLZg_duJ.js";
-var W = c.createContext(), Y = c.createContext();
-var P = function(r) {
-  return r.reduce(function(n, e) {
-    var o = e[0], a = e[1];
-    return n[o] = a, n;
+import { jsxs as M, Fragment as P, jsx as S } from "react/jsx-runtime";
+import * as l from "react";
+import { useState as E, useRef as g, useEffect as F } from "react";
+import * as _ from "react-dom";
+import { c as A } from "../popper-CiqSDJTE.js";
+var j = function(r) {
+  return r.reduce(function(n, t) {
+    var o = t[0], u = t[1];
+    return n[o] = u, n;
   }, {});
-}, S = typeof window < "u" && window.document && window.document.createElement ? c.useLayoutEffect : c.useEffect;
-function I(t) {
-  return t && t.__esModule && Object.prototype.hasOwnProperty.call(t, "default") ? t.default : t;
+}, R = typeof window < "u" && window.document && window.document.createElement ? l.useLayoutEffect : l.useEffect;
+function I(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
-var _ = typeof Element < "u", F = typeof Map == "function", b = typeof Set == "function", D = typeof ArrayBuffer == "function" && !!ArrayBuffer.isView;
-function g(t, r) {
-  if (t === r) return !0;
-  if (t && r && typeof t == "object" && typeof r == "object") {
-    if (t.constructor !== r.constructor) return !1;
-    var n, e, o;
-    if (Array.isArray(t)) {
-      if (n = t.length, n != r.length) return !1;
-      for (e = n; e-- !== 0; )
-        if (!g(t[e], r[e])) return !1;
+var U = typeof Element < "u", x = typeof Map == "function", z = typeof Set == "function", B = typeof ArrayBuffer == "function" && !!ArrayBuffer.isView;
+function w(e, r) {
+  if (e === r) return !0;
+  if (e && r && typeof e == "object" && typeof r == "object") {
+    if (e.constructor !== r.constructor) return !1;
+    var n, t, o;
+    if (Array.isArray(e)) {
+      if (n = e.length, n != r.length) return !1;
+      for (t = n; t-- !== 0; )
+        if (!w(e[t], r[t])) return !1;
       return !0;
     }
-    var a;
-    if (F && t instanceof Map && r instanceof Map) {
-      if (t.size !== r.size) return !1;
-      for (a = t.entries(); !(e = a.next()).done; )
-        if (!r.has(e.value[0])) return !1;
-      for (a = t.entries(); !(e = a.next()).done; )
-        if (!g(e.value[1], r.get(e.value[0]))) return !1;
+    var u;
+    if (x && e instanceof Map && r instanceof Map) {
+      if (e.size !== r.size) return !1;
+      for (u = e.entries(); !(t = u.next()).done; )
+        if (!r.has(t.value[0])) return !1;
+      for (u = e.entries(); !(t = u.next()).done; )
+        if (!w(t.value[1], r.get(t.value[0]))) return !1;
       return !0;
     }
-    if (b && t instanceof Set && r instanceof Set) {
-      if (t.size !== r.size) return !1;
-      for (a = t.entries(); !(e = a.next()).done; )
-        if (!r.has(e.value[0])) return !1;
+    if (z && e instanceof Set && r instanceof Set) {
+      if (e.size !== r.size) return !1;
+      for (u = e.entries(); !(t = u.next()).done; )
+        if (!r.has(t.value[0])) return !1;
       return !0;
     }
-    if (D && ArrayBuffer.isView(t) && ArrayBuffer.isView(r)) {
-      if (n = t.length, n != r.length) return !1;
-      for (e = n; e-- !== 0; )
-        if (t[e] !== r[e]) return !1;
+    if (B && ArrayBuffer.isView(e) && ArrayBuffer.isView(r)) {
+      if (n = e.length, n != r.length) return !1;
+      for (t = n; t-- !== 0; )
+        if (e[t] !== r[t]) return !1;
       return !0;
     }
-    if (t.constructor === RegExp) return t.source === r.source && t.flags === r.flags;
-    if (t.valueOf !== Object.prototype.valueOf && typeof t.valueOf == "function" && typeof r.valueOf == "function") return t.valueOf() === r.valueOf();
-    if (t.toString !== Object.prototype.toString && typeof t.toString == "function" && typeof r.toString == "function") return t.toString() === r.toString();
-    if (o = Object.keys(t), n = o.length, n !== Object.keys(r).length) return !1;
-    for (e = n; e-- !== 0; )
-      if (!Object.prototype.hasOwnProperty.call(r, o[e])) return !1;
-    if (_ && t instanceof Element) return !1;
-    for (e = n; e-- !== 0; )
-      if (!((o[e] === "_owner" || o[e] === "__v" || o[e] === "__o") && t.$$typeof) && !g(t[o[e]], r[o[e]]))
+    if (e.constructor === RegExp) return e.source === r.source && e.flags === r.flags;
+    if (e.valueOf !== Object.prototype.valueOf && typeof e.valueOf == "function" && typeof r.valueOf == "function") return e.valueOf() === r.valueOf();
+    if (e.toString !== Object.prototype.toString && typeof e.toString == "function" && typeof r.toString == "function") return e.toString() === r.toString();
+    if (o = Object.keys(e), n = o.length, n !== Object.keys(r).length) return !1;
+    for (t = n; t-- !== 0; )
+      if (!Object.prototype.hasOwnProperty.call(r, o[t])) return !1;
+    if (U && e instanceof Element) return !1;
+    for (t = n; t-- !== 0; )
+      if (!((o[t] === "_owner" || o[t] === "__v" || o[t] === "__o") && e.$$typeof) && !w(e[o[t]], r[o[t]]))
         return !1;
     return !0;
   }
-  return t !== t && r !== r;
+  return e !== e && r !== r;
 }
-var U = function(r, n) {
+var L = function(r, n) {
   try {
-    return g(r, n);
-  } catch (e) {
-    if ((e.message || "").match(/stack|recursion/i))
+    return w(r, n);
+  } catch (t) {
+    if ((t.message || "").match(/stack|recursion/i))
       return console.warn("react-fast-compare cannot handle circular refs"), !1;
-    throw e;
+    throw t;
   }
 };
-const $ = /* @__PURE__ */ I(U);
-var C = [], B = function(r, n, e) {
-  e === void 0 && (e = {});
-  var o = c.useRef(null), a = {
-    onFirstUpdate: e.onFirstUpdate,
-    placement: e.placement || "bottom",
-    strategy: e.strategy || "absolute",
-    modifiers: e.modifiers || C
-  }, l = c.useState({
+const q = /* @__PURE__ */ I(L);
+var D = [], $ = function(r, n, t) {
+  t === void 0 && (t = {});
+  var o = l.useRef(null), u = {
+    onFirstUpdate: t.onFirstUpdate,
+    placement: t.placement || "bottom",
+    strategy: t.strategy || "absolute",
+    modifiers: t.modifiers || D
+  }, m = l.useState({
     styles: {
       popper: {
-        position: a.strategy,
+        position: u.strategy,
         left: "0",
         top: "0"
       },
@@ -89,119 +88,90 @@ var C = [], B = function(r, n, e) {
       }
     },
     attributes: {}
-  }), v = l[0], h = l[1], y = c.useMemo(function() {
+  }), y = m[0], O = m[1], v = l.useMemo(function() {
     return {
       name: "updateState",
       enabled: !0,
       phase: "write",
-      fn: function(m) {
-        var p = m.state, f = Object.keys(p.elements);
-        x.flushSync(function() {
-          h({
-            styles: P(f.map(function(i) {
-              return [i, p.styles[i] || {}];
+      fn: function(d) {
+        var i = d.state, f = Object.keys(i.elements);
+        _.flushSync(function() {
+          O({
+            styles: j(f.map(function(c) {
+              return [c, i.styles[c] || {}];
             })),
-            attributes: P(f.map(function(i) {
-              return [i, p.attributes[i]];
+            attributes: j(f.map(function(c) {
+              return [c, i.attributes[c]];
             }))
           });
         });
       },
       requires: ["computeStyles"]
     };
-  }, []), d = c.useMemo(function() {
-    var s = {
-      onFirstUpdate: a.onFirstUpdate,
-      placement: a.placement,
-      strategy: a.strategy,
-      modifiers: [].concat(a.modifiers, [y, {
+  }, []), p = l.useMemo(function() {
+    var a = {
+      onFirstUpdate: u.onFirstUpdate,
+      placement: u.placement,
+      strategy: u.strategy,
+      modifiers: [].concat(u.modifiers, [v, {
         name: "applyStyles",
         enabled: !1
       }])
     };
-    return $(o.current, s) ? o.current || s : (o.current = s, s);
-  }, [a.onFirstUpdate, a.placement, a.strategy, a.modifiers, y]), u = c.useRef();
-  return S(function() {
-    u.current && u.current.setOptions(d);
-  }, [d]), S(function() {
+    return q(o.current, a) ? o.current || a : (o.current = a, a);
+  }, [u.onFirstUpdate, u.placement, u.strategy, u.modifiers, v]), s = l.useRef();
+  return R(function() {
+    s.current && s.current.setOptions(p);
+  }, [p]), R(function() {
     if (!(r == null || n == null)) {
-      var s = e.createPopper || A, m = s(r, n, d);
-      return u.current = m, function() {
-        m.destroy(), u.current = null;
+      var a = t.createPopper || A, d = a(r, n, p);
+      return s.current = d, function() {
+        d.destroy(), s.current = null;
       };
     }
-  }, [r, n, e.createPopper]), {
-    state: u.current ? u.current.state : null,
-    styles: v.styles,
-    attributes: v.attributes,
-    update: u.current ? u.current.update : null,
-    forceUpdate: u.current ? u.current.forceUpdate : null
+  }, [r, n, t.createPopper]), {
+    state: s.current ? s.current.state : null,
+    styles: y.styles,
+    attributes: y.attributes,
+    update: s.current ? s.current.update : null,
+    forceUpdate: s.current ? s.current.forceUpdate : null
   };
 };
-var q = process.env.NODE_ENV !== "production", z = function() {
-};
-if (q) {
-  var L = function(r, n) {
-    var e = arguments.length;
-    n = new Array(e > 1 ? e - 1 : 0);
-    for (var o = 1; o < e; o++)
-      n[o - 1] = arguments[o];
-    var a = 0, l = "Warning: " + r.replace(/%s/g, function() {
-      return n[a++];
-    });
-    typeof console < "u" && console.error(l);
-    try {
-      throw new Error(l);
-    } catch {
-    }
-  };
-  z = function(t, r, n) {
-    var e = arguments.length;
-    n = new Array(e > 2 ? e - 2 : 0);
-    for (var o = 2; o < e; o++)
-      n[o - 2] = arguments[o];
-    if (r === void 0)
-      throw new Error(
-        "`warning(condition, format, ...args)` requires a warning message argument"
-      );
-    t || L.apply(null, [r].concat(n));
-  };
-}
-function G(t) {
-  const { children: r, content: n, isOpen: e, onClickOutside: o, placement: a } = t, [l, v] = O(null), [h, y] = O(
+function W(e) {
+  const { children: r, content: n, isOpen: t, onClickOutside: o, placement: u } = e, [m, y] = E(null), [O, v] = E(
     null
-  ), d = R(null), u = R(null), { styles: s, attributes: m } = B(l, h, {
-    placement: a
+  ), p = g(null), s = g(null), { styles: a, attributes: d } = $(m, O, {
+    placement: u
   });
-  function p(f) {
-    var i, w;
-    !((i = d.current) != null && i.contains(f.target)) && !((w = u.current) != null && w.contains(f.target)) && (o == null || o());
+  function i(f) {
+    var c, h;
+    !((c = p.current) != null && c.contains(f.target)) && !((h = s.current) != null && h.contains(f.target)) && (o == null || o());
   }
-  return N(() => (e ? document.addEventListener("mousedown", p) : document.removeEventListener("mousedown", p), () => {
-    document.removeEventListener("mousedown", p);
-  }), [e]), /* @__PURE__ */ M(j, { children: [
-    /* @__PURE__ */ E(
+  return F(() => (t ? document.addEventListener("mousedown", i) : document.removeEventListener("mousedown", i), () => {
+    document.removeEventListener("mousedown", i);
+  }), [t]), /* @__PURE__ */ M(P, { children: [
+    /* @__PURE__ */ S(
       "div",
       {
         ref: (f) => {
-          v(f), u.current = f;
+          y(f), s.current = f;
         },
         children: r
       }
     ),
-    e && /* @__PURE__ */ E(
+    t && /* @__PURE__ */ S(
       "div",
       {
         ref: (f) => {
-          y(f), d.current = f;
+          v(f), p.current = f;
         },
-        style: { ...s.popper, zIndex: t.baseZIndex ?? 5 },
-        ...m.popper,
+        style: { ...a.popper, zIndex: e.baseZIndex ?? 5 },
+        ...d.popper,
         children: n
       }
     )
   ] });
 }
 export {
-  G as Popper
+  W as Popper
 };

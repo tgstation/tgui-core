@@ -22,7 +22,6 @@ export default defineConfig({
         assetFileNames: 'assets/[name][extname]',
         entryFileNames: '[name].js',
       },
-      treeshake: false,
       input: Object.fromEntries(
         glob
           .sync('lib/**/*.{ts,tsx,js,jsx}', {
@@ -38,13 +37,5 @@ export default defineConfig({
           ]),
       ),
     },
-  },
-  optimizeDeps: {
-    include: [
-      'core-js/es',
-      'core-js/web/immediate',
-      'core-js/web/queue-microtask',
-      'core-js/web/timers',
-    ],
   },
 });
