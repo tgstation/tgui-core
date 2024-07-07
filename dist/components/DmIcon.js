@@ -1,28 +1,28 @@
-import { jsx as $ } from "react/jsx-runtime";
-import { useState as R, useEffect as d } from "react";
-import { resolveAsset as j } from "../common/assets.js";
-import { fetchRetry as v } from "../common/http.js";
-import { Image as x } from "./Image.js";
-let e;
-function b(n) {
+import { jsx as p } from "react/jsx-runtime";
+import { useState as R, useEffect as u } from "react";
+import { resolveAsset as l } from "../common/assets.js";
+import { fetchRetry as A } from "../common/http.js";
+import { Image as N } from "./Image.js";
+let s;
+function x(t) {
   const {
-    className: y,
-    direction: f = 2,
-    fallback: a,
-    frame: c = 1,
-    icon_state: m,
-    icon: t,
-    movement: i = !1,
-    ...p
-  } = n, [o, r] = R(""), u = `${o}?state=${m}&dir=${f}&movement=${i}&frame=${c}`;
-  return d(() => {
-    async function l() {
-      const s = await (await v(j("icon_ref_map.json"))).json();
-      e = s, r(s[t]);
+    className: c,
+    direction: m = 2,
+    fallback: r,
+    frame: S = 1,
+    icon_state: o,
+    icon: e,
+    movement: E = !1,
+    ...H
+  } = t, [T, f] = R(""), O = `${T}?state=${o}&dir=${m}&movement=${E}&frame=${S}`;
+  return u(() => {
+    async function n() {
+      const a = await (await A(l("icon_ref_map.json"))).json();
+      s = a, f(a[e]);
     }
-    e ? r(e[t]) : l();
-  }, []), o ? /* @__PURE__ */ $(x, { fixErrors: !0, src: u, ...p }) : a;
+    s ? f(s[e]) : n();
+  }, []), T ? /* @__PURE__ */ p(N, { fixErrors: !0, src: O, ...H }) : r;
 }
 export {
-  b as DmIcon
+  x as DmIcon
 };

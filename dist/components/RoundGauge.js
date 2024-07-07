@@ -1,5 +1,5 @@
 import { jsxs as k, jsx as _ } from "react/jsx-runtime";
-import { scale as d, keyOfMatchingRange as M, clamp01 as N } from "../common/math.js";
+import { scale as d, clamp01 as M, keyOfMatchingRange as N } from "../common/math.js";
 import { classes as u } from "../common/react.js";
 import { AnimatedNumber as A } from "./AnimatedNumber.js";
 import { Box as B, computeBoxClassName as G, computeBoxProps as j } from "./Box.js";
@@ -65,7 +65,7 @@ function A_(y) {
     style: w,
     value: l,
     ...m
-  } = y, C = d(l, s, n), p = N(C), c = a ? {} : { primary: [0, 1] };
+  } = y, C = d(l, s, n), p = M(C), c = a ? {} : { primary: [0, 1] };
   a && Object.keys(a).forEach((t) => {
     const g = a[t];
     c[t] = [
@@ -76,7 +76,7 @@ function A_(y) {
   function x() {
     return o && r && l > o && l < r || o && l > o ? !0 : !!(r && l < r);
   }
-  const b = x() && M(p, c);
+  const b = x() && N(p, c);
   return /* @__PURE__ */ k(B, { inline: !0, children: [
     /* @__PURE__ */ _(
       "div",

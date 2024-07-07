@@ -1,5 +1,5 @@
 import { jsx as _, jsxs as j } from "react/jsx-runtime";
-import { keyOfMatchingRange as E, scale as s } from "../common/math.js";
+import { scale as s, keyOfMatchingRange as E } from "../common/math.js";
 import { classes as e } from "../common/react.js";
 import { computeBoxClassName as K, computeBoxProps as I } from "./Box.js";
 import { DraggableControl as O } from "./DraggableControl.js";

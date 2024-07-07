@@ -1,73 +1,73 @@
-import { jsx as o, jsxs as m, Fragment as W } from "react/jsx-runtime";
-import { useState as F, useRef as L, useEffect as q } from "react";
-import { classes as y } from "../common/react.js";
-import { unit as z } from "./Box.js";
-import { Button as D } from "./Button.js";
-import { Icon as b } from "./Icon.js";
-import { Popper as A } from "./Popper.js";
+import { jsx as r, jsxs as m, Fragment as L } from "react/jsx-runtime";
+import { useState as R, useRef as q, useEffect as z } from "react";
+import { classes as N } from "../common/react.js";
+import { unit as A } from "./Box.js";
+import { Button as b } from "./Button.js";
+import { Icon as D } from "./Icon.js";
+import { Popper as E } from "./Popper.js";
 const G = -1;
 function f(d) {
   return typeof d == "string" ? d : d.value;
 }
 function Y(d) {
   const {
-    autoScroll: w = !0,
-    buttons: I,
-    className: O,
-    clipSelectedText: k = !0,
-    color: B = "default",
+    autoScroll: x = !0,
+    buttons: k,
+    className: B,
+    clipSelectedText: C = !0,
+    color: O = "default",
     disabled: a,
-    displayText: C,
-    icon: x,
-    iconRotation: T,
-    iconSpin: j,
-    menuWidth: R = "15rem",
-    noChevron: S,
+    displayText: j,
+    icon: w,
+    iconRotation: I,
+    iconSpin: P,
+    menuWidth: S = "15rem",
+    noChevron: T,
     onClick: p,
     onSelected: i,
-    options: r = [],
+    options: o = [],
     over: g,
-    placeholder: E = "Select...",
+    placeholder: V = "Select...",
     selected: u,
-    width: P = "15rem"
-  } = d, [l, h] = F(!1), V = g ? !l : l, v = L(null), s = r.findIndex((e) => f(e) === u) || 0;
+    width: W = "15rem"
+  } = d, [s, h] = R(!1), F = g ? !s : s, v = q(null), l = o.findIndex((e) => f(e) === u) || 0;
   function _(e) {
     var c;
     let t = e;
-    e < s ? t = e < 2 ? 0 : e - 2 : t = e > r.length - 3 ? r.length - 1 : e - 2;
+    e < l ? t = e < 2 ? 0 : e - 2 : t = e > o.length - 3 ? o.length - 1 : e - 2;
     const n = (c = v.current) == null ? void 0 : c.children[t];
     n == null || n.scrollIntoView({ block: "nearest" });
   }
-  function N(e) {
-    if (r.length < 1 || a)
+  function y(e) {
+    if (o.length < 1 || a)
       return;
-    const t = 0, n = r.length - 1;
+    const t = 0, n = o.length - 1;
     let c;
-    s < 0 ? c = e === "next" ? n : t : e === "next" ? c = s === n ? t : s + 1 : c = s === t ? n : s - 1, l && w && _(c), i == null || i(f(r[c]));
+    l < 0 ? c = e === "next" ? n : t : e === "next" ? c = l === n ? t : l + 1 : c = l === t ? n : l - 1, s && x && _(c), i == null || i(f(o[c]));
   }
-  return q(() => {
+  return z(() => {
     var e;
-    l && (w && s !== G && _(s), (e = v.current) == null || e.focus());
-  }, [l]), /* @__PURE__ */ o(
-    A,
+    s && (x && l !== G && _(l), (e = v.current) == null || e.focus());
+  }, [s]), /* @__PURE__ */ r(
+    E,
     {
-      isOpen: l,
+      isOpen: s,
       onClickOutside: () => h(!1),
       placement: g ? "top-start" : "bottom-start",
       content: /* @__PURE__ */ m(
         "div",
         {
           className: "Layout Dropdown__menu",
-          style: { minWidth: R },
+          style: { minWidth: S },
           ref: v,
           children: [
-            r.length === 0 && /* @__PURE__ */ o("div", { className: "Dropdown__menuentry", children: "No options" }),
-            r.map((e, t) => {
+            o.length === 0 && /* @__PURE__ */ r("div", { className: "Dropdown__menuentry", children: "No options" }),
+            o.map((e, t) => {
               const n = f(e);
-              return /* @__PURE__ */ o(
+              return /* @__PURE__ */ r(
                 "div",
                 {
-                  className: y([
+                  className: N([
                     "Dropdown__menuentry",
                     u === n && "selected"
                   ]),
@@ -82,60 +82,60 @@ function Y(d) {
           ]
         }
       ),
-      children: /* @__PURE__ */ m("div", { className: "Dropdown", style: { width: z(P) }, children: [
+      children: /* @__PURE__ */ m("div", { className: "Dropdown", style: { width: A(W) }, children: [
         /* @__PURE__ */ m(
           "div",
           {
-            className: y([
+            className: N([
               "Dropdown__control",
               "Button",
               "Button--dropdown",
-              "Button--color--" + B,
+              "Button--color--" + O,
               a && "Button--disabled",
-              O
+              B
             ]),
             onClick: (e) => {
-              a && !l || (h(!l), p == null || p(e));
+              a && !s || (h(!s), p == null || p(e));
             },
             children: [
-              x && /* @__PURE__ */ o(b, { mr: 1, name: x, rotation: T, spin: j }),
-              /* @__PURE__ */ o(
+              w && /* @__PURE__ */ r(D, { mr: 1, name: w, rotation: I, spin: P }),
+              /* @__PURE__ */ r(
                 "span",
                 {
                   className: "Dropdown__selected-text",
                   style: {
-                    overflow: k ? "hidden" : "visible"
+                    overflow: C ? "hidden" : "visible"
                   },
-                  children: C || u && f(u) || E
+                  children: j || u && f(u) || V
                 }
               ),
-              !S && /* @__PURE__ */ o("span", { className: "Dropdown__arrow-button", children: /* @__PURE__ */ o(b, { name: V ? "chevron-up" : "chevron-down" }) })
+              !T && /* @__PURE__ */ r("span", { className: "Dropdown__arrow-button", children: /* @__PURE__ */ r(D, { name: F ? "chevron-up" : "chevron-down" }) })
             ]
           }
         ),
-        I && /* @__PURE__ */ m(W, { children: [
-          /* @__PURE__ */ o(
-            D,
+        k && /* @__PURE__ */ m(L, { children: [
+          /* @__PURE__ */ r(
+            b,
             {
               disabled: a,
               height: 1.8,
               icon: "chevron-left",
               onClick: () => {
-                N(
+                y(
                   "previous"
                   /* Previous */
                 );
               }
             }
           ),
-          /* @__PURE__ */ o(
-            D,
+          /* @__PURE__ */ r(
+            b,
             {
               disabled: a,
               height: 1.8,
               icon: "chevron-right",
               onClick: () => {
-                N(
+                y(
                   "next"
                   /* Next */
                 );

@@ -2,9 +2,9 @@ import '../assets/Tooltip.css';var s = Object.defineProperty;
 var p = (o, e, n) => e in o ? s(o, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : o[e] = n;
 var r = (o, e, n) => p(o, typeof e != "symbol" ? e + "" : e, n);
 import { jsx as l } from "react/jsx-runtime";
-import { Component as c } from "react";
-import { findDOMNode as m, render as a } from "react-dom";
-import { c as u } from "../popper-CiqSDJTE.js";
+import { c } from "../index-jLZg_duJ.js";
+import { Component as m } from "react";
+import { findDOMNode as a, render as u } from "react-dom";
 const h = "_tooltip_1pib4_13", f = {
   tooltip: h
 }, i = {
@@ -24,9 +24,9 @@ const h = "_tooltip_1pib4_13", f = {
   x: 0,
   y: 0,
   toJSON: () => null
-}, t = class t extends c {
+}, t = class t extends m {
   getDOMNode() {
-    return m(this);
+    return a(this);
   }
   componentDidMount() {
     const e = this.getDOMNode();
@@ -42,9 +42,9 @@ const h = "_tooltip_1pib4_13", f = {
   }
   renderPopperContent() {
     const e = t.renderedTooltip;
-    e && a(/* @__PURE__ */ l("span", { children: this.props.content }), e, () => {
+    e && u(/* @__PURE__ */ l("span", { children: this.props.content }), e, () => {
       let n = t.singletonPopper;
-      n === void 0 ? (n = u(
+      n === void 0 ? (n = c(
         t.virtualElement,
         e,
         {

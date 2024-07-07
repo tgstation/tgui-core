@@ -1,7 +1,7 @@
 import { jsxs as r, jsx as s } from "react/jsx-runtime";
 import { forwardRef as S, useEffect as j } from "react";
 import { addScrollableNode as z, removeScrollableNode as B } from "../common/events.js";
-import { classes as H, canRender as m } from "../common/react.js";
+import { canRender as m, classes as H } from "../common/react.js";
 import { s as t } from "../Section.module-CLVHJ4yA.js";
 import { computeBoxClassName as T, computeBoxProps as y } from "./Box.js";
 const q = S(
