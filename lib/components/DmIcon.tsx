@@ -53,7 +53,10 @@ export function DmIcon(props: Props) {
   const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
 
   useEffect(() => {
-    if (refMap) return;
+    if (refMap) {
+      setIconRef(refMap[icon]);
+      return;
+    }
 
     fetchRetry(resolveAsset('icon_ref_map.json'))
       .then((response) => response.json())
@@ -61,8 +64,8 @@ export function DmIcon(props: Props) {
         refMap = data;
         setIconRef(data[icon]);
       })
-      .catch((error) => {
-        console.error('Error fetching ref map:', error);
+      .catch(() => {
+        // Ignore errors
       });
   }, []);
 
