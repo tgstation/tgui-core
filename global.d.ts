@@ -166,6 +166,8 @@ type ByondType = {
  */
 const Byond: ByondType;
 
+declare const loadedMappings: Record<string, string>;
+
 interface Window {
   Byond: ByondType;
   __augmentStack__: (store: Store) => StackAugmentor;

@@ -1,7 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-import { resolveAsset } from '../common/assets';
-import { fetchRetry } from '../common/http';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
 import { Image } from './Image';
@@ -34,7 +32,7 @@ type Props = {
 }> &
   BoxProps;
 
-let refMap: Record<string, string> | undefined;
+let refMap: Record<string, string>;
 
 export function DmIcon(props: Props) {
   const {
@@ -49,26 +47,20 @@ export function DmIcon(props: Props) {
   } = props;
 
   const [iconRef, setIconRef] = useState('');
-  const [toDisplay, setToDisplay] = useState('');
 
   const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
 
   useEffect(() => {
     if (refMap) {
-      setToDisplay(Object.keys(refMap).length.toString());
       setIconRef(refMap[icon]);
       return;
     }
 
-    fetchRetry(resolveAsset('icon_ref_map.json'))
-      .then((response) => {
-        setToDisplay('!');
-        return response.json();
-      })
+    fetch(loadedMappings?.['icon_ref_map.json'])
+      .then((response) => response.json())
       .then((data) => {
         refMap = data;
         setIconRef(data[icon]);
-        setToDisplay('!!');
       })
       .catch(() => {
         // Ignore errors
@@ -77,10 +69,5 @@ export function DmIcon(props: Props) {
 
   if (!iconRef) return fallback;
 
-  return (
-    <>
-      <Image fixErrors src={query} {...rest} />
-      {toDisplay}
-    </>
-  );
+  return <Image fixErrors src={query} {...rest} />;
 }
