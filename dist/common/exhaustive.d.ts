@@ -14,4 +14,4 @@
  *    exhaustiveCheck(color);
  * }
  */
-export declare function exhaustiveCheck(input: never): void;
+export declare function exhaustiveCheck(input: never): never;

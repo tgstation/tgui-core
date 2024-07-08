@@ -9,7 +9,7 @@ export declare function randomInteger(lowerBound: number, upperBound: number): n
 /**
  * Returns random array element
  */
-export declare const randomPick: <T>(array: T[]) => T;
+export declare function randomPick<T>(array: T[]): T;
 /**
  * Return 1 with probability P percent; otherwise 0
  */

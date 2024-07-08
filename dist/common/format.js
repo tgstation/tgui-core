@@ -38,18 +38,19 @@ const d = [
   "F",
   "N",
   "H"
-], l = d.indexOf(" "), m = (t, n = -l, s = "") => {
+], l = d.indexOf(" ");
+function u(t, n = -l, s = "") {
   if (!isFinite(t))
     return t.toString();
   const o = Math.floor(Math.log10(Math.abs(t))), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = d[Math.min(e + l, d.length - 1)];
   let a = (t / Math.pow(1e3, e)).toFixed(2);
   return a.endsWith(".00") ? a = a.slice(0, -3) : a.endsWith(".0") && (a = a.slice(0, -2)), `${a} ${i.trim()}${s}`.trim();
-};
+}
 function S(t, n = 0) {
-  return m(t, n, "W");
+  return u(t, n, "W");
 }
 function $(t, n = 0) {
-  return m(t, n, "J");
+  return u(t, n, "J");
 }
 function b(t, n = 0) {
   if (!Number.isFinite(t))
@@ -89,26 +90,28 @@ const M = [
   "· 10³³",
   "· 10³⁶",
   "· 10³⁹"
-], p = (t, n = 0, s = "") => {
+];
+function p(t, n = 0, s = "") {
   if (!isFinite(t))
     return "NaN";
   const o = Math.floor(Math.log10(t)), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = M[e], c = t / Math.pow(1e3, e), a = Math.max(0, 2 - r % 3);
   return `${c.toFixed(a)} ${i} ${s}`.trim();
-}, F = (t, n = "default") => {
+}
+function F(t, n = "default") {
   const s = Math.floor(t / 10), o = Math.floor(s / 3600), r = Math.floor(s % 3600 / 60), e = s % 60;
   if (n === "short") {
-    const f = o > 0 ? `${o}h` : "", u = r > 0 ? `${r}m` : "", h = e > 0 ? `${e}s` : "";
-    return `${f}${u}${h}`;
+    const f = o > 0 ? `${o}h` : "", m = r > 0 ? `${r}m` : "", h = e > 0 ? `${e}s` : "";
+    return `${f}${m}${h}`;
   }
   const i = String(o).padStart(2, "0"), c = String(r).padStart(2, "0"), a = String(e).padStart(2, "0");
   return `${i}:${c}:${a}`;
-};
+}
 export {
   g as formatDb,
   $ as formatEnergy,
   b as formatMoney,
   S as formatPower,
   p as formatSiBaseTenUnit,
-  m as formatSiUnit,
+  u as formatSiUnit,
   F as formatTime
 };

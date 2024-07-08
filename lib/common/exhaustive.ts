@@ -14,6 +14,6 @@
  *    exhaustiveCheck(color);
  * }
  */
-export function exhaustiveCheck(input: never) {
+export function exhaustiveCheck(input: never): never {
   throw new Error(`Unhandled case: ${input}`);
 }

@@ -4,7 +4,7 @@ function e(t, n, r) {
 function c(t) {
   return t < 0 ? 0 : t > 1 ? 1 : t;
 }
-function f(t, n, r) {
+function f(t, n = 0, r = 100) {
   return (t - n) / (r - n);
 }
 function u(t, n) {

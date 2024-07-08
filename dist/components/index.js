@@ -4,45 +4,44 @@ import { Blink as x } from "./Blink.js";
 import { BlockQuote as i } from "./BlockQuote.js";
 import { Box as a } from "./Box.js";
 import { Button as u } from "./Button.js";
-import { ByondUi as c } from "./ByondUi.js";
-import { Chart as b } from "./Chart.js";
-import { Collapsible as D } from "./Collapsible.js";
-import { ColorBox as T } from "./ColorBox.js";
-import { Dialog as C } from "./Dialog.js";
+import { ByondUi as d } from "./ByondUi.js";
+import { Chart as c } from "./Chart.js";
+import { Collapsible as T } from "./Collapsible.js";
+import { ColorBox as C } from "./ColorBox.js";
+import { Dialog as I } from "./Dialog.js";
 import { Dimmer as L } from "./Dimmer.js";
 import { Divider as y } from "./Divider.js";
-import { DmIcon as N } from "./DmIcon.js";
-import { DraggableControl as F } from "./DraggableControl.js";
-import { Dropdown as M } from "./Dropdown.js";
-import { FitText as h } from "./FitText.js";
-import { Flex as w } from "./Flex.js";
-import { Icon as O } from "./Icon.js";
-import { Image as U } from "./Image.js";
-import { InfinitePlane as j } from "./InfinitePlane.js";
-import { Input as z } from "./Input.js";
-import { KeyListener as H } from "./KeyListener.js";
-import { Knob as W } from "./Knob.js";
-import { LabeledControls as Y } from "./LabeledControls.js";
-import { LabeledList as _ } from "./LabeledList.js";
-import { MenuBar as oo } from "./MenuBar.js";
-import { Modal as eo } from "./Modal.js";
-import { NoticeBox as po } from "./NoticeBox.js";
-import { NumberInput as xo } from "./NumberInput.js";
-import { Popper as io } from "./Popper.js";
-import { ProgressBar as ao } from "./ProgressBar.js";
-import { RestrictedInput as uo } from "./RestrictedInput.js";
-import { RoundGauge as co } from "./RoundGauge.js";
-import { Section as Bo } from "./Section.js";
-import { Slider as Io } from "./Slider.js";
+import { DraggableControl as N } from "./DraggableControl.js";
+import { Dropdown as F } from "./Dropdown.js";
+import { FitText as M } from "./FitText.js";
+import { Flex as h } from "./Flex.js";
+import { Icon as w } from "./Icon.js";
+import { Image as O } from "./Image.js";
+import { InfinitePlane as U } from "./InfinitePlane.js";
+import { Input as j } from "./Input.js";
+import { KeyListener as z } from "./KeyListener.js";
+import { Knob as H } from "./Knob.js";
+import { LabeledControls as W } from "./LabeledControls.js";
+import { LabeledList as Y } from "./LabeledList.js";
+import { MenuBar as _ } from "./MenuBar.js";
+import { Modal as oo } from "./Modal.js";
+import { NoticeBox as eo } from "./NoticeBox.js";
+import { NumberInput as po } from "./NumberInput.js";
+import { Popper as xo } from "./Popper.js";
+import { ProgressBar as io } from "./ProgressBar.js";
+import { RestrictedInput as ao } from "./RestrictedInput.js";
+import { RoundGauge as uo } from "./RoundGauge.js";
+import { Section as bo } from "./Section.js";
+import { Slider as Bo } from "./Slider.js";
 import { Stack as go } from "./Stack.js";
-import { StyleableSection as ko } from "./StyleableSection.js";
-import { Table as So } from "./Table.js";
-import { Tabs as Ao } from "./Tabs.js";
-import { TextArea as Po } from "./TextArea.js";
-import { TimeDisplay as Ko } from "./TimeDisplay.js";
-import { Tooltip as Ro } from "./Tooltip.js";
-import { TrackOutsideClicks as vo } from "./TrackOutsideClicks.js";
-import { VirtualList as Go } from "./VirtualList.js";
+import { StyleableSection as Do } from "./StyleableSection.js";
+import { Table as ko } from "./Table.js";
+import { Tabs as So } from "./Tabs.js";
+import { TextArea as Ao } from "./TextArea.js";
+import { TimeDisplay as Po } from "./TimeDisplay.js";
+import { Tooltip as Ko } from "./Tooltip.js";
+import { TrackOutsideClicks as Ro } from "./TrackOutsideClicks.js";
+import { VirtualList as vo } from "./VirtualList.js";
 export {
   e as AnimatedNumber,
   p as Autofocus,
@@ -50,43 +49,42 @@ export {
   i as BlockQuote,
   a as Box,
   u as Button,
-  c as ByondUi,
-  b as Chart,
-  D as Collapsible,
-  T as ColorBox,
-  C as Dialog,
+  d as ByondUi,
+  c as Chart,
+  T as Collapsible,
+  C as ColorBox,
+  I as Dialog,
   L as Dimmer,
   y as Divider,
-  N as DmIcon,
-  F as DraggableControl,
-  M as Dropdown,
-  h as FitText,
-  w as Flex,
-  O as Icon,
-  U as Image,
-  j as InfinitePlane,
-  z as Input,
-  H as KeyListener,
-  W as Knob,
-  Y as LabeledControls,
-  _ as LabeledList,
-  oo as MenuBar,
-  eo as Modal,
-  po as NoticeBox,
-  xo as NumberInput,
-  io as Popper,
-  ao as ProgressBar,
-  uo as RestrictedInput,
-  co as RoundGauge,
-  Bo as Section,
-  Io as Slider,
+  N as DraggableControl,
+  F as Dropdown,
+  M as FitText,
+  h as Flex,
+  w as Icon,
+  O as Image,
+  U as InfinitePlane,
+  j as Input,
+  z as KeyListener,
+  H as Knob,
+  W as LabeledControls,
+  Y as LabeledList,
+  _ as MenuBar,
+  oo as Modal,
+  eo as NoticeBox,
+  po as NumberInput,
+  xo as Popper,
+  io as ProgressBar,
+  ao as RestrictedInput,
+  uo as RoundGauge,
+  bo as Section,
+  Bo as Slider,
   go as Stack,
-  ko as StyleableSection,
-  So as Table,
-  Ao as Tabs,
-  Po as TextArea,
-  Ko as TimeDisplay,
-  Ro as Tooltip,
-  vo as TrackOutsideClicks,
-  Go as VirtualList
+  Do as StyleableSection,
+  ko as Table,
+  So as Tabs,
+  Ao as TextArea,
+  Po as TimeDisplay,
+  Ko as Tooltip,
+  Ro as TrackOutsideClicks,
+  vo as VirtualList
 };

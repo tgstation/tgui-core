@@ -295,7 +295,7 @@ const GASES = [
 ] as const;
 
 // Returns gas label based on gasId
-export function getGasLabel(gasId: string, fallbackValue?: string) {
+export function getGasLabel(gasId: string, fallbackValue?: string): string {
   if (!gasId) return fallbackValue || 'None';
 
   const gasSearchString = gasId.toLowerCase();
@@ -310,7 +310,7 @@ export function getGasLabel(gasId: string, fallbackValue?: string) {
 }
 
 // Returns gas color based on gasId
-export function getGasColor(gasId: string) {
+export function getGasColor(gasId: string): string {
   if (!gasId) return 'black';
 
   const gasSearchString = gasId.toLowerCase();

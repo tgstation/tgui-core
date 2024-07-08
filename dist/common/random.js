@@ -1,14 +1,16 @@
-import { clamp as n } from "./math.js";
-function o(t, r) {
-  return Math.random() * (r - t) + t;
+import { clamp as r } from "./math.js";
+function o(t, n) {
+  return Math.random() * (n - t) + t;
 }
-function m(t, r) {
-  return t = Math.ceil(t), r = Math.floor(r), Math.floor(Math.random() * (r - t) + t);
+function m(t, n) {
+  return t = Math.ceil(t), n = Math.floor(n), Math.floor(Math.random() * (n - t) + t);
 }
-const h = (t) => t[Math.floor(Math.random() * t.length)];
+function h(t) {
+  return t[Math.floor(Math.random() * t.length)];
+}
 function c(t) {
-  const r = n(t, 0, 100) / 100;
-  return Math.random() <= r;
+  const n = r(t, 0, 100) / 100;
+  return Math.random() <= n;
 }
 export {
   m as randomInteger,

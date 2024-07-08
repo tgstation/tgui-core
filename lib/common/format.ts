@@ -27,11 +27,11 @@ const SI_SYMBOLS = [
 const SI_BASE_INDEX = SI_SYMBOLS.indexOf(' ');
 
 // Formats a number to a human readable form, with a custom unit
-export const formatSiUnit = (
+export function formatSiUnit(
   value: number,
   minBase1000 = -SI_BASE_INDEX,
   unit = '',
-): string => {
+): string {
   if (!isFinite(value)) {
     return value.toString();
   }
@@ -52,19 +52,19 @@ export const formatSiUnit = (
   }
 
   return `${formattedValue} ${symbol.trim()}${unit}`.trim();
-};
+}
 
 // Formats a number to a human readable form, with power (W) as the unit
-export function formatPower(value: number, minBase1000 = 0) {
+export function formatPower(value: number, minBase1000 = 0): string {
   return formatSiUnit(value, minBase1000, 'W');
 }
 
-export function formatEnergy(value: number, minBase1000 = 0) {
+export function formatEnergy(value: number, minBase1000 = 0): string {
   return formatSiUnit(value, minBase1000, 'J');
 }
 
 // Formats a number as a currency string
-export function formatMoney(value: number, precision = 0) {
+export function formatMoney(value: number, precision = 0): string {
   if (!Number.isFinite(value)) {
     return String(value);
   }
@@ -86,7 +86,7 @@ export function formatMoney(value: number, precision = 0) {
 }
 
 // Formats a floating point number as a number on the decibel scale
-export function formatDb(value: number) {
+export function formatDb(value: number): string {
   const db = 20 * Math.log10(value);
   const sign = db >= 0 ? '+' : '-';
   let formatted: string | number = Math.abs(db);
@@ -118,11 +118,11 @@ const SI_BASE_TEN_UNITS = [
 ] as const;
 
 // Converts a number to a string with SI base 10 units
-export const formatSiBaseTenUnit = (
+export function formatSiBaseTenUnit(
   value: number,
   minBase1000 = 0,
   unit = '',
-): string => {
+): string {
   if (!isFinite(value)) {
     return 'NaN';
   }
@@ -137,16 +137,16 @@ export const formatSiBaseTenUnit = (
   const formattedValue = scaledValue.toFixed(precision);
 
   return `${formattedValue} ${symbol} ${unit}`.trim();
-};
+}
 
 /**
  * Formats decisecond count into HH:MM:SS display by default
  * "short" format does not pad and adds hms suffixes
  */
-export const formatTime = (
+export function formatTime(
   val: number,
   formatType: 'short' | 'default' = 'default',
-): string => {
+): string {
   const totalSeconds = Math.floor(val / 10);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -164,4 +164,4 @@ export const formatTime = (
   const secondsPadded = String(seconds).padStart(2, '0');
 
   return `${hoursPadded}:${minutesPadded}:${secondsPadded}`;
-};
+}

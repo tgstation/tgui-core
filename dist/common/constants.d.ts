@@ -96,7 +96,7 @@ export declare const RADIO_CHANNELS: readonly [{
     readonly color: "#1ecc43";
 }];
 export declare function getGasLabel(gasId: string, fallbackValue?: string): string;
-export declare function getGasColor(gasId: string): "black" | "blue" | "brown" | "grey" | "olive" | "pink" | "purple" | "teal" | "white" | "yellow" | "lightsteelblue" | "bisque" | "limegreen" | "mediumpurple" | "mediumslateblue" | "paleturquoise" | "salmon" | "greenyellow" | "darkgreen" | "aliceblue" | "maroon";
+export declare function getGasColor(gasId: string): string;
 export declare const getGasFromId: (gasId: string) => Gas | undefined;
 export declare const getGasFromPath: (gasPath: string) => Gas | undefined;
 export {};
