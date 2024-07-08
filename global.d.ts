@@ -170,4 +170,6 @@ interface Window {
   Byond: ByondType;
   __augmentStack__: (store: Store) => StackAugmentor;
   __store__: Store<unknown, AnyAction>;
+  msIDBTransaction: IDBTransaction;
+  msIndexedDB: IDBFactory;
 }

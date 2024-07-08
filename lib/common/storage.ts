@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /**
  * Browser-agnostic abstraction of key-value web storage.
  *
@@ -41,6 +40,9 @@ const testIndexedDb = testGeneric(
 );
 
 class MemoryBackend {
+  impl = IMPL_MEMORY;
+  store: Record<string, any> = {};
+
   constructor() {
     this.impl = IMPL_MEMORY;
     this.store = {};
@@ -64,6 +66,8 @@ class MemoryBackend {
 }
 
 class LocalStorageBackend {
+  impl = IMPL_LOCAL_STORAGE;
+
   constructor() {
     this.impl = IMPL_LOCAL_STORAGE;
   }
@@ -89,9 +93,11 @@ class LocalStorageBackend {
 }
 
 class IndexedDbBackend {
+  impl = IMPL_INDEXED_DB;
+  dbPromise: Promise<IDBDatabase>;
+
   constructor() {
     this.impl = IMPL_INDEXED_DB;
-    /** @type {Promise<IDBDatabase>} */
     this.dbPromise = new Promise((resolve, reject) => {
       const indexedDB = window.indexedDB || window.msIndexedDB;
       const req = indexedDB.open(INDEXED_DB_NAME, INDEXED_DB_VERSION);
@@ -157,6 +163,8 @@ class IndexedDbBackend {
  * depending on the environment.
  */
 class StorageProxy {
+  backendPromise: Promise<any>;
+
   constructor() {
     this.backendPromise = (async () => {
       if (testIndexedDb()) {
