@@ -59,13 +59,14 @@ export function DmIcon(props: Props) {
     }
 
     fetch(resolveAsset('icon_ref_map.json'))
-      .then((response) => {
-        setDisplayText(response.statusText);
-        return response.json();
-      })
-      .then((data) => {
-        refMap = data;
-        setIconRef(data[icon]);
+      .then((response) => response.text()) // Get the response text
+      .then((text) => {
+        try {
+          const data = JSON.parse(text); // Try parsing the text as JSON
+          setDisplayText('success' + ' ' + Object.keys(data).length.toString());
+        } catch (error) {
+          setDisplayText(text); // If parsing fails, set the text as the error message
+        }
       })
       .catch((error) => {
         // Ignore errors
