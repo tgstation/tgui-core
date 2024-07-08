@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react';
 
+import { resolveAsset } from '../common/assets';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
-import { Image } from './Image';
 
 enum Direction {
   NORTH = 1,
@@ -36,38 +36,44 @@ let refMap: Record<string, string>;
 
 export function DmIcon(props: Props) {
   const {
-    className,
-    direction = Direction.SOUTH,
-    fallback,
-    frame = 1,
-    icon_state,
+    // className,
+    // direction = Direction.SOUTH,
+    // fallback,
+    // frame = 1,
+    // icon_state,
     icon,
-    movement = false,
-    ...rest
+    // movement = false,
+    // ...rest
   } = props;
 
-  const [iconRef, setIconRef] = useState('');
+  const [_, setIconRef] = useState('');
+  const [displayText, setDisplayText] = useState('unloaded');
 
-  const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
+  // const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
 
   useEffect(() => {
     if (refMap) {
+      setDisplayText(Object.keys(refMap).length.toString());
       setIconRef(refMap[icon]);
       return;
     }
 
-    fetch(loadedMappings?.['icon_ref_map.json'])
-      .then((response) => response.json())
+    fetch(resolveAsset('icon_ref_map.json'))
+      .then((response) => {
+        setDisplayText(response.statusText);
+        return response.json();
+      })
       .then((data) => {
         refMap = data;
         setIconRef(data[icon]);
       })
-      .catch(() => {
+      .catch((error) => {
         // Ignore errors
+        setDisplayText(error.message);
       });
   }, []);
 
-  if (!iconRef) return fallback;
+  // if (!iconRef) return fallback;
 
-  return <Image fixErrors src={query} {...rest} />;
+  return { displayText };
 }

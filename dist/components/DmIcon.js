@@ -1,29 +1,29 @@
-import { jsx as l } from "react/jsx-runtime";
-import { useState as $, useEffect as h } from "react";
-import { Image as d } from "./Image.js";
-let t;
-function g(c) {
+import { useState as r, useEffect as i } from "react";
+import { resolveAsset as u } from "../common/assets.js";
+let e;
+function p(c) {
   const {
-    className: j,
-    direction: f = 2,
-    fallback: s,
-    frame: m = 1,
-    icon_state: i,
-    icon: r,
-    movement: a = !1,
-    ...p
-  } = c, [o, n] = $(""), u = `${o}?state=${i}&dir=${f}&movement=${a}&frame=${m}`;
-  return h(() => {
-    if (t) {
-      n(t[r]);
+    // className,
+    // direction = Direction.SOUTH,
+    // fallback,
+    // frame = 1,
+    // icon_state,
+    icon: o
+    // movement = false,
+    // ...rest
+  } = c, [a, s] = r(""), [f, n] = r("unloaded");
+  return i(() => {
+    if (e) {
+      n(Object.keys(e).length.toString()), s(e[o]);
       return;
     }
-    fetch(loadedMappings == null ? void 0 : loadedMappings["icon_ref_map.json"]).then((e) => e.json()).then((e) => {
-      t = e, n(e[r]);
-    }).catch(() => {
+    fetch(u("icon_ref_map.json")).then((t) => (n(t.statusText), t.json())).then((t) => {
+      e = t, s(t[o]);
+    }).catch((t) => {
+      n(t.message);
     });
-  }, []), o ? /* @__PURE__ */ l(d, { fixErrors: !0, src: u, ...p }) : s;
+  }, []), { displayText: f };
 }
 export {
-  g as DmIcon
+  p as DmIcon
 };

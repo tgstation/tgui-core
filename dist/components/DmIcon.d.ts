@@ -27,5 +27,7 @@ type Props = {
     /** Movement state. Default is false */
     movement: BooleanLike;
 }> & BoxProps;
-export declare function DmIcon(props: Props): string | number | boolean | Iterable<ReactNode> | import("react/jsx-runtime").JSX.Element | null | undefined;
+export declare function DmIcon(props: Props): {
+    displayText: string;
+};
 export {};
