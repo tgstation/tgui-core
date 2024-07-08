@@ -1,4 +1,8 @@
-const l = [/v4shim/i], d = {}, r = (t) => d[t] || t, f = (t) => (p) => (n) => {
+const c = [/v4shim/i], a = {};
+function l(t) {
+  return a[t] || t;
+}
+const f = (t) => (d) => (n) => {
   const { type: i, payload: e } = n;
   if (i === "asset/stylesheet") {
     Byond.loadCss(e);
@@ -6,16 +10,16 @@ const l = [/v4shim/i], d = {}, r = (t) => d[t] || t, f = (t) => (p) => (n) => {
   }
   if (i === "asset/mappings") {
     for (const s of Object.keys(e)) {
-      if (l.some((c) => c.test(s)))
+      if (c.some((p) => p.test(s)))
         continue;
-      const o = e[s], a = s.split(".").pop();
-      d[s] = o, a === "css" && Byond.loadCss(o), a === "js" && Byond.loadJs(o);
+      const o = e[s], r = s.split(".").pop();
+      a[s] = o, r === "css" && Byond.loadCss(o), r === "js" && Byond.loadJs(o);
     }
     return;
   }
-  p(n);
+  d(n);
 };
 export {
   f as assetMiddleware,
-  r as resolveAsset
+  l as resolveAsset
 };
