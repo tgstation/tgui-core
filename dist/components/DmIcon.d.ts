@@ -27,7 +27,5 @@ type Props = {
     /** Movement state. Default is false */
     movement: BooleanLike;
 }> & BoxProps;
-export declare function DmIcon(props: Props): {
-    displayText: string;
-};
+export declare function DmIcon(props: Props): string;
 export {};

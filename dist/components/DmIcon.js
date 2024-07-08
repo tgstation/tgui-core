@@ -22,7 +22,7 @@ function p(c) {
     }).catch((t) => {
       n(t.message);
     });
-  }, []), { displayText: f };
+  }, []), f;
 }
 export {
   p as DmIcon

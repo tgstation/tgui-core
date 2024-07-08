@@ -75,5 +75,5 @@ export function DmIcon(props: Props) {
 
   // if (!iconRef) return fallback;
 
-  return { displayText };
+  return displayText;
 }
