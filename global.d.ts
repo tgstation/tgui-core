@@ -56,6 +56,11 @@ type ByondType = {
   command(command: string): void;
 
   /**
+   * Icon reference map from BYOND
+   */
+  iconRefMap: Record<string, string>;
+
+  /**
    * Loads a stylesheet into the document.
    */
   loadCss(url: string): void;
@@ -72,12 +77,12 @@ type ByondType = {
    */
   parseJson(text: string): any;
 
+  sendMessage(message: TguiMessage): void;
+
   /**
    * Sends a message to `/datum/tgui_window` which hosts this window instance.
    */
   sendMessage(type: string, payload?: any): void;
-
-  sendMessage(message: TguiMessage): void;
 
   /**
    * If `true`, unhandled errors and common mistakes result in a blue screen
@@ -120,13 +125,6 @@ type ByondType = {
    *
    * Returns a promise with a key-value object containing all properties.
    */
-  winget(id: string | null): Promise<object>;
-
-  /**
-   * Retrieves all properties of the BYOND skin element.
-   *
-   * Returns a promise with a key-value object containing all properties.
-   */
   winget(id: string | null, propName: '*'): Promise<object>;
   /**
    * Retrieves an exactly one property of the BYOND skin element,
@@ -145,9 +143,11 @@ type ByondType = {
   winget(id: string | null, propNames: string[]): Promise<object>;
 
   /**
-   * Assigns properties to BYOND skin elements in bulk.
+   * Retrieves all properties of the BYOND skin element.
+   *
+   * Returns a promise with a key-value object containing all properties.
    */
-  winset(props: object): void;
+  winget(id: string | null): Promise<object>;
 
   /**
    * Sets a property on the BYOND skin element to a certain value.
@@ -158,6 +158,11 @@ type ByondType = {
    * Assigns properties to the BYOND skin element.
    */
   winset(id: string | null, props: object): void;
+
+  /**
+   * Assigns properties to BYOND skin elements in bulk.
+   */
+  winset(props: object): void;
 };
 
 /**
