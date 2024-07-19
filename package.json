@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -14,6 +14,10 @@
     "./components": {
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.cjs"
+    },
+    "./styles": {
+      "import": "./dist/styles/components/*.scss",
+      "require": "./dist/styles/components/*.scss"
     },
     "./*": {
       "import": "./dist/common/*.js",
@@ -34,29 +38,29 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
+    "@eslint/js": "^9.7.0",
     "@popperjs/core": "^2.11.8",
     "@types/eslint__js": "^8.42.3",
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.14.11",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/webpack-env": "^1.18.5",
     "@vitejs/plugin-react-swc": "^3.7.0",
-    "eslint": "^9.6.0",
+    "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react": "^7.34.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-typescript-sort-keys": "^3.2.0",
     "eslint-plugin-unused-imports": "^4.0.0",
-    "glob": "^10.4.3",
+    "glob": "^11.0.0",
     "react-popper": "^2.3.0",
-    "sass": "^1.77.6",
+    "sass": "^1.77.8",
     "typescript": "^5.5.3",
-    "typescript-eslint": "^7.15.0",
-    "vite": "^5.3.3",
+    "typescript-eslint": "^7.16.1",
+    "vite": "^5.3.4",
     "vite-plugin-dts": "^3.9.1",
     "vite-plugin-lib-inject-css": "^2.1.1",
-    "vite-plugin-sass-dts": "^1.3.22"
+    "vite-plugin-sass-dts": "^1.3.24"
   },
   "peerDependencies": {
     "react": "^18.2.0",
