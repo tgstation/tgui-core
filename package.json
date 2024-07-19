@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "1.1.19",
+  "version": "1.1.20",
   "description": "TGUI core component library",
   "keywords": [
     "TGUI",
@@ -16,8 +16,8 @@
       "require": "./dist/components/index.cjs"
     },
     "./styles": {
-      "import": "./dist/styles/components/*.scss",
-      "require": "./dist/styles/components/*.scss"
+      "import": "./dist/assets/*.css",
+      "require": "./dist/assets/*.css"
     },
     "./*": {
       "import": "./dist/common/*.js",
