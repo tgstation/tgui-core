@@ -33,6 +33,44 @@ export function createSearch<TObj>(
   };
 }
 
+export const VOWELS = ['a', 'e', 'i', 'o', 'u'];
+
+/**
+ * Pluralizes a word based on the number given.
+ * Handles -es and -ies.
+ *
+ * @param override - A custom string to be appended instead for plurals. Useful for words that don't follow the standard rules.
+ *
+ * @example
+ * ```tsx
+ * pluralize('Dog', 1) // Dog
+ * pluralize('Dog', 2) // Dogs
+ * pluralize('Monarch', 2, "s") // Monarchs
+ * ```
+ */
+export const pluralize = (str: string, n: number, override?: string) => {
+  if (n === 1) {
+    return str;
+  } else if (override) {
+    return str + override;
+  } else if (
+    str.endsWith('s') ||
+    str.endsWith('x') ||
+    str.endsWith('z') ||
+    str.endsWith('ch') ||
+    str.endsWith('sh')
+  ) {
+    return str + 'es';
+  } else if (
+    str.endsWith('y') &&
+    !VOWELS.includes(str.charAt(str.length - 2))
+  ) {
+    return str.slice(0, -1) + 'ies';
+  } else {
+    return str + 's';
+  }
+};
+
 /**
  * Capitalizes a word and lowercases the rest.
  *
