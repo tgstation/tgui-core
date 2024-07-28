@@ -48,7 +48,7 @@ export const VOWELS = ['a', 'e', 'i', 'o', 'u'];
  * pluralize('Monarch', 2, "s") // Monarchs
  * ```
  */
-export const pluralize = (str: string, n: number, override?: string) => {
+export function pluralize(str: string, n: number, override?: string) {
   if (n === 1) {
     return str;
   } else if (override) {
@@ -69,7 +69,7 @@ export const pluralize = (str: string, n: number, override?: string) => {
   } else {
     return str + 's';
   }
-};
+}
 
 /**
  * Capitalizes a word and lowercases the rest.
