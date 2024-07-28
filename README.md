@@ -39,3 +39,10 @@ MIT
 ## Contributing
 
 Contributions are welcome. Please open an issue or a pull request. I am available on the tgstation [discord](https://discord.com/invite/EUvpBtU78X).
+
+### Development
+
+This project uses [pnpm](https://pnpm.io/installation) for its package manager.
+
+To set up the repository:
+`pnpm install`
