@@ -3,11 +3,16 @@ import styles from '../styles/components/Modal.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
-export function Modal(props: BoxProps) {
-  const { className, children, ...rest } = props;
+type ModalProps = {
+  /** If true, the modal will take up the full screen. */
+  full?: boolean;
+} & BoxProps;
+
+export function Modal(props: ModalProps) {
+  const { className, children, full, ...rest } = props;
 
   return (
-    <Dimmer>
+    <Dimmer full={full}>
       <div
         className={classes([
           styles.modal,
