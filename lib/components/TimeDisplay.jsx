@@ -59,6 +59,10 @@ export class TimeDisplay extends Component {
       return this.state.value || null;
     }
 
-    return formatTime(val);
+    if (this.props.formatFn) {
+      return this.props.formatFn(val);
+    } else {
+      return formatTime(val);
+    }
   }
 }
