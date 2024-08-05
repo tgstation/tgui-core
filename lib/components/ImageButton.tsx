@@ -4,12 +4,11 @@
  * @license MIT
  */
 
-import styles from '../styles/components/ImageButton.module.scss';
-
 import { Placement } from '@popperjs/core';
-import { BooleanLike, classes } from '../common/react';
 import { ReactNode } from 'react';
 
+import { BooleanLike, classes } from '../common/react';
+import styles from '../styles/components/ImageButton.module.scss';
 import { BoxProps, computeBoxProps } from './Box';
 import { DmIcon } from './DmIcon';
 import { Icon } from './Icon';
