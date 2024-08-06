@@ -145,7 +145,7 @@ $bg-map: colors.$bg-map !default;
     bottom: 1.8em;
     max-width: 100%;
 
-    .buttonsAltContainer {
+    &.buttonsAltContainer {
       overflow: visible;
       flex-direction: column;
       pointer-events: none;
@@ -153,7 +153,7 @@ $bg-map: colors.$bg-map !default;
       bottom: inherit !important;
     }
 
-    .buttonsEmpty {
+    &.buttonsEmpty {
       bottom: 1px;
     }
 
@@ -202,14 +202,12 @@ $bg-map: colors.$bg-map !default;
     font-weight: bold;
     padding: 0.5em;
 
-    .divider {
+    &.divider {
       border-bottom: $divider-thickness solid $color-divider;
     }
   }
 
   .contentFluid {
-    display: flex;
-    justify-content: space-between;
     padding: 0.5em;
     color: white;
   }
@@ -218,7 +216,7 @@ $bg-map: colors.$bg-map !default;
     flex-direction: row;
     flex: 1;
 
-    .hasButtons {
+    &.hasButtons {
       border-radius: 0.33em 0 0 0.33em;
     }
   }
@@ -233,7 +231,7 @@ $bg-map: colors.$bg-map !default;
     bottom: inherit;
     border-radius: 0 0.33em 0.33em 0;
 
-    .buttonsAltContainer {
+    &.buttonsAltContainer {
       overflow: hidden;
       flex-direction: column;
       top: inherit;
