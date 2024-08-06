@@ -148,6 +148,7 @@ $bg-map: colors.$bg-map !default;
     &.buttonsAltContainer {
       overflow: visible;
       flex-direction: column;
+      pointer-events: none;
       top: 1px;
       bottom: inherit !important;
     }
@@ -232,7 +233,7 @@ $bg-map: colors.$bg-map !default;
 
     &.buttonsAltContainer {
       overflow: hidden;
-      flex-direction: column;
+      pointer-events: auto;
       top: inherit;
     }
 
