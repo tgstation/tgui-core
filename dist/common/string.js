@@ -7,20 +7,16 @@ function p(e, t = (r) => JSON.stringify(r)) {
     return o ? o.toLowerCase().includes(r) : !1;
   };
 }
-const a = ["a", "e", "i", "o", "u"];
-function l(e, t, r) {
-  return t === 1 ? e : r ? e + r : e.endsWith("s") || e.endsWith("x") || e.endsWith("z") || e.endsWith("ch") || e.endsWith("sh") ? e + "es" : e.endsWith("y") && !a.includes(e.charAt(e.length - 2)) ? e.slice(0, -1) + "ies" : e + "s";
-}
-function c(e) {
+function a(e) {
   return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-function f(e) {
+function u(e) {
   return e.replace(/(^\w{1})|(\s+\w{1})/g, (t) => t.toUpperCase());
 }
-function h(e) {
+function l(e) {
   return e.replace(/^\w/, (t) => t.toUpperCase());
 }
-const i = ["Id", "Tv"], s = [
+const c = ["Id", "Tv"], s = [
   "A",
   "An",
   "And",
@@ -43,20 +39,20 @@ const i = ["Id", "Tv"], s = [
   "To",
   "With"
 ];
-function g(e) {
+function f(e) {
   if (!e) return e;
-  let t = e.replace(/([^\W_]+[^\s-]*) */g, (r) => c(r));
+  let t = e.replace(/([^\W_]+[^\s-]*) */g, (r) => a(r));
   for (const r of s) {
     const n = new RegExp("\\s" + r + "\\s", "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
-  for (const r of i) {
+  for (const r of c) {
     const n = new RegExp("\\b" + r + "\\b", "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
   return t;
 }
-const u = {
+const i = {
   amp: "&",
   apos: "'",
   gt: ">",
@@ -64,11 +60,11 @@ const u = {
   nbsp: " ",
   quot: '"'
 };
-function d(e) {
+function g(e) {
   return e && e.replace(/<br>/gi, `
 `).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(
     /&(nbsp|amp|quot|lt|gt|apos);/g,
-    (t, r) => u[r]
+    (t, r) => i[r]
   ).replace(/&#?([0-9]+);/gi, (t, r) => {
     const n = parseInt(r, 10);
     return String.fromCharCode(n);
@@ -78,12 +74,10 @@ function d(e) {
   });
 }
 export {
-  a as VOWELS,
-  c as capitalize,
-  f as capitalizeAll,
-  h as capitalizeFirst,
+  a as capitalize,
+  u as capitalizeAll,
+  l as capitalizeFirst,
   p as createSearch,
-  d as decodeHtmlEntities,
-  l as pluralize,
-  g as toTitleCase
+  g as decodeHtmlEntities,
+  f as toTitleCase
 };
