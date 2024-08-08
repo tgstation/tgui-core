@@ -31,11 +31,15 @@ jobs:
       - name: Lint project
         run: pnpm lint
 
+      - name: Extract version from tag
+        id: extract_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
       # Updates the version in the package.json
       - name: Set package version
         uses: ZeWaka/set-node-package-version@v1
         with:
-          version: ${{ github.ref_name.replace('v', '') }}
+          version: ${{ steps.extract_version.version }}
 
       - name: Build project
         run: pnpm build
