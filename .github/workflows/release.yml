@@ -60,18 +60,6 @@ jobs:
         id: get_sha
         run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Build Changelog
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v4
-
-      - name: Set Release Changelog
-        uses: tubone24/update_release@v1.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ github.event.release.tag_name }}
-        with:
-          body: ${{steps.build_changelog.outputs.changelog}}
-
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.2
@@ -79,6 +67,21 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_sha: ${{ steps.get_sha.outputs.sha }}
           custom_tag: ${{ github.event.release.tag_name}}
+          tag_prefix: ''
+
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+
+      - name: Update Release
+        uses: tubone24/update_release@v1.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
+        with:
+          release_name: ${{ github.event.release.tag_name }}
+          body: ${{steps.build_changelog.outputs.changelog}}
+          draft: false
 
       - uses: JS-DevTools/npm-publish@v3
         with:
