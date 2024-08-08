@@ -33,13 +33,13 @@ jobs:
 
       - name: Extract version from tag
         id: extract_version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       # Updates the version in the package.json
       - name: Set package version
         uses: ZeWaka/set-node-package-version@v1
         with:
-          version: ${{ steps.extract_version.version }}
+          version: ${{ steps.extract_version.outputs.version }}
 
       - name: Build project
         run: pnpm build
@@ -58,7 +58,7 @@ jobs:
 
       - name: Get new Git SHA
         id: get_sha
-        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build Changelog
         id: build_changelog
