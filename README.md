@@ -40,6 +40,12 @@ MIT
 
 Contributions are welcome. Please open an issue or a pull request. I am available on the tgstation [discord](https://discord.com/invite/EUvpBtU78X).
 
+### Releasing a new version
+
+To automagically release a new version of the tgui-core package, simply create a [new release](https://github.com/tgstation/tgui-core/releases/new) with the tag set to the new version you want to publish. Set the tag to be the commit you want to base the version off of (likely the latest, being the default).
+
+The release workflow will take care of setting the `package.json` version, building, generating a release changelog, and publishing to npm.
+
 ### Development
 
 This project uses [pnpm](https://pnpm.io/installation) for its package manager.
