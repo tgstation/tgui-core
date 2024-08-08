@@ -1,9 +1,8 @@
 name: Release Workflow
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types: [created]
 
 jobs:
   release:
@@ -36,7 +35,7 @@ jobs:
       - name: Set package version
         uses: ZeWaka/set-node-package-version@v1
         with:
-          version: ${{ github.ref_name }}
+          version: ${{ github.ref_name.replace('v', '') }}
 
       - name: Build project
         run: pnpm build
@@ -46,21 +45,36 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Build & Release ${{ github.ref_name }}" || echo "No changes to commit"
+          git commit -m "Build & Release ${{ github.event.release.tag_name }}" || echo "No changes to commit"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get new Git SHA
+        id: get_sha
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
       - name: Build Changelog
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v4
 
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v1
+      - name: Set Release Changelog
+        uses: tubone24/update_release@v1.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ github.event.release.tag_name }}
         with:
-            body: ${{steps.build_changelog.outputs.changelog}}
+          body: ${{steps.build_changelog.outputs.changelog}}
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_sha: ${{ steps.get_sha.outputs.sha }}
+          custom_tag: ${{ github.event.release.tag_name}}
 
       - uses: JS-DevTools/npm-publish@v3
         with:
