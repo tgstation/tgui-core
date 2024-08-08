@@ -18,6 +18,7 @@ export { FitText } from './FitText';
 export { Flex } from './Flex';
 export { Icon } from './Icon';
 export { Image } from './Image';
+export { ImageButton } from './ImageButton';
 export { InfinitePlane } from './InfinitePlane';
 export { Input } from './Input';
 export { KeyListener } from './KeyListener';
