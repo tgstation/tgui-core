@@ -30,6 +30,12 @@ jobs:
       - name: Lint project
         run: pnpm lint
 
+      # Updates the version in the package.json
+      - name: Set package version
+        uses: ZeWaka/set-node-package-version@v1
+        with:
+          version: ${{ github.ref_name }}
+
       - name: Build project
         run: pnpm build
 
@@ -38,7 +44,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Build for Release" || echo "No changes to commit"
+          git commit -m "Build & Release ${{ github.ref_name }}" || echo "No changes to commit"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
