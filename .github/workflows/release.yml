@@ -60,14 +60,10 @@ jobs:
         id: get_sha
         run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_sha: ${{ steps.get_sha.outputs.sha }}
-          custom_tag: ${{ github.event.release.tag_name}}
-          tag_prefix: ''
+      - name: Update tag to latest commit
+        run: |
+          git tag -f ${{ github.event.release.tag_name }} ${{ steps.get_sha.outputs.sha }}
+          git push origin ${{ github.event.release.tag_name }} --force
 
       - name: Build Changelog
         id: build_changelog
