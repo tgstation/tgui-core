@@ -1,4 +1,4 @@
-name: Release Workflow
+name: Publish Release
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: Generate Release
+    name: Publish Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
