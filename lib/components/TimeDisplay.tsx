@@ -16,11 +16,12 @@ const isSafeNumber = (value: unknown): boolean => {
   );
 };
 
-const TimeDisplay: React.FC<TimeDisplayProps> = ({
-  value: initialValue = 0,
-  auto = undefined,
-  format = undefined,
-}) => {
+export function TimeDisplay(props: TimeDisplayProps) {
+  const {
+    value: initialValue = 0,
+    auto = undefined,
+    format = undefined,
+  } = props;
   const [currentValue, setCurrentValue] = useState<number>(() =>
     isSafeNumber(initialValue) ? initialValue : 0,
   );
@@ -61,6 +62,4 @@ const TimeDisplay: React.FC<TimeDisplayProps> = ({
   }
 
   return format ? format(currentValue) : formatTime(currentValue);
-};
-
-export default TimeDisplay;
+}
