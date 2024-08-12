@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ROBUDDYBOT_PAT }}
 
       - uses: pnpm/action-setup@v4
 
@@ -46,15 +48,15 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "robuddybot"
+          git config --global user.email "65057909+robuddybot@users.noreply.github.com"
           git add .
           git commit -m "Build & Release ${{ github.event.release.tag_name }}" || echo "No changes to commit"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ROBUDDYBOT_PAT }}
 
       - name: Get new Git SHA
         id: get_sha
