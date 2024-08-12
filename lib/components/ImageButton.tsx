@@ -17,8 +17,8 @@ import { Stack } from './Stack';
 import { Tooltip } from './Tooltip';
 
 type Props = Partial<{
-  /** Asset cache. Example: `asset={`assetname32x32, ${thing.key}`}` */
-  asset: string;
+  /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
+  asset: string[];
   /** Classic way to put images. Example: `base64={thing.image}` */
   base64: string;
   /** 
@@ -137,7 +137,7 @@ export function ImageButton(props: Props) {
       <div className={classes([styles.image])}>
         {base64 || asset || imageSrc ? (
           <Image
-            className={classes([!base64 && !imageSrc && asset])}
+            className={classes(!base64 && !imageSrc && asset || [])}
             src={base64 ? `data:image/jpeg;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}

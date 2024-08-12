@@ -217,6 +217,7 @@ $bg-map: colors.$bg-map !default;
     flex: 1;
 
     &.hasButtons {
+      border-width: 1px 0 1px 1px;
       border-radius: 0.33em 0 0 0.33em;
     }
   }
