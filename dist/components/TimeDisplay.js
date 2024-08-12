@@ -1,9 +1,9 @@
-import { Component as r } from "react";
-import { formatTime as u } from "../common/format.js";
+import { Component as a } from "react";
+import { formatTime as o } from "../common/format.js";
 function s(e) {
   return typeof e == "number" && Number.isFinite(e) && !Number.isNaN(e);
 }
-class o extends r {
+class l extends a {
   constructor(t) {
     super(t), this.timer = null, this.last_seen_value = void 0, this.state = {
       value: 0
@@ -15,8 +15,8 @@ class o extends r {
   tick() {
     let t = Number(this.state.value);
     this.props.value !== this.last_seen_value && (this.last_seen_value = this.props.value, t = this.props.value);
-    const i = this.props.auto === "up" ? 10 : -10, a = Math.max(0, t + i);
-    this.setState({ value: a });
+    const i = this.props.auto === "up" ? 10 : -10, r = Math.max(0, t + i);
+    this.setState({ value: r });
   }
   componentDidMount() {
     this.props.auto !== void 0 && (this.timer = setInterval(() => this.tick(), 1e3));
@@ -26,9 +26,9 @@ class o extends r {
   }
   render() {
     const t = this.state.value;
-    return s(t) ? u(t) : this.state.value || null;
+    return s(t) ? this.props.format ? this.props.format(t) : o(t) : this.state.value || null;
   }
 }
 export {
-  o as TimeDisplay
+  l as TimeDisplay
 };
