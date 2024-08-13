@@ -4,10 +4,10 @@
  * @license MIT
  */
 
- @use '../base.scss';
- @use '../colors.scss';
- @use '../functions.scss' as *;
- 
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
 $color-default: colors.bg(base.$color-bg-section) !default;
 $color-disabled: #631d1d !default;
 $color-selected: colors.bg(colors.$green) !default;
@@ -47,18 +47,14 @@ $bg-map: colors.$bg-map !default;
   }
 
   .contentColor__#{$color-name} {
-    @include button-style(
-      $color-value,
-      $border-color: lighten($color-value, 25%),
-      $opacity: 1,
-      $hoverable: false
-    );
+    @include button-style($color-value, $border-color: lighten($color-value, 25%), $opacity: 1, $hoverable: false);
   }
 
   .buttonsContainerColor__#{$color-name} {
     @include button-style(
       $color-value,
       $border-width: 1px 1px 1px 0,
+      $opacity: 0.33,
       $hoverable: false,
       $transition-duration: 0
     );
@@ -75,11 +71,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .selected {
-  @include button-style(
-    $color-selected,
-    $border-color: rgba($color-selected, 0.25),
-    $border-width: 1px
-  );
+  @include button-style($color-selected, $border-color: rgba($color-selected, 0.25), $border-width: 1px);
 }
 
 .contentColor__default {
@@ -97,12 +89,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .contentSelected {
-  @include button-style(
-    $color-selected,
-    $border-color: lighten($color-selected, 25%),
-    $opacity: 1,
-    $hoverable: false
-  );
+  @include button-style($color-selected, $border-color: lighten($color-selected, 25%), $opacity: 1, $hoverable: false);
 }
 
 .buttonsContainerColor__default {
@@ -119,6 +106,8 @@ $bg-map: colors.$bg-map !default;
   position: relative;
   text-align: center;
   margin: 0.25em;
+  user-select: none;
+  -ms-user-select: none;
 
   .noAction {
     pointer-events: none;
@@ -160,8 +149,8 @@ $bg-map: colors.$bg-map !default;
     & > * {
       /* I know !important is bad, but here's no other way */
       margin: 0 !important;
+      padding: 0 0.2em !important;
       border-radius: 0 !important;
-      transition-duration: 0.2s !important;
     }
   }
 
@@ -183,6 +172,8 @@ $bg-map: colors.$bg-map !default;
   position: relative;
   text-align: center;
   margin: 0 0 0.5em 0;
+  user-select: none;
+  -ms-user-select: none;
 
   &:last-child {
     margin-bottom: 0;
@@ -193,9 +184,6 @@ $bg-map: colors.$bg-map !default;
     flex-direction: column;
     justify-content: center;
     flex: 1;
-    -ms-user-select: none;
-    user-select: none;
-    margin: 0 0.5em;
   }
 
   .title {
@@ -203,6 +191,7 @@ $bg-map: colors.$bg-map !default;
     padding: 0.5em;
 
     &.divider {
+      margin: 0 0.5em;
       border-bottom: $divider-thickness solid $color-divider;
     }
   }
@@ -217,8 +206,8 @@ $bg-map: colors.$bg-map !default;
     flex: 1;
 
     &.hasButtons {
-      border-width: 1px 0 1px 1px;
       border-radius: 0.33em 0 0 0.33em;
+      border-width: 1px 0 1px 1px;
     }
   }
 
@@ -232,10 +221,22 @@ $bg-map: colors.$bg-map !default;
     bottom: inherit;
     border-radius: 0 0.33em 0.33em 0;
 
+    &.buttonsEmpty {
+      bottom: inherit;
+    }
+
     &.buttonsAltContainer {
       overflow: hidden;
       pointer-events: auto;
       top: inherit;
+
+      & > * {
+        border-top: 1px solid rgba(255, 255, 255, 0.075);
+
+        &:first-child {
+          border-top: 0;
+        }
+      }
     }
 
     & > * {
@@ -247,11 +248,6 @@ $bg-map: colors.$bg-map !default;
       line-height: base.em(14px);
       height: 100%;
       border-left: 1px solid rgba(255, 255, 255, 0.075);
-      border-top: 1px solid rgba(255, 255, 255, 0.075);
-
-      &:first-child {
-        border-top: 0;
-      }
     }
   }
 }
