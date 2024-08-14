@@ -1,35 +1,35 @@
-import { jsxs as g, jsx as n } from "react/jsx-runtime";
+import { jsxs as x, jsx as n } from "react/jsx-runtime";
 import { CSS_COLORS as v } from "../common/constants.js";
-import { keyOfMatchingRange as y, toFixed as N, scale as _, clamp01 as B } from "../common/math.js";
+import { keyOfMatchingRange as y, toFixed as N, scale as S, clamp01 as _ } from "../common/math.js";
 import { classes as m } from "../common/react.js";
-import { s as o } from "../ProgressBar.module-BkAFfFy0.js";
-import { computeBoxProps as S, computeBoxClassName as O } from "./Box.js";
+import { p as e } from "../ProgressBar.module-Jzqlebbx.js";
+import { computeBoxProps as B, computeBoxClassName as O } from "./Box.js";
 function w(d) {
   const {
     className: f,
     value: r,
-    minValue: u = 0,
-    maxValue: p = 1,
+    minValue: p = 0,
+    maxValue: u = 1,
     color: C,
-    ranges: h = {},
+    ranges: g = {},
     children: l,
     ...t
-  } = d, a = _(r, u, p), x = l !== void 0, s = C || y(r, h) || "default", e = S(t), c = [
-    o.progressBar,
+  } = d, a = S(r, p, u), h = l !== void 0, o = C || y(r, g) || "default", s = B(t), c = [
+    e.progressBar,
     f,
     O(t)
   ], i = {
-    width: B(a) * 100 + "%"
+    width: _(a) * 100 + "%"
   };
-  return v.includes(s) || s === "default" ? c.push(o["color__" + s]) : (e.style = { ...e.style, borderColor: s }, i.backgroundColor = s), /* @__PURE__ */ g("div", { className: m(c), ...e, children: [
+  return v.includes(o) || o === "default" ? c.push(e["color__" + o]) : (s.style = { ...s.style, borderColor: o }, i.backgroundColor = o), /* @__PURE__ */ x("div", { className: m(c), ...s, children: [
     /* @__PURE__ */ n(
       "div",
       {
-        className: m([o.fill, o.fill__animated]),
+        className: m([e.fill, e.fill__animated]),
         style: i
       }
     ),
-    /* @__PURE__ */ n("div", { className: o.content, children: x ? l : N(a * 100) + "%" })
+    /* @__PURE__ */ n("div", { className: e.content, children: h ? l : N(a * 100) + "%" })
   ] });
 }
 export {
