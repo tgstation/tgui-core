@@ -28,7 +28,7 @@ type Props = Partial<{
    * Example: `buttons={<Button>Send</Button>}` 
    */
   buttons: ReactNode;
-  /** Enables alternate buttons container. */
+  /** Enables alternate layout for `buttons` container. */
   buttonsAlt: boolean;
   /** Content under image. Or on the right if fluid. */
   children: ReactNode;
