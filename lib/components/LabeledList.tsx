@@ -8,7 +8,11 @@ import { Tooltip } from './Tooltip';
 
 export function LabeledList(props: PropsWithChildren) {
   const { children } = props;
-  return <table className="LabeledList">{children}</table>;
+  return (
+    <table className="LabeledList">
+      <tbody>{children}</tbody>
+    </table>
+  );
 }
 
 type LabeledListItemProps = Partial<{
