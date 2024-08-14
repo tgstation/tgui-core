@@ -16,6 +16,21 @@
  * ```
  */
 export declare function createSearch<TObj>(searchText: string, stringifier?: (obj: TObj) => string): (obj: TObj) => boolean;
+export declare const VOWELS: string[];
+/**
+ * Pluralizes a word based on the number given.
+ * Handles -es and -ies.
+ *
+ * @param override - A custom string to be appended instead for plurals. Useful for words that don't follow the standard rules.
+ *
+ * @example
+ * ```tsx
+ * pluralize('Dog', 1) // Dog
+ * pluralize('Dog', 2) // Dogs
+ * pluralize('Monarch', 2, "s") // Monarchs
+ * ```
+ */
+export declare function pluralize(str: string, n: number, override?: string): string;
 /**
  * Capitalizes a word and lowercases the rest.
  *
