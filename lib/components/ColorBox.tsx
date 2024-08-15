@@ -23,7 +23,7 @@ export function ColorBox(props: Props) {
       ])}
       {...computeBoxProps(rest)}
     >
-      {content || '.'}
+      {content || ''}
     </div>
   );
 }
