@@ -33,7 +33,6 @@ export function TimeDisplay(props: TimeDisplayProps) {
 
   // Manage the timer setup and cleanup
   useEffect(() => {
-    console.log('auto', auto);
     if (auto !== undefined) {
       timerRef.current = setInterval(() => {
         const mod = auto === 'up' ? 10 : -10;
