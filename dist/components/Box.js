@@ -28,7 +28,7 @@ const m = (o) => (t, i) => {
 }, g = (o, t, i) => (e, f) => {
   if (typeof f == "number" || typeof f == "string")
     for (let c = 0; c < i.length; c++)
-      e[o + "-" + i[c]] = t(f);
+      e[o + i[c]] = t(f);
 }, s = (o) => (t, i) => {
   x(i) && (t[o] = i);
 }, C = {

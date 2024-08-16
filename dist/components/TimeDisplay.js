@@ -1,34 +1,25 @@
-import { Component as a } from "react";
-import { formatTime as o } from "../common/format.js";
-function s(e) {
-  return typeof e == "number" && Number.isFinite(e) && !Number.isNaN(e);
-}
-class l extends a {
-  constructor(t) {
-    super(t), this.timer = null, this.last_seen_value = void 0, this.state = {
-      value: 0
-    }, s(t.value) && (this.state.value = Number(t.value), this.last_seen_value = Number(t.value));
-  }
-  componentDidUpdate() {
-    this.props.auto !== void 0 && (clearInterval(this.timer), this.timer = setInterval(() => this.tick(), 1e3));
-  }
-  tick() {
-    let t = Number(this.state.value);
-    this.props.value !== this.last_seen_value && (this.last_seen_value = this.props.value, t = this.props.value);
-    const i = this.props.auto === "up" ? 10 : -10, r = Math.max(0, t + i);
-    this.setState({ value: r });
-  }
-  componentDidMount() {
-    this.props.auto !== void 0 && (this.timer = setInterval(() => this.tick(), 1e3));
-  }
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-  render() {
-    const t = this.state.value;
-    return s(t) ? this.props.format ? this.props.format(t) : o(t) : this.state.value || null;
-  }
+import { useState as l, useRef as d, useEffect as f } from "react";
+import { formatTime as v } from "../common/format.js";
+const u = (t) => typeof t == "number" && Number.isFinite(t) && !Number.isNaN(t);
+function b(t) {
+  const {
+    value: e = 0,
+    auto: r = void 0,
+    format: o = void 0
+  } = t, [i, a] = l(
+    () => u(e) ? e : 0
+  ), [s, m] = l(
+    u(e) ? e : void 0
+  ), n = d(null);
+  return f(() => (console.log("auto", r), r !== void 0 && (n.current = setInterval(() => {
+    const c = r === "up" ? 10 : -10;
+    a((p) => Math.max(0, p + c));
+  }, 1e3)), () => {
+    n.current && clearInterval(n.current);
+  }), [r]), f(() => {
+    e !== s && (m(e), a(e));
+  }, [e, s]), u(e) ? o ? o(i) : v(i) : e || null;
 }
 export {
-  l as TimeDisplay
+  b as TimeDisplay
 };

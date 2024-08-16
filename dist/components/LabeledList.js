@@ -1,4 +1,4 @@
-import { jsx as l, jsxs as d } from "react/jsx-runtime";
+import { jsx as l, jsxs as b } from "react/jsx-runtime";
 import { classes as i } from "../common/react.js";
 import { Box as r, unit as g } from "./Box.js";
 import { Divider as x } from "./Divider.js";
@@ -12,7 +12,7 @@ import '../assets/LabeledList.css';const v = "_labeledList_pb6nb_9", y = "_row_p
 };
 function p(e) {
   const { children: t } = e;
-  return /* @__PURE__ */ l("table", { className: "LabeledList", children: t });
+  return /* @__PURE__ */ l("table", { className: "LabeledList", children: /* @__PURE__ */ l("tbody", { children: t }) });
 }
 function z(e) {
   const {
@@ -21,15 +21,15 @@ function z(e) {
     labelColor: _ = "label",
     labelWrap: m,
     color: L,
-    textAlign: f,
+    textAlign: h,
     buttons: a,
-    content: h,
+    content: f,
     children: u,
     verticalAlign: c = "baseline",
-    tooltip: b
+    tooltip: d
   } = e;
   let n;
-  s && (n = s, typeof s == "string" && (n += ":")), b !== void 0 && (n = /* @__PURE__ */ l(N, { content: b, children: /* @__PURE__ */ l(
+  s && (n = s, typeof s == "string" && (n += ":")), d !== void 0 && (n = /* @__PURE__ */ l(N, { content: d, children: /* @__PURE__ */ l(
     r,
     {
       as: "span",
@@ -53,19 +53,19 @@ function z(e) {
       children: n
     }
   );
-  return /* @__PURE__ */ d("tr", { className: i([o.row, t]), children: [
+  return /* @__PURE__ */ b("tr", { className: i([o.row, t]), children: [
     w,
-    /* @__PURE__ */ d(
+    /* @__PURE__ */ b(
       r,
       {
         as: "td",
         color: L,
-        textAlign: f,
+        textAlign: h,
         className: o.cell,
         colSpan: a ? void 0 : 2,
         verticalAlign: c,
         children: [
-          h,
+          f,
           u
         ]
       }
