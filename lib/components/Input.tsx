@@ -1,6 +1,6 @@
 import { KeyboardEvent, SyntheticEvent, useEffect, useRef } from 'react';
 
-import { KEY } from '../common/keys';
+import { isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
 import styles from '../styles/components/Input.module.scss';
@@ -122,7 +122,7 @@ export function Input(props: Props) {
       return;
     }
 
-    if (event.key === KEY.Escape) {
+    if (isEscape(event.key)) {
       onEscape?.(event);
 
       event.currentTarget.value = toInputValue(value);
@@ -149,6 +149,19 @@ export function Input(props: Props) {
       }
     }, 1);
   }, []);
+
+  useEffect(() => {
+    const input = inputRef.current;
+    if (!input) return;
+
+    if (document.activeElement === input) {
+      return;
+    }
+
+    const newValue = toInputValue(value);
+
+    if (input.value !== newValue) input.value = newValue;
+  });
 
   return (
     <Box

@@ -7,7 +7,7 @@ import {
   RefObject,
 } from 'react';
 
-import { KEY } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { clamp } from '../common/math';
 import { BooleanLike, classes } from '../common/react';
 import styles from '../styles/components/NumberInput.module.scss';
@@ -239,7 +239,7 @@ export class NumberInput extends Component<Props, State> {
         onChange?.(targetValue);
         onDrag?.(targetValue);
       }
-    } else if (event.key === KEY.Escape) {
+    } else if (isEscape(event.key)) {
       this.setState({
         editing: false,
       });
