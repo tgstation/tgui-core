@@ -12,12 +12,10 @@ type Props = Partial<{
   container_id: string;
   /** If true, fills all available vertical space. */
   fill: boolean;
-  /** If true, filly the area except for -3rem */
-  stretchContents: boolean;
-  /** If true, fills the area without forcing height to 100% */
-  flexGrow: boolean;
   /** If true, removes all section padding. */
   fitted: boolean;
+  /** If true, fills the area without forcing height to 100% */
+  flexGrow: boolean;
   /** If true, removes the section top padding */
   noTopPadding: boolean;
   /** @member Callback function for the `scroll` event */
@@ -26,6 +24,8 @@ type Props = Partial<{
   scrollable: boolean;
   /** Shows or hides the horizontal scrollbar. */
   scrollableHorizontal: boolean;
+  /** If true, filly the area except for -3rem */
+  stretchContents: boolean;
   /** Title of the section. */
   title: ReactNode;
 }> &
@@ -65,14 +65,14 @@ export const Section = (props: Props) => {
     className,
     fill,
     fitted,
+    flexGrow,
+    noTopPadding,
     onScroll,
     scrollable,
     scrollableHorizontal,
+    stretchContents,
     title,
     container_id,
-    flexGrow,
-    noTopPadding,
-    stretchContents,
     ...rest
   } = props;
 

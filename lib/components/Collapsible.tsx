@@ -6,25 +6,25 @@ import { Button } from './Button';
 type Props = Partial<{
   /** Buttons or other content to render inline with the button */
   buttons: ReactNode;
+  /** Top margin of the child nodes, defaulted to 1 */
+  child_mt: number; 
   /** Icon to display with the collapsible */
   icon: string;
   /** Whether the collapsible is open */
   open: boolean;
   /** Text to display on the button for collapsing */
   title: ReactNode;
-  /** Top margin of the child nodes, defaulted to 1 */
-  child_mt: number; 
 }> &
   BoxProps;
 
 export function Collapsible(props: Props) {
   const {
     children,
+    child_mt = 1,
     color,
     title,
     buttons,
     icon,
-    child_mt = 1,
     ...rest
   } = props;
   const [open, setOpen] = useState(props.open);
