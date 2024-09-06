@@ -28,7 +28,11 @@ type Props = Partial<{
    * Example: `buttons={<Button>Send</Button>}` 
    */
   buttons: ReactNode;
-  /** Enables alternate layout for `buttons` container. */
+  /** 
+   * Enables alternate layout for `buttons` container.
+   * Without fluid, buttons will be on top and with `pointer-events: none`, useful for text info.
+   * With fluid, buttons will be in "hamburger" style.
+   */
   buttonsAlt: boolean;
   /** Content under image. Or on the right if fluid. */
   children: ReactNode;
