@@ -138,7 +138,7 @@ export function ImageButton(props: Props) {
         {base64 || asset || imageSrc ? (
           <Image
             className={classes(!base64 && !imageSrc && asset || [])}
-            src={base64 ? `data:image/jpeg;base64,${base64}` : imageSrc}
+            src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}
           />
