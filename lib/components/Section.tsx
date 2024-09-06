@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode, RefObject, useEffect } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
@@ -14,12 +14,18 @@ type Props = Partial<{
   fill: boolean;
   /** If true, removes all section padding. */
   fitted: boolean;
+  /** If true, fills the area without forcing height to 100% */
+  flexGrow: boolean;
+  /** If true, removes the section top padding */
+  noTopPadding: boolean;
   /** @member Callback function for the `scroll` event */
   onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
   /** Shows or hides the scrollbar. */
   scrollable: boolean;
   /** Shows or hides the horizontal scrollbar. */
   scrollableHorizontal: boolean;
+  /** If true, filly the area except for -3rem */
+  stretchContents: boolean;
   /** Title of the section. */
   title: ReactNode;
 }> &
@@ -52,69 +58,78 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export const Section = forwardRef(
-  (props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
-    const {
-      buttons,
-      children,
-      className,
-      fill,
-      fitted,
-      onScroll,
-      scrollable,
-      scrollableHorizontal,
-      title,
-      container_id,
-      ...rest
-    } = props;
+export const Section = (props: Props) => {
+  const {
+    buttons,
+    children,
+    className,
+    fill,
+    fitted,
+    flexGrow,
+    noTopPadding,
+    onScroll,
+    scrollable,
+    scrollableHorizontal,
+    stretchContents,
+    title,
+    container_id,
+    ...rest
+  } = props;
 
-    const hasTitle = canRender(title) || canRender(buttons);
+  const node = useRef(null);
 
-    /** We want to be able to scroll on hover, but using focus will steal it from inputs */
-    useEffect(() => {
-      if (!forwardedRef?.current) return;
-      if (!scrollable && !scrollableHorizontal) return;
+  const hasTitle = canRender(title) || canRender(buttons);
 
-      addScrollableNode(forwardedRef.current);
+  /** We want to be able to scroll on hover, but using focus will steal it from inputs */
+  useEffect(() => {
+    if (!node?.current) return;
+    if (!scrollable && !scrollableHorizontal) return;
+    const self = node.current;
 
-      return () => {
-        if (!forwardedRef?.current) return;
-        removeScrollableNode(forwardedRef.current!);
-      };
-    }, []);
+    addScrollableNode(self);
 
-    return (
-      <div
-        id={container_id || ''}
-        className={classes([
-          styles.section,
-          fill && styles.fill,
-          fitted && styles.fitted,
-          scrollable && styles.scrollable,
-          scrollableHorizontal && styles.scrollableHorizontal,
-          className,
-          computeBoxClassName(rest),
-        ])}
-        {...computeBoxProps(rest)}
-      >
-        {hasTitle && (
-          <div className={styles.title}>
-            <span className={styles.titleText}>{title}</span>
-            <div className={styles.buttons}>{buttons}</div>
-          </div>
-        )}
-        <div className={styles.rest}>
-          <div
-            className={styles.content}
-            onScroll={onScroll}
-            // For posterity: the forwarded ref needs to be here specifically
-            // to actually let things interact with the scrolling.
-            ref={forwardedRef}
-          >
-            {children}
-          </div>
+    return () => {
+      if (!self) return;
+      removeScrollableNode(self!);
+    };
+  }, []);
+
+  return (
+    <div
+      id={container_id || ''}
+      className={classes([
+        styles.section,
+        fill && styles.fill,
+        fitted && styles.fitted,
+        scrollable && styles.scrollable,
+        scrollableHorizontal && styles.scrollableHorizontal,
+        flexGrow && styles.sectionFlex,
+        className,
+        computeBoxClassName(rest),
+      ])}
+      {...computeBoxProps(rest)}
+    >
+      {hasTitle && (
+        <div className={styles.title}>
+          <span className={styles.titleText}>{title}</span>
+          <div className={styles.buttons}>{buttons}</div>
+        </div>
+      )}
+      <div className={styles.rest}>
+        <div
+          className={classes([
+            styles.content,
+            !!stretchContents && styles.stretchContents,
+            !!noTopPadding && styles.noTopPadding,
+          ])}
+          onScroll={onScroll}
+          // For posterity: the forwarded ref needs to be here specifically
+          // to actually let things interact with the scrolling.
+          ref={node}
+        >
+          {children}
         </div>
       </div>
-    );
-  },
-);
+    </div>
+  );
+};

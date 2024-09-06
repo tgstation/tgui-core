@@ -18,6 +18,7 @@ type TabProps = Partial<{
   className: string;
   color: string;
   icon: string;
+  iconSpin: boolean;
   leftSlot: ReactNode;
   onClick: (e?) => void;
   rightSlot: ReactNode;
@@ -52,11 +53,20 @@ function Tab(props: TabProps) {
     selected,
     color,
     icon,
+    iconSpin,
     leftSlot,
     rightSlot,
     children,
+    onClick,
     ...rest
   } = props;
+
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(e);
+      e.target.blur();
+    }
+  };
 
   return (
     <div
@@ -68,6 +78,7 @@ function Tab(props: TabProps) {
         className,
         computeBoxClassName(rest),
       ])}
+      onClick={handleClick}
       {...computeBoxProps(rest)}
     >
       {(canRender(leftSlot) && (
@@ -75,7 +86,7 @@ function Tab(props: TabProps) {
       )) ||
         (!!icon && (
           <div className={styles.tab__left}>
-            <Icon name={icon} />
+            <Icon name={icon} spin={iconSpin} />
           </div>
         ))}
       <div className={styles.tab__text}>{children}</div>

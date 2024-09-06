@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { KeyboardEvent, SyntheticEvent } from 'react';
 
-import { KEY } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import styles from '../styles/components/TextArea.module.scss';
 import { Box, BoxProps } from './Box';
@@ -76,7 +76,7 @@ export const TextArea = forwardRef(
         return;
       }
 
-      if (event.key === KEY.Escape) {
+      if (isEscape(event.key)) {
         onEscape?.(event);
         if (selfClear) {
           event.currentTarget.value = '';
