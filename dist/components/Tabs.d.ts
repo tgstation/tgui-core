@@ -11,6 +11,7 @@ type TabProps = Partial<{
     className: string;
     color: string;
     icon: string;
+    iconSpin: boolean;
     leftSlot: ReactNode;
     onClick: (e?: any) => void;
     rightSlot: ReactNode;

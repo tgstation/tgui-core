@@ -1,5 +1,5 @@
 import { jsxs as s, jsx as l } from "react/jsx-runtime";
-import { s as t } from "../Section.module-CLVHJ4yA.js";
+import { s as t } from "../Section.module-qhQWhlUX.js";
 import { Box as e } from "./Box.js";
 function h(i) {
   const { children: r, titleStyle: c, titleSubtext: n, title: o, textStyle: a, style: m } = i;

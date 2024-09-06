@@ -1,62 +1,69 @@
-import { jsxs as r, jsx as s } from "react/jsx-runtime";
-import { forwardRef as S, useEffect as j } from "react";
-import { addScrollableNode as z, removeScrollableNode as B } from "../common/events.js";
-import { classes as H, canRender as m } from "../common/react.js";
-import { s as t } from "../Section.module-CLVHJ4yA.js";
-import { computeBoxClassName as T, computeBoxProps as y } from "./Box.js";
-const q = S(
-  (a, l) => {
-    const {
-      buttons: c,
-      children: u,
-      className: p,
-      fill: N,
-      fitted: b,
-      onScroll: h,
-      scrollable: i,
-      scrollableHorizontal: e,
-      title: n,
-      container_id: v,
-      ...o
-    } = a, x = m(n) || m(c);
-    return j(() => {
-      if (l != null && l.current && !(!i && !e))
-        return z(l.current), () => {
-          l != null && l.current && B(l.current);
-        };
-    }, []), /* @__PURE__ */ r(
-      "div",
-      {
-        id: v || "",
-        className: H([
-          t.section,
-          N && t.fill,
-          b && t.fitted,
-          i && t.scrollable,
-          e && t.scrollableHorizontal,
-          p,
-          T(o)
-        ]),
-        ...y(o),
-        children: [
-          x && /* @__PURE__ */ r("div", { className: t.title, children: [
-            /* @__PURE__ */ s("span", { className: t.titleText, children: n }),
-            /* @__PURE__ */ s("div", { className: t.buttons, children: c })
-          ] }),
-          /* @__PURE__ */ s("div", { className: t.rest, children: /* @__PURE__ */ s(
-            "div",
-            {
-              className: t.content,
-              onScroll: h,
-              ref: l,
-              children: u
-            }
-          ) })
-        ]
-      }
-    );
-  }
-);
+import { jsxs as a, jsx as r } from "react/jsx-runtime";
+import { useRef as P, useEffect as g } from "react";
+import { addScrollableNode as j, removeScrollableNode as z } from "../common/events.js";
+import { classes as d, canRender as m } from "../common/react.js";
+import { s as e } from "../Section.module-qhQWhlUX.js";
+import { computeBoxClassName as B, computeBoxProps as H } from "./Box.js";
+const _ = (f) => {
+  const {
+    buttons: o,
+    children: u,
+    className: p,
+    fill: N,
+    fitted: h,
+    flexGrow: b,
+    noTopPadding: x,
+    onScroll: v,
+    scrollable: s,
+    scrollableHorizontal: n,
+    stretchContents: S,
+    title: c,
+    container_id: T,
+    ...i
+  } = f, t = P(null), C = m(c) || m(o);
+  return g(() => {
+    if (!(t != null && t.current) || !s && !n) return;
+    const l = t.current;
+    return j(l), () => {
+      l && z(l);
+    };
+  }, []), /* @__PURE__ */ a(
+    "div",
+    {
+      id: T || "",
+      className: d([
+        e.section,
+        N && e.fill,
+        h && e.fitted,
+        s && e.scrollable,
+        n && e.scrollableHorizontal,
+        b && e.sectionFlex,
+        p,
+        B(i)
+      ]),
+      ...H(i),
+      children: [
+        C && /* @__PURE__ */ a("div", { className: e.title, children: [
+          /* @__PURE__ */ r("span", { className: e.titleText, children: c }),
+          /* @__PURE__ */ r("div", { className: e.buttons, children: o })
+        ] }),
+        /* @__PURE__ */ r("div", { className: e.rest, children: /* @__PURE__ */ r(
+          "div",
+          {
+            className: d([
+              e.content,
+              !!S && e.stretchContents,
+              !!x && e.noTopPadding
+            ]),
+            onScroll: v,
+            ref: t,
+            children: u
+          }
+        ) })
+      ]
+    }
+  );
+};
 export {
-  q as Section
+  _ as Section
 };

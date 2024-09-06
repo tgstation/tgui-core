@@ -4,6 +4,8 @@ import { BoxProps } from './Box';
 type Props = Partial<{
     /** Buttons or other content to render inline with the button */
     buttons: ReactNode;
+    /** Top margin of the child nodes, defaulted to 1 */
+    child_mt: number;
     /** Icon to display with the collapsible */
     icon: string;
     /** Whether the collapsible is open */
