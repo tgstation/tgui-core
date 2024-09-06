@@ -126,19 +126,23 @@ export class NumberInput extends Component<Props, State> {
         const stepOffset = isFinite(minValue) ? minValue % step : 0;
         // Translate mouse movement to value
         // Give it some headroom (by increasing clamp range by 1 step)
-        state.currentValue = clamp(
+        const internalValue = clamp(
           state.currentValue + (offset * step) / (stepPixelSize || 1),
           minValue - step,
           maxValue + step,
         );
-        // Clamp the final value
-        state.currentValue = clamp(
-          state.currentValue - (state.currentValue % step) + stepOffset,
-          minValue,
-          maxValue,
-        );
-        // Set the new origin
-        state.origin = event.screenY;
+        if (Math.abs(internalValue - state.currentValue) >= step) {
+          // Clamp the final value
+          {
+            state.currentValue = clamp(
+              internalValue - (internalValue % step) + stepOffset,
+              minValue,
+              maxValue,
+            );
+          }
+          // Set the new origin
+          state.origin = event.screenY;
+        }
       } else if (Math.abs(offset) > 4) {
         state.dragging = true;
       }
