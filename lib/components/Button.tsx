@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { KEY } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { BooleanLike, classes } from '../common/react';
 import styles from '../styles/components/Button.module.scss';
 import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -56,6 +56,8 @@ type Props = Partial<{
   iconPosition: string;
   /** Icon rotation */
   iconRotation: number;
+  /** Icon size */
+  iconSize: number
   /** Makes the icon spin */
   iconSpin: BooleanLike;
   /** Called when element is clicked */
@@ -89,6 +91,7 @@ export function Button(props: Props) {
     iconColor,
     iconPosition,
     iconRotation,
+    iconSize,
     iconSpin,
     onClick,
     selected,
@@ -140,7 +143,7 @@ export function Button(props: Props) {
         }
 
         // Refocus layout on pressing escape.
-        if (event.key === KEY.Escape) {
+        if (isEscape(event.key)) {
           event.preventDefault();
         }
       }}
@@ -153,6 +156,7 @@ export function Button(props: Props) {
             name={icon}
             color={iconColor}
             rotation={iconRotation}
+            size={iconSize}
             spin={iconSpin}
           />
         )}
@@ -171,6 +175,7 @@ export function Button(props: Props) {
             name={icon}
             color={iconColor}
             rotation={iconRotation}
+            size={iconSize}
             spin={iconSpin}
           />
         )}
@@ -353,7 +358,7 @@ function ButtonInput(props: InputProps) {
             commitResult(event);
             return;
           }
-          if (event.key === KEY.Escape) {
+          if (isEscape(event.key)) {
             setInInput(false);
           }
         }}

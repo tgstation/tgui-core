@@ -128,3 +128,21 @@ $separator-color: colors.$primary !default;
 .section .section .section .titleText {
   font-size: base.em(12px);
 }
+
+.section__flex {
+  display: flex;
+  flex-flow: column;
+}
+
+.section__flex .content {
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.content__noTopPadding {
+  padding-top: 0;
+}
+
+.content__stretchContents {
+  height: calc(100% - 3rem);
+}

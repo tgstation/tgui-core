@@ -40,6 +40,8 @@ type Props = Partial<{
     iconPosition: string;
     /** Icon rotation */
     iconRotation: number;
+    /** Icon size */
+    iconSize: number;
     /** Makes the icon spin */
     iconSpin: BooleanLike;
     /** Called when element is clicked */

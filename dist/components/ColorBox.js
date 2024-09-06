@@ -15,7 +15,7 @@ function d(r) {
         e(o)
       ]),
       ...n(o),
-      children: c || "."
+      children: c || ""
     }
   );
 }
