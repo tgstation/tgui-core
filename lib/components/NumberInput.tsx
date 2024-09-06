@@ -176,7 +176,7 @@ export class NumberInput extends Component<Props, State> {
         setTimeout(() => {
           input.focus();
           input.select();
-        }, 1);
+        }, 10);
       }
     }
 
