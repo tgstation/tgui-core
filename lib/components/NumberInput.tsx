@@ -125,8 +125,9 @@ export class NumberInput extends Component<Props, State> {
       if (prevState.dragging) {
         // Translate mouse movement to value
         // Give it some headroom (by increasing clamp range by 1 step)
+        const stepSize = stepPixelSize || 1;
         const internalValue = clamp(
-          state.currentValue + (offset * step) / (stepPixelSize || 1),
+          state.currentValue + (offset * step) / stepSize,
           minValue - step,
           maxValue + step,
         );
@@ -140,6 +141,8 @@ export class NumberInput extends Component<Props, State> {
             );
           }
           // Set the new origin
+          state.origin = event.screenY;
+        } else if (Math.abs(offset) > stepSize) {
           state.origin = event.screenY;
         }
       } else if (Math.abs(offset) > 4) {
