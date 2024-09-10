@@ -21,7 +21,7 @@ type Props = {
   className: string;
   /** Color of the slider. */
   color: string;
-  /** If set, the slider will be disabled. */
+  /** Disables the slider. */
   disabled: boolean;
   /** If set, this value will be used to set the fill percentage of the progress bar filler independently of the main value. */
   fillValue: number;
