@@ -22,6 +22,7 @@ export type EventHandlers = Partial<{
   onKeyDown: KeyboardEventHandler<HTMLDivElement>;
   onKeyUp: KeyboardEventHandler<HTMLDivElement>;
   onMouseDown: MouseEventHandler<HTMLDivElement>;
+  onMouseLeave: MouseEventHandler<HTMLDivElement>;
   onMouseMove: MouseEventHandler<HTMLDivElement>;
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   onMouseUp: MouseEventHandler<HTMLDivElement>;
