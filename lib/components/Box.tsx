@@ -33,6 +33,7 @@ export type BoxProps = Partial<{
   as: string;
   children: ReactNode;
   className: string | BooleanLike;
+  id: string;
   style: CSSProperties;
 }> &
   BooleanProps &
