@@ -2,11 +2,16 @@ import { classes } from '../common/react';
 import styles from '../styles/components/Dimmer.module.scss';
 import { Box, BoxProps } from './Box';
 
-export function Dimmer(props: BoxProps) {
-  const { className, children, ...rest } = props;
+type DimmerProps = {
+  /** If true, the dimmer will take up the full screen. */
+  full?: boolean;
+} & BoxProps;
+
+export function Dimmer(props: DimmerProps) {
+  const { className, children, full, ...rest } = props;
 
   return (
-    <Box className={classes([styles.dimmer, className])} {...rest}>
+    <Box className={classes([styles.dimmer, !!full && styles.full, className])} {...rest}>
       <div className="Dimmer__inner">{children}</div>
     </Box>
   );

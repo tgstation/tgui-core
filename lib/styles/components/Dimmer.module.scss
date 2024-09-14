@@ -20,3 +20,8 @@ $background-dimness: 0.75 !default;
   background-color: rgba(0, 0, 0, $background-dimness);
   z-index: 1;
 }
+
+.full {
+  position: fixed;
+  top: 2em;
+}
