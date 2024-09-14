@@ -1,4 +1,4 @@
-import { jsxs as N, Fragment as T, jsx as F } from "react/jsx-runtime";
+import { jsxs as T, Fragment as N, jsx as F } from "react/jsx-runtime";
 import { clamp as m } from "../common/math.js";
 import { Component as b, createRef as I } from "react";
 import { AnimatedNumber as M } from "./AnimatedNumber.js";
@@ -67,11 +67,9 @@ class C extends b {
         this.suppressFlicker(), i && i(e, o), l && l(e, o);
       else if (this.inputRef) {
         const a = this.inputRef.current;
-        a.value = g;
-        try {
+        a.value = g, setTimeout(() => {
           a.focus(), a.select();
-        } catch {
-        }
+        }, 10);
       }
     };
   }
@@ -99,7 +97,7 @@ class C extends b {
     } = this.props;
     let d = o;
     (u || l) && (d = i);
-    const E = /* @__PURE__ */ N(T, { children: [
+    const E = /* @__PURE__ */ T(N, { children: [
       s && !u && !l ? /* @__PURE__ */ F(M, { value: d, format: h }) : h ? h(d) : d,
       g ? " " + g : ""
     ] }), x = /* @__PURE__ */ F(

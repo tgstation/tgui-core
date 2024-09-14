@@ -24,6 +24,7 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     as: string;
     children: import('react').ReactNode;
     className: string | import('../common/react').BooleanLike;
+    id: string;
     style: import('react').CSSProperties;
 }> & Partial<Record<"bold" | "italic" | "nowrap" | "fillPositionedParent" | "inline" | "preserveWhitespace", boolean>> & Partial<Record<"fontWeight" | "textAlign" | "bottom" | "fontFamily" | "fontSize" | "height" | "left" | "maxHeight" | "maxWidth" | "minHeight" | "minWidth" | "opacity" | "overflow" | "overflowX" | "overflowY" | "position" | "right" | "top" | "verticalAlign" | "width" | "color" | "backgroundColor" | "align" | "lineHeight" | "m" | "mb" | "ml" | "mr" | "mt" | "mx" | "my" | "p" | "pb" | "pl" | "pr" | "pt" | "px" | "py" | "textColor", string | import('../common/react').BooleanLike>> & Partial<{
     onClick: import('react').MouseEventHandler<HTMLDivElement>;
@@ -32,6 +33,7 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     onKeyDown: import('react').KeyboardEventHandler<HTMLDivElement>;
     onKeyUp: import('react').KeyboardEventHandler<HTMLDivElement>;
     onMouseDown: import('react').MouseEventHandler<HTMLDivElement>;
+    onMouseLeave: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseMove: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseOver: import('react').MouseEventHandler<HTMLDivElement>;
     onMouseUp: import('react').MouseEventHandler<HTMLDivElement>;

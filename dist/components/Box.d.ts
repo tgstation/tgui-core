@@ -10,6 +10,7 @@ export type EventHandlers = Partial<{
     onKeyDown: KeyboardEventHandler<HTMLDivElement>;
     onKeyUp: KeyboardEventHandler<HTMLDivElement>;
     onMouseDown: MouseEventHandler<HTMLDivElement>;
+    onMouseLeave: MouseEventHandler<HTMLDivElement>;
     onMouseMove: MouseEventHandler<HTMLDivElement>;
     onMouseOver: MouseEventHandler<HTMLDivElement>;
     onMouseUp: MouseEventHandler<HTMLDivElement>;
@@ -19,6 +20,7 @@ export type BoxProps = Partial<{
     as: string;
     children: ReactNode;
     className: string | BooleanLike;
+    id: string;
     style: CSSProperties;
 }> & BooleanProps & StringProps & EventHandlers;
 type DangerDoNotUse = {
