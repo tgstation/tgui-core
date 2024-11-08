@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 import styles from '../styles/components/Section.module.scss';
 import { Box } from './Box';

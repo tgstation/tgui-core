@@ -1,10 +1,10 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
 import progStyles from '../styles/components/ProgressBar.module.scss';
 import styles from '../styles/components/Slider.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
 type Props = {
@@ -122,7 +122,7 @@ export function Slider(props: Props) {
             className={classes([
               styles.slider,
               progStyles.progressBar,
-              progStyles['color__' + effectiveColor],
+              progStyles[`color__${effectiveColor}`],
               className,
               computeBoxClassName(rest),
             ])}
@@ -135,22 +135,20 @@ export function Slider(props: Props) {
                 hasFillValue && progStyles.fill__animated,
               ])}
               style={{
-                width: clamp01(scaledFillValue) * 100 + '%',
+                width: `${clamp01(scaledFillValue) * 100}%`,
                 opacity: 0.4,
               }}
             />
             <div
               className={progStyles.fill}
               style={{
-                width:
-                  clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
-                  '%',
+                width: `${clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100}%`,
               }}
             />
             <div
               className={styles.cursorOffset}
               style={{
-                width: clamp01(scaledDisplayValue) * 100 + '%',
+                width: `${clamp01(scaledDisplayValue) * 100}%`,
               }}
             >
               <div className={styles.cursor} />

@@ -1,7 +1,7 @@
 import { keyOfMatchingRange, scale } from '../common/math';
-import { BooleanLike, classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 import styles from '../styles/components/Knob.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
 type Props = {
@@ -117,14 +117,14 @@ export function Knob(props: Props) {
           <div
             className={classes([
               styles.knob,
-              styles['color__' + effectiveColor],
+              styles[`color__${effectiveColor}`],
               bipolar && styles.bipolar,
               className,
               computeBoxClassName(rest),
             ])}
             {...computeBoxProps({
               style: {
-                fontSize: size + 'em',
+                fontSize: `${size}em`,
                 ...style,
               },
               ...rest,
@@ -149,11 +149,13 @@ export function Knob(props: Props) {
               viewBox="0 0 100 100"
             >
               <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
+              <title>track</title>
             </svg>
             <svg
               className={classes([styles.ring, styles.ringFillPivot])}
               viewBox="0 0 100 100"
             >
+              <title>fill</title>
               <circle
                 className={styles.ringFill}
                 style={{

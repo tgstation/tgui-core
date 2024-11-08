@@ -1,10 +1,10 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
 import styles from '../styles/components/ProgressBar.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {
   /**
@@ -77,18 +77,18 @@ export function ProgressBar(props: Props) {
     computeBoxClassName(rest),
   ];
   const fillStyles = {
-    width: clamp01(scaledValue) * 100 + '%',
+    width: `${clamp01(scaledValue) * 100}%`,
   };
   if (
     CSS_COLORS.includes(effectiveColor as any) ||
     effectiveColor === 'default'
   ) {
     // If the color is a color-<name> class, just use that.
-    outerClasses.push(styles['color__' + effectiveColor]);
+    outerClasses.push(styles[`color__${effectiveColor}`]);
   } else {
     // Otherwise, set styles directly.
     outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
-    fillStyles['backgroundColor'] = effectiveColor;
+    fillStyles.backgroundColor = effectiveColor;
   }
 
   return (
@@ -98,7 +98,7 @@ export function ProgressBar(props: Props) {
         style={fillStyles}
       />
       <div className={styles.content}>
-        {hasContent ? children : toFixed(scaledValue * 100) + '%'}
+        {hasContent ? children : `${toFixed(scaledValue * 100)}%`}
       </div>
     </div>
   );

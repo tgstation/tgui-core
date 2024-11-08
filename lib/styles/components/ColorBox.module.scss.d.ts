@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly colorBox: "colorBox";
+  readonly colorBox: 'colorBox';
 };
 export = classNames;

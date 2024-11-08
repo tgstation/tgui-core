@@ -132,6 +132,7 @@ function focusNearestTrackedParent(node: HTMLElement | null) {
       node.focus();
       return;
     }
+    // biome-ignore lint/style/noParameterAssign: This is fine
     node = node.parentElement;
   }
 }
@@ -230,9 +231,9 @@ export class KeyEvent {
     if (this.code >= 48 && this.code <= 90) {
       this._str += String.fromCharCode(this.code);
     } else if (this.code >= KEY_F1 && this.code <= KEY_F12) {
-      this._str += 'F' + (this.code - 111);
+      this._str += `F${this.code - 111}`;
     } else {
-      this._str += '[' + this.code + ']';
+      this._str += `[${this.code}]`;
     }
     return this._str;
   }

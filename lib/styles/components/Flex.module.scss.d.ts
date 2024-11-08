@@ -1,5 +1,5 @@
 declare const classNames: {
-  readonly flex: "flex";
-  readonly inline: "inline";
+  readonly flex: 'flex';
+  readonly inline: 'inline';
 };
 export = classNames;

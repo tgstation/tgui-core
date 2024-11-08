@@ -1,6 +1,6 @@
 import { classes } from '../common/react';
 import styles from '../styles/components/NoticeBox.module.scss';
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = ExclusiveProps & BoxProps;
 
@@ -21,10 +21,10 @@ type ExclusiveProps =
       /** Green notice */
       success: boolean;
     })
-    | (Omit<None, 'warning'> & {
+  | (Omit<None, 'warning'> & {
       /** Orange notice */
-        warning: boolean;
-      })
+      warning: boolean;
+    })
   | (Omit<None, 'danger'> & {
       /** Red notice */
       danger: boolean;
@@ -37,7 +37,7 @@ export function NoticeBox(props: Props) {
     <Box
       className={classes([
         styles.noticeBox,
-        color && styles['color__' + color],
+        color && styles[`color__${color}`],
         info && styles.info,
         success && styles.success,
         warning && styles.warning,

@@ -1,4 +1,4 @@
-import { globalEvents, KeyEvent } from './events';
+import { type KeyEvent, globalEvents } from './events';
 import * as keycodes from './keycodes';
 
 // BYOND macros, in `key: command` format.
@@ -47,10 +47,10 @@ function keyCodeToByond(keyCode: number) {
     return String.fromCharCode(keyCode);
   }
   if (keyCode >= 96 && keyCode <= 105) {
-    return 'Numpad' + (keyCode - 96);
+    return `Numpad${keyCode - 96}`;
   }
   if (keyCode >= 112 && keyCode <= 123) {
-    return 'F' + (keyCode - 111);
+    return `F${keyCode - 111}`;
   }
   if (keyCode === 188) return ',';
   if (keyCode === 189) return '-';
@@ -158,14 +158,14 @@ export function setupHotKeys() {
     // Insert macros
     const escapedQuotRegex = /\\"/g;
 
-    function unescape(str: string) {
+    function unEscape(str: string) {
       return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
     }
 
     for (const ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
-      const byondKeyName = unescape(macro.name);
-      byondMacros[byondKeyName] = unescape(macro.command);
+      const byondKeyName = unEscape(macro.name);
+      byondMacros[byondKeyName] = unEscape(macro.command);
     }
   });
   // Setup event handlers

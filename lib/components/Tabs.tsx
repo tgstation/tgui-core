@@ -1,8 +1,8 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 import { canRender, classes } from '../common/react';
 import styles from '../styles/components/Tabs.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 
 type Props = Partial<{
@@ -73,7 +73,7 @@ function Tab(props: TabProps) {
       className={classes([
         styles.tab,
         styles.tabs__tab,
-        styles['color__' + color],
+        styles[`color__${color}`],
         selected && styles.selected,
         className,
         computeBoxClassName(rest),

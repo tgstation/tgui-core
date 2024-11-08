@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly dimmer: "dimmer";
+  readonly dimmer: 'dimmer';
 };
 export = classNames;

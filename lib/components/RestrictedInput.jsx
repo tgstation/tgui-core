@@ -1,7 +1,7 @@
+import { Component, createRef } from 'react';
 import { KEY_ENTER, KEY_ESCAPE } from '../common/keycodes';
 import { clamp } from '../common/math';
 import { classes } from '../common/react';
-import { Component, createRef } from 'react';
 
 import { Box } from './Box';
 
@@ -53,14 +53,14 @@ const clampGuessedNumber = (
   maxValue,
   allowFloats,
 ) => {
-  let parsed = allowFloats
-    ? parseFloat(softSanitizedNumber)
-    : parseInt(softSanitizedNumber, 10);
+  const parsed = allowFloats
+    ? Number.parseFloat(softSanitizedNumber)
+    : Number.parseInt(softSanitizedNumber, 10);
   if (
-    !isNaN(parsed) &&
+    !Number.isNaN(parsed) &&
     (softSanitizedNumber.slice(-1) !== '.' || parsed < Math.floor(minValue))
   ) {
-    let clamped = clamp(parsed, minValue, maxValue);
+    const clamped = clamp(parsed, minValue, maxValue);
     if (parsed !== clamped) {
       return String(clamped);
     }
@@ -76,10 +76,10 @@ const clampGuessedNumber = (
 function maybeMoveMinusSign(string) {
   let retString = string;
   // if minus sign is present but not first
-  let minusIdx = string.indexOf('-');
+  const minusIdx = string.indexOf('-');
   if (minusIdx > 0) {
-    string = string.replace('-', '');
-    retString = '-'.concat(string);
+    const newString = string.replace('-', '');
+    retString = '-'.concat(newString);
   } else if (minusIdx === 0) {
     if (string.indexOf('-', minusIdx + 1) > 0) {
       retString = string.replaceAll('-', '');
@@ -94,7 +94,7 @@ function maybeMoveMinusSign(string) {
  */
 function maybeLeadWithMin(string, min) {
   let retString = string;
-  let cuttedVal = Math.sign(min) * Math.floor(Math.abs(min));
+  const cuttedVal = Math.sign(min) * Math.floor(Math.abs(min));
   if (string.indexOf('.') === 0) {
     retString = String(cuttedVal).concat(string);
   } else if (string.indexOf('-') === 0 && string.indexOf('.') === 1) {
@@ -132,14 +132,13 @@ function getClampedNumber(value, minValue, maxValue, allowFloats) {
   if (!value || !value.length) {
     return String(minimum);
   }
-  let parsedValue = allowFloats
-    ? parseFloat(value.replace(/[^\-\d.]/g, ''))
-    : parseInt(value.replace(/[^\-\d]/g, ''), 10);
-  if (isNaN(parsedValue)) {
+  const parsedValue = allowFloats
+    ? Number.parseFloat(value.replace(/[^\-\d.]/g, ''))
+    : Number.parseInt(value.replace(/[^\-\d]/g, ''), 10);
+  if (Number.isNaN(parsedValue)) {
     return String(minimum);
-  } else {
-    return String(clamp(parsedValue, minimum, maximum));
   }
+  return String(clamp(parsedValue, minimum, maximum));
 }
 
 export class RestrictedInput extends Component {
@@ -177,7 +176,7 @@ export class RestrictedInput extends Component {
         onChange(e, +e.target.value);
       }
     };
-    this.handleFocus = (e) => {
+    this.handleFocus = (_e) => {
       const { editing } = this.state;
       if (!editing) {
         this.setEditing(true);

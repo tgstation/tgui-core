@@ -12,7 +12,7 @@ function createByondUiElement(elementId) {
   const index = byondUiStack.length;
   byondUiStack.push(null);
   // Get a unique id
-  const id = elementId || 'byondui_' + index;
+  const id = elementId || `byondui_${index}`;
   // Return a control structure
   return {
     render: (params) => {
@@ -88,8 +88,8 @@ export class ByondUi extends Component {
     this.byondUiElement.render({
       parent: Byond.windowId,
       ...params,
-      pos: box.pos[0] + ',' + box.pos[1],
-      size: box.size[0] + 'x' + box.size[1],
+      pos: `${box.pos[0]},${box.pos[1]}`,
+      size: `${box.size[0]}x${box.size[1]}`,
     });
   }
 

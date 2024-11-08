@@ -1,18 +1,23 @@
-import { Placement } from '@popperjs/core';
+import type { Placement } from '@popperjs/core';
 import {
-  ChangeEvent,
+  type ChangeEvent,
+  type MouseEvent,
+  type ReactNode,
   createRef,
-  MouseEvent,
-  ReactNode,
   useEffect,
   useRef,
   useState,
 } from 'react';
 
-import { isEscape, KEY } from '../common/keys';
-import { BooleanLike, classes } from '../common/react';
+import { KEY, isEscape } from '../common/keys';
+import { type BooleanLike, classes } from '../common/react';
 import styles from '../styles/components/Button.module.scss';
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import {
+  Box,
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+} from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 
@@ -57,7 +62,7 @@ type Props = Partial<{
   /** Icon rotation */
   iconRotation: number;
   /** Icon size */
-  iconSize: number
+  iconSize: number;
   /** Makes the icon spin */
   iconSpin: BooleanLike;
   /** Called when element is clicked */
@@ -115,10 +120,10 @@ export function Button(props: Props) {
         verticalAlignContent && styles.flex,
         verticalAlignContent && fluid && styles.flex__fluid,
         verticalAlignContent &&
-          styles['verticalAlignContent__' + verticalAlignContent],
+          styles[`verticalAlignContent__${verticalAlignContent}`],
         color && typeof color === 'string'
-          ? styles['color__' + color]
-          : styles['color__default'],
+          ? styles[`color__${color}`]
+          : styles.color__default,
         className,
         computeBoxClassName(rest),
       ])}
@@ -330,7 +335,7 @@ function ButtonInput(props: InputProps) {
       className={classes([
         styles.button,
         fluid && styles.fluid,
-        styles['color__' + color],
+        styles[`color__${color}`],
       ])}
       {...rest}
       onClick={() => setInInput(true)}

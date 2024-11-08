@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import { BoxProps, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{
   className: string;
@@ -29,7 +29,7 @@ export function Image(props: Props) {
   const attempts = useRef(0);
 
   const computedProps = computeBoxProps(rest);
-  computedProps['style'] = {
+  computedProps.style = {
     ...computedProps.style,
     '-ms-interpolation-mode': fixBlur ? 'nearest-neighbor' : 'auto',
     objectFit,
@@ -49,6 +49,7 @@ export function Image(props: Props) {
       }}
       src={src}
       {...computedProps}
+      alt="dm icon"
     />
   );
 }

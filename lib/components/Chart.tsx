@@ -1,7 +1,7 @@
-import { Component, createRef, RefObject } from 'react';
+import { Component, type RefObject, createRef } from 'react';
 
 import { zip } from '../common/collections';
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = {
   data: number[][];
@@ -59,7 +59,7 @@ function dataToPolylinePoints(data) {
   let points = '';
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
-    points += point[0] + ',' + point[1] + ' ';
+    points += `${point[0]},${point[1]} `;
   }
   return points;
 }
@@ -136,6 +136,7 @@ class LineChart extends Component<Props> {
               overflow: 'hidden',
             }}
           >
+            <title>chart</title>
             <polyline
               transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}

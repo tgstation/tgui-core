@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly modal: "modal";
+  readonly modal: 'modal';
 };
 export = classNames;

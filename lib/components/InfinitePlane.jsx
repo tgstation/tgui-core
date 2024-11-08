@@ -53,8 +53,8 @@ export class InfinitePlane extends Component {
 
   doOffsetMouse(event) {
     const { zoom } = this.state;
-    event.screenZoomX = event.screenX * Math.pow(zoom, -1);
-    event.screenZoomY = event.screenY * Math.pow(zoom, -1);
+    event.screenZoomX = event.screenX * zoom ** -1;
+    event.screenZoomY = event.screenY * zoom ** -1;
   }
 
   handleMouseDown(event) {
@@ -73,7 +73,7 @@ export class InfinitePlane extends Component {
     });
   }
 
-  handleZoomIncrease(event) {
+  handleZoomIncrease(_event) {
     const { onZoomChange } = this.props;
     const { zoom } = this.state;
     const newZoomValue = Math.min(zoom + ZOOM_INCREMENT, ZOOM_MAX_VAL);
@@ -85,7 +85,7 @@ export class InfinitePlane extends Component {
     }
   }
 
-  handleZoomDecrease(event) {
+  handleZoomDecrease(_event) {
     const { onZoomChange } = this.props;
     const { zoom } = this.state;
     const newZoomValue = Math.max(zoom - ZOOM_INCREMENT, ZOOM_MIN_VAL);
@@ -101,7 +101,8 @@ export class InfinitePlane extends Component {
   handleMouseMove(event) {
     const { onBackgroundMoved, initialLeft = 0, initialTop = 0 } = this.props;
     if (this.state.mouseDown) {
-      let newX, newY;
+      let newX;
+      let newY;
       this.setState((state) => {
         newX = event.clientX - state.lastLeft;
         newY = event.clientY - state.lastTop;

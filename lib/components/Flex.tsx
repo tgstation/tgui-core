@@ -1,6 +1,11 @@
 import { classes } from '../common/react';
 import styles from '../styles/components/Flex.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps, unit } from './Box';
+import {
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+  unit,
+} from './Box';
 
 export type FlexProps = Partial<{
   /**

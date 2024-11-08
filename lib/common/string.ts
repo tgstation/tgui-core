@@ -51,24 +51,23 @@ export const VOWELS = ['a', 'e', 'i', 'o', 'u'];
 export function pluralize(str: string, n: number, override?: string) {
   if (n === 1) {
     return str;
-  } else if (override) {
+  }
+  if (override) {
     return str + override;
-  } else if (
+  }
+  if (
     str.endsWith('s') ||
     str.endsWith('x') ||
     str.endsWith('z') ||
     str.endsWith('ch') ||
     str.endsWith('sh')
   ) {
-    return str + 'es';
-  } else if (
-    str.endsWith('y') &&
-    !VOWELS.includes(str.charAt(str.length - 2))
-  ) {
-    return str.slice(0, -1) + 'ies';
-  } else {
-    return str + 's';
+    return `${str}es`;
   }
+  if (str.endsWith('y') && !VOWELS.includes(str.charAt(str.length - 2))) {
+    return `${str.slice(0, -1)}ies`;
+  }
+  return `${str}s`;
 }
 
 /**
@@ -150,12 +149,12 @@ export function toTitleCase(str: string): string {
   });
 
   for (const word of WORDS_LOWER) {
-    const regex = new RegExp('\\s' + word + '\\s', 'g');
+    const regex = new RegExp(`\\s${word}\\s`, 'g');
     currentStr = currentStr.replace(regex, (str) => str.toLowerCase());
   }
 
   for (const word of WORDS_UPPER) {
-    const regex = new RegExp('\\b' + word + '\\b', 'g');
+    const regex = new RegExp(`\\b${word}\\b`, 'g');
     currentStr = currentStr.replace(regex, (str) => str.toLowerCase());
   }
 
@@ -195,12 +194,12 @@ export function decodeHtmlEntities(str: string): string {
       )
       // Decimal entities
       .replace(/&#?([0-9]+);/gi, (_match, numStr) => {
-        const num = parseInt(numStr, 10);
+        const num = Number.parseInt(numStr, 10);
         return String.fromCharCode(num);
       })
       // Hex entities
       .replace(/&#x?([0-9a-f]+);/gi, (_match, numStr) => {
-        const num = parseInt(numStr, 16);
+        const num = Number.parseInt(numStr, 16);
         return String.fromCharCode(num);
       })
   );

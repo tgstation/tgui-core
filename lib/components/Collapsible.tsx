@@ -1,13 +1,13 @@
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 import { Button } from './Button';
 
 type Props = Partial<{
   /** Buttons or other content to render inline with the button */
   buttons: ReactNode;
   /** Top margin of the child nodes, defaulted to 1 */
-  child_mt: number; 
+  child_mt: number;
   /** Icon to display with the collapsible */
   icon: string;
   /** Whether the collapsible is open */

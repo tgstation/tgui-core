@@ -7,13 +7,13 @@
  * ```
  */
 export function getShallowTypes(
-  data: Record<string, any>,
-): Record<string, any> {
+  data: Record<string, unknown>,
+): Record<string, unknown> {
   const output = {};
 
   for (const key in data) {
     if (Array.isArray(data[key])) {
-      const arr: any[] = data[key];
+      const arr: unknown[] = data[key];
 
       // Return the first array item if it exists
       if (data[key].length > 0) {

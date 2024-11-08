@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
-import { BooleanLike, classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 import styles from '../styles/components/LabeledList.module.scss';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
@@ -73,7 +73,7 @@ function LabeledListItem(props: LabeledListItemProps) {
     tooltip,
   } = props;
 
-  let innerLabel;
+  let innerLabel: ReactNode;
   if (label) {
     innerLabel = label;
     if (typeof label === 'string') innerLabel += ':';

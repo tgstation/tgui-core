@@ -34,8 +34,8 @@ export function throttle<F extends (...args: any[]) => any>(
   fn: F,
   time: number,
 ): (...args: Parameters<F>) => void {
-  let previouslyRun: number | null,
-    queuedToRun: ReturnType<typeof setTimeout> | null;
+  let previouslyRun: number | null;
+  let queuedToRun: ReturnType<typeof setTimeout> | null;
   return function invokeFn(...args: Parameters<F>) {
     const now = Date.now();
     if (queuedToRun) {

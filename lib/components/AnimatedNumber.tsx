@@ -62,7 +62,7 @@ export class AnimatedNumber extends Component<Props> {
   /**
    * The current value. This values approaches the target value.
    */
-  currentValue: number = 0;
+  currentValue = 0;
 
   constructor(props: Props) {
     super(props);

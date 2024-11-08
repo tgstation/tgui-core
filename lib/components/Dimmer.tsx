@@ -1,6 +1,6 @@
 import { classes } from '../common/react';
 import styles from '../styles/components/Dimmer.module.scss';
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 export function Dimmer(props: BoxProps) {
   const { className, children, ...rest } = props;

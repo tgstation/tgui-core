@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly tooltip: "tooltip";
+  readonly tooltip: 'tooltip';
 };
 export = classNames;

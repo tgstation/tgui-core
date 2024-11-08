@@ -1,6 +1,6 @@
 import { classes } from '../common/react';
 import styles from '../styles/components/Modal.module.scss';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
 export function Modal(props: BoxProps) {

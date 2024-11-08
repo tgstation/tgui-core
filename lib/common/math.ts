@@ -26,11 +26,8 @@ export function scale(value: number, min = 0, max = 100): number {
  */
 export function round(num: number, dec: number): number {
   const num_sign = num >= 0 ? 1 : -1;
-  return parseFloat(
-    (
-      Math.round(num * Math.pow(10, dec) + num_sign * 0.0001) /
-      Math.pow(10, dec)
-    ).toFixed(dec),
+  return Number.parseFloat(
+    (Math.round(num * 10 ** dec + num_sign * 0.0001) / 10 ** dec).toFixed(dec),
   );
 }
 

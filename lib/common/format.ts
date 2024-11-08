@@ -32,7 +32,7 @@ export function formatSiUnit(
   minBase1000 = -SI_BASE_INDEX,
   unit = '',
 ): string {
-  if (!isFinite(value)) {
+  if (!Number.isFinite(value)) {
     return value.toString();
   }
 
@@ -42,7 +42,7 @@ export function formatSiUnit(
   const symbol =
     SI_SYMBOLS[Math.min(base1000 + SI_BASE_INDEX, SI_SYMBOLS.length - 1)];
 
-  const scaledValue = value / Math.pow(1000, base1000);
+  const scaledValue = value / 1000 ** base1000;
 
   let formattedValue = scaledValue.toFixed(2);
   if (formattedValue.endsWith('.00')) {
@@ -91,7 +91,7 @@ export function formatDb(value: number): string {
   const sign = db >= 0 ? '+' : '-';
   let formatted: string | number = Math.abs(db);
 
-  if (formatted === Infinity) {
+  if (formatted === Number.POSITIVE_INFINITY) {
     formatted = 'Inf';
   } else {
     formatted = formatted.toFixed(2);
@@ -123,7 +123,7 @@ export function formatSiBaseTenUnit(
   minBase1000 = 0,
   unit = '',
 ): string {
-  if (!isFinite(value)) {
+  if (!Number.isFinite(value)) {
     return 'NaN';
   }
 
@@ -132,7 +132,7 @@ export function formatSiBaseTenUnit(
   const base1000 = Math.floor(base10 / 3);
   const symbol = SI_BASE_TEN_UNITS[base1000];
 
-  const scaledValue = value / Math.pow(1000, base1000);
+  const scaledValue = value / 1000 ** base1000;
   const precision = Math.max(0, 2 - (base10 % 3));
   const formattedValue = scaledValue.toFixed(precision);
 
