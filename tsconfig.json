@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "ES5",
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext",
-      "ScriptHost"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -25,18 +20,11 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "tgui-core/components/*": [
-        "dist/components/*.d.ts"
-      ],
-      "tgui-core/*": [
-        "dist/common/*.d.ts"
-      ],
-    },
+      "tgui-core/components/*": ["dist/components/*.d.ts"],
+      "tgui-core/*": ["dist/common/*.d.ts"]
+    }
   },
-  "include": [
-    "lib",
-    "global.d.ts",
-  ],
+  "include": ["lib", "global.d.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"

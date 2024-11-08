@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
+@use "../base.scss";
+@use "../colors.scss";
+@use "../functions.scss" as *;
 
 $color-default: colors.bg(base.$color-bg-section) !default;
 $color-disabled: #631d1d !default;
