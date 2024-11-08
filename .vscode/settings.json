@@ -2,5 +2,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "[yaml][markdown][html][scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "typescript.tsdk": "node_modules/typescript/lib"
 }

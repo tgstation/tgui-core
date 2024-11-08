@@ -1,6 +1,6 @@
 declare const classNames: {
-  readonly hidden: "hidden";
   readonly horizontal: "horizontal";
+  readonly hidden: "hidden";
   readonly vertical: "vertical";
 };
 export = classNames;

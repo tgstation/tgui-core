@@ -4,9 +4,9 @@
  */
 
 @use 'sass:color';
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss';
+@use '../base';
+@use '../colors';
+@use '../functions';
 
 $title-text-color: base.$color-fg !default;
 $background-color: base.$color-bg-section !default;

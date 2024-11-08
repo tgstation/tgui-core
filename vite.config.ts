@@ -1,15 +1,22 @@
+import { extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react-swc';
 import { glob } from 'glob';
-import { extname, relative } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import sassDts from 'vite-plugin-sass-dts';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig({  
+  css: {
+  preprocessorOptions: {
+    scss: {
+      api: 'modern',
+    },
+  },
+},
   plugins: [react(), libInjectCss(), dts({ include: ['lib'] }), sassDts()],
   build: {
     lib: {
