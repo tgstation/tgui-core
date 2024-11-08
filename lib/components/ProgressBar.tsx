@@ -1,5 +1,4 @@
-import type { PropsWithChildren } from 'react';
-
+import type { CSSProperties, PropsWithChildren } from 'react';
 import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
@@ -76,7 +75,7 @@ export function ProgressBar(props: Props) {
     className,
     computeBoxClassName(rest),
   ];
-  const fillStyles = {
+  const fillStyles: CSSProperties = {
     width: `${clamp01(scaledValue) * 100}%`,
   };
   if (
