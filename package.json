@@ -2,14 +2,8 @@
   "name": "tgui-core",
   "version": "1.2.1",
   "description": "TGUI core component library",
-  "keywords": [
-    "TGUI",
-    "library",
-    "typescript"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["TGUI", "library", "typescript"],
+  "files": ["dist"],
   "exports": {
     "./components": {
       "import": "./dist/components/index.js",
@@ -32,9 +26,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "lint": "biome check lib",
-    "lint:fix": "biome check lib --fix",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "lint:fix": "biome check lib --fix"
   },
   "author": "jlsnow301",
   "license": "MIT",

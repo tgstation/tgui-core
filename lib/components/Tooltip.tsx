@@ -105,7 +105,7 @@ export class Tooltip extends Component<Props, State> {
     }
 
     Tooltip.currentHoveredElement = undefined;
-    Tooltip.renderedTooltip?.style.opacity = '0';
+    Tooltip.renderedTooltip!.style.opacity = '0';
   }
 
   renderPopperContent() {

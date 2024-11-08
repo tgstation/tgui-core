@@ -8,7 +8,7 @@
   },
   "editor.rulers": [80],
   "editor.formatOnSave": true,
-  "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc]": {
+  "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc][scss]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[yaml][markdown][html]": {

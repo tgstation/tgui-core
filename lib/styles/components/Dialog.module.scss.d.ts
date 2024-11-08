@@ -1,10 +1,10 @@
 declare const classNames: {
-  readonly body: 'body';
-  readonly button: 'button';
-  readonly content: 'content';
-  readonly dialog: 'dialog';
-  readonly footer: 'footer';
-  readonly header: 'header';
-  readonly title: 'title';
+  readonly dialog: "dialog";
+  readonly content: "content";
+  readonly header: "header";
+  readonly title: "title";
+  readonly body: "body";
+  readonly footer: "footer";
+  readonly button: "button";
 };
 export = classNames;

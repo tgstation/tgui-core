@@ -1,8 +1,8 @@
 declare const classNames: {
-  readonly cursor: 'cursor';
-  readonly cursorOffset: 'cursorOffset';
-  readonly pointer: 'pointer';
-  readonly popupValue: 'popupValue';
-  readonly slider: 'slider';
+  readonly slider: "slider";
+  readonly cursorOffset: "cursorOffset";
+  readonly cursor: "cursor";
+  readonly pointer: "pointer";
+  readonly popupValue: "popupValue";
 };
 export = classNames;
