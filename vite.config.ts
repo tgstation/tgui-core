@@ -10,6 +10,13 @@ import sassDts from 'vite-plugin-sass-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern',
+      },
+    },
+  },
   plugins: [react(), libInjectCss(), dts({ include: ['lib'] }), sassDts()],
   build: {
     lib: {

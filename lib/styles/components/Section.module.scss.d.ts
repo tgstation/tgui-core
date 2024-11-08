@@ -9,8 +9,8 @@ declare const classNames: {
   readonly fill: "fill";
   readonly scrollable: "scrollable";
   readonly scrollableHorizontal: "scrollableHorizontal";
-  readonly section__flex: "section__flex";
-  readonly content__noTopPadding: "content__noTopPadding";
-  readonly content__stretchContents: "content__stretchContents";
+  readonly sectionFlex: "sectionFlex";
+  readonly noTopPadding: "noTopPadding";
+  readonly stretchContents: "stretchContents";
 };
 export = classNames;

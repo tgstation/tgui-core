@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use 'sass:color';
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss';
+@use "sass:color";
+@use "../base";
+@use "../colors";
+@use "../functions";
 
 $title-text-color: base.$color-fg !default;
 $background-color: base.$color-bg-section !default;
@@ -129,20 +129,20 @@ $separator-color: colors.$primary !default;
   font-size: base.em(12px);
 }
 
-.section__flex {
+.sectionFlex {
   display: flex;
   flex-flow: column;
 }
 
-.section__flex .content {
+.sectionFlex .content {
   overflow: auto;
   flex-grow: 1;
 }
 
-.content__noTopPadding {
+.noTopPadding {
   padding-top: 0;
 }
 
-.content__stretchContents {
+.stretchContents {
   height: calc(100% - 3rem);
 }
