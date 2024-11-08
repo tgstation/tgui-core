@@ -129,20 +129,20 @@ $separator-color: colors.$primary !default;
   font-size: base.em(12px);
 }
 
-.section__flex {
+.sectionFlex {
   display: flex;
   flex-flow: column;
 }
 
-.section__flex .content {
+.sectionFlex .content {
   overflow: auto;
   flex-grow: 1;
 }
 
-.content__noTopPadding {
+.noTopPadding {
   padding-top: 0;
 }
 
-.content__stretchContents {
+.stretchContents {
   height: calc(100% - 3rem);
 }
