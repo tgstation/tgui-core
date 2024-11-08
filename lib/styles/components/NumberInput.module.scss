@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use "sass:color";
-@use "../base.scss";
-@use "../functions.scss" as *;
-@use "../input.scss";
+@use 'sass:color';
+@use '../base.scss';
+@use '../functions.scss' as *;
+@use '../input.scss';
 
 .numberInput {
   position: relative;

@@ -20,7 +20,7 @@ yarn add tgui-core
 Now, you can use them like normal TGUI components.
 
 ```tsx
-import { Button } from "tgui-core/components";
+import { Button } from 'tgui-core/components';
 
 <Button>Click</Button>;
 ```
@@ -28,8 +28,8 @@ import { Button } from "tgui-core/components";
 You can even use it in tandem with your own in house TGUI components,
 
 ```tsx
-import { Button } from "tgui-core/components";
-import { Box } from "../components";
+import { Button } from 'tgui-core/components';
+import { Box } from '../components';
 ```
 
 ## License
