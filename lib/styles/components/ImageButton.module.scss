@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-@use '../base.scss';
-@use '../colors.scss';
-@use '../functions.scss' as *;
+@use '../base';
+@use '../colors';
+@use '../functions' as *;
 
 $color-default: colors.bg(base.$color-bg-section) !default;
 $color-disabled: #631d1d !default;
@@ -47,7 +47,12 @@ $bg-map: colors.$bg-map !default;
   }
 
   .contentColor__#{$color-name} {
-    @include button-style($color-value, $border-color: lighten($color-value, 25%), $opacity: 1, $hoverable: false);
+    @include button-style(
+      $color-value,
+      $border-color: lighten($color-value, 25%),
+      $opacity: 1,
+      $hoverable: false
+    );
   }
 
   .buttonsContainerColor__#{$color-name} {
@@ -71,7 +76,11 @@ $bg-map: colors.$bg-map !default;
 }
 
 .selected {
-  @include button-style($color-selected, $border-color: rgba($color-selected, 0.25), $border-width: 1px);
+  @include button-style(
+    $color-selected,
+    $border-color: rgba($color-selected, 0.25),
+    $border-width: 1px
+  );
 }
 
 .contentColor__default {
@@ -89,7 +98,12 @@ $bg-map: colors.$bg-map !default;
 }
 
 .contentSelected {
-  @include button-style($color-selected, $border-color: lighten($color-selected, 25%), $opacity: 1, $hoverable: false);
+  @include button-style(
+    $color-selected,
+    $border-color: lighten($color-selected, 25%),
+    $opacity: 1,
+    $hoverable: false
+  );
 }
 
 .buttonsContainerColor__default {

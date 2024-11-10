@@ -1,9 +1,9 @@
 declare const classNames: {
-  readonly bar: 'bar';
-  readonly barContainer: 'barContainer';
-  readonly content: 'content';
-  readonly fluid: 'fluid';
-  readonly inner: 'inner';
-  readonly numberInput: 'numberInput';
+  readonly numberInput: "numberInput";
+  readonly fluid: "fluid";
+  readonly content: "content";
+  readonly barContainer: "barContainer";
+  readonly bar: "bar";
+  readonly inner: "inner";
 };
 export = classNames;
