@@ -32,7 +32,7 @@ export function normalizeChildren<T>(children: T | T[]): T[] {
  */
 export function shallowDiffers(
   a: Record<string, any>,
-  b: Record<string, any>,
+  b: Record<string, any>
 ): boolean {
   let i: string;
   for (i in a) {

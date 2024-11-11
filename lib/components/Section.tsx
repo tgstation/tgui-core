@@ -2,7 +2,6 @@ import { ReactNode, useEffect, useRef } from 'react';
 
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
-import styles from '../styles/components/Section.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -98,29 +97,29 @@ export const Section = (props: Props) => {
     <div
       id={container_id || ''}
       className={classes([
-        styles.section,
-        fill && styles.fill,
-        fitted && styles.fitted,
-        scrollable && styles.scrollable,
-        scrollableHorizontal && styles.scrollableHorizontal,
-        flexGrow && styles.sectionFlex,
+        'Section',
+        fill && 'Section--fill',
+        fitted && 'Section--fitted',
+        scrollable && 'Section--scrollable',
+        scrollableHorizontal && 'Section--scrollableHorizontal',
+        flexGrow && 'Section__flex',
         className,
         computeBoxClassName(rest),
       ])}
       {...computeBoxProps(rest)}
     >
       {hasTitle && (
-        <div className={styles.title}>
-          <span className={styles.titleText}>{title}</span>
-          <div className={styles.buttons}>{buttons}</div>
+        <div className="Section__title">
+          <span className="Section__titleText">{title}</span>
+          <div className="Section__buttons">{buttons}</div>
         </div>
       )}
-      <div className={styles.rest}>
+      <div className="Section__rest">
         <div
           className={classes([
-            styles.content,
-            !!stretchContents && styles.stretchContents,
-            !!noTopPadding && styles.noTopPadding,
+            'Section__content',
+            !!stretchContents && 'content__stretchContents',
+            !!noTopPadding && 'content__noTopPadding',
           ])}
           onScroll={onScroll}
           // For posterity: the forwarded ref needs to be here specifically

@@ -2,8 +2,6 @@ import { PropsWithChildren } from 'react';
 
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
-import progStyles from '../styles/components/ProgressBar.module.scss';
-import styles from '../styles/components/Slider.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -120,9 +118,9 @@ export function Slider(props: Props) {
         return (
           <div
             className={classes([
-              styles.slider,
-              progStyles.progressBar,
-              progStyles['color__' + effectiveColor],
+              'Slider',
+              'ProgressBar',
+              'ProgressBar--color--' + effectiveColor,
               className,
               computeBoxClassName(rest),
             ])}
@@ -131,8 +129,8 @@ export function Slider(props: Props) {
           >
             <div
               className={classes([
-                progStyles.fill,
-                hasFillValue && progStyles.fill__animated,
+                'ProgressBar__fill',
+                hasFillValue && 'ProgressBar__fill--animated',
               ])}
               style={{
                 width: clamp01(scaledFillValue) * 100 + '%',
@@ -140,7 +138,7 @@ export function Slider(props: Props) {
               }}
             />
             <div
-              className={progStyles.fill}
+              className="ProgressBar__fill"
               style={{
                 width:
                   clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
@@ -148,18 +146,18 @@ export function Slider(props: Props) {
               }}
             />
             <div
-              className={styles.cursorOffset}
+              className="Slider__cursorOffset"
               style={{
                 width: clamp01(scaledDisplayValue) * 100 + '%',
               }}
             >
-              <div className={styles.cursor} />
-              <div className={styles.pointer} />
+              <div className="Slider__cursor" />
+              <div className="Slider__pointer" />
               {dragging && (
-                <div className={styles.popupValue}>{displayElement}</div>
+                <div className="Slider__popupValue">{displayElement}</div>
               )}
             </div>
-            <div className={progStyles.content}>
+            <div className="ProgressBar__content">
               {hasContent ? children : displayElement}
             </div>
             {inputElement}

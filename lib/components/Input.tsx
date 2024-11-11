@@ -3,7 +3,6 @@ import { KeyboardEvent, SyntheticEvent, useEffect, useRef } from 'react';
 import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
-import styles from '../styles/components/Input.module.scss';
 import { Box, BoxProps } from './Box';
 
 type ConditionalProps =
@@ -60,7 +59,7 @@ type OptionalProps = Partial<{
 
 type Props = OptionalProps & ConditionalProps & BoxProps;
 
-export function toInputValue(value: string | number | undefined) {
+export function toInputValue(value: string | number | undefined): string {
   return typeof value !== 'number' && typeof value !== 'string'
     ? ''
     : String(value);
@@ -166,16 +165,16 @@ export function Input(props: Props) {
   return (
     <Box
       className={classes([
-        styles.input,
-        fluid && styles.fluid,
-        monospace && styles.monospace,
+        'Input',
+        fluid && 'Input--fluid',
+        monospace && 'Input--monospace',
         className,
       ])}
       {...rest}
     >
-      <div className={styles.baseline}>.</div>
+      <div className="Input__baseline">.</div>
       <input
-        className={styles.inner}
+        className="Input__input"
         disabled={disabled}
         maxLength={maxLength}
         onBlur={(event) => onChange?.(event, event.target.value)}

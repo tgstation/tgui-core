@@ -7,7 +7,7 @@
  * ```
  */
 export function getShallowTypes(
-  data: Record<string, any>,
+  data: Record<string, any>
 ): Record<string, any> {
   const output = {};
 

@@ -6,7 +6,6 @@
 import { RefObject } from 'react';
 
 import { classes } from '../common/react';
-import styles from '../styles/components/Stack.module.scss';
 import { computeBoxClassName } from './Box';
 import {
   computeFlexClassName,
@@ -37,10 +36,11 @@ export function Stack(props: Props) {
   return (
     <div
       className={classes([
-        fill && styles.fill,
-        vertical ? styles.vertical : styles.horizontal,
-        zebra && styles.zebra,
-        reverse && styles[`reverse${vertical ? '__vertical' : ''}`],
+        'Stack',
+        fill && 'Stack--fill',
+        vertical ? 'Stack--vertical' : 'Stack--horizontal',
+        zebra && 'Stack--zebra',
+        reverse && `Stack--reverse${vertical ? '--vertical' : ''}`,
         className,
         computeFlexClassName(props),
       ])}
@@ -62,7 +62,7 @@ function StackItem(props: StackItemProps) {
 
   return (
     <div
-      className={classes([styles.item, className, computeBoxClassName(rest)])}
+      className={classes(['Stack__item', className, computeBoxClassName(rest)])}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />
@@ -82,9 +82,9 @@ function StackDivider(props: StackDividerProps) {
   return (
     <div
       className={classes([
-        styles.item,
-        styles.divider,
-        hidden && styles.divider__hidden,
+        'Stack__item',
+        'Stack__divider',
+        hidden && 'Stack__divider--hidden',
         className,
         computeBoxClassName(rest),
       ])}

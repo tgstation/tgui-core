@@ -6,7 +6,6 @@
 import { Component, createRef, ReactNode, RefObject } from 'react';
 
 import { classes } from '../common/react';
-import styles from '../styles/components/MenuBar.module.scss';
 import { Box } from './Box';
 import { Icon } from './Icon';
 
@@ -45,7 +44,7 @@ class Menu extends Component<MenuProps> {
     const { width, children } = this.props;
     return (
       <div
-        className={styles.menu}
+        className="Menubar__menu"
         style={{
           width: width,
         }}
@@ -95,16 +94,16 @@ class MenuBarButton extends Component<MenuBarDropdownProps> {
       <div ref={this.menuRef}>
         <Box
           className={classes([
-            styles.button,
-            styles.font,
-            styles.hover,
+            'MenuBar__MenuBarButton',
+            'MenuBar__font',
+            'MenuBar__hover',
             className,
           ])}
           {...rest}
           onClick={disabled ? () => null : onClick}
           onMouseOver={onMouseOver}
         >
-          <span className={styles.button__text}>{display}</span>
+          <span className="MenuBar__MenuBarButton-text">{display}</span>
         </Box>
         {open && (
           <Menu
@@ -179,14 +178,14 @@ function MenuItemToggle(props) {
   return (
     <Box
       className={classes([
-        styles.font,
-        styles.item,
-        styles.toggle,
-        styles.hover,
+        'MenuBar__font',
+        'MenuBar__MenuItem',
+        'MenuBar__MenuItemToggle',
+        'MenuBar__hover',
       ])}
       onClick={() => onClick(value)}
     >
-      <div className={styles.toggle__check}>
+      <div className="MenuBar__MenuItemToggle__check">
         {checked && <Icon size={1.3} name="check" />}
       </div>
       {displayText}
@@ -200,7 +199,11 @@ function MenuItem(props) {
   const { value, displayText, onClick } = props;
   return (
     <Box
-      className={classes([styles.font, styles.item, styles.hover])}
+      className={classes([
+        'MenuBar__font',
+        'MenuBar__MenuItem',
+        'MenuBar__hover',
+      ])}
       onClick={() => onClick(value)}
     >
       {displayText}
@@ -211,7 +214,7 @@ function MenuItem(props) {
 Dropdown.MenuItem = MenuItem;
 
 function Separator() {
-  return <div className={styles.separator} />;
+  return <div className="MenuBar__Separator" />;
 }
 
 Dropdown.Separator = Separator;
@@ -222,7 +225,7 @@ type MenuBarProps = {
 
 export function MenuBar(props: MenuBarProps) {
   const { children } = props;
-  return <Box className={styles.menuBar}>{children}</Box>;
+  return <Box className="MenuBar">{children}</Box>;
 }
 
 MenuBar.Dropdown = Dropdown;

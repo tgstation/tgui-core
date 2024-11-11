@@ -12,7 +12,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    ignores: ['dist/**', 'node_modules/**', 'pnpm-lock.yaml', 'lib/styles/**/*.d.ts'],
+    ignores: ['dist/**', 'node_modules/**', 'pnpm-lock.yaml'],
     plugins: {
       'simple-import-sort': simpleImportSort,
       'unused-imports': unusedImports,
@@ -32,5 +32,5 @@ export default tseslint.config(
       'unused-imports/no-unused-vars': 'off',
     },
   },
-  eslintCongigPrettier,
+  eslintCongigPrettier
 );

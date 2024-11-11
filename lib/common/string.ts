@@ -17,7 +17,7 @@
  */
 export function createSearch<TObj>(
   searchText: string,
-  stringifier = (obj: TObj) => JSON.stringify(obj),
+  stringifier = (obj: TObj) => JSON.stringify(obj)
 ): (obj: TObj) => boolean {
   const preparedSearchText = searchText.toLowerCase().trim();
 
@@ -191,7 +191,7 @@ export function decodeHtmlEntities(str: string): string {
       // Basic entities
       .replace(
         /&(nbsp|amp|quot|lt|gt|apos);/g,
-        (_match, entity) => TRANSLATIONS[entity],
+        (_match, entity) => TRANSLATIONS[entity]
       )
       // Decimal entities
       .replace(/&#?([0-9]+);/gi, (_match, numStr) => {
