@@ -1,5 +1,4 @@
 import { classes } from '../common/react';
-import styles from '../styles/components/Modal.module.scss';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
@@ -9,11 +8,7 @@ export function Modal(props: BoxProps) {
   return (
     <Dimmer>
       <div
-        className={classes([
-          styles.modal,
-          className,
-          computeBoxClassName(rest),
-        ])}
+        className={classes(['Modal', className, computeBoxClassName(rest)])}
         {...computeBoxProps(rest)}
       >
         {children}

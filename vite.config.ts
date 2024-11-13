@@ -1,23 +1,13 @@
-import { fileURLToPath } from 'node:url';
-
 import { extname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react-swc';
 import { glob } from 'glob';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { libInjectCss } from 'vite-plugin-lib-inject-css';
-import sassDts from 'vite-plugin-sass-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'modern',
-      },
-    },
-  },
-  plugins: [react(), libInjectCss(), dts({ include: ['lib'] }), sassDts()],
+  plugins: [react(), dts({ include: ['lib'] })],
   build: {
     lib: {
       entry: 'lib/components/index.ts',
@@ -41,7 +31,7 @@ export default defineConfig({
             // The absolute path to the entry file
             // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
             fileURLToPath(new URL(file, import.meta.url)),
-          ]),
+          ])
       ),
     },
   },

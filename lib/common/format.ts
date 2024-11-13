@@ -30,7 +30,7 @@ const SI_BASE_INDEX = SI_SYMBOLS.indexOf(' ');
 export function formatSiUnit(
   value: number,
   minBase1000 = -SI_BASE_INDEX,
-  unit = '',
+  unit = ''
 ): string {
   if (!Number.isFinite(value)) {
     return value.toString();
@@ -121,7 +121,7 @@ const SI_BASE_TEN_UNITS = [
 export function formatSiBaseTenUnit(
   value: number,
   minBase1000 = 0,
-  unit = '',
+  unit = ''
 ): string {
   if (!Number.isFinite(value)) {
     return 'NaN';
@@ -145,7 +145,7 @@ export function formatSiBaseTenUnit(
  */
 export function formatTime(
   val: number,
-  formatType: 'short' | 'default' = 'default',
+  formatType: 'short' | 'default' = 'default'
 ): string {
   const totalSeconds = Math.floor(val / 10);
   const hours = Math.floor(totalSeconds / 3600);

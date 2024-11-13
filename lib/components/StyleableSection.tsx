@@ -1,6 +1,5 @@
 import type { PropsWithChildren, ReactNode } from 'react';
 
-import styles from '../styles/components/Section.module.scss';
 import { Box } from './Box';
 
 type Props = Partial<{
@@ -19,15 +18,15 @@ export function StyleableSection(props: Props) {
   return (
     <Box style={style}>
       {/* Yes, this box (line above) is missing the "Section" class. This is very intentional, as the layout looks *ugly* with it.*/}
-      <Box className={styles.title} style={titleStyle}>
-        <Box className={styles.titleText} style={textStyle}>
+      <Box className="Section__title" style={titleStyle}>
+        <Box className=
+          "Section__titleText" style={textStyle}>
           {title}
         </Box>
-        <div className={styles.buttons}>{titleSubtext}</div>
+        <div className="Section__buttons">{titleSubtext}</div>      </Box>
+      <Box className="Section__rest">
+        <Box className="Section__content" >{children}</Box>
       </Box>
-      <Box className={styles.rest}>
-        <Box className={styles.content}>{children}</Box>
-      </Box>
-    </Box>
+    </Box >
   );
 }

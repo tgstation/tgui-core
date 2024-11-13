@@ -1,7 +1,6 @@
 import type { CSSProperties, ReactNode } from 'react';
 
 import { type BooleanLike, classes } from '../common/react';
-import style from '../styles/components/Icon.module.scss';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {
@@ -59,7 +58,7 @@ export function Icon(props: Props) {
   return (
     <i
       className={classes([
-        style.icon,
+        'Icon',
         iconClass,
         className,
         computeBoxClassName(rest),
@@ -80,11 +79,7 @@ export function IconStack(props: IconStackProps) {
   const { className, children, ...rest } = props;
   return (
     <span
-      className={classes([
-        style.iconStack,
-        className,
-        computeBoxClassName(rest),
-      ])}
+      className={classes(['IconStack', className, computeBoxClassName(rest)])}
       {...computeBoxProps(rest)}
     >
       {children}

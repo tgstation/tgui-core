@@ -55,7 +55,7 @@ export function inRange(value: number, range: number[]): boolean {
  */
 export function keyOfMatchingRange(
   value: number,
-  ranges: Record<string, any>,
+  ranges: Record<string, any>
 ): string | undefined {
   for (const rangeName of Object.keys(ranges)) {
     const range = ranges[rangeName];

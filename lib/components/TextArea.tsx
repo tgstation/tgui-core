@@ -7,10 +7,8 @@ import {
   useState,
 } from 'react';
 import type { KeyboardEvent, SyntheticEvent } from 'react';
-
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
-import styles from '../styles/components/TextArea.module.scss';
 import { Box, type BoxProps } from './Box';
 import { toInputValue } from './Input';
 
@@ -133,17 +131,27 @@ export const TextArea = forwardRef(
     return (
       <Box
         className={classes([
-          styles.textArea,
-          fluid && styles.fluid,
-          noborder && styles.noborder,
+          'TextArea',
+          fluid && 'TextArea--fluid',
+          noborder && 'TextArea--noborder',
           className,
         ])}
         {...rest}
       >
         {!!displayedValue && (
-          <div className={styles.wrapper}>
+          <div
+            style={{
+              height: '100%',
+              overflow: 'hidden',
+              position: 'absolute',
+              width: '100%',
+            }}
+          >
             <div
-              className={classes([styles.inner, styles.custom])}
+              className={classes([
+                'TextArea__textarea',
+                'TextArea__textarea_custom',
+              ])}
               style={{
                 transform: `translateY(-${scrolledAmount}px)`,
               }}
@@ -154,9 +162,9 @@ export const TextArea = forwardRef(
         )}
         <textarea
           className={classes([
-            styles.inner,
-            scrollbar && styles.scrollable,
-            nowrap && styles.nowrap,
+            'TextArea__textarea',
+            scrollbar && 'TextArea__textarea--scrollable',
+            nowrap && 'TextArea__nowrap',
           ])}
           maxLength={maxLength}
           onBlur={(event) => onChange?.(event, event.target.value)}

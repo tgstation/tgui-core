@@ -2,7 +2,6 @@ import type { CSSProperties, PropsWithChildren } from 'react';
 import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
-import styles from '../styles/components/ProgressBar.module.scss';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {
@@ -93,7 +92,7 @@ export function ProgressBar(props: Props) {
   return (
     <div className={classes(outerClasses)} {...outerProps}>
       <div
-        className={classes([styles.fill, styles.fill__animated])}
+        className="ProgressBar__fill ProgressBar__fill--animated"
         style={fillStyles}
       />
       <div className={styles.content}>

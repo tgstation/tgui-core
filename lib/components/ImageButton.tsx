@@ -8,7 +8,7 @@ import type { Placement } from '@popperjs/core';
 import type { ReactNode } from 'react';
 
 import { type BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/ImageButton.module.scss';
+
 import { type BoxProps, computeBoxProps } from './Box';
 import { DmIcon } from './DmIcon';
 import { Icon } from './Icon';
@@ -115,14 +115,14 @@ export function ImageButton(props: Props) {
   let buttonContent = (
     <div
       className={classes([
-        styles.container,
-        buttons && styles.hasButtons,
-        !onClick && !onRightClick && styles.noAction,
-        selected && styles.selected,
-        disabled && styles.disabled,
+        'container',
+        buttons && 'hasButtons',
+        !onClick && !onRightClick && 'noAction',
+        selected && 'selected',
+        disabled && 'disabled',
         color && typeof color === 'string'
-          ? styles[`color__${color}`]
-          : styles.color__default,
+          ? `color__${color}`
+          : 'color__default',
       ])}
       tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
@@ -143,7 +143,7 @@ export function ImageButton(props: Props) {
       }}
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
-      <div className={classes([styles.image])}>
+      <div className="image">
         {base64 || asset || imageSrc ? (
           <Image
             className={classes((!base64 && !imageSrc && asset) || [])}
@@ -164,28 +164,24 @@ export function ImageButton(props: Props) {
         )}
       </div>
       {fluid ? (
-        <div className={classes([styles.info])}>
+        <div className="info">
           {title && (
-            <span
-              className={classes([styles.title, children && styles.divider])}
-            >
+            <span className={classes(['title', children && 'divider'])}>
               {title}
             </span>
           )}
-          {children && (
-            <span className={classes([styles.contentFluid])}>{children}</span>
-          )}
+          {children && <span className="contentFluid">{children}</span>}
         </div>
       ) : (
         children && (
           <span
             className={classes([
-              styles.content,
-              selected && styles.contentSelected,
-              disabled && styles.contentDisabled,
+              'content',
+              selected && 'contentSelected',
+              disabled && 'contentDisabled',
               color && typeof color === 'string'
-                ? styles[`contentColor__${color}`]
-                : styles.contentColor__default,
+                ? `contentColor__${color}`
+                : 'contentColor__default',
             ])}
           >
             {children}
@@ -205,23 +201,19 @@ export function ImageButton(props: Props) {
 
   return (
     <div
-      className={classes([
-        styles.ImageButton,
-        fluid && styles.fluid,
-        className,
-      ])}
+      className={classes(['ImageButton', fluid && 'fluid', className])}
       {...computeBoxProps(rest)}
     >
       {buttonContent}
       {buttons && (
         <div
           className={classes([
-            styles.buttonsContainer,
-            buttonsAlt && styles.buttonsAltContainer,
-            !children && styles.buttonsEmpty,
+            'buttonsContainer',
+            buttonsAlt && 'buttonsAltContainer',
+            !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
-              ? styles[`buttonsContainerColor__${color}`]
-              : fluid && styles.buttonsContainerColor__default,
+              ? `buttonsContainerColor__${color}`
+              : fluid && 'buttonsContainerColor__default',
           ])}
           style={{
             width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',

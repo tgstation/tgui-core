@@ -1,6 +1,5 @@
 import { keyOfMatchingRange, scale } from '../common/math';
 import { type BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/Knob.module.scss';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -116,9 +115,9 @@ export function Knob(props: Props) {
         return (
           <div
             className={classes([
-              styles.knob,
-              styles[`color__${effectiveColor}`],
-              bipolar && styles.bipolar,
+              'Knob',
+              `Knob--color--${effectiveColor}`,
+              bipolar && 'Knob--bipolar',
               className,
               computeBoxClassName(rest),
             ])}
@@ -131,33 +130,33 @@ export function Knob(props: Props) {
             })}
             onMouseDown={handleDragStart}
           >
-            <div className={styles.circle}>
+            <div className="Knob__circle">
               <div
-                className={styles.cursorBox}
+                className="Knob__cursorBox"
                 style={{
                   transform: `rotate(${rotation}deg)`,
                 }}
               >
-                <div className={styles.cursor} />
+                <div className="Knob__cursor" />
               </div>
             </div>
             {dragging && (
-              <div className={styles.popupValue}>{displayElement}</div>
+              <div className="Knob__popupValue">{displayElement}</div>
             )}
             <svg
-              className={classes([styles.ring, styles.ringTrackPivot])}
+              className="Knob__ring Knob__ringTrackPivot"
               viewBox="0 0 100 100"
             >
               <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
               <title>track</title>
             </svg>
             <svg
-              className={classes([styles.ring, styles.ringFillPivot])}
+              className="Knob__ring Knob__ringFillPivot"
               viewBox="0 0 100 100"
             >
               <title>fill</title>
               <circle
-                className={styles.ringFill}
+                className="Knob__ringFill"
                 style={{
                   strokeDashoffset: Math.max(
                     ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *

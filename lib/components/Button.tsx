@@ -8,10 +8,8 @@ import {
   useRef,
   useState,
 } from 'react';
-
 import { KEY, isEscape } from '../common/keys';
 import { type BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/Button.module.scss';
 import {
   Box,
   type BoxProps,
@@ -111,19 +109,20 @@ export function Button(props: Props) {
   let buttonContent = (
     <div
       className={classes([
-        styles.button,
-        fluid && styles.fluid,
-        disabled && styles.disabled,
-        selected && styles.selected,
-        circular && styles.circular,
-        compact && styles.compact,
-        verticalAlignContent && styles.flex,
-        verticalAlignContent && fluid && styles.flex__fluid,
+        'Button',
+        fluid && 'Button--fluid',
+        disabled && 'Button--disabled',
+        selected && 'Button--selected',
+        circular && 'Button--circular',
+        compact && 'Button--compact',
+        iconPosition && `Button--iconPosition--${iconPosition}`,
+        verticalAlignContent && 'Button--flex',
+        verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
-          styles[`verticalAlignContent__${verticalAlignContent}`],
+          `Button--verticalAlignContent--${verticalAlignContent}`,
         color && typeof color === 'string'
-          ? styles[`color__${color}`]
-          : styles.color__default,
+          ? `Button--color--${color}`
+          : 'Button--color--default',
         className,
         computeBoxClassName(rest),
       ])}
@@ -154,7 +153,7 @@ export function Button(props: Props) {
       }}
       {...computeBoxProps(rest)}
     >
-      <div className={styles.content}>
+      <div className="Button__content">
         {icon && iconPosition !== 'right' && (
           <Icon
             mr={toDisplay ? 1 : 0}
@@ -169,7 +168,10 @@ export function Button(props: Props) {
           toDisplay
         ) : (
           <span
-            className={classes([styles.ellipsis, icon && styles.textMargin])}
+            className={classes([
+              'Button--ellipsis',
+              icon && 'Button__textMargin',
+            ])}
           >
             {toDisplay}
           </span>
@@ -333,9 +335,10 @@ function ButtonInput(props: InputProps) {
   let buttonContent = (
     <Box
       className={classes([
-        styles.button,
-        fluid && styles.fluid,
-        styles[`color__${color}`],
+        'Button',
+        fluid && 'Button--fluid',
+        disabled && 'Button--disabled',
+        `Button--color--${color}`,
       ])}
       {...rest}
       onClick={() => setInInput(true)}

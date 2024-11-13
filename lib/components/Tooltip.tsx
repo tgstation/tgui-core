@@ -7,8 +7,6 @@ import {
 import { Component, type ReactNode } from 'react';
 import { findDOMNode, render } from 'react-dom';
 
-import styles from '../styles/components/Tooltip.module.scss';
-
 type Props = {
   /** The content to display in the tooltip */
   content: ReactNode;
@@ -82,7 +80,7 @@ export class Tooltip extends Component<Props, State> {
       let renderedTooltip = Tooltip.renderedTooltip;
       if (renderedTooltip === undefined) {
         renderedTooltip = document.createElement('div');
-        renderedTooltip.className = styles.tooltip;
+        renderedTooltip.className = 'Tooltip';
         document.body.appendChild(renderedTooltip);
         Tooltip.renderedTooltip = renderedTooltip;
       }

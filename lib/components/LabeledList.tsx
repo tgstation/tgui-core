@@ -1,7 +1,6 @@
 import type { PropsWithChildren, ReactNode } from 'react';
 
 import { type BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/LabeledList.module.scss';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';
@@ -99,9 +98,9 @@ function LabeledListItem(props: LabeledListItemProps) {
       as="td"
       color={labelColor}
       className={classes([
-        styles.cell,
+        'LabeledList__cell',
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-        !labelWrap && styles.label__nowrap,
+        !labelWrap && 'LabeledList__label--nowrap',
       ])}
       verticalAlign={verticalAlign}
     >
@@ -110,13 +109,13 @@ function LabeledListItem(props: LabeledListItemProps) {
   );
 
   return (
-    <tr className={classes([styles.row, className])}>
+    <tr className={classes(['LabeledList__row', className])}>
       {labelChild}
       <Box
         as="td"
         color={color}
         textAlign={textAlign}
-        className={styles.cell}
+        className="LabeledList__cell"
         // @ts-ignore
         colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}
@@ -125,7 +124,7 @@ function LabeledListItem(props: LabeledListItemProps) {
         {children}
       </Box>
       {buttons && (
-        <td className={classes([styles.cell, styles.buttons])}>{buttons}</td>
+        <td className="LabeledList__cell LabeledList__buttons">{buttons}</td>
       )}
     </tr>
   );

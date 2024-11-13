@@ -1,5 +1,5 @@
 import { classes } from '../common/react';
-import styles from '../styles/components/Flex.module.scss';
+
 import {
   type BoxProps,
   computeBoxClassName,
@@ -65,8 +65,8 @@ export type FlexProps = Partial<{
 
 export function computeFlexClassName(props: FlexProps) {
   return classes([
-    styles.flex,
-    props.inline && styles.inline,
+    'Flex',
+    props.inline && 'Flex--inline',
     computeBoxClassName(props),
   ]);
 }
@@ -95,6 +95,10 @@ export function Flex(props) {
     />
   );
 }
+
+export const computeFlexItemClassName = (props: FlexItemProps) => {
+  return classes(['Flex__item', computeBoxClassName(props)]);
+};
 
 export type FlexItemProps = Partial<{
   /** This allows the default alignment (or the one specified by align-items) to be overridden for individual flex items. */
@@ -155,7 +159,7 @@ function FlexItem(props) {
   const { className, ...rest } = props;
   return (
     <div
-      className={classes([className, computeBoxClassName(props)])}
+      className={classes([className, computeFlexItemClassName(props)])}
       {...computeFlexItemProps(rest)}
     />
   );
