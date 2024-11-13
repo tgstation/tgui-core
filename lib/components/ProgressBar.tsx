@@ -69,11 +69,7 @@ export function ProgressBar(props: Props) {
   // a name for a color-<name> class, or a base CSS class.
   const outerProps = computeBoxProps(rest);
 
-  const outerClasses = [
-    styles.progressBar,
-    className,
-    computeBoxClassName(rest),
-  ];
+  const outerClasses = ['ProgressBar', className, computeBoxClassName(rest)];
   const fillStyles: CSSProperties = {
     width: `${clamp01(scaledValue) * 100}%`,
   };
@@ -82,7 +78,7 @@ export function ProgressBar(props: Props) {
     effectiveColor === 'default'
   ) {
     // If the color is a color-<name> class, just use that.
-    outerClasses.push(styles[`color__${effectiveColor}`]);
+    outerClasses.push(`ProgressBar--color--${effectiveColor}`);
   } else {
     // Otherwise, set styles directly.
     outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
@@ -95,7 +91,7 @@ export function ProgressBar(props: Props) {
         className="ProgressBar__fill ProgressBar__fill--animated"
         style={fillStyles}
       />
-      <div className={styles.content}>
+      <div className="ProgressBar__content">
         {hasContent ? children : `${toFixed(scaledValue * 100)}%`}
       </div>
     </div>
