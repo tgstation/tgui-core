@@ -30,7 +30,7 @@ export function round(num: number, dec: number): number {
     (
       Math.round(num * Math.pow(10, dec) + num_sign * 0.0001) /
       Math.pow(10, dec)
-    ).toFixed(dec),
+    ).toFixed(dec)
   );
 }
 
@@ -58,7 +58,7 @@ export function inRange(value: number, range: number[]): boolean {
  */
 export function keyOfMatchingRange(
   value: number,
-  ranges: Record<string, any>,
+  ranges: Record<string, any>
 ): string | undefined {
   for (const rangeName of Object.keys(ranges)) {
     const range = ranges[rangeName];

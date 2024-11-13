@@ -1,5 +1,4 @@
 import { classes } from '../common/react';
-import styles from '../styles/components/Divider.module.scss';
 
 type Props = Partial<{
   hidden: boolean;
@@ -12,8 +11,9 @@ export function Divider(props: Props) {
   return (
     <div
       className={classes([
-        hidden && styles.hidden,
-        vertical ? styles.vertical : styles.horizontal,
+        'Divider',
+        hidden && 'Divider--hidden',
+        vertical ? 'Divider--vertical' : 'Divider--horizontal',
       ])}
     />
   );

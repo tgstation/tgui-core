@@ -8,7 +8,6 @@ import { Placement } from '@popperjs/core';
 import { ReactNode } from 'react';
 
 import { BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/ImageButton.module.scss';
 import { BoxProps, computeBoxProps } from './Box';
 import { DmIcon } from './DmIcon';
 import { Icon } from './Icon';
@@ -21,14 +20,14 @@ type Props = Partial<{
   asset: string[];
   /** Classic way to put images. Example: `base64={thing.image}` */
   base64: string;
-  /** 
+  /**
    * Special container for buttons.
    * You can put any other component here.
    * Has some special stylings!
-   * Example: `buttons={<Button>Send</Button>}` 
+   * Example: `buttons={<Button>Send</Button>}`
    */
   buttons: ReactNode;
-  /** 
+  /**
    * Enables alternate layout for `buttons` container.
    * Without fluid, buttons will be on top and with `pointer-events: none`, useful for text info.
    * With fluid, buttons will be in "hamburger" style.
@@ -48,9 +47,9 @@ type Props = Partial<{
   dmIcon: string | null;
   /** Parameter `icon_state` of component `DmIcon`. */
   dmIconState: string | null;
-  /** 
+  /**
    * Changes the layout of the button, making it fill the entire horizontally available space.
-   * Allows the use of `title` 
+   * Allows the use of `title`
    */
   fluid: boolean;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
@@ -115,14 +114,14 @@ export function ImageButton(props: Props) {
   let buttonContent = (
     <div
       className={classes([
-        styles.container,
-        buttons && styles.hasButtons,
-        !onClick && !onRightClick && styles.noAction,
-        selected && styles.selected,
-        disabled && styles.disabled,
+        'container',
+        buttons && 'hasButtons',
+        !onClick && !onRightClick && 'noAction',
+        selected && 'selected',
+        disabled && 'disabled',
         color && typeof color === 'string'
-          ? styles['color__' + color]
-          : styles['color__default'],
+          ? 'color__' + color
+          : 'color__default',
       ])}
       tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
@@ -138,10 +137,10 @@ export function ImageButton(props: Props) {
       }}
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
-      <div className={classes([styles.image])}>
+      <div className="image">
         {base64 || asset || imageSrc ? (
           <Image
-            className={classes(!base64 && !imageSrc && asset || [])}
+            className={classes((!base64 && !imageSrc && asset) || [])}
             src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}
@@ -159,28 +158,24 @@ export function ImageButton(props: Props) {
         )}
       </div>
       {fluid ? (
-        <div className={classes([styles.info])}>
+        <div className="info">
           {title && (
-            <span
-              className={classes([styles.title, children && styles.divider])}
-            >
+            <span className={classes(['title', children && 'divider'])}>
               {title}
             </span>
           )}
-          {children && (
-            <span className={classes([styles.contentFluid])}>{children}</span>
-          )}
+          {children && <span className="contentFluid">{children}</span>}
         </div>
       ) : (
         children && (
           <span
             className={classes([
-              styles.content,
-              selected && styles.contentSelected,
-              disabled && styles.contentDisabled,
+              'content',
+              selected && 'contentSelected',
+              disabled && 'contentDisabled',
               color && typeof color === 'string'
-                ? styles['contentColor__' + color]
-                : styles['contentColor__default'],
+                ? 'contentColor__' + color
+                : 'contentColor__default',
             ])}
           >
             {children}
@@ -200,23 +195,19 @@ export function ImageButton(props: Props) {
 
   return (
     <div
-      className={classes([
-        styles.ImageButton,
-        fluid && styles.fluid,
-        className,
-      ])}
+      className={classes(['ImageButton', fluid && 'fluid', className])}
       {...computeBoxProps(rest)}
     >
       {buttonContent}
       {buttons && (
         <div
           className={classes([
-            styles.buttonsContainer,
-            buttonsAlt && styles.buttonsAltContainer,
-            !children && styles.buttonsEmpty,
+            'buttonsContainer',
+            buttonsAlt && 'buttonsAltContainer',
+            !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
-              ? styles['buttonsContainerColor__' + color]
-              : fluid && styles['buttonsContainerColor__default'],
+              ? 'buttonsContainerColor__' + color
+              : fluid && 'buttonsContainerColor__default',
           ])}
           style={{
             width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',

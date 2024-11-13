@@ -3,7 +3,6 @@ import { PropsWithChildren } from 'react';
 import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
-import styles from '../styles/components/ProgressBar.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {
@@ -71,11 +70,7 @@ export function ProgressBar(props: Props) {
   // a name for a color-<name> class, or a base CSS class.
   const outerProps = computeBoxProps(rest);
 
-  const outerClasses = [
-    styles.progressBar,
-    className,
-    computeBoxClassName(rest),
-  ];
+  const outerClasses = ['ProgressBar', className, computeBoxClassName(rest)];
   const fillStyles = {
     width: clamp01(scaledValue) * 100 + '%',
   };
@@ -84,7 +79,7 @@ export function ProgressBar(props: Props) {
     effectiveColor === 'default'
   ) {
     // If the color is a color-<name> class, just use that.
-    outerClasses.push(styles['color__' + effectiveColor]);
+    outerClasses.push('ProgressBar--color--' + effectiveColor);
   } else {
     // Otherwise, set styles directly.
     outerProps.style = { ...outerProps.style, borderColor: effectiveColor };
@@ -94,10 +89,10 @@ export function ProgressBar(props: Props) {
   return (
     <div className={classes(outerClasses)} {...outerProps}>
       <div
-        className={classes([styles.fill, styles.fill__animated])}
+        className="ProgressBar__fill ProgressBar__fill--animated"
         style={fillStyles}
       />
-      <div className={styles.content}>
+      <div className="ProgressBar__content">
         {hasContent ? children : toFixed(scaledValue * 100) + '%'}
       </div>
     </div>

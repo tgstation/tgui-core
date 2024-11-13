@@ -1,7 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 
 import { canRender, classes } from '../common/react';
-import styles from '../styles/components/Tabs.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 
@@ -33,10 +32,10 @@ export function Tabs(props: Props) {
   return (
     <div
       className={classes([
-        styles.tabs,
-        vertical ? styles.vertical : styles.horizontal,
-        fill && styles.fill,
-        fluid && styles.fluid,
+        'Tabs',
+        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
+        fill && 'Tabs--fill',
+        fluid && 'Tabs--fluid',
         className,
         computeBoxClassName(rest),
       ])}
@@ -71,28 +70,24 @@ function Tab(props: TabProps) {
   return (
     <div
       className={classes([
-        styles.tab,
-        styles.tabs__tab,
-        styles['color__' + color],
-        selected && styles.selected,
+        'Tab',
+        'Tabs__Tab',
+        'Tab--color--' + color,
+        selected && 'Tab--selected',
         className,
         computeBoxClassName(rest),
       ])}
       onClick={handleClick}
       {...computeBoxProps(rest)}
     >
-      {(canRender(leftSlot) && (
-        <div className={styles.tab__left}>{leftSlot}</div>
-      )) ||
+      {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
         (!!icon && (
-          <div className={styles.tab__left}>
+          <div className="Tab__left">
             <Icon name={icon} spin={iconSpin} />
           </div>
         ))}
-      <div className={styles.tab__text}>{children}</div>
-      {canRender(rightSlot) && (
-        <div className={styles.tab__right}>{rightSlot}</div>
-      )}
+      <div className="Tab__text">{children}</div>
+      {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
     </div>
   );
 }

@@ -56,12 +56,12 @@ export function VirtualList(props: PropsWithChildren) {
   }, [adjustExtents]);
 
   return (
-    <div className={'VirtualList'}>
-      <div className={'VirtualList__Container'} ref={containerRef}>
+    <div className="VirtualList">
+      <div className="VirtualList__Container" ref={containerRef}>
         {Array.isArray(children) ? children.slice(0, visibleElements) : null}
       </div>
       <div
-        className={'VirtualList__Padding'}
+        className="VirtualList__Padding"
         style={{ paddingBottom: `${padding}px` }}
       />
     </div>

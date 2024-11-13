@@ -1,5 +1,4 @@
 import { classes } from '../common/react';
-import styles from '../styles/components/Table.module.scss';
 import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -14,8 +13,8 @@ export function Table(props: Props) {
   return (
     <table
       className={classes([
-        styles.table,
-        collapsing && styles.collapsing,
+        'Table',
+        collapsing && 'Table--collapsing',
         className,
         computeBoxClassName(rest),
       ])}
@@ -38,8 +37,8 @@ export function TableRow(props: RowProps) {
   return (
     <tr
       className={classes([
-        styles.row,
-        header && styles.row__header,
+        'Table__row',
+        header && 'Table__row--header',
         className,
         computeBoxClassName(props),
       ])}
@@ -69,9 +68,9 @@ export function TableCell(props: CellProps) {
   return (
     <td
       className={classes([
-        styles.cell,
-        collapsing && styles.cell__collapsing,
-        header && styles.cell__header,
+        'Table__cell',
+        collapsing && 'Table__cell--collapsing',
+        header && 'Table__cell--header',
         className,
         computeBoxClassName(props),
       ])}

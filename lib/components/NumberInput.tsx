@@ -10,7 +10,6 @@ import {
 import { isEscape, KEY } from '../common/keys';
 import { clamp, round } from '../common/math';
 import { BooleanLike, classes } from '../common/react';
-import styles from '../styles/components/NumberInput.module.scss';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
@@ -129,15 +128,15 @@ export class NumberInput extends Component<Props, State> {
         const internalValue = clamp(
           state.currentValue + (offset * step) / stepSize,
           minValue - step,
-          maxValue + step,
+          maxValue + step
         );
         if (Math.abs(internalValue - state.currentValue) >= step) {
           // Clamp the final value
           {
             state.currentValue = clamp(
-              round(internalValue / step, 0) * step ,
+              round(internalValue / step, 0) * step,
               minValue,
-              maxValue,
+              maxValue
             );
           }
           // Set the new origin
@@ -196,7 +195,7 @@ export class NumberInput extends Component<Props, State> {
     const targetValue = clamp(
       parseFloat(event.target.value),
       minValue,
-      maxValue,
+      maxValue
     );
     if (isNaN(targetValue)) {
       this.setState({
@@ -227,7 +226,7 @@ export class NumberInput extends Component<Props, State> {
       const targetValue = clamp(
         parseFloat(event.currentTarget.value),
         minValue,
-        maxValue,
+        maxValue
       );
       if (isNaN(targetValue)) {
         this.setState({
@@ -276,7 +275,7 @@ export class NumberInput extends Component<Props, State> {
     }
 
     const contentElement = (
-      <div className={styles.content}>
+      <div className="NumberInput__content">
         {animated && !dragging ? (
           <AnimatedNumber value={displayValue} format={format} />
         ) : format ? (
@@ -292,8 +291,8 @@ export class NumberInput extends Component<Props, State> {
     return (
       <Box
         className={classes([
-          styles.numberInput,
-          fluid && styles.fluid,
+          'NumberInput',
+          fluid && 'NumberInput--fluid',
           className,
         ])}
         minWidth={width}
@@ -302,15 +301,15 @@ export class NumberInput extends Component<Props, State> {
         fontSize={fontSize}
         onMouseDown={this.handleDragStart}
       >
-        <div className={styles.barContainer}>
+        <div className="NumberInput__barContainer">
           <div
-            className={styles.bar}
+            className="NumberInput__bar"
             style={{
               height:
                 clamp(
                   ((displayValue - minValue) / (maxValue - minValue)) * 100,
                   0,
-                  100,
+                  100
                 ) + '%',
             }}
           />
@@ -318,7 +317,7 @@ export class NumberInput extends Component<Props, State> {
         {contentElement}
         <input
           ref={this.inputRef}
-          className={styles.inner}
+          className="NumberInput__input"
           style={{
             display: !editing ? 'none' : 'inline',
             height: height,

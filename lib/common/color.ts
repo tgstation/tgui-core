@@ -32,7 +32,7 @@ export class Color {
       this.r - this.r * percent,
       this.g - this.g * percent,
       this.b - this.b * percent,
-      this.a,
+      this.a
     );
   }
 
@@ -49,7 +49,7 @@ export class Color {
     return new Color(
       parseInt(hex.slice(1, 3), 16),
       parseInt(hex.slice(3, 5), 16),
-      parseInt(hex.slice(5, 7), 16),
+      parseInt(hex.slice(5, 7), 16)
     );
   }
 
@@ -61,7 +61,7 @@ export class Color {
       (c2.r - c1.r) * n + c1.r,
       (c2.g - c1.g) * n + c1.g,
       (c2.b - c1.b) * n + c1.b,
-      (c2.a - c1.a) * n + c1.a,
+      (c2.a - c1.a) * n + c1.a
     );
   }
 
