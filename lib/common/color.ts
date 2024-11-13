@@ -62,7 +62,7 @@ export class Color {
       (c2.r - c1.r) * n + c1.r,
       (c2.g - c1.g) * n + c1.g,
       (c2.b - c1.b) * n + c1.b,
-      (c2.a - c1.a) * n + c1.a
+      (c2.a - c1.a) * n + c1.a,
     );
   }
 

@@ -19,14 +19,14 @@ export function StyleableSection(props: Props) {
     <Box style={style}>
       {/* Yes, this box (line above) is missing the "Section" class. This is very intentional, as the layout looks *ugly* with it.*/}
       <Box className="Section__title" style={titleStyle}>
-        <Box className=
-          "Section__titleText" style={textStyle}>
+        <Box className="Section__titleText" style={textStyle}>
           {title}
         </Box>
-        <div className="Section__buttons">{titleSubtext}</div>      </Box>
-      <Box className="Section__rest">
-        <Box className="Section__content" >{children}</Box>
+        <div className="Section__buttons">{titleSubtext}</div>{' '}
       </Box>
-    </Box >
+      <Box className="Section__rest">
+        <Box className="Section__content">{children}</Box>
+      </Box>
+    </Box>
   );
 }

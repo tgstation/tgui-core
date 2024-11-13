@@ -2,14 +2,8 @@
   "name": "tgui-core",
   "version": "1.2.1",
   "description": "TGUI core component library",
-  "keywords": [
-    "TGUI",
-    "library",
-    "typescript"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["TGUI", "library", "typescript"],
+  "files": ["dist"],
   "exports": {
     "./components": {
       "import": "./dist/components/index.js",
@@ -46,6 +40,7 @@
     "@types/webpack-env": "^1.18.5",
     "@vitejs/plugin-react-swc": "^3.7.1",
     "glob": "^11.0.0",
+    "prettier": "^3.3.3",
     "react-popper": "^2.3.0",
     "typescript": "^5.5.3",
     "vite": "^5.3.4",

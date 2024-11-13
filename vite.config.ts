@@ -31,7 +31,7 @@ export default defineConfig({
             // The absolute path to the entry file
             // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
             fileURLToPath(new URL(file, import.meta.url)),
-          ])
+          ]),
       ),
     },
   },
