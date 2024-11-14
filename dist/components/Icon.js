@@ -1,51 +1,44 @@
-import { jsx as l } from "react/jsx-runtime";
-import { classes as m } from "../common/react.js";
+import { jsx as m } from "react/jsx-runtime";
+import { classes as l } from "../common/react.js";
 import { computeBoxProps as p, computeBoxClassName as u } from "./Box.js";
-import '../assets/Icon.css';const x = "_iconStack_bg05l_7", y = "_icon_bg05l_7", S = {
-  iconStack: x,
-  icon: y
-}, f = /-o$/;
-function b(a) {
-  const { name: t, size: o, spin: c, className: _, rotation: i, ...n } = a, e = n.style || {};
-  o && (e.fontSize = o * 100 + "%"), i && (e.transform = `rotate(${i}deg)`), n.style = e;
-  const N = p(n);
-  let s = "";
-  if (t.startsWith("tg-"))
-    s = t;
+const f = /-o$/;
+function d(c) {
+  const { name: s, size: o, spin: a, className: N, rotation: r, ...e } = c, n = e.style || {};
+  o && (n.fontSize = `${o * 100}%`), r && (n.transform = `rotate(${r}deg)`), e.style = n;
+  const x = p(e);
+  let t = "";
+  if (s.startsWith("tg-"))
+    t = s;
   else {
-    const k = f.test(t), r = t.replace(f, ""), g = !r.startsWith("fa-");
-    s = k ? "far " : "fas ", g && (s += "fa-"), s += r, c && (s += " fa-spin");
+    const I = f.test(s), i = s.replace(f, ""), S = !i.startsWith("fa-");
+    t = I ? "far " : "fas ", S && (t += "fa-"), t += i, a && (t += " fa-spin");
   }
-  return /* @__PURE__ */ l(
+  return /* @__PURE__ */ m(
     "i",
     {
-      className: m([
-        S.icon,
-        s,
-        _,
-        u(n)
+      className: l([
+        "Icon",
+        t,
+        N,
+        u(e)
       ]),
-      ...N
+      ...x
     }
   );
 }
-function d(a) {
-  const { className: t, children: o, ...c } = a;
-  return /* @__PURE__ */ l(
+function g(c) {
+  const { className: s, children: o, ...a } = c;
+  return /* @__PURE__ */ m(
     "span",
     {
-      className: m([
-        S.iconStack,
-        t,
-        u(c)
-      ]),
-      ...p(c),
+      className: l(["IconStack", s, u(a)]),
+      ...p(a),
       children: o
     }
   );
 }
-b.Stack = d;
+d.Stack = g;
 export {
-  b as Icon,
-  d as IconStack
+  d as Icon,
+  g as IconStack
 };

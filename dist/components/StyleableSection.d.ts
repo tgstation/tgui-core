@@ -1,5 +1,4 @@
 import { PropsWithChildren, ReactNode } from 'react';
-
 type Props = Partial<{
     style: Record<string, any>;
     textStyle: Record<string, any>;

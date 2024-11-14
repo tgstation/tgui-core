@@ -1,15 +1,15 @@
 import { jsx as p } from "react/jsx-runtime";
-import { useRef as f } from "react";
-import { computeBoxProps as a } from "./Box.js";
+import { useRef as a } from "react";
+import { computeBoxProps as f } from "./Box.js";
 const l = 5;
-function b(o) {
+function E(o) {
   const {
     fixBlur: s = !0,
     fixErrors: m = !1,
     objectFit: n = "fill",
     src: e,
     ...c
-  } = o, t = f(0), r = a(c);
+  } = o, t = a(0), r = f(c);
   return r.style = {
     ...r.style,
     "-ms-interpolation-mode": s ? "nearest-neighbor" : "auto",
@@ -26,10 +26,11 @@ function b(o) {
         }
       },
       src: e,
-      ...r
+      ...r,
+      alt: "dm icon"
     }
   );
 }
 export {
-  b as Image
+  E as Image
 };

@@ -1,5 +1,4 @@
 import { FlexProps } from './Flex';
-
 export declare function LabeledControls(props: FlexProps): import("react/jsx-runtime").JSX.Element;
 export declare namespace LabeledControls {
     var Item: typeof LabeledControlsItem;

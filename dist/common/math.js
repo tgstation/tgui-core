@@ -1,41 +1,45 @@
-function e(t, n, r) {
-  return t < n ? n : t > r ? r : t;
+function e(n, t, r) {
+  return n < t ? t : n > r ? r : n;
 }
-function c(t) {
-  return t < 0 ? 0 : t > 1 ? 1 : t;
+function u(n) {
+  return n < 0 ? 0 : n > 1 ? 1 : n;
 }
-function f(t, n = 0, r = 100) {
-  return (t - n) / (r - n);
+function f(n, t = 0, r = 100) {
+  return (n - t) / (r - t);
 }
-function u(t, n) {
-  const r = t >= 0 ? 1 : -1;
-  return parseFloat(
-    (Math.round(t * Math.pow(10, n) + r * 1e-4) / Math.pow(10, n)).toFixed(n)
+function c(n, t) {
+  const r = n >= 0 ? 1 : -1;
+  return Number.parseFloat(
+    (Math.round(n * 10 ** t + r * 1e-4) / 10 ** t).toFixed(t)
   );
 }
-function s(t, n = 0) {
-  return Number(t).toFixed(Math.max(n, 0));
+function s(n, t = 0) {
+  return Number(n).toFixed(Math.max(t, 0));
 }
-function i(t, n) {
-  return n && t >= n[0] && t <= n[1];
+function o(n, t) {
+  return t && n >= t[0] && n <= t[1];
 }
-function a(t, n) {
-  for (const r of Object.keys(n)) {
-    const o = n[r];
-    if (i(t, o))
+function m(n, t) {
+  for (const r of Object.keys(t)) {
+    const i = t[r];
+    if (o(n, i))
       return r;
   }
 }
-function h(t) {
-  return Math.floor(t) !== t && t.toString().split(".")[1].length || 0;
+function b(n) {
+  return Math.floor(n) !== n && n.toString().split(".")[1].length || 0;
+}
+function N(n) {
+  return typeof n == "number" && Number.isFinite(n) && !Number.isNaN(n);
 }
 export {
   e as clamp,
-  c as clamp01,
-  i as inRange,
-  a as keyOfMatchingRange,
-  h as numberOfDecimalDigits,
-  u as round,
+  u as clamp01,
+  o as inRange,
+  N as isSafeNumber,
+  m as keyOfMatchingRange,
+  b as numberOfDecimalDigits,
+  c as round,
   f as scale,
   s as toFixed
 };

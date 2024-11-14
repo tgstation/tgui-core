@@ -1,20 +1,18 @@
-import '../assets/Tooltip.css';var s = Object.defineProperty;
-var p = (o, e, n) => e in o ? s(o, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : o[e] = n;
-var r = (o, e, n) => p(o, typeof e != "symbol" ? e + "" : e, n);
+var s = Object.defineProperty;
+var p = (r, e, n) => e in r ? s(r, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : r[e] = n;
+var o = (r, e, n) => p(r, typeof e != "symbol" ? e + "" : e, n);
 import { jsx as l } from "react/jsx-runtime";
 import { Component as c } from "react";
 import { findDOMNode as m, render as a } from "react-dom";
 import { c as u } from "../popper-CiqSDJTE.js";
-const h = "_tooltip_1pib4_13", f = {
-  tooltip: h
-}, i = {
+const i = {
   modifiers: [
     {
       name: "eventListeners",
       enabled: !1
     }
   ]
-}, v = {
+}, h = {
   width: 0,
   height: 0,
   top: 0,
@@ -32,7 +30,7 @@ const h = "_tooltip_1pib4_13", f = {
     const e = this.getDOMNode();
     e && (e.addEventListener("mouseenter", () => {
       let n = t.renderedTooltip;
-      n === void 0 && (n = document.createElement("div"), n.className = f.tooltip, document.body.appendChild(n), t.renderedTooltip = n), t.currentHoveredElement = e, n.style.opacity = "1", this.renderPopperContent();
+      n === void 0 && (n = document.createElement("div"), n.className = "Tooltip", document.body.appendChild(n), t.renderedTooltip = n), t.currentHoveredElement = e, n.style.opacity = "1", this.renderPopperContent();
     }), e.addEventListener("mouseleave", () => {
       this.fadeOut();
     }));
@@ -71,10 +69,10 @@ const h = "_tooltip_1pib4_13", f = {
 // Thus, instead of using the Popper component, Tooltip creates ONE popper
 // and stores every tooltip inside that.
 // This means you can never have two tooltips at once, for instance.
-r(t, "renderedTooltip"), r(t, "singletonPopper"), r(t, "currentHoveredElement"), r(t, "virtualElement", {
+o(t, "renderedTooltip"), o(t, "singletonPopper"), o(t, "currentHoveredElement"), o(t, "virtualElement", {
   getBoundingClientRect: () => {
     var e;
-    return ((e = t.currentHoveredElement) == null ? void 0 : e.getBoundingClientRect()) ?? v;
+    return ((e = t.currentHoveredElement) == null ? void 0 : e.getBoundingClientRect()) ?? h;
   }
 });
 let d = t;

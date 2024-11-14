@@ -2,7 +2,6 @@ import { Placement } from '@popperjs/core';
 import { ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
-
 /**
  * Getting ellipses to work requires that you use:
  * 1. A string rather than a node

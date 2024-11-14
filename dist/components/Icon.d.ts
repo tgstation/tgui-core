@@ -1,7 +1,6 @@
 import { CSSProperties, ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
-
 type Props = {
     /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */
     name: string;

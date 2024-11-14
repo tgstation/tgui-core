@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
 import { BoxProps } from './Box';
-
 type Props = {
     /** Highest possible value. */
     maxValue: number;

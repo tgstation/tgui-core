@@ -1,5 +1,4 @@
 import { Component, PropsWithChildren } from 'react';
-
 type Props = Partial<{
     /**
      * The interval between blinks, in milliseconds.

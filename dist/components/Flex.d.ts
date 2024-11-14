@@ -1,5 +1,4 @@
 import { BoxProps } from './Box';
-
 export type FlexProps = Partial<{
     /**
      * Default alignment of all children.
@@ -60,6 +59,7 @@ export declare function Flex(props: any): import("react/jsx-runtime").JSX.Elemen
 export declare namespace Flex {
     var Item: typeof FlexItem;
 }
+export declare const computeFlexItemClassName: (props: FlexItemProps) => string;
 export type FlexItemProps = Partial<{
     /** This allows the default alignment (or the one specified by align-items) to be overridden for individual flex items. */
     align: string | boolean;

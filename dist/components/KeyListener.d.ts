@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { KeyEvent } from '../common/events';
-
 type KeyListenerProps = Partial<{
     onKey: (key: KeyEvent) => void;
     onKeyDown: (key: KeyEvent) => void;

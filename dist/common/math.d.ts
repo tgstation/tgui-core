@@ -37,3 +37,7 @@ export declare function keyOfMatchingRange(value: number, ranges: Record<string,
  * Get number of digits following the decimal point in a number
  */
 export declare function numberOfDecimalDigits(value: number): number;
+/**
+ * Ensures the number is valid and not infinite/NaN.
+ */
+export declare function isSafeNumber(value: number): boolean;

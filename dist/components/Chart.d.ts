@@ -1,6 +1,5 @@
 import { Component, RefObject } from 'react';
 import { BoxProps } from './Box';
-
 type Props = {
     data: number[][];
 } & Partial<{

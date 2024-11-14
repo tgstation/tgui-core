@@ -1,89 +1,95 @@
 import { jsxs as E, jsx as h } from "react/jsx-runtime";
-import { KEY_ENTER as I, KEY_ESCAPE as S } from "../common/keycodes.js";
-import { clamp as m } from "../common/math.js";
+import { Component as N, createRef as S } from "react";
+import { KEY_ENTER as I, KEY_ESCAPE as b } from "../common/keycodes.js";
+import { clamp as d } from "../common/math.js";
 import { classes as v } from "../common/react.js";
-import { Component as F, createRef as N } from "react";
-import { Box as C } from "./Box.js";
+import { Box as F } from "./Box.js";
 const g = 0, x = 1e4;
-function M(e, n, t, s) {
-  const i = n || g, o = t || t === 0 ? t : x;
-  let r = s ? e.replace(/[^\-\d.]/g, "") : e.replace(/[^\-\d]/g, "");
-  return s && (r = b(r, i), r = d(".", r)), n < 0 ? (r = _(r), r = d("-", r)) : r = r.replaceAll("-", ""), i <= 1 && o >= 0 ? V(r, i, o, s) : r;
+function C(s, e, t, n) {
+  const i = e || g, o = t || t === 0 ? t : x;
+  let r = n ? s.replace(/[^\-\d.]/g, "") : s.replace(/[^\-\d]/g, "");
+  return n && (r = V(r, i), r = m(".", r)), e < 0 ? (r = _(r), r = m("-", r)) : r = r.replaceAll("-", ""), i <= 1 && o >= 0 ? M(r, i, o, n) : r;
 }
-const V = (e, n, t, s) => {
-  let i = s ? parseFloat(e) : parseInt(e, 10);
-  if (!isNaN(i) && (e.slice(-1) !== "." || i < Math.floor(n))) {
-    let o = m(i, n, t);
+const M = (s, e, t, n) => {
+  const i = n ? Number.parseFloat(s) : Number.parseInt(s, 10);
+  if (!Number.isNaN(i) && (s.slice(-1) !== "." || i < Math.floor(e))) {
+    const o = d(i, e, t);
     if (i !== o)
       return String(o);
   }
-  return e;
+  return s;
 };
-function _(e) {
-  let n = e, t = e.indexOf("-");
-  return t > 0 ? (e = e.replace("-", ""), n = "-".concat(e)) : t === 0 && e.indexOf("-", t + 1) > 0 && (n = e.replaceAll("-", "")), n;
+function _(s) {
+  let e = s;
+  const t = s.indexOf("-");
+  if (t > 0) {
+    const n = s.replace("-", "");
+    e = "-".concat(n);
+  } else t === 0 && s.indexOf("-", t + 1) > 0 && (e = s.replaceAll("-", ""));
+  return e;
 }
-function b(e, n) {
-  let t = e, s = Math.sign(n) * Math.floor(Math.abs(n));
-  return e.indexOf(".") === 0 ? t = String(s).concat(e) : e.indexOf("-") === 0 && e.indexOf(".") === 1 && (t = s + ".".concat(e.slice(2))), t;
+function V(s, e) {
+  let t = s;
+  const n = Math.sign(e) * Math.floor(Math.abs(e));
+  return s.indexOf(".") === 0 ? t = String(n).concat(s) : s.indexOf("-") === 0 && s.indexOf(".") === 1 && (t = n + ".".concat(s.slice(2))), t;
 }
-function d(e, n) {
-  const t = n.indexOf(e), s = n.length;
-  let i = n;
-  if (t !== -1 && t < s - 1) {
-    let o = n.slice(t + 1, s);
-    o = o.replaceAll(e, ""), i = n.slice(0, t + 1).concat(o);
+function m(s, e) {
+  const t = e.indexOf(s), n = e.length;
+  let i = e;
+  if (t !== -1 && t < n - 1) {
+    let o = e.slice(t + 1, n);
+    o = o.replaceAll(s, ""), i = e.slice(0, t + 1).concat(o);
   }
   return i;
 }
-function f(e, n, t, s) {
-  const i = n || g, o = t || t === 0 ? t : x;
-  if (!e || !e.length)
+function f(s, e, t, n) {
+  const i = e || g, o = t || t === 0 ? t : x;
+  if (!s || !s.length)
     return String(i);
-  let r = s ? parseFloat(e.replace(/[^\-\d.]/g, "")) : parseInt(e.replace(/[^\-\d]/g, ""), 10);
-  return isNaN(r) ? String(i) : String(m(r, i, o));
+  const r = n ? Number.parseFloat(s.replace(/[^\-\d.]/g, "")) : Number.parseInt(s.replace(/[^\-\d]/g, ""), 10);
+  return Number.isNaN(r) ? String(i) : String(d(r, i, o));
 }
-class B extends F {
-  constructor(n) {
-    super(n), this.inputRef = N(), this.state = {
+class B extends N {
+  constructor(e) {
+    super(e), this.inputRef = S(), this.state = {
       editing: !1
     }, this.handleBlur = (t) => {
-      const { maxValue: s, minValue: i, onBlur: o, allowFloats: r } = this.props, { editing: l } = this.state;
+      const { maxValue: n, minValue: i, onBlur: o, allowFloats: r } = this.props, { editing: l } = this.state;
       l && this.setEditing(!1);
       const a = f(
         t.target.value,
         i,
-        s,
+        n,
         r
       );
       o && o(t, +a);
     }, this.handleChange = (t) => {
-      const { maxValue: s, minValue: i, onChange: o, allowFloats: r } = this.props;
-      t.target.value = M(
+      const { maxValue: n, minValue: i, onChange: o, allowFloats: r } = this.props;
+      t.target.value = C(
         t.target.value,
         i,
-        s,
+        n,
         r
       ), o && o(t, +t.target.value);
     }, this.handleFocus = (t) => {
-      const { editing: s } = this.state;
-      s || this.setEditing(!0);
+      const { editing: n } = this.state;
+      n || this.setEditing(!0);
     }, this.handleInput = (t) => {
-      const { editing: s } = this.state, { onInput: i } = this.props;
-      s || this.setEditing(!0), i && i(t, +t.target.value);
+      const { editing: n } = this.state, { onInput: i } = this.props;
+      n || this.setEditing(!0), i && i(t, +t.target.value);
     }, this.handleKeyDown = (t) => {
-      const { maxValue: s, minValue: i, onChange: o, onEnter: r, allowFloats: l } = this.props;
+      const { maxValue: n, minValue: i, onChange: o, onEnter: r, allowFloats: l } = this.props;
       if (t.keyCode === I) {
         const a = f(
           t.target.value,
           i,
-          s,
+          n,
           l
         );
         this.setEditing(!1), o && o(t, +a), r && r(t, +a), t.target.blur();
         return;
       }
-      if (t.keyCode === S) {
+      if (t.keyCode === b) {
         if (this.props.onEscape) {
           this.props.onEscape(t);
           return;
@@ -95,41 +101,41 @@ class B extends F {
   }
   componentDidMount() {
     var r;
-    const { maxValue: n, minValue: t, allowFloats: s } = this.props, i = (r = this.props.value) == null ? void 0 : r.toString(), o = this.inputRef.current;
+    const { maxValue: e, minValue: t, allowFloats: n } = this.props, i = (r = this.props.value) == null ? void 0 : r.toString(), o = this.inputRef.current;
     o && (o.value = f(
       i,
       t,
-      n,
-      s
+      e,
+      n
     )), (this.props.autoFocus || this.props.autoSelect) && setTimeout(() => {
       o.focus(), this.props.autoSelect && o.select();
     }, 1);
   }
-  componentDidUpdate(n, t) {
-    var p, c;
-    const { maxValue: s, minValue: i, allowFloats: o } = this.props, { editing: r } = this.state, l = (p = n.value) == null ? void 0 : p.toString(), a = (c = this.props.value) == null ? void 0 : c.toString(), u = this.inputRef.current;
+  componentDidUpdate(e, t) {
+    var c, p;
+    const { maxValue: n, minValue: i, allowFloats: o } = this.props, { editing: r } = this.state, l = (c = e.value) == null ? void 0 : c.toString(), a = (p = this.props.value) == null ? void 0 : p.toString(), u = this.inputRef.current;
     u && !r && a !== l && a !== u.value && (u.value = f(
       a,
       i,
-      s,
+      n,
       o
     ));
   }
-  setEditing(n) {
-    this.setState({ editing: n });
+  setEditing(e) {
+    this.setState({ editing: e });
   }
   render() {
-    const { props: n } = this, { onChange: t, onEnter: s, onInput: i, onBlur: o, value: r, ...l } = n, { className: a, fluid: u, monospace: p, ...c } = l;
+    const { props: e } = this, { onChange: t, onEnter: n, onInput: i, onBlur: o, value: r, ...l } = e, { className: a, fluid: u, monospace: c, ...p } = l;
     return /* @__PURE__ */ E(
-      C,
+      F,
       {
         className: v([
           "Input",
           u && "Input--fluid",
-          p && "Input--monospace",
+          c && "Input--monospace",
           a
         ]),
-        ...c,
+        ...p,
         children: [
           /* @__PURE__ */ h("div", { className: "Input__baseline", children: "." }),
           /* @__PURE__ */ h(

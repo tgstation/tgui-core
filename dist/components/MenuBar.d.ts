@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 type MenuBarItemProps = {
     children: any;
     className?: string;

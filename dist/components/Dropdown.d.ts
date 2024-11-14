@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { BoxProps } from './Box';
-
 export type DropdownEntry = {
     displayText: ReactNode;
     value: string | number;

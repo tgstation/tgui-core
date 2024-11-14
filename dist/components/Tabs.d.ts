@@ -1,6 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { BoxProps } from './Box';
-
 type Props = Partial<{
     className: string;
     fill: boolean;

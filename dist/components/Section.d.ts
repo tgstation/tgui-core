@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { BoxProps } from './Box';
-
 type Props = Partial<{
     /** Buttons to render aside the section title. */
     buttons: ReactNode;
@@ -52,5 +51,5 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export declare const Section: (props: Props) => import("react/jsx-runtime").JSX.Element;
+export declare function Section(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

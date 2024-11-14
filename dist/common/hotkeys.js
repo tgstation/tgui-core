@@ -30,9 +30,9 @@ function w(t) {
   if (t >= 48 && t <= 57 || t >= 65 && t <= 90)
     return String.fromCharCode(t);
   if (t >= 96 && t <= 105)
-    return "Numpad" + (t - 96);
+    return `Numpad${t - 96}`;
   if (t >= 112 && t <= 123)
-    return "F" + (t - 111);
+    return `F${t - 111}`;
   if (t === 188) return ",";
   if (t === 189) return "-";
   if (t === 190) return ".";

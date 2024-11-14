@@ -24,7 +24,7 @@ class k extends v {
   }
   doOffsetMouse(e) {
     const { zoom: o } = this.state;
-    e.screenZoomX = e.screenX * Math.pow(o, -1), e.screenZoomY = e.screenY * Math.pow(o, -1);
+    e.screenZoomX = e.screenX * o ** -1, e.screenZoomY = e.screenY * o ** -1;
   }
   handleMouseDown(e) {
     this.setState((o) => ({

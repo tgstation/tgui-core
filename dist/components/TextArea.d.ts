@@ -1,5 +1,4 @@
 import { SyntheticEvent } from 'react';
-
 export declare const TextArea: import('react').ForwardRefExoticComponent<Partial<{
     autoFocus: boolean;
     autoSelect: boolean;

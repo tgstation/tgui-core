@@ -2,7 +2,6 @@ import { Placement } from '@popperjs/core';
 import { ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
-
 type Props = Partial<{
     /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
     asset: string[];

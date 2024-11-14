@@ -1,44 +1,36 @@
-import '../assets/NumberInput.css';var N = Object.defineProperty;
-var w = (c, d, e) => d in c ? N(c, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : c[d] = e;
-var l = (c, d, e) => w(c, typeof d != "symbol" ? d + "" : d, e);
-import { jsxs as _, jsx as V } from "react/jsx-runtime";
-import { Component as E, createRef as I } from "react";
-import { KEY as D, isEscape as M } from "../common/keys.js";
-import { clamp as g, round as T } from "../common/math.js";
-import { classes as F } from "../common/react.js";
-import { AnimatedNumber as R } from "./AnimatedNumber.js";
-import { Box as Y } from "./Box.js";
-const B = "_numberInput_4xyrw_20", K = "_fluid_4xyrw_36", L = "_content_4xyrw_40", z = "_barContainer_4xyrw_44", j = "_bar_4xyrw_44", k = "_inner_4xyrw_61", p = {
-  numberInput: B,
-  fluid: K,
-  content: L,
-  barContainer: z,
-  bar: j,
-  inner: k
-};
-class J extends E {
-  constructor(e) {
-    super(e);
+var I = Object.defineProperty;
+var E = (m, d, e) => d in m ? I(m, d, { enumerable: !0, configurable: !0, writable: !0, value: e }) : m[d] = e;
+var o = (m, d, e) => E(m, typeof d != "symbol" ? d + "" : d, e);
+import { jsxs as N, jsx as f } from "react/jsx-runtime";
+import { Component as x, createRef as D } from "react";
+import { KEY as _, isEscape as M } from "../common/keys.js";
+import { clamp as h, round as T } from "../common/math.js";
+import { classes as w } from "../common/react.js";
+import { AnimatedNumber as F } from "./AnimatedNumber.js";
+import { Box as R } from "./Box.js";
+class H extends x {
+  constructor() {
+    super(...arguments);
     // Ref to the input field to set focus & highlight
-    l(this, "inputRef", I());
+    o(this, "inputRef", D());
     // After this time has elapsed we are in drag mode so no editing when dragging ends
-    l(this, "dragTimeout");
+    o(this, "dragTimeout");
     // Call onDrag at this interval
-    l(this, "dragInterval");
+    o(this, "dragInterval");
     // default values for the number input state
-    l(this, "state", {
+    o(this, "state", {
       editing: !1,
       dragging: !1,
       currentValue: 0,
       previousValue: 0,
       origin: 0
     });
-    l(this, "handleDragStart", (e) => {
-      const { value: o, disabled: a } = this.props, { editing: s } = this.state;
-      if (a || s)
+    o(this, "handleDragStart", (e) => {
+      const { value: u, disabled: n } = this.props, { editing: s } = this.state;
+      if (n || s)
         return;
       document.body.style["pointer-events"] = "none";
-      const r = parseFloat(o.toString());
+      const r = Number.parseFloat(u.toString());
       this.setState({
         dragging: !1,
         origin: e.screenY,
@@ -49,59 +41,59 @@ class J extends E {
           dragging: !0
         });
       }, 250), this.dragInterval = setInterval(() => {
-        const { dragging: u, currentValue: i, previousValue: t } = this.state, { onDrag: n } = this.props;
-        u && i !== t && (this.setState({
+        const { dragging: l, currentValue: i, previousValue: t } = this.state, { onDrag: a } = this.props;
+        l && i !== t && (this.setState({
           previousValue: i
-        }), n == null || n(i));
+        }), a == null || a(i));
       }, 400), document.addEventListener("mousemove", this.handleDragMove), document.addEventListener("mouseup", this.handleDragEnd);
     });
-    l(this, "handleDragMove", (e) => {
-      const { minValue: o, maxValue: a, step: s, stepPixelSize: r, disabled: u } = this.props;
-      u || this.setState((i) => {
-        const t = { ...i }, n = t.origin - e.screenY;
+    o(this, "handleDragMove", (e) => {
+      const { minValue: u, maxValue: n, step: s, stepPixelSize: r, disabled: l } = this.props;
+      l || this.setState((i) => {
+        const t = { ...i }, a = t.origin - e.screenY;
         if (i.dragging) {
-          const f = r || 1, m = g(
-            t.currentValue + n * s / f,
-            o - s,
-            a + s
+          const g = r || 1, c = h(
+            t.currentValue + a * s / g,
+            u - s,
+            n + s
           );
-          Math.abs(m - t.currentValue) >= s ? (t.currentValue = g(
-            T(m / s, 0) * s,
-            o,
-            a
-          ), t.origin = e.screenY) : Math.abs(n) > f && (t.origin = e.screenY);
-        } else Math.abs(n) > 4 && (t.dragging = !0);
+          Math.abs(c - t.currentValue) >= s ? (t.currentValue = h(
+            T(c / s, 0) * s,
+            u,
+            n
+          ), t.origin = e.screenY) : Math.abs(a) > g && (t.origin = e.screenY);
+        } else Math.abs(a) > 4 && (t.dragging = !0);
         return t;
       });
     });
-    l(this, "handleDragEnd", (e) => {
-      const { dragging: o, currentValue: a } = this.state, { onDrag: s, onChange: r, disabled: u } = this.props;
-      if (!u) {
+    o(this, "handleDragEnd", (e) => {
+      const { dragging: u, currentValue: n } = this.state, { onDrag: s, onChange: r, disabled: l } = this.props;
+      if (!l) {
         if (document.body.style["pointer-events"] = "auto", clearInterval(this.dragInterval), clearTimeout(this.dragTimeout), this.setState({
           dragging: !1,
-          editing: !o,
-          previousValue: a
-        }), o)
-          r == null || r(a), s == null || s(a);
+          editing: !u,
+          previousValue: n
+        }), u)
+          r == null || r(n), s == null || s(n);
         else if (this.inputRef) {
           const i = this.inputRef.current;
-          i && (i.value = `${a}`, setTimeout(() => {
+          i && (i.value = `${n}`, setTimeout(() => {
             i.focus(), i.select();
           }, 10));
         }
         document.removeEventListener("mousemove", this.handleDragMove), document.removeEventListener("mouseup", this.handleDragEnd);
       }
     });
-    l(this, "handleBlur", (e) => {
-      const { editing: o, previousValue: a } = this.state, { minValue: s, maxValue: r, onChange: u, onDrag: i, disabled: t } = this.props;
-      if (t || !o)
+    o(this, "handleBlur", (e) => {
+      const { editing: u, previousValue: n } = this.state, { minValue: s, maxValue: r, onChange: l, onDrag: i, disabled: t } = this.props;
+      if (t || !u)
         return;
-      const n = g(
-        parseFloat(e.target.value),
+      const a = h(
+        Number.parseFloat(e.target.value),
         s,
         r
       );
-      if (isNaN(n)) {
+      if (Number.isNaN(a)) {
         this.setState({
           editing: !1
         });
@@ -109,22 +101,22 @@ class J extends E {
       }
       this.setState({
         editing: !1,
-        currentValue: n,
-        previousValue: n
-      }), a !== n && (u == null || u(n), i == null || i(n));
+        currentValue: a,
+        previousValue: a
+      }), n !== a && (l == null || l(a), i == null || i(a));
     });
-    l(this, "handleKeyDown", (e) => {
-      const { minValue: o, maxValue: a, onChange: s, onDrag: r, disabled: u } = this.props;
-      if (u)
+    o(this, "handleKeyDown", (e) => {
+      const { minValue: u, maxValue: n, onChange: s, onDrag: r, disabled: l } = this.props;
+      if (l)
         return;
       const { previousValue: i } = this.state;
-      if (e.key === D.Enter) {
-        const t = g(
-          parseFloat(e.currentTarget.value),
-          o,
-          a
+      if (e.key === _.Enter) {
+        const t = h(
+          Number.parseFloat(e.currentTarget.value),
+          u,
+          n
         );
-        if (isNaN(t)) {
+        if (Number.isNaN(t)) {
           this.setState({
             editing: !1
           });
@@ -141,71 +133,71 @@ class J extends E {
     });
   }
   componentDidMount() {
-    const e = parseFloat(this.props.value.toString());
+    const e = Number.parseFloat(this.props.value.toString());
     this.setState({
       currentValue: e,
       previousValue: e
     });
   }
   render() {
-    const { dragging: e, editing: o, currentValue: a } = this.state, {
+    const { dragging: e, editing: u, currentValue: n } = this.state, {
       className: s,
       fluid: r,
-      animated: u,
+      animated: l,
       unit: i,
       value: t,
-      minValue: n,
-      maxValue: f,
-      height: m,
+      minValue: a,
+      maxValue: g,
+      height: c,
       width: S,
-      lineHeight: b,
-      fontSize: y,
-      format: v
+      lineHeight: v,
+      fontSize: b,
+      format: V
     } = this.props;
-    let h = parseFloat(t.toString());
-    e && (h = a);
-    const x = /* @__PURE__ */ _("div", { className: p.content, children: [
-      u && !e ? /* @__PURE__ */ V(R, { value: h, format: v }) : v ? v(h) : h,
-      i ? " " + i : ""
+    let p = Number.parseFloat(t.toString());
+    e && (p = n);
+    const y = /* @__PURE__ */ N("div", { className: "NumberInput__content", children: [
+      l && !e ? /* @__PURE__ */ f(F, { value: p, format: V }) : V ? V(p) : p,
+      i ? ` ${i}` : ""
     ] });
-    return /* @__PURE__ */ _(
-      Y,
+    return /* @__PURE__ */ N(
+      R,
       {
-        className: F([
-          p.numberInput,
-          r && p.fluid,
+        className: w([
+          "NumberInput",
+          r && "NumberInput--fluid",
           s
         ]),
         minWidth: S,
-        minHeight: m,
-        lineHeight: b,
-        fontSize: y,
+        minHeight: c,
+        lineHeight: v,
+        fontSize: b,
         onMouseDown: this.handleDragStart,
         children: [
-          /* @__PURE__ */ V("div", { className: p.barContainer, children: /* @__PURE__ */ V(
+          /* @__PURE__ */ f("div", { className: "NumberInput__barContainer", children: /* @__PURE__ */ f(
             "div",
             {
-              className: p.bar,
+              className: "NumberInput__bar",
               style: {
-                height: g(
-                  (h - n) / (f - n) * 100,
+                height: `${h(
+                  (p - a) / (g - a) * 100,
                   0,
                   100
-                ) + "%"
+                )}%`
               }
             }
           ) }),
-          x,
-          /* @__PURE__ */ V(
+          y,
+          /* @__PURE__ */ f(
             "input",
             {
               ref: this.inputRef,
-              className: p.inner,
+              className: "NumberInput__input",
               style: {
-                display: o ? "inline" : "none",
-                height: m,
-                lineHeight: b,
-                fontSize: y
+                display: u ? "inline" : "none",
+                height: c,
+                lineHeight: v,
+                fontSize: b
               },
               onBlur: this.handleBlur,
               onKeyDown: this.handleKeyDown
@@ -217,5 +209,5 @@ class J extends E {
   }
 }
 export {
-  J as NumberInput
+  H as NumberInput
 };

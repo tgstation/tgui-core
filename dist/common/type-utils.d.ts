@@ -6,4 +6,4 @@
  * logger.log(getShallowTypes(data));
  * ```
  */
-export declare function getShallowTypes(data: Record<string, any>): Record<string, any>;
+export declare function getShallowTypes(data: Record<string, unknown>): Record<string, unknown>;

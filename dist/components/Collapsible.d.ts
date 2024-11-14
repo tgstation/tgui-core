@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { BoxProps } from './Box';
-
 type Props = Partial<{
     /** Buttons or other content to render inline with the button */
     buttons: ReactNode;

@@ -1,16 +1,16 @@
-import { jsxs as s, jsx as l } from "react/jsx-runtime";
-import { s as t } from "../Section.module-qhQWhlUX.js";
-import { Box as e } from "./Box.js";
-function h(i) {
-  const { children: r, titleStyle: c, titleSubtext: n, title: o, textStyle: a, style: m } = i;
-  return /* @__PURE__ */ s(e, { style: m, children: [
-    /* @__PURE__ */ s(e, { className: t.title, style: c, children: [
-      /* @__PURE__ */ l(e, { className: t.titleText, style: a, children: o }),
-      /* @__PURE__ */ l("div", { className: t.buttons, children: n })
+import { jsxs as l, jsx as e } from "react/jsx-runtime";
+import { Box as t } from "./Box.js";
+function m(i) {
+  const { children: c, titleStyle: n, titleSubtext: s, title: o, textStyle: r, style: a } = i;
+  return /* @__PURE__ */ l(t, { style: a, children: [
+    /* @__PURE__ */ l(t, { className: "Section__title", style: n, children: [
+      /* @__PURE__ */ e(t, { className: "Section__titleText", style: r, children: o }),
+      /* @__PURE__ */ e("div", { className: "Section__buttons", children: s }),
+      " "
     ] }),
-    /* @__PURE__ */ l(e, { className: t.rest, children: /* @__PURE__ */ l(e, { className: t.content, children: r }) })
+    /* @__PURE__ */ e(t, { className: "Section__rest", children: /* @__PURE__ */ e(t, { className: "Section__content", children: c }) })
   ] });
 }
 export {
-  h as StyleableSection
+  m as StyleableSection
 };

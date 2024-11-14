@@ -58,10 +58,10 @@ function a() {
 }
 let w = null, c = null;
 const h = [];
-function A(t) {
+function $(t) {
   h.push(t);
 }
-function B(t) {
+function A(t) {
   const e = h.indexOf(t);
   e >= 0 && h.splice(e, 1);
 }
@@ -121,7 +121,7 @@ class p {
     return this.type === "keyup";
   }
   toString() {
-    return this._str ? this._str : (this._str = "", this.ctrl && (this._str += "Ctrl+"), this.alt && (this._str += "Alt+"), this.shift && (this._str += "Shift+"), this.code >= 48 && this.code <= 90 ? this._str += String.fromCharCode(this.code) : this.code >= K && this.code <= S ? this._str += "F" + (this.code - 111) : this._str += "[" + this.code + "]", this._str);
+    return this._str ? this._str : (this._str = "", this.ctrl && (this._str += "Ctrl+"), this.alt && (this._str += "Alt+"), this.shift && (this._str += "Shift+"), this.code >= 48 && this.code <= 90 ? this._str += String.fromCharCode(this.code) : this.code >= K && this.code <= S ? this._str += `F${this.code - 111}` : this._str += `[${this.code}]`, this._str);
   }
 }
 document.addEventListener("keydown", (t) => {
@@ -139,9 +139,9 @@ document.addEventListener("keyup", (t) => {
 export {
   C as EventEmitter,
   p as KeyEvent,
-  A as addScrollableNode,
+  $ as addScrollableNode,
   E as canStealFocus,
   o as globalEvents,
-  B as removeScrollableNode,
+  A as removeScrollableNode,
   W as setupGlobalEvents
 };

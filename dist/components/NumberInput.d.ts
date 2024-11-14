@@ -1,6 +1,5 @@
 import { Component, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject } from 'react';
 import { BooleanLike } from '../common/react';
-
 type Props = Required<{
     maxValue: number;
     minValue: number;
@@ -33,7 +32,6 @@ export declare class NumberInput extends Component<Props, State> {
     dragTimeout: NodeJS.Timeout;
     dragInterval: NodeJS.Timeout;
     state: State;
-    constructor(props: Props);
     componentDidMount(): void;
     handleDragStart: MouseEventHandler<HTMLDivElement>;
     handleDragMove: (event: MouseEvent) => void;

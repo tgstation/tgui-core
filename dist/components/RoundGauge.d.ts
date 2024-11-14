@@ -1,5 +1,4 @@
 import { BoxProps } from './Box';
-
 type Props = {
     /** The current value of the metric. */
     value: number;

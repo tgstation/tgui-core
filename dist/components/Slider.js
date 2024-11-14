@@ -1,117 +1,109 @@
-import { jsx as s, jsxs as m } from "react/jsx-runtime";
-import { keyOfMatchingRange as R, clamp01 as t, scale as f } from "../common/math.js";
-import { classes as _ } from "../common/react.js";
-import { p as e } from "../ProgressBar.module-Jzqlebbx.js";
-import { computeBoxClassName as q, computeBoxProps as A } from "./Box.js";
-import { DraggableControl as G } from "./DraggableControl.js";
-import '../assets/Slider.css';const H = "_slider_1assx_9", I = "_cursorOffset_1assx_13", J = "_cursor_1assx_13", K = "_pointer_1assx_30", L = "_popupValue_1assx_41", a = {
-  slider: H,
-  cursorOffset: I,
-  cursor: J,
-  pointer: K,
-  popupValue: L
-};
-function Z(h) {
+import { jsx as e, jsxs as m } from "react/jsx-runtime";
+import { keyOfMatchingRange as O, clamp01 as r, scale as u } from "../common/math.js";
+import { classes as p } from "../common/react.js";
+import { computeBoxClassName as b, computeBoxProps as z } from "./Box.js";
+import { DraggableControl as R } from "./DraggableControl.js";
+function J(g) {
   const {
     // Draggable props (passthrough)
-    animated: g,
-    format: v,
-    maxValue: o,
-    minValue: r,
-    onChange: x,
-    onDrag: V,
-    step: y,
-    stepPixelSize: N,
-    suppressFlicker: C,
-    unit: D,
-    value: O,
+    animated: f,
+    format: _,
+    maxValue: l,
+    minValue: s,
+    onChange: h,
+    onDrag: v,
+    step: N,
+    stepPixelSize: x,
+    suppressFlicker: y,
+    unit: B,
+    value: P,
     // Own props
-    className: w,
-    fillValue: l,
-    color: M,
-    ranges: S = {},
+    className: S,
+    fillValue: a,
+    color: V,
+    ranges: C = {},
     children: i,
-    ...c
-  } = h, B = i !== void 0;
-  return /* @__PURE__ */ s(
-    G,
+    ...o
+  } = g, D = i !== void 0;
+  return /* @__PURE__ */ e(
+    R,
     {
       dragMatrix: [1, 0],
-      animated: g,
-      format: v,
-      maxValue: o,
-      minValue: r,
-      onChange: x,
-      onDrag: V,
-      step: y,
-      stepPixelSize: N,
-      suppressFlicker: C,
-      unit: D,
-      value: O,
-      children: (F) => {
+      animated: f,
+      format: _,
+      maxValue: l,
+      minValue: s,
+      onChange: h,
+      onDrag: v,
+      step: N,
+      stepPixelSize: x,
+      suppressFlicker: y,
+      unit: B,
+      value: P,
+      children: (w) => {
         const {
-          displayElement: n,
-          displayValue: p,
-          dragging: j,
-          handleDragStart: k,
-          inputElement: E,
-          value: P
-        } = F, b = l != null, u = f(
-          l ?? p,
-          r,
-          o
-        ), d = f(p, r, o), z = M || R(l ?? P, S) || "default";
+          displayElement: t,
+          displayValue: n,
+          dragging: M,
+          handleDragStart: $,
+          inputElement: F,
+          value: j
+        } = w, k = a != null, c = u(
+          a ?? n,
+          s,
+          l
+        ), d = u(n, s, l), E = V || O(a ?? j, C) || "default";
         return /* @__PURE__ */ m(
           "div",
           {
-            className: _([
-              a.slider,
-              e.progressBar,
-              e["color__" + z],
-              w,
-              q(c)
+            className: p([
+              "Slider",
+              "ProgressBar",
+              `ProgressBar--color--${E}`,
+              S,
+              b(o)
             ]),
-            ...A(c),
-            onMouseDown: k,
+            ...z(o),
+            onMouseDown: $,
             children: [
-              /* @__PURE__ */ s(
+              /* @__PURE__ */ e(
                 "div",
                 {
-                  className: _([
-                    e.fill,
-                    b && e.fill__animated
+                  className: p([
+                    "ProgressBar__fill",
+                    k && "ProgressBar__fill--animated"
                   ]),
                   style: {
-                    width: t(u) * 100 + "%",
+                    width: `${r(c) * 100}%`,
                     opacity: 0.4
                   }
                 }
               ),
-              /* @__PURE__ */ s(
+              /* @__PURE__ */ e(
                 "div",
                 {
-                  className: e.fill,
+                  className: "ProgressBar__fill",
                   style: {
-                    width: t(Math.min(u, d)) * 100 + "%"
+                    width: `${r(Math.min(c, d)) * 100}%`
                   }
                 }
               ),
               /* @__PURE__ */ m(
                 "div",
                 {
-                  className: a.cursorOffset,
+                  className: "Slider__cursorOffset",
                   style: {
-                    width: t(d) * 100 + "%"
+                    width: `${r(d) * 100}%`
                   },
                   children: [
-                    /* @__PURE__ */ s("div", { className: a.cursor }),
-                    /* @__PURE__ */ s("div", { className: a.pointer }),
-                    j && /* @__PURE__ */ s("div", { className: a.popupValue, children: n })
+                    /* @__PURE__ */ e("div", { className: "Slider__cursor" }),
+                    /* @__PURE__ */ e("div", { className: "Slider__pointer" }),
+                    M && /* @__PURE__ */ e("div", { className: "Slider__popupValue", children: t })
                   ]
                 }
               ),
-              /* @__PURE__ */ s("div", { className: e.content, children: B ? i : n }),
-              E
+              /* @__PURE__ */ e("div", { className: "ProgressBar__content", children: D ? i : t }),
+              F
             ]
           }
         );
@@ -120,5 +112,5 @@ function Z(h) {
   );
 }
 export {
-  Z as Slider
+  J as Slider
 };

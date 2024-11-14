@@ -1,14 +1,14 @@
-import { jsxs as T, Fragment as N, jsx as F } from "react/jsx-runtime";
-import { clamp as m } from "../common/math.js";
-import { Component as b, createRef as I } from "react";
+import { jsxs as T, Fragment as I, jsx as F } from "react/jsx-runtime";
+import { Component as x, createRef as y } from "react";
+import { clamp as c } from "../common/math.js";
 import { AnimatedNumber as M } from "./AnimatedNumber.js";
 const R = 400;
-function S(v, u) {
+function N(v, u) {
   return v.screenX * u[0] + v.screenY * u[1];
 }
-class C extends b {
+class C extends x {
   constructor(u) {
-    super(u), this.inputRef = I(), this.state = {
+    super(u), this.inputRef = y(), this.state = {
       value: u.value,
       dragging: !1,
       editing: !1,
@@ -28,7 +28,7 @@ class C extends b {
       const { value: i, dragMatrix: l } = this.props, { editing: s } = this.state;
       s || (document.body.style["pointer-events"] = "none", this.ref = e.target, this.setState({
         dragging: !1,
-        origin: S(e, l),
+        origin: N(e, l),
         value: i,
         internalValue: i
       }), this.timer = setTimeout(() => {
@@ -36,26 +36,26 @@ class C extends b {
           dragging: !0
         });
       }, 250), this.dragInterval = setInterval(() => {
-        const { dragging: o, value: g } = this.state, { onDrag: a } = this.props;
-        o && a && a(e, g);
+        const { dragging: o, value: g } = this.state, { onDrag: r } = this.props;
+        o && r && r(e, g);
       }, this.props.updateRate || R), document.addEventListener("mousemove", this.handleDragMove), document.addEventListener("mouseup", this.handleDragEnd));
     }, this.handleDragMove = (e) => {
       const { minValue: i, maxValue: l, step: s, stepPixelSize: o, dragMatrix: g } = this.props;
-      this.setState((a) => {
-        const n = { ...a }, p = S(e, g) - n.origin;
-        if (a.dragging) {
+      this.setState((r) => {
+        const a = { ...r }, p = N(e, g) - a.origin;
+        if (r.dragging) {
           const h = Number.isFinite(i) ? i % s : 0;
-          n.internalValue = m(
-            n.internalValue + p * s / o,
+          a.internalValue = c(
+            a.internalValue + p * s / o,
             i - s,
             l + s
-          ), n.value = m(
-            n.internalValue - n.internalValue % s + h,
+          ), a.value = c(
+            a.internalValue - a.internalValue % s + h,
             i,
             l
-          ), n.origin = S(e, g);
-        } else Math.abs(p) > 4 && (n.dragging = !0);
-        return n;
+          ), a.origin = N(e, g);
+        } else Math.abs(p) > 4 && (a.dragging = !0);
+        return a;
       });
     }, this.handleDragEnd = (e) => {
       const { onChange: i, onDrag: l } = this.props, { dragging: s, value: o, internalValue: g } = this.state;
@@ -66,9 +66,9 @@ class C extends b {
       }), document.removeEventListener("mousemove", this.handleDragMove), document.removeEventListener("mouseup", this.handleDragEnd), s)
         this.suppressFlicker(), i && i(e, o), l && l(e, o);
       else if (this.inputRef) {
-        const a = this.inputRef.current;
-        a.value = g, setTimeout(() => {
-          a.focus(), a.select();
+        const r = this.inputRef.current;
+        r.value = g, setTimeout(() => {
+          r.focus(), r.select();
         }, 10);
       }
     };
@@ -83,39 +83,43 @@ class C extends b {
       animated: s,
       value: o,
       unit: g,
-      minValue: a,
-      maxValue: n,
+      minValue: r,
+      maxValue: a,
       unclamped: p,
       format: h,
-      onChange: f,
-      onDrag: c,
-      children: D,
+      onChange: m,
+      onDrag: f,
+      children: S,
       // Input props
-      height: k,
-      lineHeight: V,
-      fontSize: y
+      height: V,
+      lineHeight: D,
+      fontSize: b
     } = this.props;
     let d = o;
     (u || l) && (d = i);
-    const E = /* @__PURE__ */ T(N, { children: [
+    const k = /* @__PURE__ */ T(I, { children: [
       s && !u && !l ? /* @__PURE__ */ F(M, { value: d, format: h }) : h ? h(d) : d,
-      g ? " " + g : ""
-    ] }), x = /* @__PURE__ */ F(
+      g ? ` ${g}` : ""
+    ] }), E = /* @__PURE__ */ F(
       "input",
       {
         ref: this.inputRef,
         className: "NumberInput__input",
         style: {
           display: e ? void 0 : "none",
-          height: k,
-          lineHeight: V,
-          fontsize: y
+          height: V,
+          lineHeight: D,
+          fontsize: b
         },
-        onBlur: (r) => {
+        onBlur: (n) => {
           if (!e)
             return;
           let t;
-          if (p ? t = parseFloat(r.target.value) : t = m(parseFloat(r.target.value), a, n), Number.isNaN(t)) {
+          if (p ? t = Number.parseFloat(n.target.value) : t = c(
+            Number.parseFloat(n.target.value),
+            r,
+            a
+          ), Number.isNaN(t)) {
             this.setState({
               editing: !1
             });
@@ -124,12 +128,16 @@ class C extends b {
           this.setState({
             editing: !1,
             value: t
-          }), this.suppressFlicker(), f && f(r, t), c && c(r, t);
+          }), this.suppressFlicker(), m && m(n, t), f && f(n, t);
         },
-        onKeyDown: (r) => {
-          if (r.keyCode === 13) {
+        onKeyDown: (n) => {
+          if (n.keyCode === 13) {
             let t;
-            if (p ? t = parseFloat(r.target.value) : t = m(parseFloat(r.target.value), a, n), Number.isNaN(t)) {
+            if (p ? t = Number.parseFloat(n.target.value) : t = c(
+              Number.parseFloat(n.target.value),
+              r,
+              a
+            ), Number.isNaN(t)) {
               this.setState({
                 editing: !1
               });
@@ -138,10 +146,10 @@ class C extends b {
             this.setState({
               editing: !1,
               value: t
-            }), this.suppressFlicker(), f && f(r, t), c && c(r, t);
+            }), this.suppressFlicker(), m && m(n, t), f && f(n, t);
             return;
           }
-          if (r.keyCode === 27) {
+          if (n.keyCode === 27) {
             this.setState({
               editing: !1
             });
@@ -150,20 +158,20 @@ class C extends b {
         }
       }
     );
-    return D({
+    return S({
       dragging: u,
       editing: e,
       value: o,
       displayValue: d,
-      displayElement: E,
-      inputElement: x,
+      displayElement: k,
+      inputElement: E,
       handleDragStart: this.handleDragStart
     });
   }
 }
 C.defaultProps = {
-  minValue: -1 / 0,
-  maxValue: 1 / 0,
+  minValue: Number.NEGATIVE_INFINITY,
+  maxValue: Number.POSITIVE_INFINITY,
   step: 1,
   stepPixelSize: 1,
   suppressFlicker: 50,

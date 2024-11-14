@@ -1,6 +1,10 @@
 import { Component } from 'react';
-
 type Props = {
+    /**
+     * The target value to approach.
+     */
+    value: number;
+} & Partial<{
     /**
      * If provided, a function that formats the inner string. By default,
      * attempts to match the numeric precision of `value`.
@@ -12,11 +16,7 @@ type Props = {
      * animating.
      */
     initial?: number;
-    /**
-     * The target value to approach.
-     */
-    value: number;
-};
+}>;
 /**
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.

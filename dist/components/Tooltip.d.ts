@@ -1,6 +1,5 @@
-import { createPopper, Placement, VirtualElement } from '@popperjs/core';
+import { Placement, VirtualElement, createPopper } from '@popperjs/core';
 import { Component, ReactNode } from 'react';
-
 type Props = {
     /** The content to display in the tooltip */
     content: ReactNode;

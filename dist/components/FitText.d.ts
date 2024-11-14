@@ -1,5 +1,4 @@
 import { Component, HTMLAttributes, PropsWithChildren, RefObject } from 'react';
-
 type Props = {
     acceptableDifference?: number;
     maxFontSize: number;

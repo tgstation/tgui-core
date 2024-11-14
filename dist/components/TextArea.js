@@ -1,108 +1,113 @@
-import { jsxs as I, jsx as f } from "react/jsx-runtime";
-import { forwardRef as Y, useRef as C, useState as H, useImperativeHandle as L, useEffect as _ } from "react";
-import { KEY as g, isEscape as P } from "../common/keys.js";
-import { classes as p } from "../common/react.js";
-import { Box as U } from "./Box.js";
-import { toInputValue as T } from "./Input.js";
-import '../assets/TextArea.css';const $ = "_textArea_1bert_20", q = "_fluid_1bert_33", z = "_noborder_1bert_39", G = "_inner_1bert_43", J = "_scrollable_1bert_43", M = "_custom_1bert_78", O = "_nowrap_1bert_83", Q = "_wrapper_1bert_89", e = {
-  textArea: $,
-  fluid: q,
-  noborder: z,
-  inner: G,
-  scrollable: J,
-  custom: M,
-  nowrap: O,
-  wrapper: Q
-}, tr = Y(
-  (x, w) => {
+import { jsxs as B, jsx as i } from "react/jsx-runtime";
+import { forwardRef as F, useRef as I, useState as Y, useImperativeHandle as C, useEffect as x } from "react";
+import { KEY as p, isEscape as H } from "../common/keys.js";
+import { classes as f } from "../common/react.js";
+import { Box as L } from "./Box.js";
+import { toInputValue as g } from "./Input.js";
+const M = F(
+  (b, h) => {
     const {
       autoFocus: d,
-      autoSelect: s,
+      autoSelect: o,
       displayedValue: a,
-      dontUseTabForIndent: y,
-      maxLength: h,
-      noborder: A,
+      dontUseTabForIndent: A,
+      maxLength: _,
+      noborder: y,
       onChange: l,
-      onEnter: n,
-      onEscape: u,
+      onEnter: u,
+      onEscape: s,
       onInput: c,
-      placeholder: N,
+      placeholder: w,
       scrollbar: S,
       selfClear: m,
-      value: i,
+      value: n,
       ...E
-    } = x, { className: K, fluid: k, nowrap: D, ...R } = E, t = C(null), [V, j] = H(0);
-    function B(r) {
-      if (r.key === g.Enter) {
+    } = b, { className: K, fluid: N, nowrap: k, ...D } = E, e = I(null), [R, V] = Y(0);
+    function $(r) {
+      if (r.key === p.Enter) {
         if (r.shiftKey) {
           r.currentTarget.focus();
           return;
         }
-        n == null || n(r, r.currentTarget.value), m && (r.currentTarget.value = ""), r.currentTarget.blur();
+        u == null || u(r, r.currentTarget.value), m && (r.currentTarget.value = ""), r.currentTarget.blur();
         return;
       }
-      if (P(r.key)) {
-        u == null || u(r), m ? r.currentTarget.value = "" : (r.currentTarget.value = T(i), r.currentTarget.blur());
+      if (H(r.key)) {
+        s == null || s(r), m ? r.currentTarget.value = "" : (r.currentTarget.value = g(n), r.currentTarget.blur());
         return;
       }
-      if (!y && r.key === g.Tab) {
+      if (!A && r.key === p.Tab) {
         r.preventDefault();
-        const { value: o, selectionStart: b, selectionEnd: F } = r.currentTarget;
-        r.currentTarget.value = o.substring(0, b) + "	" + o.substring(F), r.currentTarget.selectionEnd = b + 1;
+        const { value: t, selectionStart: T, selectionEnd: j } = r.currentTarget;
+        r.currentTarget.value = `${t.substring(0, T)}	${t.substring(j)}`, r.currentTarget.selectionEnd = T + 1;
       }
     }
-    return L(
-      w,
-      () => t.current
-    ), _(() => {
-      if (!d && !s) return;
-      const r = t.current;
-      r && (d || s) && setTimeout(() => {
-        r.focus(), s && r.select();
+    return C(
+      h,
+      () => e.current
+    ), x(() => {
+      if (!d && !o) return;
+      const r = e.current;
+      r && (d || o) && setTimeout(() => {
+        r.focus(), o && r.select();
       }, 1);
-    }, []), _(() => {
-      const r = t.current;
+    }, []), x(() => {
+      const r = e.current;
       if (!r) return;
-      const o = T(i);
-      r.value !== o && (r.value = o);
-    }, [i]), /* @__PURE__ */ I(
-      U,
+      const t = g(n);
+      r.value !== t && (r.value = t);
+    }, [n]), /* @__PURE__ */ B(
+      L,
       {
-        className: p([
-          e.textArea,
-          k && e.fluid,
-          A && e.noborder,
+        className: f([
+          "TextArea",
+          N && "TextArea--fluid",
+          y && "TextArea--noborder",
           K
         ]),
-        ...R,
+        ...D,
         children: [
-          !!a && /* @__PURE__ */ f("div", { className: e.wrapper, children: /* @__PURE__ */ f(
+          !!a && /* @__PURE__ */ i(
             "div",
             {
-              className: p([e.inner, e.custom]),
               style: {
-                transform: `translateY(-${V}px)`
+                height: "100%",
+                overflow: "hidden",
+                position: "absolute",
+                width: "100%"
               },
-              children: a
+              children: /* @__PURE__ */ i(
+                "div",
+                {
+                  className: f([
+                    "TextArea__textarea",
+                    "TextArea__textarea_custom"
+                  ]),
+                  style: {
+                    transform: `translateY(-${R}px)`
+                  },
+                  children: a
+                }
+              )
             }
-          ) }),
-          /* @__PURE__ */ f(
+          ),
+          /* @__PURE__ */ i(
             "textarea",
             {
-              className: p([
-                e.inner,
-                S && e.scrollable,
-                D && e.nowrap
+              className: f([
+                "TextArea__textarea",
+                S && "TextArea__textarea--scrollable",
+                k && "TextArea__nowrap"
               ]),
-              maxLength: h,
+              maxLength: _,
               onBlur: (r) => l == null ? void 0 : l(r, r.target.value),
               onChange: (r) => c == null ? void 0 : c(r, r.target.value),
-              onKeyDown: B,
+              onKeyDown: $,
               onScroll: () => {
-                a && t.current && j(t.current.scrollTop);
+                a && e.current && V(e.current.scrollTop);
               },
-              placeholder: N,
-              ref: t,
+              placeholder: w,
+              ref: e,
               style: {
                 color: a ? "rgba(0, 0, 0, 0)" : "inherit"
               }
@@ -114,5 +119,5 @@ import '../assets/TextArea.css';const $ = "_textArea_1bert_20", q = "_fluid_1ber
   }
 );
 export {
-  tr as TextArea
+  M as TextArea
 };

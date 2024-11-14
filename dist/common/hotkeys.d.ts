@@ -1,5 +1,4 @@
 import { KeyEvent } from './events';
-
 /**
  * Acquires a lock on the hotkey, which prevents it from being
  * passed through to BYOND.

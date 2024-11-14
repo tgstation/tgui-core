@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { BoxProps } from './Box';
-
 declare enum Direction {
     NORTH = 1,
     SOUTH = 2,

@@ -2,7 +2,7 @@ function f(r) {
   let n = "";
   for (let t = 0; t < r.length; t++) {
     const e = r[t];
-    typeof e == "string" && (n += e + " ");
+    typeof e == "string" && (n += `${e} `);
   }
   return n;
 }

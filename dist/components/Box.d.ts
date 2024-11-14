@@ -1,6 +1,5 @@
 import { CSSProperties, KeyboardEventHandler, MouseEventHandler, ReactNode, UIEventHandler } from 'react';
 import { BooleanLike } from '../common/react';
-
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
 type StringProps = Partial<Record<keyof typeof stringStyleMap, string | BooleanLike>>;
 export type EventHandlers = Partial<{

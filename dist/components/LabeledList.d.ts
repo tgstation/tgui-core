@@ -1,6 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
-
 export declare function LabeledList(props: PropsWithChildren): import("react/jsx-runtime").JSX.Element;
 export declare namespace LabeledList {
     var Item: typeof LabeledListItem;

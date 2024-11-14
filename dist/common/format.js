@@ -38,21 +38,21 @@ const d = [
   "F",
   "N",
   "H"
-], l = d.indexOf(" ");
-function u(t, n = -l, s = "") {
-  if (!isFinite(t))
+], u = d.indexOf(" ");
+function m(t, n = -u, s = "") {
+  if (!Number.isFinite(t))
     return t.toString();
-  const o = Math.floor(Math.log10(Math.abs(t))), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = d[Math.min(e + l, d.length - 1)];
-  let a = (t / Math.pow(1e3, e)).toFixed(2);
-  return a.endsWith(".00") ? a = a.slice(0, -3) : a.endsWith(".0") && (a = a.slice(0, -2)), `${a} ${i.trim()}${s}`.trim();
+  const o = Math.floor(Math.log10(Math.abs(t))), a = Math.max(n * 3, o), e = Math.floor(a / 3), i = d[Math.min(e + u, d.length - 1)];
+  let r = (t / 1e3 ** e).toFixed(2);
+  return r.endsWith(".00") ? r = r.slice(0, -3) : r.endsWith(".0") && (r = r.slice(0, -2)), `${r} ${i.trim()}${s}`.trim();
 }
-function S(t, n = 0) {
-  return u(t, n, "W");
-}
-function $(t, n = 0) {
-  return u(t, n, "J");
+function M(t, n = 0) {
+  return m(t, n, "W");
 }
 function b(t, n = 0) {
+  return m(t, n, "J");
+}
+function $(t, n = 0) {
   if (!Number.isFinite(t))
     return String(t);
   const s = Number(t.toFixed(n)), o = s < 0, e = Math.abs(s).toString().split(".");
@@ -63,9 +63,9 @@ function b(t, n = 0) {
 function g(t) {
   const n = 20 * Math.log10(t), s = n >= 0 ? "+" : "-";
   let o = Math.abs(n);
-  return o === 1 / 0 ? o = "Inf" : o = o.toFixed(2), `${s}${o} dB`;
+  return o === Number.POSITIVE_INFINITY ? o = "Inf" : o = o.toFixed(2), `${s}${o} dB`;
 }
-const M = [
+const S = [
   "",
   "· 10³",
   // kilo
@@ -91,27 +91,27 @@ const M = [
   "· 10³⁶",
   "· 10³⁹"
 ];
-function p(t, n = 0, s = "") {
-  if (!isFinite(t))
+function N(t, n = 0, s = "") {
+  if (!Number.isFinite(t))
     return "NaN";
-  const o = Math.floor(Math.log10(t)), r = Math.max(n * 3, o), e = Math.floor(r / 3), i = M[e], c = t / Math.pow(1e3, e), a = Math.max(0, 2 - r % 3);
-  return `${c.toFixed(a)} ${i} ${s}`.trim();
+  const o = Math.floor(Math.log10(t)), a = Math.max(n * 3, o), e = Math.floor(a / 3), i = S[e], c = t / 1e3 ** e, r = Math.max(0, 2 - a % 3);
+  return `${c.toFixed(r)} ${i} ${s}`.trim();
 }
 function F(t, n = "default") {
-  const s = Math.floor(t / 10), o = Math.floor(s / 3600), r = Math.floor(s % 3600 / 60), e = s % 60;
+  const s = Math.floor(t / 10), o = Math.floor(s / 3600), a = Math.floor(s % 3600 / 60), e = s % 60;
   if (n === "short") {
-    const f = o > 0 ? `${o}h` : "", m = r > 0 ? `${r}m` : "", h = e > 0 ? `${e}s` : "";
-    return `${f}${m}${h}`;
+    const f = o > 0 ? `${o}h` : "", l = a > 0 ? `${a}m` : "", h = e > 0 ? `${e}s` : "";
+    return `${f}${l}${h}`;
   }
-  const i = String(o).padStart(2, "0"), c = String(r).padStart(2, "0"), a = String(e).padStart(2, "0");
-  return `${i}:${c}:${a}`;
+  const i = String(o).padStart(2, "0"), c = String(a).padStart(2, "0"), r = String(e).padStart(2, "0");
+  return `${i}:${c}:${r}`;
 }
 export {
   g as formatDb,
-  $ as formatEnergy,
-  b as formatMoney,
-  S as formatPower,
-  p as formatSiBaseTenUnit,
-  u as formatSiUnit,
+  b as formatEnergy,
+  $ as formatMoney,
+  M as formatPower,
+  N as formatSiBaseTenUnit,
+  m as formatSiUnit,
   F as formatTime
 };

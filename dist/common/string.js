@@ -9,7 +9,7 @@ function p(e, t = (r) => JSON.stringify(r)) {
 }
 const a = ["a", "e", "i", "o", "u"];
 function l(e, t, r) {
-  return t === 1 ? e : r ? e + r : e.endsWith("s") || e.endsWith("x") || e.endsWith("z") || e.endsWith("ch") || e.endsWith("sh") ? e + "es" : e.endsWith("y") && !a.includes(e.charAt(e.length - 2)) ? e.slice(0, -1) + "ies" : e + "s";
+  return t === 1 ? e : r ? e + r : e.endsWith("s") || e.endsWith("x") || e.endsWith("z") || e.endsWith("ch") || e.endsWith("sh") ? `${e}es` : e.endsWith("y") && !a.includes(e.charAt(e.length - 2)) ? `${e.slice(0, -1)}ies` : `${e}s`;
 }
 function c(e) {
   return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
@@ -20,7 +20,7 @@ function f(e) {
 function h(e) {
   return e.replace(/^\w/, (t) => t.toUpperCase());
 }
-const i = ["Id", "Tv"], s = [
+const i = ["Id", "Tv"], u = [
   "A",
   "An",
   "And",
@@ -46,17 +46,17 @@ const i = ["Id", "Tv"], s = [
 function g(e) {
   if (!e) return e;
   let t = e.replace(/([^\W_]+[^\s-]*) */g, (r) => c(r));
-  for (const r of s) {
-    const n = new RegExp("\\s" + r + "\\s", "g");
+  for (const r of u) {
+    const n = new RegExp(`\\s${r}\\s`, "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
   for (const r of i) {
-    const n = new RegExp("\\b" + r + "\\b", "g");
+    const n = new RegExp(`\\b${r}\\b`, "g");
     t = t.replace(n, (o) => o.toLowerCase());
   }
   return t;
 }
-const u = {
+const s = {
   amp: "&",
   apos: "'",
   gt: ">",
@@ -68,12 +68,12 @@ function d(e) {
   return e && e.replace(/<br>/gi, `
 `).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(
     /&(nbsp|amp|quot|lt|gt|apos);/g,
-    (t, r) => u[r]
+    (t, r) => s[r]
   ).replace(/&#?([0-9]+);/gi, (t, r) => {
-    const n = parseInt(r, 10);
+    const n = Number.parseInt(r, 10);
     return String.fromCharCode(n);
   }).replace(/&#x?([0-9a-f]+);/gi, (t, r) => {
-    const n = parseInt(r, 16);
+    const n = Number.parseInt(r, 16);
     return String.fromCharCode(n);
   });
 }

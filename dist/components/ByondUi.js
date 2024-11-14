@@ -7,7 +7,7 @@ const o = [];
 function h(t) {
   const n = o.length;
   o.push(null);
-  const e = t || "byondui_" + n;
+  const e = t || `byondui_${n}`;
   return {
     render: (i) => {
       o[n] = e, Byond.winset(e, i);
@@ -56,8 +56,8 @@ class U extends a {
     this.byondUiElement.render({
       parent: Byond.windowId,
       ...n,
-      pos: e.pos[0] + "," + e.pos[1],
-      size: e.size[0] + "x" + e.size[1]
+      pos: `${e.pos[0]},${e.pos[1]}`,
+      size: `${e.size[0]}x${e.size[1]}`
     });
   }
   componentWillUnmount() {

@@ -1,88 +1,81 @@
-import { jsxs as K, jsx as m } from "react/jsx-runtime";
-import { useRef as V, useEffect as d } from "react";
-import { KEY as j, isEscape as k } from "../common/keys.js";
-import { classes as B } from "../common/react.js";
-import { debounce as R } from "../common/timer.js";
-import { Box as S } from "./Box.js";
-import '../assets/Input.css';const F = "_input_17i79_20", L = "_fluid_17i79_35", Y = "_baseline_17i79_40", q = "_inner_17i79_45", v = "_monospace_17i79_71", u = {
-  input: F,
-  fluid: L,
-  baseline: Y,
-  inner: q,
-  monospace: v
-};
-function a(r) {
-  return typeof r != "number" && typeof r != "string" ? "" : String(r);
+import { jsxs as E, jsx as p } from "react/jsx-runtime";
+import { useRef as K, useEffect as m } from "react";
+import { KEY as V, isEscape as j } from "../common/keys.js";
+import { classes as k } from "../common/react.js";
+import { debounce as B } from "../common/timer.js";
+import { Box as R } from "./Box.js";
+function l(u) {
+  return typeof u != "number" && typeof u != "string" ? "" : String(u);
 }
-const z = R((r) => r(), 250);
-function P(r) {
+const S = B((u) => u(), 250);
+function A(u) {
   const {
-    autoFocus: _,
-    autoSelect: f,
-    className: b,
-    disabled: g,
+    autoFocus: d,
+    autoSelect: s,
+    className: g,
+    disabled: I,
     expensive: T,
-    fluid: y,
+    fluid: b,
     maxLength: x,
-    monospace: h,
+    monospace: y,
     onChange: t,
-    onEnter: i,
+    onEnter: n,
     onEscape: o,
-    onInput: s,
-    placeholder: w,
-    selfClear: I,
-    value: c,
+    onInput: i,
+    placeholder: h,
+    selfClear: w,
+    value: a,
     ...N
-  } = r, l = V(null);
-  function D(e) {
-    var p;
-    if (!s) return;
-    const n = (p = e.currentTarget) == null ? void 0 : p.value;
-    T ? z(() => s(e, n)) : s(e, n);
+  } = u, c = K(null);
+  function _(e) {
+    var f;
+    if (!i) return;
+    const r = (f = e.currentTarget) == null ? void 0 : f.value;
+    T ? S(() => i(e, r)) : i(e, r);
   }
-  function E(e) {
-    if (e.key === j.Enter) {
-      i == null || i(e, e.currentTarget.value), I ? e.currentTarget.value = "" : (e.currentTarget.blur(), t == null || t(e, e.currentTarget.value));
+  function D(e) {
+    if (e.key === V.Enter) {
+      n == null || n(e, e.currentTarget.value), w ? e.currentTarget.value = "" : (e.currentTarget.blur(), t == null || t(e, e.currentTarget.value));
       return;
     }
-    k(e.key) && (o == null || o(e), e.currentTarget.value = a(c), e.currentTarget.blur());
+    j(e.key) && (o == null || o(e), e.currentTarget.value = l(a), e.currentTarget.blur());
   }
-  return d(() => {
-    const e = l.current;
+  return m(() => {
+    const e = c.current;
     if (!e) return;
-    const n = a(c);
-    e.value !== n && (e.value = n), !(!_ && !f) && setTimeout(() => {
-      e.focus(), f && e.select();
+    const r = l(a);
+    e.value !== r && (e.value = r), !(!d && !s) && setTimeout(() => {
+      e.focus(), s && e.select();
     }, 1);
-  }, []), d(() => {
-    const e = l.current;
+  }, []), m(() => {
+    const e = c.current;
     if (!e || document.activeElement === e)
       return;
-    const n = a(c);
-    e.value !== n && (e.value = n);
-  }), /* @__PURE__ */ K(
-    S,
+    const r = l(a);
+    e.value !== r && (e.value = r);
+  }), /* @__PURE__ */ E(
+    R,
     {
-      className: B([
-        u.input,
-        y && u.fluid,
-        h && u.monospace,
-        b
+      className: k([
+        "Input",
+        b && "Input--fluid",
+        y && "Input--monospace",
+        g
       ]),
       ...N,
       children: [
-        /* @__PURE__ */ m("div", { className: u.baseline, children: "." }),
-        /* @__PURE__ */ m(
+        /* @__PURE__ */ p("div", { className: "Input__baseline", children: "." }),
+        /* @__PURE__ */ p(
           "input",
           {
-            className: u.inner,
-            disabled: g,
+            className: "Input__input",
+            disabled: I,
             maxLength: x,
             onBlur: (e) => t == null ? void 0 : t(e, e.target.value),
-            onChange: D,
-            onKeyDown: E,
-            placeholder: w,
-            ref: l
+            onChange: _,
+            onKeyDown: D,
+            placeholder: h,
+            ref: c
           }
         )
       ]
@@ -90,6 +83,6 @@ function P(r) {
   );
 }
 export {
-  P as Input,
-  a as toInputValue
+  A as Input,
+  l as toInputValue
 };

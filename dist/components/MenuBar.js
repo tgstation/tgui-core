@@ -1,30 +1,17 @@
-import '../assets/MenuBar.css';var z = Object.defineProperty;
-var M = (t, e, n) => e in t ? z(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
-var h = (t, e, n) => M(t, typeof e != "symbol" ? e + "" : e, n);
-import { jsx as r, jsxs as v } from "react/jsx-runtime";
-import { Component as g, createRef as b } from "react";
-import { classes as f } from "../common/react.js";
-import { Box as m } from "./Box.js";
-import { Icon as B } from "./Icon.js";
-const N = "_menuBar_esza9_9", O = "_font_esza9_13", w = "_hover_esza9_19", R = "_button_esza9_24", y = "_menu_esza9_9", I = "_item_esza9_36", T = "_toggle_esza9_44", W = "_toggle__check_esza9_48", j = "_over_esza9_55", D = "_button__text_esza9_60", E = "_separator_esza9_66", o = {
-  menuBar: N,
-  font: O,
-  hover: w,
-  button: R,
-  menu: y,
-  item: I,
-  toggle: T,
-  toggle__check: W,
-  over: j,
-  button__text: D,
-  separator: E
-};
-class H extends g {
+var C = Object.defineProperty;
+var x = (r, e, n) => e in r ? C(r, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : r[e] = n;
+var h = (r, e, n) => x(r, typeof e != "symbol" ? e + "" : e, n);
+import { jsx as o, jsxs as f } from "react/jsx-runtime";
+import { Component as B, createRef as N } from "react";
+import { classes as M } from "../common/react.js";
+import { Box as l } from "./Box.js";
+import { Icon as g } from "./Icon.js";
+class I extends B {
   constructor(n) {
     super(n);
     h(this, "handleClick");
-    this.handleClick = (s) => {
-      this.props.menuRef.current && (this.props.menuRef.current.contains(s.target) || this.props.onOutsideClick());
+    this.handleClick = (t) => {
+      this.props.menuRef.current && (this.props.menuRef.current.contains(t.target) || this.props.onOutsideClick());
     };
   }
   componentWillMount() {
@@ -34,141 +21,145 @@ class H extends g {
     window.removeEventListener("click", this.handleClick);
   }
   render() {
-    const { width: n, children: s } = this.props;
-    return /* @__PURE__ */ r(
+    const { width: n, children: t } = this.props;
+    return /* @__PURE__ */ o(
       "div",
       {
-        className: o.menu,
+        className: "Menubar__menu",
         style: {
           width: n
         },
-        children: s
+        children: t
       }
     );
   }
 }
-class L extends g {
+class O extends B {
   constructor(n) {
     super(n);
     h(this, "menuRef");
-    this.menuRef = b();
+    this.menuRef = N();
   }
   render() {
     const { props: n } = this, {
-      open: s,
-      openWidth: c,
+      open: t,
+      openWidth: s,
       children: i,
-      disabled: l,
-      display: a,
-      onMouseOver: u,
-      onClick: p,
-      onOutsideClick: d,
-      ...k
-    } = n, { className: C, ...x } = k;
-    return /* @__PURE__ */ v("div", { ref: this.menuRef, children: [
-      /* @__PURE__ */ r(
-        m,
+      disabled: c,
+      display: u,
+      onMouseOver: a,
+      onClick: m,
+      onOutsideClick: p,
+      ..._
+    } = n, { className: k, ...v } = _;
+    return /* @__PURE__ */ f("div", { ref: this.menuRef, children: [
+      /* @__PURE__ */ o(
+        l,
         {
-          className: f([
-            o.button,
-            o.font,
-            o.hover,
-            C
+          className: M([
+            "MenuBar__MenuBarButton",
+            "MenuBar__font",
+            "MenuBar__hover",
+            k
           ]),
-          ...x,
-          onClick: l ? () => null : p,
-          onMouseOver: u,
-          children: /* @__PURE__ */ r("span", { className: o.button__text, children: a })
+          ...v,
+          onClick: c ? () => null : m,
+          onMouseOver: a,
+          children: /* @__PURE__ */ o("span", { className: "MenuBar__MenuBarButton-text", children: u })
         }
       ),
-      s && /* @__PURE__ */ r(
-        H,
+      t && /* @__PURE__ */ o(
+        I,
         {
-          width: c,
+          width: s,
           menuRef: this.menuRef,
-          onOutsideClick: d,
+          onOutsideClick: p,
           children: i
         }
       )
     ] });
   }
 }
-function _(t) {
+function d(r) {
   const {
     entry: e,
     children: n,
-    openWidth: s,
-    display: c,
+    openWidth: t,
+    display: s,
     setOpenMenuBar: i,
-    openMenuBar: l,
-    setOpenOnHover: a,
-    openOnHover: u,
-    disabled: p,
-    className: d
-  } = t;
-  return /* @__PURE__ */ r(
-    L,
+    openMenuBar: c,
+    setOpenOnHover: u,
+    openOnHover: a,
+    disabled: m,
+    className: p
+  } = r;
+  return /* @__PURE__ */ o(
+    O,
     {
-      openWidth: s,
-      display: c,
-      disabled: p,
-      open: l === e,
-      className: d,
+      openWidth: t,
+      display: s,
+      disabled: m,
+      open: c === e,
+      className: p,
       onClick: () => {
-        i(l === e ? null : e), a(!u);
+        i(c === e ? null : e), u(!a);
       },
       onOutsideClick: () => {
-        i(null), a(!1);
+        i(null), u(!1);
       },
       onMouseOver: () => {
-        u && i(e);
+        a && i(e);
       },
       children: n
     }
   );
 }
-function S(t) {
-  const { value: e, displayText: n, onClick: s, checked: c } = t;
-  return /* @__PURE__ */ v(
-    m,
+function w(r) {
+  const { value: e, displayText: n, onClick: t, checked: s } = r;
+  return /* @__PURE__ */ f(
+    l,
     {
-      className: f([
-        o.font,
-        o.item,
-        o.toggle,
-        o.hover
+      className: M([
+        "MenuBar__font",
+        "MenuBar__MenuItem",
+        "MenuBar__MenuItemToggle",
+        "MenuBar__hover"
       ]),
-      onClick: () => s(e),
+      onClick: () => t(e),
       children: [
-        /* @__PURE__ */ r("div", { className: o.toggle__check, children: c && /* @__PURE__ */ r(B, { size: 1.3, name: "check" }) }),
+        /* @__PURE__ */ o("div", { className: "MenuBar__MenuItemToggle__check", children: s && /* @__PURE__ */ o(g, { size: 1.3, name: "check" }) }),
         n
       ]
     }
   );
 }
-_.MenuItemToggle = S;
-function P(t) {
-  const { value: e, displayText: n, onClick: s } = t;
-  return /* @__PURE__ */ r(
-    m,
+d.MenuItemToggle = w;
+function R(r) {
+  const { value: e, displayText: n, onClick: t } = r;
+  return /* @__PURE__ */ o(
+    l,
     {
-      className: f([o.font, o.item, o.hover]),
-      onClick: () => s(e),
+      className: M([
+        "MenuBar__font",
+        "MenuBar__MenuItem",
+        "MenuBar__hover"
+      ]),
+      onClick: () => t(e),
       children: n
     }
   );
 }
-_.MenuItem = P;
-function U() {
-  return /* @__PURE__ */ r("div", { className: o.separator });
+d.MenuItem = R;
+function y() {
+  return /* @__PURE__ */ o("div", { className: "MenuBar__Separator" });
 }
-_.Separator = U;
-function q(t) {
-  const { children: e } = t;
-  return /* @__PURE__ */ r(m, { className: o.menuBar, children: e });
+d.Separator = y;
+function T(r) {
+  const { children: e } = r;
+  return /* @__PURE__ */ o(l, { className: "MenuBar", children: e });
 }
-q.Dropdown = _;
+T.Dropdown = d;
 export {
-  _ as Dropdown,
-  q as MenuBar
+  d as Dropdown,
+  T as MenuBar
 };

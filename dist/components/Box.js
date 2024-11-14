@@ -3,9 +3,9 @@ import { CSS_COLORS as b } from "../common/constants.js";
 import { classes as u } from "../common/react.js";
 function p(o) {
   if (typeof o == "string")
-    return o.endsWith("px") ? parseFloat(o) / 12 + "rem" : o;
+    return o.endsWith("px") ? `${Number.parseFloat(o) / 12}rem` : o;
   if (typeof o == "number")
-    return o + "rem";
+    return `${o}rem`;
 }
 function r(o) {
   if (typeof o == "string")
@@ -109,8 +109,8 @@ function S(o) {
 function d(o) {
   const t = o.textColor || o.color, i = o.backgroundColor;
   return u([
-    a(t) && "color-" + t,
-    a(i) && "color-bg-" + i
+    a(t) && `color-${t}`,
+    a(i) && `color-bg-${i}`
   ]);
 }
 function W(o) {
