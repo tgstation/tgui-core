@@ -74,3 +74,12 @@ export function numberOfDecimalDigits(value: number): number {
   }
   return 0;
 }
+
+/**
+ * Ensures the number is valid and not infinite/NaN.
+ */
+export function isSafeNumber(value: number): boolean {
+  return (
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
+  );
+}

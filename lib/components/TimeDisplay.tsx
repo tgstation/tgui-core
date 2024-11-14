@@ -1,3 +1,4 @@
+import { isSafeNumber } from 'lib/common/math';
 import { useEffect, useRef, useState } from 'react';
 import { formatTime } from '../common/format';
 
@@ -10,12 +11,6 @@ type TimeDisplayProps = {
   /** An optional function to format the value */
   format: (value: number) => string;
 }>;
-
-function isSafeNumber(value: unknown): boolean {
-  return (
-    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
-  );
-}
 
 export function TimeDisplay(props: TimeDisplayProps) {
   const {

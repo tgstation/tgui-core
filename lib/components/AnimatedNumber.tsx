@@ -1,7 +1,12 @@
 import { Component, createRef } from 'react';
-import { clamp, toFixed } from '../common/math';
+import { clamp, isSafeNumber, toFixed } from '../common/math';
 
 type Props = {
+  /**
+   * The target value to approach.
+   */
+  value: number;
+} & Partial<{
   /**
    * If provided, a function that formats the inner string. By default,
    * attempts to match the numeric precision of `value`.
@@ -14,18 +19,7 @@ type Props = {
    * animating.
    */
   initial?: number;
-
-  /**
-   * The target value to approach.
-   */
-  value: number;
-};
-
-function isSafeNumber(value: number): boolean {
-  return (
-    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
-  );
-}
+}>;
 
 /**
  * Animated numbers are animated at roughly 60 frames per second.
