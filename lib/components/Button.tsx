@@ -1,17 +1,21 @@
-import { Placement } from '@popperjs/core';
+import type { Placement } from '@popperjs/core';
 import {
-  ChangeEvent,
+  type ChangeEvent,
+  type MouseEvent,
+  type ReactNode,
   createRef,
-  MouseEvent,
-  ReactNode,
   useEffect,
   useRef,
   useState,
 } from 'react';
-
-import { isEscape, KEY } from '../common/keys';
-import { BooleanLike, classes } from '../common/react';
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { KEY, isEscape } from '../common/keys';
+import { type BooleanLike, classes } from '../common/react';
+import {
+  Box,
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+} from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 
@@ -111,13 +115,13 @@ export function Button(props: Props) {
         selected && 'Button--selected',
         circular && 'Button--circular',
         compact && 'Button--compact',
-        iconPosition && 'Button--iconPosition--' + iconPosition,
+        iconPosition && `Button--iconPosition--${iconPosition}`,
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
-          'Button--verticalAlignContent--' + verticalAlignContent,
+          `Button--verticalAlignContent--${verticalAlignContent}`,
         color && typeof color === 'string'
-          ? 'Button--color--' + color
+          ? `Button--color--${color}`
           : 'Button--color--default',
         className,
         computeBoxClassName(rest),
@@ -334,7 +338,7 @@ function ButtonInput(props: InputProps) {
         'Button',
         fluid && 'Button--fluid',
         disabled && 'Button--disabled',
-        'Button--color--' + color,
+        `Button--color--${color}`,
       ])}
       {...rest}
       onClick={() => setInInput(true)}

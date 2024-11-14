@@ -1,6 +1,15 @@
 {
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  },
+  "editor.rulers": [80],
+  "editor.formatOnSave": true,
+  "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[yaml][markdown][html][scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

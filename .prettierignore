@@ -1,0 +1,9 @@
+dist
+node_modules
+pnpm-lock.yaml
+*.js
+*.ts
+*.tsx
+*.css
+*.jsx
+*.json

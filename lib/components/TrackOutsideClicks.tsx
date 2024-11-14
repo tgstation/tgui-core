@@ -1,4 +1,4 @@
-import { Component, createRef, PropsWithChildren } from 'react';
+import { Component, type PropsWithChildren, createRef } from 'react';
 
 type Props = {
   onOutsideClick: () => void;

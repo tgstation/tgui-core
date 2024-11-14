@@ -4,11 +4,11 @@
  * @license MIT
  */
 
-import { Placement } from '@popperjs/core';
-import { ReactNode } from 'react';
+import type { Placement } from '@popperjs/core';
+import type { ReactNode } from 'react';
+import { type BooleanLike, classes } from '../common/react';
 
-import { BooleanLike, classes } from '../common/react';
-import { BoxProps, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxProps } from './Box';
 import { DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
@@ -120,12 +120,17 @@ export function ImageButton(props: Props) {
         selected && 'selected',
         disabled && 'disabled',
         color && typeof color === 'string'
-          ? 'color__' + color
+          ? `color__${color}`
           : 'color__default',
       ])}
       tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
+          onClick(event);
+        }
+      }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' && !disabled && onClick) {
           onClick(event);
         }
       }}
@@ -174,7 +179,7 @@ export function ImageButton(props: Props) {
               selected && 'contentSelected',
               disabled && 'contentDisabled',
               color && typeof color === 'string'
-                ? 'contentColor__' + color
+                ? `contentColor__${color}`
                 : 'contentColor__default',
             ])}
           >
@@ -206,7 +211,7 @@ export function ImageButton(props: Props) {
             buttonsAlt && 'buttonsAltContainer',
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
-              ? 'buttonsContainerColor__' + color
+              ? `buttonsContainerColor__${color}`
               : fluid && 'buttonsContainerColor__default',
           ])}
           style={{

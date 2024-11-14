@@ -11,9 +11,9 @@ export function randomNumber(lowerBound: number, upperBound: number): number {
  * Returns random integer between lowerBound exclusive and upperBound inclusive
  */
 export function randomInteger(lowerBound: number, upperBound: number): number {
-  lowerBound = Math.ceil(lowerBound);
-  upperBound = Math.floor(upperBound);
-  return Math.floor(Math.random() * (upperBound - lowerBound) + lowerBound);
+  const lower = Math.ceil(lowerBound);
+  const upper = Math.floor(upperBound);
+  return Math.floor(Math.random() * (upper - lower) + lower);
 }
 
 /**

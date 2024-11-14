@@ -1,6 +1,5 @@
 import { extname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 import react from '@vitejs/plugin-react-swc';
 import { glob } from 'glob';
 import { defineConfig } from 'vite';
@@ -32,7 +31,7 @@ export default defineConfig({
             // The absolute path to the entry file
             // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
             fileURLToPath(new URL(file, import.meta.url)),
-          ])
+          ]),
       ),
     },
   },

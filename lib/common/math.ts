@@ -26,11 +26,8 @@ export function scale(value: number, min = 0, max = 100): number {
  */
 export function round(num: number, dec: number): number {
   const num_sign = num >= 0 ? 1 : -1;
-  return parseFloat(
-    (
-      Math.round(num * Math.pow(10, dec) + num_sign * 0.0001) /
-      Math.pow(10, dec)
-    ).toFixed(dec)
+  return Number.parseFloat(
+    (Math.round(num * 10 ** dec + num_sign * 0.0001) / 10 ** dec).toFixed(dec),
   );
 }
 
@@ -58,7 +55,7 @@ export function inRange(value: number, range: number[]): boolean {
  */
 export function keyOfMatchingRange(
   value: number,
-  ranges: Record<string, any>
+  ranges: Record<string, any>,
 ): string | undefined {
   for (const rangeName of Object.keys(ranges)) {
     const range = ranges[rangeName];
@@ -76,4 +73,13 @@ export function numberOfDecimalDigits(value: number): number {
     return value.toString().split('.')[1].length || 0;
   }
   return 0;
+}
+
+/**
+ * Ensures the number is valid and not infinite/NaN.
+ */
+export function isSafeNumber(value: number): boolean {
+  return (
+    typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
+  );
 }

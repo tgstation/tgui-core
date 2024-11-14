@@ -1,4 +1,4 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, type PropsWithChildren } from 'react';
 
 type Props = Partial<{
   /**

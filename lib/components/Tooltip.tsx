@@ -1,6 +1,10 @@
 // TODO: Rewrite as an FC, remove this lint disable
-import { createPopper, Placement, VirtualElement } from '@popperjs/core';
-import { Component, ReactNode } from 'react';
+import {
+  type Placement,
+  type VirtualElement,
+  createPopper,
+} from '@popperjs/core';
+import { Component, type ReactNode } from 'react';
 import { findDOMNode, render } from 'react-dom';
 
 type Props = {

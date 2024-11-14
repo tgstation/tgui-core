@@ -1,5 +1,5 @@
 import { classes } from '../common/react';
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = ExclusiveProps & BoxProps;
 
@@ -36,7 +36,7 @@ export function NoticeBox(props: Props) {
     <Box
       className={classes([
         'NoticeBox',
-        color && 'NoticeBox--color--' + color,
+        color && `NoticeBox--color--${color}`,
         info && 'NoticeBox--type--info',
         success && 'NoticeBox--type--success',
         danger && 'NoticeBox--type--danger',

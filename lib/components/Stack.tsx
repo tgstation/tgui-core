@@ -1,18 +1,12 @@
-/**
- * @file
- * @copyright 2021 Aleksej Komarov
- * @license MIT
- */
-import { RefObject } from 'react';
-
+import type { RefObject } from 'react';
 import { classes } from '../common/react';
 import { computeBoxClassName } from './Box';
 import {
+  type FlexItemProps,
+  type FlexProps,
   computeFlexClassName,
   computeFlexItemProps,
   computeFlexProps,
-  FlexItemProps,
-  FlexProps,
 } from './Flex';
 
 type Props = Partial<{

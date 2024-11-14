@@ -1,15 +1,14 @@
 import {
   Component,
+  type FocusEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type RefObject,
   createRef,
-  FocusEventHandler,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  RefObject,
 } from 'react';
-
-import { isEscape, KEY } from '../common/keys';
+import { KEY, isEscape } from '../common/keys';
 import { clamp, round } from '../common/math';
-import { BooleanLike, classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
@@ -62,12 +61,8 @@ export class NumberInput extends Component<Props, State> {
     origin: 0,
   };
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   componentDidMount(): void {
-    const displayValue = parseFloat(this.props.value.toString());
+    const displayValue = Number.parseFloat(this.props.value.toString());
 
     this.setState({
       currentValue: displayValue,
@@ -83,7 +78,7 @@ export class NumberInput extends Component<Props, State> {
     }
     document.body.style['pointer-events'] = 'none';
 
-    const parsedValue = parseFloat(value.toString());
+    const parsedValue = Number.parseFloat(value.toString());
     this.setState({
       dragging: false,
       origin: event.screenY,
@@ -128,17 +123,14 @@ export class NumberInput extends Component<Props, State> {
         const internalValue = clamp(
           state.currentValue + (offset * step) / stepSize,
           minValue - step,
-          maxValue + step
+          maxValue + step,
         );
         if (Math.abs(internalValue - state.currentValue) >= step) {
-          // Clamp the final value
-          {
-            state.currentValue = clamp(
-              round(internalValue / step, 0) * step,
-              minValue,
-              maxValue
-            );
-          }
+          state.currentValue = clamp(
+            round(internalValue / step, 0) * step,
+            minValue,
+            maxValue,
+          );
           // Set the new origin
           state.origin = event.screenY;
         } else if (Math.abs(offset) > stepSize) {
@@ -193,11 +185,11 @@ export class NumberInput extends Component<Props, State> {
     }
 
     const targetValue = clamp(
-      parseFloat(event.target.value),
+      Number.parseFloat(event.target.value),
       minValue,
-      maxValue
+      maxValue,
     );
-    if (isNaN(targetValue)) {
+    if (Number.isNaN(targetValue)) {
       this.setState({
         editing: false,
       });
@@ -224,11 +216,11 @@ export class NumberInput extends Component<Props, State> {
 
     if (event.key === KEY.Enter) {
       const targetValue = clamp(
-        parseFloat(event.currentTarget.value),
+        Number.parseFloat(event.currentTarget.value),
         minValue,
-        maxValue
+        maxValue,
       );
-      if (isNaN(targetValue)) {
+      if (Number.isNaN(targetValue)) {
         this.setState({
           editing: false,
         });
@@ -269,7 +261,7 @@ export class NumberInput extends Component<Props, State> {
       format,
     } = this.props;
 
-    let displayValue = parseFloat(value.toString());
+    let displayValue = Number.parseFloat(value.toString());
     if (dragging) {
       displayValue = currentValue;
     }
@@ -284,7 +276,7 @@ export class NumberInput extends Component<Props, State> {
           displayValue
         )}
 
-        {unit ? ' ' + unit : ''}
+        {unit ? ` ${unit}` : ''}
       </div>
     );
 
@@ -305,12 +297,11 @@ export class NumberInput extends Component<Props, State> {
           <div
             className="NumberInput__bar"
             style={{
-              height:
-                clamp(
-                  ((displayValue - minValue) / (maxValue - minValue)) * 100,
-                  0,
-                  100
-                ) + '%',
+              height: `${clamp(
+                ((displayValue - minValue) / (maxValue - minValue)) * 100,
+                0,
+                100,
+              )}%`,
             }}
           />
         </div>

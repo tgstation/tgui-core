@@ -1,16 +1,15 @@
 import {
+  type RefObject,
   forwardRef,
-  RefObject,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react';
-import { KeyboardEvent, SyntheticEvent } from 'react';
-
-import { isEscape, KEY } from '../common/keys';
+import type { KeyboardEvent, SyntheticEvent } from 'react';
+import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 import { toInputValue } from './Input';
 
 type Props = Partial<{
@@ -90,10 +89,7 @@ export const TextArea = forwardRef(
       if (!dontUseTabForIndent && event.key === KEY.Tab) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
-        event.currentTarget.value =
-          value.substring(0, selectionStart) +
-          '\t' +
-          value.substring(selectionEnd);
+        event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
         event.currentTarget.selectionEnd = selectionStart + 1;
       }
     }

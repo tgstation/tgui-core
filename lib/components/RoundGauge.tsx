@@ -1,12 +1,12 @@
-/**
- * @file
- * @copyright 2020 bobbahbrown (https://github.com/bobbahbrown)
- * @license MIT
- */
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import {
+  Box,
+  type BoxProps,
+  computeBoxClassName,
+  computeBoxProps,
+} from './Box';
 
 type Props = {
   /** The current value of the metric. */
@@ -79,6 +79,7 @@ export function RoundGauge(props: Props) {
   const scaledRanges = ranges ? {} : { primary: [0, 1] };
 
   if (ranges) {
+    // biome-ignore lint/complexity/noForEach: This is fine
     Object.keys(ranges).forEach((x) => {
       const range = ranges[x];
       scaledRanges[x] = [
@@ -99,11 +100,11 @@ export function RoundGauge(props: Props) {
       return true;
     }
     // If only alertAfter is set and value is greater than alertAfter
-    else if (alertAfter && value > alertAfter) {
+    if (alertAfter && value > alertAfter) {
       return true;
     }
     // If only alertBefore is set and value is less than alertBefore
-    else if (alertBefore && value < alertBefore) {
+    if (alertBefore && value < alertBefore) {
       return true;
     }
     // If none of the above conditions are met
@@ -123,7 +124,7 @@ export function RoundGauge(props: Props) {
         ])}
         {...computeBoxProps({
           style: {
-            fontSize: size + 'em',
+            fontSize: `${size}em`,
             ...style,
           },
           ...rest,
@@ -153,7 +154,7 @@ export function RoundGauge(props: Props) {
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
-                      0
+                      0,
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}
@@ -179,6 +180,7 @@ export function RoundGauge(props: Props) {
               r="8"
             />
           </g>
+          <title>alert</title>
         </svg>
       </div>
       <AnimatedNumber value={value} format={format} />

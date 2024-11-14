@@ -1,6 +1,5 @@
 import { Component } from 'react';
-
-import { KeyEvent } from '../common/events';
+import type { KeyEvent } from '../common/events';
 import { listenForKeyEvents } from '../common/hotkeys';
 
 type KeyListenerProps = Partial<{

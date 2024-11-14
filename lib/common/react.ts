@@ -6,7 +6,7 @@ export function classes(classNames: (string | BooleanLike)[]): string {
   for (let i = 0; i < classNames.length; i++) {
     const part = classNames[i];
     if (typeof part === 'string') {
-      className += part + ' ';
+      className += `${part} `;
     }
   }
   return className;
@@ -32,7 +32,7 @@ export function normalizeChildren<T>(children: T | T[]): T[] {
  */
 export function shallowDiffers(
   a: Record<string, any>,
-  b: Record<string, any>
+  b: Record<string, any>,
 ): boolean {
   let i: string;
   for (i in a) {

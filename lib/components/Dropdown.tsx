@@ -1,7 +1,6 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { classes } from '../common/react';
-import { BoxProps, unit } from './Box';
+import { type BoxProps, unit } from './Box';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Popper } from './Popper';
@@ -174,6 +173,12 @@ export function Dropdown(props: Props) {
                   setOpen(false);
                   onSelected?.(value);
                 }}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    setOpen(false);
+                    onSelected?.(value);
+                  }
+                }}
               >
                 {typeof option === 'string' ? option : option.displayText}
               </div>
@@ -188,7 +193,7 @@ export function Dropdown(props: Props) {
             'Dropdown__control',
             'Button',
             'Button--dropdown',
-            'Button--color--' + color,
+            `Button--color--${color}`,
             disabled && 'Button--disabled',
             className,
           ])}
@@ -198,6 +203,12 @@ export function Dropdown(props: Props) {
             }
             setOpen(!open);
             onClick?.(event);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' && !disabled) {
+              setOpen(!open);
+              onClick?.(event);
+            }
           }}
         >
           {icon && (

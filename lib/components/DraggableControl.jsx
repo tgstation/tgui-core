@@ -1,6 +1,5 @@
-import { clamp } from '../common/math';
 import { Component, createRef } from 'react';
-
+import { clamp } from '../common/math';
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;
@@ -171,7 +170,7 @@ export class DraggableControl extends Component {
           displayValue
         )}
 
-        {unit ? ' ' + unit : ''}
+        {unit ? ` ${unit}` : ''}
       </>
     );
 
@@ -193,9 +192,13 @@ export class DraggableControl extends Component {
           }
           let value;
           if (unclamped) {
-            value = parseFloat(e.target.value);
+            value = Number.parseFloat(e.target.value);
           } else {
-            value = clamp(parseFloat(e.target.value), minValue, maxValue);
+            value = clamp(
+              Number.parseFloat(e.target.value),
+              minValue,
+              maxValue,
+            );
           }
           if (Number.isNaN(value)) {
             this.setState({
@@ -219,9 +222,13 @@ export class DraggableControl extends Component {
           if (e.keyCode === 13) {
             let value;
             if (unclamped) {
-              value = parseFloat(e.target.value);
+              value = Number.parseFloat(e.target.value);
             } else {
-              value = clamp(parseFloat(e.target.value), minValue, maxValue);
+              value = clamp(
+                Number.parseFloat(e.target.value),
+                minValue,
+                maxValue,
+              );
             }
             if (Number.isNaN(value)) {
               this.setState({
@@ -265,8 +272,8 @@ export class DraggableControl extends Component {
 }
 
 DraggableControl.defaultProps = {
-  minValue: -Infinity,
-  maxValue: +Infinity,
+  minValue: Number.NEGATIVE_INFINITY,
+  maxValue: Number.POSITIVE_INFINITY,
   step: 1,
   stepPixelSize: 1,
   suppressFlicker: 50,

@@ -1,7 +1,6 @@
-import { CSSProperties, ReactNode } from 'react';
-
-import { BooleanLike, classes } from '../common/react';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import type { CSSProperties, ReactNode } from 'react';
+import { type BooleanLike, classes } from '../common/react';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = {
   /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */
@@ -27,7 +26,7 @@ export function Icon(props: Props) {
 
   const customStyle = rest.style || {};
   if (size) {
-    customStyle.fontSize = size * 100 + '%';
+    customStyle.fontSize = `${size * 100}%`;
   }
   if (rotation) {
     customStyle.transform = `rotate(${rotation}deg)`;

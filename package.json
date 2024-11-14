@@ -1,23 +1,13 @@
 {
   "name": "tgui-core",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "TGUI core component library",
-  "keywords": [
-    "TGUI",
-    "library",
-    "typescript"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["TGUI", "library", "typescript"],
+  "files": ["dist"],
   "exports": {
     "./components": {
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.cjs"
-    },
-    "./styles/*": {
-      "import": "./dist/assets/*.css",
-      "require": "./dist/assets/*.css"
     },
     "./*": {
       "import": "./dist/common/*.js",
@@ -31,37 +21,30 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "lint": "eslint lib/**",
-    "lint-fix": "eslint lib/** --fix"
+    "lint": "biome check lib",
+    "lint:fix": "prettier . --write && biome check . --fix"
   },
   "author": "jlsnow301",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@eslint/js": "^9.7.0",
+    "@biomejs/biome": "1.9.4",
     "@popperjs/core": "^2.11.8",
-    "@types/eslint__js": "^8.42.3",
-    "@types/node": "^20.14.11",
+    "@types/node": "^22.9.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@types/webpack-env": "^1.18.5",
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "eslint": "^9.7.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.34.4",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-typescript-sort-keys": "^3.2.0",
-    "eslint-plugin-unused-imports": "^4.0.0",
+    "@vitejs/plugin-react-swc": "^3.7.1",
     "glob": "^11.0.0",
+    "prettier": "^3.3.3",
     "react-popper": "^2.3.0",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1",
-    "vite": "^5.3.4",
-    "vite-plugin-dts": "^3.9.1"
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.3.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+  "packageManager": "pnpm@9.13.0+sha512.beb9e2a803db336c10c9af682b58ad7181ca0fbd0d4119f2b33d5f2582e96d6c0d93c85b23869295b765170fbdaa92890c0da6ada457415039769edf3c959efe"
 }

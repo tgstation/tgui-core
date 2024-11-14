@@ -1,14 +1,13 @@
 import {
+  type CSSProperties,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
+  type UIEventHandler,
   createElement,
-  CSSProperties,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  ReactNode,
-  UIEventHandler,
 } from 'react';
-
 import { CSS_COLORS } from '../common/constants';
-import { BooleanLike, classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 
 type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
 type StringProps = Partial<
@@ -54,12 +53,12 @@ export function unit(value: unknown) {
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px')) {
-      return parseFloat(value) / 12 + 'rem';
+      return `${Number.parseFloat(value) / 12}rem`;
     }
     return value;
   }
   if (typeof value === 'number') {
-    return value + 'rem';
+    return `${value}rem`;
   }
 }
 
@@ -141,9 +140,9 @@ const stringStyleMap = {
 
   lineHeight: (style, value) => {
     if (typeof value === 'number') {
-      style['lineHeight'] = value;
+      style.lineHeight = value;
     } else if (typeof value === 'string') {
-      style['lineHeight'] = unit(value);
+      style.lineHeight = unit(value);
     }
   },
   // Margin
@@ -183,11 +182,11 @@ const booleanStyleMap = {
   bold: mapBooleanPropTo('fontWeight', 'bold'),
   fillPositionedParent: (style, value) => {
     if (value) {
-      style['position'] = 'absolute';
-      style['top'] = 0;
-      style['bottom'] = 0;
-      style['left'] = 0;
-      style['right'] = 0;
+      style.position = 'absolute';
+      style.top = 0;
+      style.bottom = 0;
+      style.left = 0;
+      style.right = 0;
     }
   },
   inline: mapBooleanPropTo('display', 'inline-block'),
@@ -228,8 +227,8 @@ export function computeBoxClassName(props: BoxProps): string {
   const color = props.textColor || props.color;
   const backgroundColor = props.backgroundColor;
   return classes([
-    isColorClass(color) && 'color-' + color,
-    isColorClass(backgroundColor) && 'color-bg-' + backgroundColor,
+    isColorClass(color) && `color-${color}`,
+    isColorClass(backgroundColor) && `color-bg-${backgroundColor}`,
   ]);
 }
 
@@ -249,6 +248,6 @@ export function Box(props: BoxProps & DangerDoNotUse) {
       ...computedProps,
       className: computedClassName,
     },
-    children
+    children,
   );
 }

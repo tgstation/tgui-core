@@ -169,7 +169,7 @@ type ByondType = {
  * Object that provides access to Byond Skin API and is available in
  * any tgui application.
  */
-const Byond: ByondType;
+const Byond: ByondType = {} as ByondType;
 
 declare const loadedMappings: Record<string, string>;
 

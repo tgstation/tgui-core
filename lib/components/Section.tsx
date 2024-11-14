@@ -1,8 +1,7 @@
-import { ReactNode, useEffect, useRef } from 'react';
-
+import { type ReactNode, useEffect, useRef } from 'react';
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 
 type Props = Partial<{
   /** Buttons to render aside the section title. */
@@ -57,7 +56,7 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export const Section = (props: Props) => {
+export function Section(props: Props) {
   const {
     buttons,
     children,
@@ -131,4 +130,4 @@ export const Section = (props: Props) => {
       </div>
     </div>
   );
-};
+}
