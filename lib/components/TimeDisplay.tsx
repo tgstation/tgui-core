@@ -1,6 +1,6 @@
-import { isSafeNumber } from 'lib/common/math';
 import { useEffect, useRef, useState } from 'react';
 import { formatTime } from '../common/format';
+import { isSafeNumber } from '../common/math';
 
 type TimeDisplayProps = {
   /** The value that the TimeDisplay needs to render - if you pass a wrong type it will be rendered directly */
