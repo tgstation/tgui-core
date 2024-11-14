@@ -1,5 +1,4 @@
 import type { CSSProperties, ReactNode } from 'react';
-
 import { type BooleanLike, classes } from '../common/react';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 

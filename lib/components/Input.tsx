@@ -4,11 +4,9 @@ import {
   useEffect,
   useRef,
 } from 'react';
-
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
-
 import { Box, type BoxProps } from './Box';
 
 type ConditionalProps =

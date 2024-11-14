@@ -1,10 +1,4 @@
-/**
- * @file
- * @copyright 2022 Aleksej Komarov
- * @license MIT
- */
 import { Component, type ReactNode, type RefObject, createRef } from 'react';
-
 import { classes } from '../common/react';
 import { Box } from './Box';
 import { Icon } from './Icon';

@@ -1,5 +1,4 @@
 import { classes } from '../common/react';
-
 import { Box, type BoxProps } from './Box';
 
 export function Dimmer(props: BoxProps) {

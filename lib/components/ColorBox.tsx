@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-
 import { classes } from '../common/react';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
 

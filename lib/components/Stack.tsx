@@ -1,10 +1,4 @@
-/**
- * @file
- * @copyright 2021 Aleksej Komarov
- * @license MIT
- */
 import type { RefObject } from 'react';
-
 import { classes } from '../common/react';
 import { computeBoxClassName } from './Box';
 import {

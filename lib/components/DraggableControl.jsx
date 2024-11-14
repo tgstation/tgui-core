@@ -1,6 +1,5 @@
 import { Component, createRef } from 'react';
 import { clamp } from '../common/math';
-
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;

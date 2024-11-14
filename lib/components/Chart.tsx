@@ -1,5 +1,4 @@
 import { Component, type RefObject, createRef } from 'react';
-
 import { zip } from '../common/collections';
 import { Box, type BoxProps } from './Box';
 

@@ -1,5 +1,4 @@
 import { Component, Fragment } from 'react';
-
 import { Box } from './Box';
 
 export class FakeTerminal extends Component {

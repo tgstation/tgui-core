@@ -6,7 +6,6 @@ import {
   type UIEventHandler,
   createElement,
 } from 'react';
-
 import { CSS_COLORS } from '../common/constants';
 import { type BooleanLike, classes } from '../common/react';
 

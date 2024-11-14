@@ -6,11 +6,9 @@ import {
   type RefObject,
   createRef,
 } from 'react';
-
 import { KEY, isEscape } from '../common/keys';
 import { clamp, round } from '../common/math';
 import { type BooleanLike, classes } from '../common/react';
-
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 

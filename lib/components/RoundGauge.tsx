@@ -1,8 +1,3 @@
-/**
- * @file
- * @copyright 2020 bobbahbrown (https://github.com/bobbahbrown)
- * @license MIT
- */
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';

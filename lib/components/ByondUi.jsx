@@ -1,5 +1,4 @@
 import { Component, createRef } from 'react';
-
 import { shallowDiffers } from '../common/react';
 import { debounce } from '../common/timer';
 import { computeBoxProps } from './Box';

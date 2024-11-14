@@ -6,7 +6,6 @@
 
 import type { Placement } from '@popperjs/core';
 import type { ReactNode } from 'react';
-
 import { type BooleanLike, classes } from '../common/react';
 
 import { type BoxProps, computeBoxProps } from './Box';

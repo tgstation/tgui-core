@@ -1,5 +1,4 @@
 import { Component } from 'react';
-
 import type { KeyEvent } from '../common/events';
 import { listenForKeyEvents } from '../common/hotkeys';
 

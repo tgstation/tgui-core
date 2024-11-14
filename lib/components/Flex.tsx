@@ -1,5 +1,4 @@
 import { classes } from '../common/react';
-
 import {
   type BoxProps,
   computeBoxClassName,
