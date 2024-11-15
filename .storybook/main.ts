@@ -21,19 +21,6 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  async viteFinal(config) {
-    const { mergeConfig } = await import('vite');
-
-    return mergeConfig(config, {
-      css: {
-        preprocessorOptions: {
-          scss: {
-            api: 'modern',
-          },
-        },
-      },
-    });
-  },
 };
 
 export default config;
