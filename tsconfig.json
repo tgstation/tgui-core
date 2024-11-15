@@ -24,7 +24,7 @@
       "tgui-core/*": ["dist/common/*.d.ts"]
     }
   },
-  "include": ["lib", "global.d.ts", "stories"],
+  "include": ["lib", "global.d.ts", "stories", ".storybook"],
   "references": [
     {
       "path": "./tsconfig.node.json"
