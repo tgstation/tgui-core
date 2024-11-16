@@ -7,3 +7,4 @@ pnpm-lock.yaml
 *.css
 *.jsx
 *.json
+.github/PULL_REQUEST_TEMPLATE.md
