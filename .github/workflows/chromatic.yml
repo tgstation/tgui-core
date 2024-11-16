@@ -27,15 +27,15 @@ jobs:
           fetch-depth: 0
           ref: refs/pull/${{ inputs.pull_request_number }}/head
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "pnpm"
           cache-dependency-path: "./pnpm-lock.yaml"
-
-      - name: Setup pnpm
-        run: corepack enable
 
       - name: Install Dependencies
         run: pnpm install
