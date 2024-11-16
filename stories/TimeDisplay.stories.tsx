@@ -13,6 +13,6 @@ type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
   args: {
-    children: 'TimeDisplay',
+    value: 1,
   },
 };
