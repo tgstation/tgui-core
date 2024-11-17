@@ -101,7 +101,7 @@ export function Section(props: Props) {
         fitted && 'Section--fitted',
         scrollable && 'Section--scrollable',
         scrollableHorizontal && 'Section--scrollableHorizontal',
-        flexGrow && 'Section__flex',
+        flexGrow && 'Section--flex',
         className,
         computeBoxClassName(rest),
       ])}
@@ -117,8 +117,8 @@ export function Section(props: Props) {
         <div
           className={classes([
             'Section__content',
-            !!stretchContents && 'content__stretchContents',
-            !!noTopPadding && 'content__noTopPadding',
+            stretchContents && 'Section__content--stretchContents',
+            noTopPadding && 'Section__content--noTopPadding',
           ])}
           onScroll={onScroll}
           // For posterity: the forwarded ref needs to be here specifically
