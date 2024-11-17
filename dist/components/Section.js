@@ -7,9 +7,9 @@ function G(m) {
   const {
     buttons: n,
     children: f,
-    className: _,
+    className: S,
     fill: u,
-    fitted: S,
+    fitted: _,
     flexGrow: p,
     noTopPadding: N,
     onScroll: h,
@@ -33,11 +33,11 @@ function G(m) {
       className: a([
         "Section",
         u && "Section--fill",
-        S && "Section--fitted",
+        _ && "Section--fitted",
         c && "Section--scrollable",
         l && "Section--scrollableHorizontal",
-        p && "Section__flex",
-        _,
+        p && "Section--flex",
+        S,
         j(i)
       ]),
       ...z(i),
@@ -51,8 +51,8 @@ function G(m) {
           {
             className: a([
               "Section__content",
-              !!b && "content__stretchContents",
-              !!N && "content__noTopPadding"
+              b && "Section__content--stretchContents",
+              N && "Section__content--noTopPadding"
             ]),
             onScroll: h,
             ref: e,

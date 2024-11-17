@@ -1,56 +1,56 @@
-import { jsxs as f, jsx as t } from "react/jsx-runtime";
+import { jsxs as g, jsx as t } from "react/jsx-runtime";
 import { classes as l } from "../common/react.js";
-import { computeBoxProps as B } from "./Box.js";
+import { computeBoxProps as A } from "./Box.js";
 import { DmIcon as D } from "./DmIcon.js";
 import { Icon as F } from "./Icon.js";
 import { Image as j } from "./Image.js";
-import { Stack as I } from "./Stack.js";
+import { Stack as y } from "./Stack.js";
 import { Tooltip as z } from "./Tooltip.js";
-function H(k) {
+function H(N) {
   const {
-    asset: h,
+    asset: f,
     base64: r,
     buttons: m,
-    buttonsAlt: g,
+    buttonsAlt: h,
     children: i,
-    className: w,
+    className: k,
     color: e,
     disabled: a,
-    dmFallback: b,
-    dmIcon: x,
-    dmIconState: C,
+    dmFallback: I,
+    dmIcon: b,
+    dmIconState: x,
     fluid: c,
     imageSize: o = 64,
     imageSrc: d,
     onClick: s,
-    onRightClick: p,
-    selected: _,
-    title: $,
-    tooltip: y,
-    tooltipPosition: v,
-    ...S
-  } = k;
-  function N(n, A) {
-    return /* @__PURE__ */ t(I, { height: `${o}px`, width: `${o}px`, children: /* @__PURE__ */ t(I.Item, { grow: !0, textAlign: "center", align: "center", children: /* @__PURE__ */ t(
+    onRightClick: u,
+    selected: B,
+    title: C,
+    tooltip: _,
+    tooltipPosition: w,
+    ...v
+  } = N;
+  function $(n, S) {
+    return /* @__PURE__ */ t(y, { height: `${o}px`, width: `${o}px`, children: /* @__PURE__ */ t(y.Item, { grow: !0, textAlign: "center", align: "center", children: /* @__PURE__ */ t(
       F,
       {
-        spin: A,
+        spin: S,
         name: n,
         color: "gray",
         style: { fontSize: `calc(${o}px * 0.75)` }
       }
     ) }) });
   }
-  let u = /* @__PURE__ */ f(
+  let p = /* @__PURE__ */ g(
     "div",
     {
       className: l([
         "container",
         m && "hasButtons",
-        !s && !p && "noAction",
-        _ && "selected",
-        a && "disabled",
-        e && typeof e == "string" ? `color__${e}` : "color__default"
+        !s && !u && "noAction",
+        B && "ImageButton--selected",
+        a && "ImageButton--disabled",
+        e && typeof e == "string" ? `ImageButton--color__${e}` : "ImageButton--color__default"
       ]),
       tabIndex: a ? void 0 : 0,
       onClick: (n) => {
@@ -60,39 +60,39 @@ function H(k) {
         n.key === "Enter" && !a && s && s(n);
       },
       onContextMenu: (n) => {
-        n.preventDefault(), !a && p && p(n);
+        n.preventDefault(), !a && u && u(n);
       },
       style: { width: c ? "auto" : `calc(${o}px + 0.5em + 2px)` },
       children: [
-        /* @__PURE__ */ t("div", { className: "image", children: r || h || d ? /* @__PURE__ */ t(
+        /* @__PURE__ */ t("div", { className: "image", children: r || f || d ? /* @__PURE__ */ t(
           j,
           {
-            className: l(!r && !d && h || []),
+            className: l(!r && !d && f || []),
             src: r ? `data:image/png;base64,${r}` : d,
             height: `${o}px`,
             width: `${o}px`
           }
-        ) : x && C ? /* @__PURE__ */ t(
+        ) : b && x ? /* @__PURE__ */ t(
           D,
           {
-            icon: x,
-            icon_state: C,
-            fallback: b || N("spinner", !0),
+            icon: b,
+            icon_state: x,
+            fallback: I || $("spinner", !0),
             height: `${o}px`,
             width: `${o}px`
           }
-        ) : N("question", !1) }),
-        c ? /* @__PURE__ */ f("div", { className: "info", children: [
-          $ && /* @__PURE__ */ t("span", { className: l(["title", i && "divider"]), children: $ }),
+        ) : $("question", !1) }),
+        c ? /* @__PURE__ */ g("div", { className: "info", children: [
+          C && /* @__PURE__ */ t("span", { className: l(["title", i && "divider"]), children: C }),
           i && /* @__PURE__ */ t("span", { className: "contentFluid", children: i })
         ] }) : i && /* @__PURE__ */ t(
           "span",
           {
             className: l([
               "content",
-              _ && "contentSelected",
-              a && "contentDisabled",
-              e && typeof e == "string" ? `contentColor__${e}` : "contentColor__default"
+              B && "ImageButton--contentSelected",
+              a && "ImageButton--contentDisabled",
+              e && typeof e == "string" ? `ImageButton--contentColor__${e}` : "ImageButton--contentColor__default"
             ]),
             children: i
           }
@@ -100,24 +100,28 @@ function H(k) {
       ]
     }
   );
-  return y && (u = /* @__PURE__ */ t(z, { content: y, position: v, children: u })), /* @__PURE__ */ f(
+  return _ && (p = /* @__PURE__ */ t(z, { content: _, position: w, children: p })), /* @__PURE__ */ g(
     "div",
     {
-      className: l(["ImageButton", c && "fluid", w]),
-      ...B(S),
+      className: l([
+        "ImageButton",
+        c && "ImageButton--fluid",
+        k
+      ]),
+      ...A(v),
       children: [
-        u,
+        p,
         m && /* @__PURE__ */ t(
           "div",
           {
             className: l([
               "buttonsContainer",
-              g && "buttonsAltContainer",
+              h && "buttonsAltContainer",
               !i && "buttonsEmpty",
-              c && e && typeof e == "string" ? `buttonsContainerColor__${e}` : c && "buttonsContainerColor__default"
+              c && e && typeof e == "string" ? `ImageButton--buttonsContainerColor__${e}` : c && "ImageButton--buttonsContainerColor__default"
             ]),
             style: {
-              width: g ? `calc(${o}px + 0.5em)` : "auto"
+              width: h ? `calc(${o}px + 0.5em)` : "auto"
             },
             children: m
           }
