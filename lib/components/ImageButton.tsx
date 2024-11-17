@@ -216,7 +216,7 @@ export function ImageButton(props: Props) {
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'ImageButton--ButtonsContainerColor__default',
+              : fluid && 'ImageButton--buttonsContainerColor__default',
           ])}
           style={{
             width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',
