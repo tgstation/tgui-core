@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 import type { KeyEvent } from '../common/events';
 import { listenForKeyEvents } from '../common/hotkeys';
 
@@ -8,32 +8,26 @@ type KeyListenerProps = Partial<{
   onKeyUp: (key: KeyEvent) => void;
 }>;
 
-export class KeyListener extends Component<KeyListenerProps> {
-  dispose: () => void;
-
-  constructor(props) {
-    super(props);
-
-    this.dispose = listenForKeyEvents((key) => {
-      if (this.props.onKey) {
-        this.props.onKey(key);
+export const KeyListener = (props: KeyListenerProps) => {
+  useEffect(() => {
+    const dispose = listenForKeyEvents((key) => {
+      if (props.onKey) {
+        props.onKey(key);
       }
 
-      if (key.isDown() && this.props.onKeyDown) {
-        this.props.onKeyDown(key);
+      if (key.isDown() && props.onKeyDown) {
+        props.onKeyDown(key);
       }
 
-      if (key.isUp() && this.props.onKeyUp) {
-        this.props.onKeyUp(key);
+      if (key.isUp() && props.onKeyUp) {
+        props.onKeyUp(key);
       }
     });
-  }
 
-  componentWillUnmount() {
-    this.dispose();
-  }
+    return () => {
+      dispose();
+    };
+  }, []);
 
-  render() {
-    return null;
-  }
-}
+  return null;
+};
