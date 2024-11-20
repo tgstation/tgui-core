@@ -24,9 +24,6 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
-      '@storybook/addon-actions':
-        specifier: ^8.4.4
-        version: 8.4.4(storybook@8.4.4(prettier@3.3.3))
       '@storybook/addon-console':
         specifier: ^3.0.0
         version: 3.0.0(@storybook/addon-actions@8.4.4(storybook@8.4.4(prettier@3.3.3)))(react@18.3.1)
