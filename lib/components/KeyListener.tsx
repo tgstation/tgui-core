@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import type { KeyEvent } from '../common/events';
 import { listenForKeyEvents } from '../common/hotkeys';
 
-type KeyListenerProps = Partial<{
+type Props = Partial<{
   onKey: (key: KeyEvent) => void;
   onKeyDown: (key: KeyEvent) => void;
   onKeyUp: (key: KeyEvent) => void;
 }>;
 
-export const KeyListener = (props: KeyListenerProps) => {
+export function KeyListener(props: Props) {
   useEffect(() => {
     const dispose = listenForKeyEvents((key) => {
       if (props.onKey) {

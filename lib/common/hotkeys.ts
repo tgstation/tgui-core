@@ -138,36 +138,38 @@ type ByondSkinMacro = {
 
 export function setupHotKeys() {
   // Read macros
-  Byond.winget('default.*').then((data: Record<string, string>) => {
-    // Group each macro by ref
-    const groupedByRef: Record<string, ByondSkinMacro> = {};
-    for (const key of Object.keys(data)) {
-      const keyPath = key.split('.');
-      const ref = keyPath[1];
-      const prop = keyPath[2];
-      if (ref && prop) {
-        // This piece of code imperatively adds each property to a
-        // ByondSkinMacro object in the order we meet it, which is hard
-        // to express safely in typescript.
-        if (!groupedByRef[ref]) {
-          groupedByRef[ref] = {} as any;
+  if (Byond) {
+    Byond.winget('default.*').then((data: Record<string, string>) => {
+      // Group each macro by ref
+      const groupedByRef: Record<string, ByondSkinMacro> = {};
+      for (const key of Object.keys(data)) {
+        const keyPath = key.split('.');
+        const ref = keyPath[1];
+        const prop = keyPath[2];
+        if (ref && prop) {
+          // This piece of code imperatively adds each property to a
+          // ByondSkinMacro object in the order we meet it, which is hard
+          // to express safely in typescript.
+          if (!groupedByRef[ref]) {
+            groupedByRef[ref] = {} as any;
+          }
+          groupedByRef[ref][prop] = data[key];
         }
-        groupedByRef[ref][prop] = data[key];
       }
-    }
-    // Insert macros
-    const escapedQuotRegex = /\\"/g;
+      // Insert macros
+      const escapedQuotRegex = /\\"/g;
 
-    function unEscape(str: string) {
-      return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
-    }
+      function unEscape(str: string) {
+        return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
+      }
 
-    for (const ref of Object.keys(groupedByRef)) {
-      const macro = groupedByRef[ref];
-      const byondKeyName = unEscape(macro.name);
-      byondMacros[byondKeyName] = unEscape(macro.command);
-    }
-  });
+      for (const ref of Object.keys(groupedByRef)) {
+        const macro = groupedByRef[ref];
+        const byondKeyName = unEscape(macro.name);
+        byondMacros[byondKeyName] = unEscape(macro.command);
+      }
+    });
+  }
   // Setup event handlers
   globalEvents.on('window-blur', () => {
     releaseHeldKeys();
