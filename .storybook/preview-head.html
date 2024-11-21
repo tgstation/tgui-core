@@ -1,3 +1,14 @@
 <script type="text/javascript">
-  var Byond = (window.Byond = {});
+  var Byond = (window.Byond = {
+    command: function (command) {
+      console.log("Byond.command", command);
+    },
+    winget: function (command) {
+      console.log("Byond.winget", command);
+      return Promise.resolve("FAKE VALUE");
+    },
+    winset: function (command) {
+      console.log("Byond.winset", command);
+    }
+  });
 </script>
