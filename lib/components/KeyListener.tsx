@@ -30,4 +30,4 @@ export function KeyListener(props: Props) {
   }, []);
 
   return null;
-};
+}
