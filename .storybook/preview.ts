@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react';
 import 'tgui-styles';
 import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
+import { withConsole } from '@storybook/addon-console';
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +17,7 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
 };
 
 export default preview;

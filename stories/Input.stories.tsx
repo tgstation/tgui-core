@@ -1,4 +1,3 @@
-import { withConsole } from '@storybook/addon-console';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
 import { Input } from '../lib/components/Input';
@@ -8,7 +7,6 @@ type StoryProps = ComponentProps<typeof Input>;
 export default {
   component: Input,
   title: 'Components/Input',
-  decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
 } satisfies Meta<StoryProps>;
 
 type Story = StoryObj<StoryProps>;
