@@ -50,20 +50,24 @@ type OptionalProps = Partial<{
   /** Fires when user is 'done typing': Clicked out, blur, enter key */
   onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
   /** Fires once the enter key is pressed */
-  onEnter?: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+  onEnter: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
   /** Fires once the escape key is pressed */
   onEscape: (event: SyntheticEvent<HTMLInputElement>) => void;
   /** The placeholder text when everything is cleared */
   placeholder: string;
   /** Clears the input value on enter */
   selfClear: boolean;
+  /** Auto-updates the input value on props change, ie, data from Byond */
+  updateOnPropsChange: boolean;
   /** The state variable of the input. */
   value: string | number;
 }>;
 
-type Props = OptionalProps & ConditionalProps & BoxProps;
+type Props = OptionalProps & ConditionalProps & Omit<BoxProps, 'children'>;
 
-export function toInputValue(value: string | number | undefined): string {
+type InputValue = string | number | undefined;
+
+export function toInputValue(value: InputValue): string {
   return typeof value !== 'number' && typeof value !== 'string'
     ? ''
     : String(value);
@@ -93,11 +97,11 @@ export function Input(props: Props) {
     onInput,
     placeholder,
     selfClear,
+    updateOnPropsChange,
     value,
     ...rest
   } = props;
 
-  // The ref to the input field
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleInput(event: SyntheticEvent<HTMLInputElement>) {
@@ -133,38 +137,44 @@ export function Input(props: Props) {
     }
   }
 
+  function setValue(newValue: InputValue) {
+    const input = inputRef.current;
+    if (!input) return;
+
+    const changed = toInputValue(newValue);
+    if (input.value === changed) return;
+
+    input.value = changed;
+  }
+
   /** Focuses the input on mount */
   useEffect(() => {
     const input = inputRef.current;
-    if (!input) return;
 
-    const newValue = toInputValue(value);
+    if (input) {
+      setValue(value);
 
-    if (input.value !== newValue) input.value = newValue;
+      const hasFocusOrSelect = autoFocus || autoSelect;
+      const isActive = document.activeElement === input;
 
-    if (!autoFocus && !autoSelect) return;
+      if (hasFocusOrSelect && !isActive) {
+        setTimeout(() => {
+          input.focus();
 
-    setTimeout(() => {
-      input.focus();
-
-      if (autoSelect) {
-        input.select();
+          if (autoSelect) {
+            input.select();
+          }
+        }, 1);
       }
-    }, 1);
+    }
   }, []);
 
+  /** Updates the initial value on props change */
   useEffect(() => {
-    const input = inputRef.current;
-    if (!input) return;
-
-    if (document.activeElement === input) {
-      return;
+    if (updateOnPropsChange) {
+      setValue(value);
     }
-
-    const newValue = toInputValue(value);
-
-    if (input.value !== newValue) input.value = newValue;
-  });
+  }, [value]);
 
   return (
     <Box

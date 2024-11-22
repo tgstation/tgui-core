@@ -117,11 +117,11 @@ export function ImageButton(props: Props) {
         'container',
         buttons && 'hasButtons',
         !onClick && !onRightClick && 'noAction',
-        selected && 'selected',
-        disabled && 'disabled',
+        selected && 'ImageButton--selected',
+        disabled && 'ImageButton--disabled',
         color && typeof color === 'string'
-          ? `color__${color}`
-          : 'color__default',
+          ? `ImageButton--color__${color}`
+          : 'ImageButton--color__default',
       ])}
       tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
@@ -176,11 +176,11 @@ export function ImageButton(props: Props) {
           <span
             className={classes([
               'content',
-              selected && 'contentSelected',
-              disabled && 'contentDisabled',
+              selected && 'ImageButton--contentSelected',
+              disabled && 'ImageButton--contentDisabled',
               color && typeof color === 'string'
-                ? `contentColor__${color}`
-                : 'contentColor__default',
+                ? `ImageButton--contentColor__${color}`
+                : 'ImageButton--contentColor__default',
             ])}
           >
             {children}
@@ -200,7 +200,11 @@ export function ImageButton(props: Props) {
 
   return (
     <div
-      className={classes(['ImageButton', fluid && 'fluid', className])}
+      className={classes([
+        'ImageButton',
+        fluid && 'ImageButton--fluid',
+        className,
+      ])}
       {...computeBoxProps(rest)}
     >
       {buttonContent}
@@ -211,8 +215,8 @@ export function ImageButton(props: Props) {
             buttonsAlt && 'buttonsAltContainer',
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
-              ? `buttonsContainerColor__${color}`
-              : fluid && 'buttonsContainerColor__default',
+              ? `ImageButton--buttonsContainerColor__${color}`
+              : fluid && 'ImageButton--buttonsContainerColor__default',
           ])}
           style={{
             width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',
