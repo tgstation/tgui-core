@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ComponentProps } from 'react';
+import type { KeyEvent } from 'lib/common/events';
+import { type ComponentProps, useEffect } from 'react';
+import { setupHotKeys } from '../lib/common/hotkeys';
 import { KeyListener } from '../lib/components/KeyListener';
 
 type StoryProps = ComponentProps<typeof KeyListener>;
@@ -11,8 +13,18 @@ export default {
 
 type Story = StoryObj<StoryProps>;
 
-export const Default: Story = {
-  args: {
-    children: 'KeyListener',
+export const onKeyDown: Story = {
+  render: () => {
+    useEffect(() => {
+      setupHotKeys();
+    }, []);
+
+    return (
+      <KeyListener
+        onKeyDown={(e: KeyEvent) => {
+          console.log('onKeyDown', e.toString(), e);
+        }}
+      />
+    );
   },
 };
