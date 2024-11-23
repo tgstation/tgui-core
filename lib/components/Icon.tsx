@@ -17,12 +17,12 @@ type Props = {
   /** Custom CSS. */
   style: CSSProperties;
 }> &
-  BoxProps;
+  Omit<BoxProps, 'children'>;
 
 const FA_OUTLINE_REGEX = /-o$/;
 
 export function Icon(props: Props) {
-  const { name, size, spin, className, rotation, ...rest } = props;
+  const { name = '', size, spin, className, rotation, ...rest } = props;
 
   const customStyle = rest.style || {};
   if (size) {
