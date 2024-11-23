@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Icon } from 'lib/components';
 import type { ComponentProps } from 'react';
-import { Icon } from '../lib/components/Icon';
 
 type StoryProps = ComponentProps<typeof Icon>;
 
@@ -13,6 +13,6 @@ type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
   args: {
-    children: 'Icon',
+    name: 'question',
   },
 };
