@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from 'lib/components';
 import type { ComponentProps } from 'react';
+import { Icon } from '../lib/components';
 
 type StoryProps = ComponentProps<typeof Icon>;
 
