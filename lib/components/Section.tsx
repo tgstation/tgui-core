@@ -68,6 +68,7 @@ export const Section = forwardRef(
       buttons,
       children,
       className,
+      container_id = '',
       fill,
       fitted,
       flexGrow,
@@ -77,7 +78,6 @@ export const Section = forwardRef(
       scrollableHorizontal,
       stretchContents,
       title,
-      container_id,
       ...rest
     } = props;
 
@@ -87,20 +87,23 @@ export const Section = forwardRef(
     const hasTitle = canRender(title) || canRender(buttons);
 
     useEffect(() => {
-      if (!nodeRef?.current) return;
-      if (!scrollable && !scrollableHorizontal) return;
-
-      addScrollableNode(nodeRef.current);
+      // Don't use early returns here as we're in useEffect
+      if (nodeRef?.current) {
+        if (scrollable || scrollableHorizontal) {
+          addScrollableNode(nodeRef.current);
+        }
+      }
 
       return () => {
-        if (!nodeRef?.current) return;
-        removeScrollableNode(nodeRef.current);
+        if (nodeRef?.current) {
+          removeScrollableNode(nodeRef.current);
+        }
       };
     }, []);
 
     return (
       <div
-        id={container_id || ''}
+        id={container_id}
         className={classes([
           'Section',
           fill && 'Section--fill',
