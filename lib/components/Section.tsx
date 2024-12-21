@@ -1,4 +1,10 @@
-import { type ReactNode, type RefObject, forwardRef, useEffect } from 'react';
+import {
+  type ReactNode,
+  type RefObject,
+  forwardRef,
+  useEffect,
+  useRef,
+} from 'react';
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -75,17 +81,20 @@ export const Section = forwardRef(
       ...rest
     } = props;
 
+    const internalRef = useRef<HTMLDivElement>(null);
+    const nodeRef = forwardedRef || internalRef;
+
     const hasTitle = canRender(title) || canRender(buttons);
 
     useEffect(() => {
-      if (!forwardedRef?.current) return;
+      if (!nodeRef?.current) return;
       if (!scrollable && !scrollableHorizontal) return;
 
-      addScrollableNode(forwardedRef.current);
+      addScrollableNode(nodeRef.current);
 
       return () => {
-        if (!forwardedRef?.current) return;
-        removeScrollableNode(forwardedRef.current);
+        if (!nodeRef?.current) return;
+        removeScrollableNode(nodeRef.current);
       };
     }, []);
 
@@ -120,7 +129,7 @@ export const Section = forwardRef(
             onScroll={onScroll}
             // For posterity: the forwarded ref needs to be here specifically
             // to actually let things interact with the scrolling.
-            ref={forwardedRef}
+            ref={nodeRef}
           >
             {children}
           </div>
