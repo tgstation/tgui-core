@@ -32,6 +32,7 @@ export function Image(props: Props) {
   computedProps.style = {
     ...computedProps.style,
     '-ms-interpolation-mode': fixBlur ? 'nearest-neighbor' : 'auto',
+    imageRendering: fixBlur ? 'pixelated' : 'auto',
     objectFit,
   };
 
