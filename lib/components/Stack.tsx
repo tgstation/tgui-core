@@ -1,6 +1,6 @@
 import type { RefObject } from 'react';
 import { classes } from '../common/react';
-import { computeBoxClassName } from './Box';
+import { computeBoxClassName } from '../common/ui';
 import {
   type FlexItemProps,
   type FlexProps,

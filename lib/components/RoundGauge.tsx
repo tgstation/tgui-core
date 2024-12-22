@@ -1,12 +1,9 @@
+import type { CSSProperties } from 'react';
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { AnimatedNumber } from './AnimatedNumber';
-import {
-  Box,
-  type BoxProps,
-  computeBoxClassName,
-  computeBoxProps,
-} from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = {
   /** The current value of the metric. */
@@ -29,7 +26,7 @@ type Props = {
   /** When provided scales the gauge. */
   size: number;
   /** Custom css */
-  style: React.CSSProperties;
+  style: CSSProperties;
 }> &
   BoxProps;
 

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import { type BoxProps, computeBoxProps } from './Box';
+import { computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 
 type Props = Partial<{
   className: string;

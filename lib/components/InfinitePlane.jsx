@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { computeBoxProps } from './Box';
+import { computeBoxProps } from '../common/ui';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
 import { Stack } from './Stack';

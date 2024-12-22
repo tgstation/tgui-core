@@ -10,12 +10,8 @@ import {
 } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { type BooleanLike, classes } from '../common/react';
-import {
-  Box,
-  type BoxProps,
-  computeBoxClassName,
-  computeBoxProps,
-} from './Box';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
+import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 
