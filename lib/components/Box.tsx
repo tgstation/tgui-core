@@ -14,12 +14,10 @@ import {
   type stringStyleMap,
 } from '../common/ui';
 
-type BooleanProps = Partial<Record<keyof typeof booleanStyleMap, boolean>>;
-type StringProps = Partial<
-  Record<keyof typeof stringStyleMap, string | BooleanLike>
->;
+type BooleanProps = Record<keyof typeof booleanStyleMap, boolean>;
+type StringProps = Record<keyof typeof stringStyleMap, string | BooleanLike>;
 
-type EventHandlers = Partial<{
+type EventHandlers = {
   onClick: MouseEventHandler<HTMLDivElement>;
   onContextMenu: MouseEventHandler<HTMLDivElement>;
   onDoubleClick: MouseEventHandler<HTMLDivElement>;
@@ -31,18 +29,22 @@ type EventHandlers = Partial<{
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   onMouseUp: MouseEventHandler<HTMLDivElement>;
   onScroll: UIEventHandler<HTMLDivElement>;
-}>;
+};
 
-export type BoxProps = Partial<{
+type InternalProps = {
   as: string;
   children: ReactNode;
   className: string | BooleanLike;
   id: string;
   style: CSSProperties;
-}> &
-  BooleanProps &
-  StringProps &
-  EventHandlers;
+};
+
+// You may wonder why we don't just use ComponentProps<typeof Box> here.
+// This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
+// While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
+export type BoxProps = Partial<
+  InternalProps & BooleanProps & StringProps & EventHandlers
+>;
 
 // Don't you dare put this elsewhere
 type DangerDoNotUse = {
