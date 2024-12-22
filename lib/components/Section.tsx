@@ -1,4 +1,10 @@
-import { type ReactNode, useEffect, useRef } from 'react';
+import {
+  type ReactNode,
+  type RefObject,
+  forwardRef,
+  useEffect,
+  useRef,
+} from 'react';
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
 import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
@@ -56,78 +62,82 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export function Section(props: Props) {
-  const {
-    buttons,
-    children,
-    className,
-    fill,
-    fitted,
-    flexGrow,
-    noTopPadding,
-    onScroll,
-    scrollable,
-    scrollableHorizontal,
-    stretchContents,
-    title,
-    container_id,
-    ...rest
-  } = props;
+export const Section = forwardRef(
+  (props: Props, forwardedRef: RefObject<HTMLDivElement>) => {
+    const {
+      buttons,
+      children,
+      className,
+      container_id = '',
+      fill,
+      fitted,
+      flexGrow,
+      noTopPadding,
+      onScroll,
+      scrollable,
+      scrollableHorizontal,
+      stretchContents,
+      title,
+      ...rest
+    } = props;
 
-  const node = useRef(null);
+    const internalRef = useRef<HTMLDivElement>(null);
+    const nodeRef = forwardedRef || internalRef;
 
-  const hasTitle = canRender(title) || canRender(buttons);
+    const hasTitle = canRender(title) || canRender(buttons);
 
-  /** We want to be able to scroll on hover, but using focus will steal it from inputs */
-  useEffect(() => {
-    if (!node?.current) return;
-    if (!scrollable && !scrollableHorizontal) return;
-    const self = node.current;
+    useEffect(() => {
+      // Don't use early returns here as we're in useEffect
+      if (nodeRef?.current) {
+        if (scrollable || scrollableHorizontal) {
+          addScrollableNode(nodeRef.current);
+        }
+      }
 
-    addScrollableNode(self);
+      return () => {
+        if (nodeRef?.current) {
+          removeScrollableNode(nodeRef.current);
+        }
+      };
+    }, []);
 
-    return () => {
-      if (!self) return;
-      removeScrollableNode(self!);
-    };
-  }, []);
-
-  return (
-    <div
-      id={container_id || ''}
-      className={classes([
-        'Section',
-        fill && 'Section--fill',
-        fitted && 'Section--fitted',
-        scrollable && 'Section--scrollable',
-        scrollableHorizontal && 'Section--scrollableHorizontal',
-        flexGrow && 'Section--flex',
-        className,
-        computeBoxClassName(rest),
-      ])}
-      {...computeBoxProps(rest)}
-    >
-      {hasTitle && (
-        <div className="Section__title">
-          <span className="Section__titleText">{title}</span>
-          <div className="Section__buttons">{buttons}</div>
-        </div>
-      )}
-      <div className="Section__rest">
-        <div
-          className={classes([
-            'Section__content',
-            stretchContents && 'Section__content--stretchContents',
-            noTopPadding && 'Section__content--noTopPadding',
-          ])}
-          onScroll={onScroll}
-          // For posterity: the forwarded ref needs to be here specifically
-          // to actually let things interact with the scrolling.
-          ref={node}
-        >
-          {children}
+    return (
+      <div
+        id={container_id}
+        className={classes([
+          'Section',
+          fill && 'Section--fill',
+          fitted && 'Section--fitted',
+          scrollable && 'Section--scrollable',
+          scrollableHorizontal && 'Section--scrollableHorizontal',
+          flexGrow && 'Section--flex',
+          className,
+          computeBoxClassName(rest),
+        ])}
+        {...computeBoxProps(rest)}
+      >
+        {hasTitle && (
+          <div className="Section__title">
+            <span className="Section__titleText">{title}</span>
+            <div className="Section__buttons">{buttons}</div>
+          </div>
+        )}
+        <div className="Section__rest">
+          <div
+            className={classes([
+              'Section__content',
+              stretchContents && 'Section__content--stretchContents',
+              noTopPadding && 'Section__content--noTopPadding',
+            ])}
+            onScroll={onScroll}
+            // For posterity: the forwarded ref needs to be here specifically
+            // to actually let things interact with the scrolling.
+            ref={nodeRef}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
