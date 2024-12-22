@@ -8,14 +8,11 @@ import {
 } from 'react';
 import type { BooleanLike } from '../common/react';
 import {
-  type booleanStyleMap,
+  type BooleanStyleMap,
+  type StringStyleMap,
   computeBoxClassName,
   computeBoxProps,
-  type stringStyleMap,
 } from '../common/ui';
-
-type BooleanProps = Record<keyof typeof booleanStyleMap, boolean>;
-type StringProps = Record<keyof typeof stringStyleMap, string | BooleanLike>;
 
 type EventHandlers = {
   onClick: MouseEventHandler<HTMLDivElement>;
@@ -43,7 +40,7 @@ type InternalProps = {
 // This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
 // While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
 export type BoxProps = Partial<
-  InternalProps & BooleanProps & StringProps & EventHandlers
+  InternalProps & BooleanStyleMap & StringStyleMap & EventHandlers
 >;
 
 // Don't you dare put this elsewhere
@@ -95,61 +92,6 @@ type DangerDoNotUse = {
  * If you need more precision, you can always use fractional numbers.
  *
  * Default font size (`1rem`) is equal to `12px`.
- *
- * ## Props
- *
- * - `as: string` - The component used for the root node.
- * - `color: string` - Applies an atomic `color-<name>` class to the element.
- *   - See `styles/atomic/color.scss`.
- * - `width: number` - Box width.
- * - `minWidth: number` - Box minimum width.
- * - `maxWidth: number` - Box maximum width.
- * - `height: number` - Box height.
- * - `minHeight: number` - Box minimum height.
- * - `maxHeight: number` - Box maximum height.
- * - `fontSize: number` - Font size.
- * - `fontFamily: string` - Font family.
- * - `lineHeight: number` - Directly affects the height of text lines.
- *   Useful for adjusting button height.
- * - `inline: boolean` - Forces the `Box` to appear as an `inline-block`,
- *   or in other words, makes the `Box` flow with the text instead of taking
- *   all available horizontal space.
- * - `m: number` - Margin on all sides.
- * - `mx: number` - Horizontal margin.
- * - `my: number` - Vertical margin.
- * - `mt: number` - Top margin.
- * - `mb: number` - Bottom margin.
- * - `ml: number` - Left margin.
- * - `mr: number` - Right margin.
- * - `p: number` - Padding on all sides.
- * - `px: number` - Horizontal padding.
- * - `py: number` - Vertical padding.
- * - `pt: number` - Top padding.
- * - `pb: number` - Bottom padding.
- * - `pl: number` - Left padding.
- * - `pr: number` - Right padding.
- * - `opacity: number` - Opacity, from 0 to 1.
- * - `bold: boolean` - Make text bold.
- * - `italic: boolean` - Make text italic.
- * - `nowrap: boolean` - Stops text from wrapping.
- * - `preserveWhitespace: boolean` - Preserves line-breaks and spacing in text.
- * - `textAlign: string` - Align text inside the box.
- *   - `left` (default)
- *   - `center`
- *   - `right`
- * - `position: string` - A direct mapping to `position` CSS property.
- *   - `relative` - Relative positioning.
- *   - `absolute` - Absolute positioning.
- *   - `fixed` - Fixed positioning.
- * - `color: string` - An alias to `textColor`.
- * - `textColor: string` - Sets text color.
- *   - `#ffffff` - Hex format
- *   - `rgba(255, 255, 255, 1)` - RGB format
- *   - `purple` - Applies an atomic `color-<name>` class to the element.
- *     See `styles/color-map.scss`.
- * - `backgroundColor: string` - Sets background color.
- *   - `#ffffff` - Hex format
- *   - `rgba(255, 255, 255, 1)` - RGB format
  */
 export function Box(props: BoxProps & DangerDoNotUse) {
   const { as = 'div', className, children, ...rest } = props;

@@ -1,6 +1,6 @@
-import type { BoxProps } from 'lib/components/Box';
+import type { BoxProps } from '../components/Box';
 import { CSS_COLORS } from './constants';
-import { classes } from './react';
+import { type BooleanLike, classes } from './react';
 
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
@@ -70,8 +70,110 @@ const mapColorPropTo = (attrName) => (style, value) => {
   }
 };
 
+export type StringStyleMap = {
+  // Alignment
+
+  /** Align text inside the box. */
+  align: string | BooleanLike;
+  /** A direct mapping to `position` CSS property. */
+  position: string | BooleanLike;
+  /** Vertical align property. */
+  verticalAlign: string | BooleanLike;
+
+  // Color props
+
+  /** Sets background color. */
+  backgroundColor: string | BooleanLike;
+  /** Applies an atomic `color-<name>` class to the element. */
+  color: string | BooleanLike;
+  /** Opacity, from 0 to 1. */
+  opacity: string | BooleanLike;
+  /** Sets text color. */
+  textColor: string | BooleanLike;
+
+  // Margin
+
+  /** Margin on all sides. */
+  m: string | BooleanLike;
+  /** Bottom margin. */
+  mb: string | BooleanLike;
+  /** Left margin. */
+  ml: string | BooleanLike;
+  /** Right margin. */
+  mr: string | BooleanLike;
+  /** Top margin. */
+  mt: string | BooleanLike;
+  /** Horizontal margin. */
+  mx: string | BooleanLike;
+  /** Vertical margin. */
+  my: string | BooleanLike;
+
+  /** Bottom margin. */
+  bottom: string | BooleanLike;
+  /** Left margin. */
+  left: string | BooleanLike;
+  /** Right margin. */
+  right: string | BooleanLike;
+  /** Top margin. */
+  top: string | BooleanLike;
+
+  // Overflow
+
+  /** Overflow property. */
+  overflow: string | BooleanLike;
+  /** Overflow-X property. */
+  overflowX: string | BooleanLike;
+  /** Overflow-Y property. */
+  overflowY: string | BooleanLike;
+
+  // Padding
+
+  /** Padding on all sides. */
+  p: string | BooleanLike;
+  /** Bottom padding. */
+  pb: string | BooleanLike;
+  /** Left padding. */
+  pl: string | BooleanLike;
+  /** Right padding. */
+  pr: string | BooleanLike;
+  /** Top padding. */
+  pt: string | BooleanLike;
+  /** Horizontal padding. */
+  px: string | BooleanLike;
+  /** Vertical padding. */
+  py: string | BooleanLike;
+
+  // Size
+
+  /** Box height. */
+  height: string | BooleanLike;
+  /** Box maximum height. */
+  maxHeight: string | BooleanLike;
+  /** Box maximum width. */
+  maxWidth: string | BooleanLike;
+  /** Box minimum height. */
+  minHeight: string | BooleanLike;
+  /** Box minimum width. */
+  minWidth: string | BooleanLike;
+  /** Box width. */
+  width: string | BooleanLike;
+
+  // Text
+
+  /** Font family. */
+  fontFamily: string | BooleanLike;
+  /** Font size. */
+  fontSize: string | BooleanLike;
+  /** Font weight. */
+  fontWeight: string | BooleanLike;
+  /** Directly affects the height of text lines. Useful for adjusting button height. */
+  lineHeight: string | BooleanLike;
+  /** Align text inside the box. */
+  textAlign: string | BooleanLike;
+};
+
 // String / number props
-export const stringStyleMap = {
+export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   align: mapRawPropTo('textAlign'),
   bottom: mapUnitPropTo('bottom', unit),
   fontFamily: mapRawPropTo('fontFamily'),
@@ -131,10 +233,25 @@ export const stringStyleMap = {
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),
   backgroundColor: mapColorPropTo('backgroundColor'),
-} as const;
+};
+
+export type BooleanStyleMap = {
+  /** Make text bold. */
+  bold: boolean;
+  /** Fill positioned parent. */
+  fillPositionedParent: boolean;
+  /** Forces the `Box` to appear as an `inline-block`. */
+  inline: boolean;
+  /** Make text italic. */
+  italic: boolean;
+  /** Stops text from wrapping. */
+  nowrap: boolean;
+  /** Preserves line-breaks and spacing in text. */
+  preserveWhitespace: boolean;
+};
 
 // Boolean props
-export const booleanStyleMap = {
+export const booleanStyleMap: Record<keyof BooleanStyleMap, any> = {
   bold: mapBooleanPropTo('fontWeight', 'bold'),
   fillPositionedParent: (style, value) => {
     if (value) {
@@ -149,7 +266,7 @@ export const booleanStyleMap = {
   italic: mapBooleanPropTo('fontStyle', 'italic'),
   nowrap: mapBooleanPropTo('whiteSpace', 'nowrap'),
   preserveWhitespace: mapBooleanPropTo('whiteSpace', 'pre-wrap'),
-} as const;
+};
 
 export function computeBoxProps(props): Record<string, any> {
   const computedProps: Record<string, any> = {};
