@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
-import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 
 type Props = {
   /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */

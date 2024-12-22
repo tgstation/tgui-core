@@ -7,8 +7,8 @@
 import type { Placement } from '@popperjs/core';
 import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
-
-import { type BoxProps, computeBoxProps } from './Box';
+import { computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 import { DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';

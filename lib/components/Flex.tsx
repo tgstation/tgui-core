@@ -1,10 +1,6 @@
 import { classes } from '../common/react';
-import {
-  type BoxProps,
-  computeBoxClassName,
-  computeBoxProps,
-  unit,
-} from './Box';
+import { computeBoxClassName, computeBoxProps, unit } from '../common/ui';
+import type { BoxProps } from './Box';
 
 export type FlexProps = Partial<{
   /**

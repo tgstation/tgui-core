@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react';
 import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
-import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
 type Props = {

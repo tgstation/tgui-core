@@ -7,7 +7,8 @@ import {
 } from 'react';
 import { addScrollableNode, removeScrollableNode } from '../common/events';
 import { canRender, classes } from '../common/react';
-import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 
 type Props = Partial<{
   /** Buttons to render aside the section title. */

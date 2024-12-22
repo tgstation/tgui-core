@@ -16,3 +16,15 @@ export const Default: Story = {
     children: 'Box',
   },
 };
+
+export const WithTw: Story = {
+  args: {
+    tw: 'bold italic mb-4 color-#fff fontSize-16px',
+  },
+  render: (args) => (
+    <div>
+      <Box {...args}>This is a box with tailwindish styling</Box>
+      Bottom margined text
+    </div>
+  ),
+};

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { KeyEvent } from 'lib/common/events';
 import { type ComponentProps, useEffect } from 'react';
+import type { KeyEvent } from '../lib/common/events';
 import { setupHotKeys } from '../lib/common/hotkeys';
 import { KeyListener } from '../lib/components/KeyListener';
 

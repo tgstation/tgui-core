@@ -1,7 +1,7 @@
 import { Component, createRef } from 'react';
 import { shallowDiffers } from '../common/react';
 import { debounce } from '../common/timer';
-import { computeBoxProps } from './Box';
+import { computeBoxProps } from '../common/ui';
 
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack = [];

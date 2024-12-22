@@ -2,7 +2,8 @@ import type { CSSProperties, PropsWithChildren } from 'react';
 import { CSS_COLORS } from '../common/constants';
 import { clamp01, keyOfMatchingRange, scale, toFixed } from '../common/math';
 import { classes } from '../common/react';
-import { type BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 
 type Props = {
   /**
