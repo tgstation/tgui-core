@@ -48,7 +48,7 @@ type InternalProps = {
    *
    * It's compatible with regular Box props, even on the same component, but it will take precedence.
    *
-   * @example
+   * ### Example:
    * ```tsx
    * <Box tw="mb-2 bold fontSize-16px">
    *  // Is equivalent to
