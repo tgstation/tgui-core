@@ -12,6 +12,7 @@ import {
   type StringStyleMap,
   computeBoxClassName,
   computeBoxProps,
+  computeTwClass,
 } from '../common/ui';
 
 type EventHandlers = {
@@ -29,11 +30,36 @@ type EventHandlers = {
 };
 
 type InternalProps = {
+  /** The component used for the root node. */
   as: string;
+  /** The content of the component. */
   children: ReactNode;
+  /** Class name to pass into the component. */
   className: string | BooleanLike;
+  /** The unique id of the component. */
   id: string;
+  /** The inline style of the component. */
   style: CSSProperties;
+  /**
+   * ### tw
+   * A shorthand classname syntax based loosely on tailwind. This takes all known Box style props with a dash separator, eg 'fontSize-16'.
+   * It's compatible with regular Box props on the same component, but it will take precedence.
+   *
+   * @example
+   * ```tsx
+   * <Box tw="mb-2 bold fontSize-16px">
+   *  // Is equivalent to
+   * <Box mb={2} bold fontSize="16px">
+   *  ```
+   *
+   * ### Caveats:
+   * 1. This applies to known Box props only. You can't use this for custom props, like those on other components.
+   *
+   * 2. There is no type info or safety for this method. Like the old days, it simply won't work if you use it incorrectly.
+   *
+   * 3. This should be a static string with minimal interpolation. If you need more logic, prefer the props approach.
+   */
+  tw: string;
 };
 
 // You may wonder why we don't just use ComponentProps<typeof Box> here.
@@ -94,12 +120,16 @@ type DangerDoNotUse = {
  * Default font size (`1rem`) is equal to `12px`.
  */
 export function Box(props: BoxProps & DangerDoNotUse) {
-  const { as = 'div', className, children, ...rest } = props;
+  const { as = 'div', className, children, tw, ...rest } = props;
 
   const computedClassName = className
     ? `${className} ${computeBoxClassName(rest)}`
     : computeBoxClassName(rest);
-  const computedProps = computeBoxProps(rest);
+
+  const computedProps = computeBoxProps({
+    ...rest,
+    ...computeTwClass(tw),
+  });
 
   return createElement(
     as,

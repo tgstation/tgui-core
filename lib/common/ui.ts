@@ -1,11 +1,19 @@
+import type { CSSProperties } from 'react';
 import type { BoxProps } from '../components/Box';
 import { CSS_COLORS } from './constants';
 import { type BooleanLike, classes } from './react';
 
+type UnitMapper = (value: unknown) => string | undefined;
+
+// Do you get it? Are you feeling it now mr krabs?
+type StyleCourier = (
+  ...args: any[]
+) => (style: CSSProperties, value: unknown) => void;
+
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export function unit(value: unknown) {
+export const unit: UnitMapper = (value) => {
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px')) {
@@ -16,19 +24,19 @@ export function unit(value: unknown) {
   if (typeof value === 'number') {
     return `${value}rem`;
   }
-}
+};
 
 /**
  * Same as `unit`, but half the size for integers numbers.
  */
-export function halfUnit(value: unknown): string | undefined {
+export const halfUnit: UnitMapper = (value) => {
   if (typeof value === 'string') {
     return unit(value);
   }
   if (typeof value === 'number') {
     return unit(value * 0.5);
   }
-}
+};
 
 function isColorCode(str: unknown): boolean {
   return !isColorClass(str);
@@ -38,33 +46,37 @@ function isColorClass(str: unknown): boolean {
   return typeof str === 'string' && CSS_COLORS.includes(str as any);
 }
 
-const mapRawPropTo = (attrName) => (style, value) => {
+const mapRawPropTo: StyleCourier = (attrName: string) => (style, value) => {
   if (typeof value === 'number' || typeof value === 'string') {
     style[attrName] = value;
   }
 };
 
-const mapUnitPropTo = (attrName, unit) => (style, value) => {
-  if (typeof value === 'number' || typeof value === 'string') {
-    style[attrName] = unit(value);
-  }
-};
-
-const mapBooleanPropTo = (attrName, attrValue) => (style, value) => {
-  if (value) {
-    style[attrName] = attrValue;
-  }
-};
-
-const mapDirectionalUnitPropTo = (attrName, unit, dirs) => (style, value) => {
-  if (typeof value === 'number' || typeof value === 'string') {
-    for (let i = 0; i < dirs.length; i++) {
-      style[attrName + dirs[i]] = unit(value);
+const mapUnitPropTo: StyleCourier =
+  (attrName: string, unitMapper: UnitMapper) => (style, value) => {
+    if (typeof value === 'number' || typeof value === 'string') {
+      style[attrName] = unitMapper(value);
     }
-  }
-};
+  };
 
-const mapColorPropTo = (attrName) => (style, value) => {
+const mapBooleanPropTo: StyleCourier =
+  (attrName: string, attrValue: unknown) => (style, value) => {
+    if (value) {
+      style[attrName] = attrValue;
+    }
+  };
+
+const mapDirectionalUnitPropTo: StyleCourier =
+  (attrName: string, unitMapper: UnitMapper, dirs: string[]) =>
+  (style, value) => {
+    if (typeof value === 'number' || typeof value === 'string') {
+      for (let i = 0; i < dirs.length; i++) {
+        style[attrName + dirs[i]] = unitMapper(value);
+      }
+    }
+  };
+
+const mapColorPropTo: StyleCourier = (attrName: string) => (style, value) => {
   if (isColorCode(value)) {
     style[attrName] = value;
   }
@@ -253,7 +265,7 @@ export type BooleanStyleMap = {
 // Boolean props
 export const booleanStyleMap: Record<keyof BooleanStyleMap, any> = {
   bold: mapBooleanPropTo('fontWeight', 'bold'),
-  fillPositionedParent: (style, value) => {
+  fillPositionedParent: (style: CSSProperties, value: unknown) => {
     if (value) {
       style.position = 'absolute';
       style.top = 0;
@@ -273,7 +285,7 @@ export function computeBoxProps(props): Record<string, any> {
   const computedStyles: Record<string, string | number> = {};
 
   // Compute props
-  for (const propName of Object.keys(props)) {
+  for (const propName in props) {
     if (propName === 'style') {
       continue;
     }
@@ -304,4 +316,37 @@ export function computeBoxClassName(props: BoxProps): string {
     isColorClass(color) && `color-${color}`,
     isColorClass(backgroundColor) && `color-bg-${backgroundColor}`,
   ]);
+}
+
+type StyleMap = StringStyleMap & BooleanStyleMap;
+
+/** Super light implementation of tailwind-like class names. */
+export function computeTwClass(input: string | undefined): StyleMap {
+  const props = {} as StyleMap;
+
+  if (!input) return props;
+
+  const parts = input.split(' ');
+
+  for (const part of parts) {
+    const [name, value] = part.split('-');
+    if (!name) continue;
+
+    if (name in stringStyleMap) {
+      if (value === '') continue;
+
+      const numbered = Number(value);
+      if (!Number.isNaN(numbered) && Number.isFinite(numbered)) {
+        props[name] = numbered;
+      } else {
+        props[name] = value;
+      }
+    } else if (name in booleanStyleMap) {
+      props[name] = true;
+    } else {
+      console.warn(`Unknown prop ${name}`);
+    }
+  }
+
+  return props;
 }
