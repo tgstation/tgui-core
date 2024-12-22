@@ -52,7 +52,7 @@ type DangerDoNotUse = {
 };
 
 /**
- * # `Box`
+ * # Box
  *
  * The Box component serves as a wrapper component for most of the CSS utility
  * needs. It creates a new DOM element, a `<div>` by default that can be changed
@@ -94,7 +94,7 @@ type DangerDoNotUse = {
  *
  * Default font size (`1rem`) is equal to `12px`.
  *
- * ## Props:
+ * ## Props
  *
  * - `as: string` - The component used for the root node.
  * - `color: string` - Applies an atomic `color-<name>` class to the element.
