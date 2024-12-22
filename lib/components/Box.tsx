@@ -42,8 +42,11 @@ type InternalProps = {
   style: CSSProperties;
   /**
    * ### tw
-   * A shorthand classname syntax based loosely on tailwind. This takes all known Box style props with a dash separator, eg 'fontSize-16'.
-   * It's compatible with regular Box props on the same component, but it will take precedence.
+   * A shorthand classname syntax based loosely on tailwind.
+   *
+   * This takes all Box style props with a dash separator for params, e.g.'mb-4' or the prop name alone e.g. 'bold'.
+   *
+   * It's compatible with regular Box props, even on the same component, but it will take precedence.
    *
    * @example
    * ```tsx
@@ -53,7 +56,7 @@ type InternalProps = {
    *  ```
    *
    * ### Caveats:
-   * 1. This applies to known Box props only. You can't use this for custom props, like those on other components.
+   * 1. You can't use this for custom props from other components.
    *
    * 2. There is no type info or safety for this method. Like the old days, it simply won't work if you use it incorrectly.
    *
