@@ -2,7 +2,8 @@ import { jsx as i, jsxs as _, Fragment as K } from "react/jsx-runtime";
 import { useState as A, createRef as V, useEffect as $, useRef as z } from "react";
 import { KEY as D, isEscape as E } from "../common/keys.js";
 import { classes as F } from "../common/react.js";
-import { computeBoxClassName as j, computeBoxProps as q, Box as O } from "./Box.js";
+import { computeBoxClassName as j, computeBoxProps as q } from "../common/ui.js";
+import { Box as O } from "./Box.js";
 import { Icon as S } from "./Icon.js";
 import { Tooltip as v } from "./Tooltip.js";
 function x(u) {

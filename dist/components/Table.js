@@ -1,6 +1,6 @@
 import { jsx as c } from "react/jsx-runtime";
 import { classes as r } from "../common/react.js";
-import { computeBoxClassName as t, computeBoxProps as n } from "./Box.js";
+import { computeBoxClassName as t, computeBoxProps as n } from "../common/ui.js";
 function m(e) {
   const { className: l, collapsing: a, children: s, ...o } = e;
   return /* @__PURE__ */ c(

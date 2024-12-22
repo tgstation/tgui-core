@@ -2,7 +2,7 @@ import { jsx as s } from "react/jsx-runtime";
 import { Component as a, createRef as c } from "react";
 import { shallowDiffers as r } from "../common/react.js";
 import { debounce as m } from "../common/timer.js";
-import { computeBoxProps as l } from "./Box.js";
+import { computeBoxProps as l } from "../common/ui.js";
 const o = [];
 function h(t) {
   const n = o.length;

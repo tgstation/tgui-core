@@ -1,7 +1,7 @@
 import { jsx as l, jsxs as p, Fragment as W } from "react/jsx-runtime";
 import { useState as F, useRef as L, useEffect as S } from "react";
 import { classes as N } from "../common/react.js";
-import { unit as $ } from "./Box.js";
+import { unit as $ } from "../common/ui.js";
 import { Button as D } from "./Button.js";
 import { Icon as b } from "./Icon.js";
 import { Popper as q } from "./Popper.js";

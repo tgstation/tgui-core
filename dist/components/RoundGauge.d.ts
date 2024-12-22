@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { BoxProps } from './Box';
 type Props = {
     /** The current value of the metric. */
@@ -20,7 +21,7 @@ type Props = {
     /** When provided scales the gauge. */
     size: number;
     /** Custom css */
-    style: React.CSSProperties;
+    style: CSSProperties;
 }> & BoxProps;
 /**
  * ## RoundGauge

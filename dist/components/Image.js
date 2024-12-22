@@ -1,32 +1,33 @@
-import { jsx as p } from "react/jsx-runtime";
-import { useRef as a } from "react";
-import { computeBoxProps as f } from "./Box.js";
+import { jsx as a } from "react/jsx-runtime";
+import { useRef as p } from "react";
+import { computeBoxProps as f } from "../common/ui.js";
 const l = 5;
-function E(o) {
+function E(m) {
   const {
-    fixBlur: s = !0,
-    fixErrors: m = !1,
-    objectFit: n = "fill",
-    src: e,
-    ...c
-  } = o, t = a(0), r = f(c);
-  return r.style = {
-    ...r.style,
-    "-ms-interpolation-mode": s ? "nearest-neighbor" : "auto",
-    objectFit: n
-  }, /* @__PURE__ */ p(
+    fixBlur: r = !0,
+    fixErrors: n = !1,
+    objectFit: s = "fill",
+    src: o,
+    ...i
+  } = m, t = p(0), e = f(i);
+  return e.style = {
+    ...e.style,
+    "-ms-interpolation-mode": r ? "nearest-neighbor" : "auto",
+    imageRendering: r ? "pixelated" : "auto",
+    objectFit: s
+  }, /* @__PURE__ */ a(
     "img",
     {
-      onError: (i) => {
-        if (m && t.current < l) {
-          const u = i.currentTarget;
+      onError: (c) => {
+        if (n && t.current < l) {
+          const u = c.currentTarget;
           setTimeout(() => {
-            u.src = `${e}?attempt=${t.current}`, t.current++;
+            u.src = `${o}?attempt=${t.current}`, t.current++;
           }, 1e3);
         }
       },
-      src: e,
-      ...r,
+      src: o,
+      ...e,
       alt: "dm icon"
     }
   );

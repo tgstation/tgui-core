@@ -25,7 +25,8 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     className: string | import('../common/react').BooleanLike;
     id: string;
     style: import('react').CSSProperties;
-}> & Partial<Record<"bold" | "italic" | "nowrap" | "fillPositionedParent" | "inline" | "preserveWhitespace", boolean>> & Partial<Record<"fontWeight" | "textAlign" | "bottom" | "fontFamily" | "fontSize" | "height" | "left" | "maxHeight" | "maxWidth" | "minHeight" | "minWidth" | "opacity" | "overflow" | "overflowX" | "overflowY" | "position" | "right" | "top" | "verticalAlign" | "width" | "color" | "backgroundColor" | "align" | "lineHeight" | "m" | "mb" | "ml" | "mr" | "mt" | "mx" | "my" | "p" | "pb" | "pl" | "pr" | "pt" | "px" | "py" | "textColor", string | import('../common/react').BooleanLike>> & Partial<{
+    tw: string;
+} & import('../common/ui').BooleanStyleMap & import('../common/ui').StringStyleMap & {
     onClick: import('react').MouseEventHandler<HTMLDivElement>;
     onContextMenu: import('react').MouseEventHandler<HTMLDivElement>;
     onDoubleClick: import('react').MouseEventHandler<HTMLDivElement>;

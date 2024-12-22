@@ -1,6 +1,6 @@
 import { jsx as a, jsxs as u } from "react/jsx-runtime";
 import { classes as T, canRender as d } from "../common/react.js";
-import { computeBoxClassName as f, computeBoxProps as h } from "./Box.js";
+import { computeBoxClassName as f, computeBoxProps as h } from "../common/ui.js";
 import { Icon as N } from "./Icon.js";
 function v(l) {
   const { className: c, vertical: i, fill: o, fluid: e, children: r, ...s } = l;

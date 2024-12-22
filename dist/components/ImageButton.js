@@ -1,6 +1,6 @@
 import { jsxs as g, jsx as t } from "react/jsx-runtime";
 import { classes as l } from "../common/react.js";
-import { computeBoxProps as A } from "./Box.js";
+import { computeBoxProps as A } from "../common/ui.js";
 import { DmIcon as D } from "./DmIcon.js";
 import { Icon as F } from "./Icon.js";
 import { Image as j } from "./Image.js";

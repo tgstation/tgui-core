@@ -1,9 +1,9 @@
 import { jsx as m } from "react/jsx-runtime";
 import { classes as l } from "../common/react.js";
-import { computeBoxProps as p, computeBoxClassName as u } from "./Box.js";
+import { computeBoxProps as p, computeBoxClassName as u } from "../common/ui.js";
 const f = /-o$/;
 function d(c) {
-  const { name: s, size: o, spin: a, className: N, rotation: r, ...e } = c, n = e.style || {};
+  const { name: s = "", size: o, spin: a, className: N, rotation: r, ...e } = c, n = e.style || {};
   o && (n.fontSize = `${o * 100}%`), r && (n.transform = `rotate(${r}deg)`), e.style = n;
   const x = p(e);
   let t = "";

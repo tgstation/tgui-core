@@ -1,6 +1,6 @@
 import { jsxs as l, jsx as n } from "react/jsx-runtime";
 import { Component as v } from "react";
-import { computeBoxProps as Z } from "./Box.js";
+import { computeBoxProps as Z } from "../common/ui.js";
 import { Button as c } from "./Button.js";
 import { ProgressBar as g } from "./ProgressBar.js";
 import { Stack as d } from "./Stack.js";

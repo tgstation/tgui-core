@@ -1,14 +1,8 @@
-import { Component } from 'react';
 import { KeyEvent } from '../common/events';
-type KeyListenerProps = Partial<{
+type Props = Partial<{
     onKey: (key: KeyEvent) => void;
     onKeyDown: (key: KeyEvent) => void;
     onKeyUp: (key: KeyEvent) => void;
 }>;
-export declare class KeyListener extends Component<KeyListenerProps> {
-    dispose: () => void;
-    constructor(props: any);
-    componentWillUnmount(): void;
-    render(): null;
-}
+export declare function KeyListener(props: Props): null;
 export {};

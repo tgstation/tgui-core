@@ -1,6 +1,6 @@
 import { jsx as l } from "react/jsx-runtime";
 import { classes as r } from "../common/react.js";
-import { computeBoxClassName as m, computeBoxProps as a, unit as f } from "./Box.js";
+import { computeBoxClassName as m, computeBoxProps as a, unit as f } from "../common/ui.js";
 function p(e) {
   return r([
     "Flex",

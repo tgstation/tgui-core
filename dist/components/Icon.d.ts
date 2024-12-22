@@ -15,7 +15,7 @@ type Props = {
     spin: BooleanLike;
     /** Custom CSS. */
     style: CSSProperties;
-}> & BoxProps;
+}> & Omit<BoxProps, 'children'>;
 export declare function Icon(props: Props): import("react/jsx-runtime").JSX.Element;
 export declare namespace Icon {
     var Stack: typeof IconStack;

@@ -38,18 +38,21 @@ type OptionalProps = Partial<{
     /** Fires when user is 'done typing': Clicked out, blur, enter key */
     onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
     /** Fires once the enter key is pressed */
-    onEnter?: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+    onEnter: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
     /** Fires once the escape key is pressed */
     onEscape: (event: SyntheticEvent<HTMLInputElement>) => void;
     /** The placeholder text when everything is cleared */
     placeholder: string;
     /** Clears the input value on enter */
     selfClear: boolean;
+    /** Auto-updates the input value on props change, ie, data from Byond */
+    updateOnPropsChange: boolean;
     /** The state variable of the input. */
     value: string | number;
 }>;
-type Props = OptionalProps & ConditionalProps & BoxProps;
-export declare function toInputValue(value: string | number | undefined): string;
+type Props = OptionalProps & ConditionalProps & Omit<BoxProps, 'children'>;
+type InputValue = string | number | undefined;
+export declare function toInputValue(value: InputValue): string;
 /**
  * ### Input
  * A basic text input which allow users to enter text into a UI.

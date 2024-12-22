@@ -1,6 +1,7 @@
 import { jsx as e, jsxs as d } from "react/jsx-runtime";
 import { classes as c } from "../common/react.js";
-import { Box as s, unit as g } from "./Box.js";
+import { unit as g } from "../common/ui.js";
+import { Box as r } from "./Box.js";
 import { Divider as x } from "./Divider.js";
 import { Tooltip as N } from "./Tooltip.js";
 function b(l) {
@@ -11,19 +12,19 @@ function v(l) {
   const {
     className: t,
     label: a,
-    labelColor: L = "label",
-    labelWrap: m,
+    labelColor: m = "label",
+    labelWrap: L,
     color: p,
     textAlign: _,
     buttons: o,
-    content: h,
-    children: f,
-    verticalAlign: r = "baseline",
+    content: f,
+    children: h,
+    verticalAlign: s = "baseline",
     tooltip: n
   } = l;
   let i;
   a && (i = a, typeof a == "string" && (i += ":")), n !== void 0 && (i = /* @__PURE__ */ e(N, { content: n, children: /* @__PURE__ */ e(
-    s,
+    r,
     {
       as: "span",
       style: {
@@ -33,33 +34,33 @@ function v(l) {
     }
   ) }));
   const u = /* @__PURE__ */ e(
-    s,
+    r,
     {
       as: "td",
-      color: L,
+      color: m,
       className: c([
         "LabeledList__cell",
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
-        !m && "LabeledList__label--nowrap"
+        !L && "LabeledList__label--nowrap"
       ]),
-      verticalAlign: r,
+      verticalAlign: s,
       children: i
     }
   );
   return /* @__PURE__ */ d("tr", { className: c(["LabeledList__row", t]), children: [
     u,
     /* @__PURE__ */ d(
-      s,
+      r,
       {
         as: "td",
         color: p,
         textAlign: _,
         className: "LabeledList__cell",
         colSpan: o ? void 0 : 2,
-        verticalAlign: r,
+        verticalAlign: s,
         children: [
-          h,
-          f
+          f,
+          h
         ]
       }
     ),

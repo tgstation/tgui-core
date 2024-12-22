@@ -1,23 +1,15 @@
-var t = Object.defineProperty;
-var e = (s, o, p) => o in s ? t(s, o, { enumerable: !0, configurable: !0, writable: !0, value: p }) : s[o] = p;
-var i = (s, o, p) => e(s, typeof o != "symbol" ? o + "" : o, p);
-import { Component as r } from "react";
-import { listenForKeyEvents as h } from "../common/hotkeys.js";
-class d extends r {
-  constructor(p) {
-    super(p);
-    i(this, "dispose");
-    this.dispose = h((n) => {
-      this.props.onKey && this.props.onKey(n), n.isDown() && this.props.onKeyDown && this.props.onKeyDown(n), n.isUp() && this.props.onKeyUp && this.props.onKeyUp(n);
+import { useEffect as i } from "react";
+import { listenForKeyEvents as t } from "../common/hotkeys.js";
+function r(n) {
+  return i(() => {
+    const o = t((e) => {
+      n.onKey && n.onKey(e), e.isDown() && n.onKeyDown && n.onKeyDown(e), e.isUp() && n.onKeyUp && n.onKeyUp(e);
     });
-  }
-  componentWillUnmount() {
-    this.dispose();
-  }
-  render() {
-    return null;
-  }
+    return () => {
+      o();
+    };
+  }, []), null;
 }
 export {
-  d as KeyListener
+  r as KeyListener
 };

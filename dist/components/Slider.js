@@ -1,7 +1,7 @@
 import { jsx as e, jsxs as m } from "react/jsx-runtime";
 import { keyOfMatchingRange as O, clamp01 as r, scale as u } from "../common/math.js";
 import { classes as p } from "../common/react.js";
-import { computeBoxClassName as b, computeBoxProps as z } from "./Box.js";
+import { computeBoxClassName as b, computeBoxProps as z } from "../common/ui.js";
 import { DraggableControl as R } from "./DraggableControl.js";
 function J(g) {
   const {
