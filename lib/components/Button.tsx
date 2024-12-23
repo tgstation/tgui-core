@@ -73,7 +73,10 @@ type Props = Partial<{
   EllipsisUnion &
   BoxProps;
 
-/** Clickable button. Comes with variants. Read more in the documentation. */
+/**
+ * ## Button
+ * Buttons allow users to take actions, and make choices, with a single click.
+ */
 export function Button(props: Props) {
   const {
     captureKeys = true,
@@ -202,7 +205,10 @@ type CheckProps = Partial<{
 }> &
   Props;
 
-/** Visually toggles between checked and unchecked states. */
+/**
+ * ## Button.Checkbox
+ * A ghetto checkbox, made entirely using existing Button API.
+ */
 export function ButtonCheckbox(props: CheckProps) {
   const { checked, ...rest } = props;
 
@@ -225,7 +231,10 @@ type ConfirmProps = Partial<{
 }> &
   Props;
 
-/**  Requires user confirmation before triggering its action. */
+/**
+ * ## Button.Confirm
+ * A button with an extra confirmation step, using native button component.
+ */
 function ButtonConfirm(props: ConfirmProps) {
   const {
     children,
@@ -274,7 +283,12 @@ type InputProps = Partial<{
 }> &
   Props;
 
-/** Accepts and handles user input. */
+/**
+ * ## Button.Input
+ * A button that turns into an input box after the first click.
+ *
+ * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
+ */
 function ButtonInput(props: InputProps) {
   const {
     children,
@@ -389,7 +403,10 @@ type FileProps = {
   onSelectFiles: (files: string | string[]) => void;
 } & Props;
 
-/**  Accepts file input */
+/**
+ * ## Button.File
+ * Accepts file input, based on the native element.
+ */
 function ButtonFile(props: FileProps) {
   const { accept, multiple, onSelectFiles, ...rest } = props;
 
