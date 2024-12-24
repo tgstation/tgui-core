@@ -41,7 +41,7 @@ You have two options for importing styles:
 To import all styles at once, add the following line to your main Sass file:
 
 ```scss
-@use "pkg:tgui-styles";
+@use "pkg:tgui-core/styles";
 ```
 
 ### 2. Importing Individual Styles
@@ -49,9 +49,9 @@ To import all styles at once, add the following line to your main Sass file:
 To import individual styles, add any of the exported styles to your main Sass file:
 
 ```scss
-@use "pkg:tgui-styles/components/Button";
-@use "pkg:tgui-styles/components/Dialog";
-@use "pkg:tgui-styles/components/NoticeBox";
+@use "pkg:tgui-core/styles/components/Button";
+@use "pkg:tgui-core/styles/components/Dialog";
+@use "pkg:tgui-core/styles/components/NoticeBox";
 ```
 
 ## License
