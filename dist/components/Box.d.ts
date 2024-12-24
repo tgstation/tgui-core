@@ -56,8 +56,7 @@ type DangerDoNotUse = {
     };
 };
 /**
- * # Box
- *
+ * ## Box
  * The Box component serves as a wrapper component for most of the CSS utility
  * needs. It creates a new DOM element, a `<div>` by default that can be changed
  * with the `as` property. Let's say you want to use a `<span>` instead:

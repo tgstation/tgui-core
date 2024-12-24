@@ -18,6 +18,7 @@ type Props = {
     initial?: number;
 }>;
 /**
+ * ## AnimatedNumber
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.
  */

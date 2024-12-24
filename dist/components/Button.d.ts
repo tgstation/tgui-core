@@ -54,7 +54,10 @@ type Props = Partial<{
     /** Align content vertically using flex. Use lineHeight if the height is static. */
     verticalAlignContent: string;
 }> & EllipsisUnion & BoxProps;
-/** Clickable button. Comes with variants. Read more in the documentation. */
+/**
+ * ## Button
+ * Buttons allow users to take actions, and make choices, with a single click.
+ */
 export declare function Button(props: Props): import("react/jsx-runtime").JSX.Element;
 export declare namespace Button {
     var Checkbox: typeof ButtonCheckbox;
@@ -65,14 +68,20 @@ export declare namespace Button {
 type CheckProps = Partial<{
     checked: BooleanLike;
 }> & Props;
-/** Visually toggles between checked and unchecked states. */
+/**
+ * ## Button.Checkbox
+ * A ghetto checkbox, made entirely using existing Button API.
+ */
 export declare function ButtonCheckbox(props: CheckProps): import("react/jsx-runtime").JSX.Element;
 type ConfirmProps = Partial<{
     confirmColor: string;
     confirmContent: ReactNode;
     confirmIcon: string;
 }> & Props;
-/**  Requires user confirmation before triggering its action. */
+/**
+ * ## Button.Confirm
+ * A button with an extra confirmation step, using native button component.
+ */
 declare function ButtonConfirm(props: ConfirmProps): import("react/jsx-runtime").JSX.Element;
 type InputProps = Partial<{
     currentValue: string;
@@ -82,13 +91,21 @@ type InputProps = Partial<{
     onCommit: (e: any, value: string) => void;
     placeholder: string;
 }> & Props;
-/** Accepts and handles user input. */
+/**
+ * ## Button.Input
+ * A button that turns into an input box after the first click.
+ *
+ * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
+ */
 declare function ButtonInput(props: InputProps): import("react/jsx-runtime").JSX.Element;
 type FileProps = {
     accept: string;
     multiple?: boolean;
     onSelectFiles: (files: string | string[]) => void;
 } & Props;
-/**  Accepts file input */
+/**
+ * ## Button.File
+ * Accepts file input, based on the native element.
+ */
 declare function ButtonFile(props: FileProps): import("react/jsx-runtime").JSX.Element;
 export {};

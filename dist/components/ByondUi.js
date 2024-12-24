@@ -1,19 +1,18 @@
-import { jsx as s } from "react/jsx-runtime";
-import { Component as a, createRef as c } from "react";
-import { shallowDiffers as r } from "../common/react.js";
+import { jsx as l } from "react/jsx-runtime";
+import { useRef as f, useEffect as p } from "react";
 import { debounce as m } from "../common/timer.js";
-import { computeBoxProps as l } from "../common/ui.js";
+import { computeBoxProps as w } from "../common/ui.js";
 const o = [];
-function h(t) {
-  const n = o.length;
+function a(t) {
+  const e = o.length;
   o.push(null);
-  const e = t || `byondui_${n}`;
+  const n = t || `byondui_${e}`;
   return {
     render: (i) => {
-      o[n] = e, Byond.winset(e, i);
+      o[e] = n, Byond.winset(n, i);
     },
     unmount: () => {
-      o[n] = null, Byond.winset(e, {
+      o[e] = null, Byond.winset(n, {
         parent: ""
       });
     }
@@ -21,53 +20,42 @@ function h(t) {
 }
 window.addEventListener("beforeunload", () => {
   for (let t = 0; t < o.length; t++) {
-    const n = o[t];
-    typeof n == "string" && (o[t] = null, Byond.winset(n, {
+    const e = o[t];
+    typeof e == "string" && (o[t] = null, Byond.winset(e, {
       parent: ""
     }));
   }
 });
-function u(t) {
-  const n = window.devicePixelRatio ?? 1, e = t.getBoundingClientRect();
+function x(t) {
+  const e = window.devicePixelRatio ?? 1, n = t.getBoundingClientRect();
   return {
-    pos: [e.left * n, e.top * n],
+    pos: [n.left * e, n.top * e],
     size: [
-      (e.right - e.left) * n,
-      (e.bottom - e.top) * n
+      (n.right - n.left) * e,
+      (n.bottom - n.top) * e
     ]
   };
 }
-class U extends a {
-  constructor(n) {
-    var e;
-    super(n), this.containerRef = c(), this.byondUiElement = h((e = n.params) == null ? void 0 : e.id), this.handleResize = m(() => {
-      this.forceUpdate();
-    }, 100);
-  }
-  shouldComponentUpdate(n) {
-    const { params: e = {}, ...i } = this.props, { params: d = {}, ...p } = n;
-    return r(e, d) || r(i, p);
-  }
-  componentDidMount() {
-    window.addEventListener("resize", this.handleResize), this.componentDidUpdate(), this.handleResize();
-  }
-  componentDidUpdate() {
-    const { params: n = {} } = this.props, e = u(this.containerRef.current);
-    this.byondUiElement.render({
+function h(t) {
+  const { params: e, ...n } = t, i = f(null), d = f(a(e == null ? void 0 : e.id));
+  function s() {
+    const c = i.current;
+    if (!c) return;
+    const r = x(c);
+    d.current.render({
       parent: Byond.windowId,
-      ...n,
-      pos: `${e.pos[0]},${e.pos[1]}`,
-      size: `${e.size[0]}x${e.size[1]}`
+      ...e,
+      pos: `${r.pos[0]},${r.pos[1]}`,
+      size: `${r.size[0]}x${r.size[1]}`
     });
   }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize), this.byondUiElement.unmount();
-  }
-  render() {
-    const { params: n, ...e } = this.props;
-    return /* @__PURE__ */ s("div", { ref: this.containerRef, ...l(e), children: /* @__PURE__ */ s("div", { style: { minHeight: "22px" } }) });
-  }
+  const u = m(() => {
+    s();
+  }, 100);
+  return p(() => (window.addEventListener("resize", u), s(), () => {
+    window.removeEventListener("resize", u), d.current.unmount();
+  }), []), /* @__PURE__ */ l("div", { ref: i, ...w(n), children: /* @__PURE__ */ l("div", { style: { minHeight: "22px" } }) });
 }
 export {
-  U as ByondUi
+  h as ByondUi
 };
