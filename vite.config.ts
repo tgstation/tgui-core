@@ -1,4 +1,4 @@
-import { extname, relative } from 'node:path';
+import { extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react-swc';
 import { glob } from 'glob';
@@ -17,7 +17,7 @@ export default defineConfig({
   plugins: [react(), dts({ include: ['lib'] })],
   build: {
     lib: {
-      entry: 'lib/components/index.ts',
+      entry: resolve(__dirname, 'lib/components/index.ts'),
       formats: ['es'],
     },
     rollupOptions: {

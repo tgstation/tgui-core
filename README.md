@@ -11,11 +11,11 @@ You can view the code on [GitHub](https://github.com/tgstation/tgui-core).
 (assuming you have a tgui folder, navigate to the specific package)
 
 ```sh
-cd tgui/packages/tgui
+cd tgui/packages/{package name}
 yarn add tgui-core
 ```
 
-## Usage
+## Using the components
 
 Now, you can use them like normal TGUI components.
 
@@ -30,6 +30,28 @@ You can even use it in tandem with your own in house TGUI components,
 ```tsx
 import { Button } from "tgui-core/components";
 import { Box } from "../components";
+```
+
+## Using the styles
+
+You have two options for importing styles:
+
+### 1. Importing All Styles
+
+To import all styles at once, add the following line to your main Sass file:
+
+```scss
+@use "pkg:tgui-styles";
+```
+
+### 2. Importing Individual Styles
+
+To import individual styles, add any of the exported styles to your main Sass file:
+
+```scss
+@use "pkg:tgui-styles/components/Button";
+@use "pkg:tgui-styles/components/Dialog";
+@use "pkg:tgui-styles/components/NoticeBox";
 ```
 
 ## License
