@@ -6,10 +6,6 @@ import '../lib/styles/main.scss';
 
 const preview: Preview = {
   parameters: {
-    backgrounds: {
-      values: [{ name: 'dark', value: 'hsl(0, 0%, 14%)' }],
-      default: 'dark',
-    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -17,7 +13,6 @@ const preview: Preview = {
       },
     },
   },
-
   decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
   tags: ['autodocs'],
 };
