@@ -1,6 +1,6 @@
-import { computeBoxProps } from 'lib/common/ui';
 import { useEffect, useRef } from 'react';
 import { debounce } from '../common/timer';
+import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 type ByondUiElement = {
