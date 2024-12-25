@@ -30,6 +30,11 @@ type Props = {
 }> &
   BoxProps;
 
+/**
+ * ## DmIcon
+ * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
+ * A much faster alternative to base64 icons.
+ */
 export function DmIcon(props: Props) {
   const {
     className,

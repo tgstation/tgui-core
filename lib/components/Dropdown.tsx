@@ -6,7 +6,7 @@ import { Button } from './Button';
 import { Icon } from './Icon';
 import { Popper } from './Popper';
 
-export type DropdownEntry = {
+type DropdownEntry = {
   displayText: ReactNode;
   value: string | number;
 };
@@ -65,6 +65,11 @@ function getOptionValue(option: DropdownOption) {
   return typeof option === 'string' ? option : option.value;
 }
 
+/**
+ * ## Dropdown
+ * A simple dropdown box component. Lets the user select from a list of options
+ * and displays selected entry.
+ */
 export function Dropdown(props: Props) {
   const {
     autoScroll = true,

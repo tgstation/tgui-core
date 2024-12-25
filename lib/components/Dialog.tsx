@@ -1,11 +1,12 @@
+import type { ReactNode } from 'react';
 import { Box } from './Box';
 import { Button } from './Button';
 
 type DialogProps = {
-  children: any;
+  children: ReactNode;
   height?: string;
   onClose: () => void;
-  title: any;
+  title: ReactNode;
   width?: string;
 };
 
@@ -55,26 +56,3 @@ function DialogButton(props: DialogButtonProps) {
 }
 
 Dialog.Button = DialogButton;
-
-type UnsavedChangesDialogProps = {
-  documentName: string;
-  onClose: () => void;
-  onDiscard: () => void;
-  onSave: () => void;
-};
-
-export function UnsavedChangesDialog(props: UnsavedChangesDialogProps) {
-  const { documentName, onSave, onDiscard, onClose } = props;
-  return (
-    <Dialog title="Notepad" onClose={onClose}>
-      <div className="Dialog__body">
-        Do you want to save changes to {documentName}?
-      </div>
-      <div className="Dialog__footer">
-        <DialogButton onClick={onSave}>Save</DialogButton>
-        <DialogButton onClick={onDiscard}>Don&apos;t Save</DialogButton>
-        <DialogButton onClick={onClose}>Cancel</DialogButton>
-      </div>
-    </Dialog>
-  );
-}

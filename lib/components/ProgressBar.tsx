@@ -49,6 +49,10 @@ type Props = {
   BoxProps &
   PropsWithChildren;
 
+/**
+ * ## ProgressBar
+ * Progress indicators inform users about the status of ongoing processes.
+ */
 export function ProgressBar(props: Props) {
   const {
     className,

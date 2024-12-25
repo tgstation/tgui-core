@@ -42,6 +42,22 @@ const NULL_RECT: DOMRect = {
   toJSON: () => null,
 };
 
+/**
+ * ## Tooltip
+ * A boxy tooltip from tgui 1. It is very hacky in its current state, and
+ * requires setting `position: relative` on the container.
+ *
+ * Please note that
+ * [Button](https://github.com/tgstation/tgui-core/tree/main/lib/components/Button.tsx)
+ * component has a `tooltip` prop and it is recommended to use that prop instead.
+ *
+ * Usage:
+ * ```tsx
+ * <Tooltip position="bottom" content="Box tooltip">
+ *   <Box position="relative">Sample text.</Box>
+ * </Tooltip>
+ * ```
+ */
 export class Tooltip extends Component<Props, State> {
   // Mounting poppers is really laggy because popper.js is very slow.
   // Thus, instead of using the Popper component, Tooltip creates ONE popper

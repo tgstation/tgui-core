@@ -14,10 +14,16 @@ type Props = Partial<{
 }> &
   BoxProps;
 
-// at least one of these is required
-
 const maxAttempts = 5;
 
+/**
+ * ## Image
+ * A wrapper for the `<img>` element.
+ *
+ * By default, it will attempt to fix broken images by fetching them again.
+ *
+ * It will also try to fix blurry images by rendering them pixelated.
+ */
 export function Image(props: Props) {
   const {
     fixBlur = true,

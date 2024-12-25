@@ -8,6 +8,11 @@ type Props = Partial<{
   onKeyUp: (key: KeyEvent) => void;
 }>;
 
+/**
+ * ## KeyListener
+ * A component that listens for keyboard events and calls the provided
+ * callbacks.
+ */
 export function KeyListener(props: Props) {
   useEffect(() => {
     const dispose = listenForKeyEvents((key) => {
