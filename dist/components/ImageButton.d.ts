@@ -24,7 +24,11 @@ type Props = Partial<{
     children: ReactNode;
     /** Applies a CSS class to the element. */
     className: string;
-    /** Color of the button. See [Button](#button) but without `transparent`. */
+    /**
+     * Color of the button. See
+     * [Button](https://github.com/tgstation/tgui-core/tree/main/lib/components/Button.tsx)
+     * but without `transparent`.
+     */
     color: string;
     /** Makes button disabled and dark red if true. Also disables onClick. */
     disabled: BooleanLike;

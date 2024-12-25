@@ -41,5 +41,9 @@ type Props = {
      */
     ranges: Record<string, [number, number]>;
 }> & BoxProps & PropsWithChildren;
+/**
+ * ## ProgressBar
+ * Progress indicators inform users about the status of ongoing processes.
+ */
 export declare function ProgressBar(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

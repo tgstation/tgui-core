@@ -68,20 +68,12 @@ export declare namespace Button {
 type CheckProps = Partial<{
     checked: BooleanLike;
 }> & Props;
-/**
- * ## Button.Checkbox
- * A ghetto checkbox, made entirely using existing Button API.
- */
 export declare function ButtonCheckbox(props: CheckProps): import("react/jsx-runtime").JSX.Element;
 type ConfirmProps = Partial<{
     confirmColor: string;
     confirmContent: ReactNode;
     confirmIcon: string;
 }> & Props;
-/**
- * ## Button.Confirm
- * A button with an extra confirmation step, using native button component.
- */
 declare function ButtonConfirm(props: ConfirmProps): import("react/jsx-runtime").JSX.Element;
 type InputProps = Partial<{
     currentValue: string;
@@ -91,21 +83,11 @@ type InputProps = Partial<{
     onCommit: (e: any, value: string) => void;
     placeholder: string;
 }> & Props;
-/**
- * ## Button.Input
- * A button that turns into an input box after the first click.
- *
- * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
- */
 declare function ButtonInput(props: InputProps): import("react/jsx-runtime").JSX.Element;
 type FileProps = {
     accept: string;
     multiple?: boolean;
     onSelectFiles: (files: string | string[]) => void;
 } & Props;
-/**
- * ## Button.File
- * Accepts file input, based on the native element.
- */
 declare function ButtonFile(props: FileProps): import("react/jsx-runtime").JSX.Element;
 export {};

@@ -52,7 +52,5 @@ function T(e) {
 }
 m.Cell = T;
 export {
-  m as Table,
-  T as TableCell,
-  i as TableRow
+  m as Table
 };

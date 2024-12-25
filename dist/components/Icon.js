@@ -39,6 +39,5 @@ function g(c) {
 }
 d.Stack = g;
 export {
-  d as Icon,
-  g as IconStack
+  d as Icon
 };

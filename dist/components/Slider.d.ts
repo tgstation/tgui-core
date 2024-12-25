@@ -37,11 +37,10 @@ type Props = {
 }> & BoxProps & PropsWithChildren;
 /**
  * ## Slider
- * A horizontal, progressbar-like control which allows dialing
- * in precise values by dragging it left and right.
+ * A horizontal, [ProgressBar](https://github.com/tgstation/tgui-core/tree/main/lib/components/Progressbar.tsx)-like
+ * control which allows dialing * in precise values by dragging it left and right.
  *
  * Single click opens an input box to manually type in a number.
- *
  */
 export declare function Slider(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

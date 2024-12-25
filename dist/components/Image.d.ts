@@ -9,5 +9,13 @@ type Props = Partial<{
     objectFit: 'contain' | 'cover';
     src: string;
 }> & BoxProps;
+/**
+ * ## Image
+ * A wrapper for the `<img>` element.
+ *
+ * By default, it will attempt to fix broken images by fetching them again.
+ *
+ * It will also try to fix blurry images by rendering them pixelated.
+ */
 export declare function Image(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

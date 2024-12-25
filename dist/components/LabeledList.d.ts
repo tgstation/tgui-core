@@ -1,5 +1,32 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
+/**
+ * ## LabeledList
+ * LabeledList is a continuous, vertical list of text and other content, where
+ * every item is labeled.
+ *
+ * It works just like a two column table, where first column is labels, and
+ * second column is content.
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item">Content</LabeledList.Item>
+ * </LabeledList>
+ * ```
+ *
+ * If you want to have a button on the right side of an item (for example,
+ * to perform some sort of action), there is a way to do that:
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item" buttons={<Button>Click me!</Button>}>
+ *     Content
+ *   </LabeledList.Item>
+ * </LabeledList>
+ * ```
+ */
 export declare function LabeledList(props: PropsWithChildren): import("react/jsx-runtime").JSX.Element;
 export declare namespace LabeledList {
     var Item: typeof LabeledListItem;

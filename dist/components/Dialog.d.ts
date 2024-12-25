@@ -1,8 +1,9 @@
+import { ReactNode } from 'react';
 type DialogProps = {
-    children: any;
+    children: ReactNode;
     height?: string;
     onClose: () => void;
-    title: any;
+    title: ReactNode;
     width?: string;
 };
 export declare function Dialog(props: DialogProps): import("react/jsx-runtime").JSX.Element;
@@ -14,11 +15,4 @@ type DialogButtonProps = {
     onClick: () => void;
 };
 declare function DialogButton(props: DialogButtonProps): import("react/jsx-runtime").JSX.Element;
-type UnsavedChangesDialogProps = {
-    documentName: string;
-    onClose: () => void;
-    onDiscard: () => void;
-    onSave: () => void;
-};
-export declare function UnsavedChangesDialog(props: UnsavedChangesDialogProps): import("react/jsx-runtime").JSX.Element;
 export {};

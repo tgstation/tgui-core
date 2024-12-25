@@ -3,6 +3,24 @@ type Props = Partial<{
     /** Collapses table to the smallest possible size. */
     collapsing: boolean;
 }> & BoxProps;
+/**
+ * ## Table
+ * A straight forward mapping to a standard html table, which is slightly
+ * simplified (does not need a `<tbody>` tag) and with sane default styles
+ * (e.g. table width is 100% by default).
+ *
+ * @example
+ * ```tsx
+ * <Table>
+ *   <Table.Row>
+ *     <Table.Cell bold>Hello world!</Table.Cell>
+ *     <Table.Cell collapsing color="label">
+ *       Label
+ *     </Table.Cell>
+ *   </Table.Row>
+ * </Table>
+ * ```
+ */
 export declare function Table(props: Props): import("react/jsx-runtime").JSX.Element;
 export declare namespace Table {
     var Row: typeof TableRow;
@@ -12,7 +30,7 @@ type RowProps = Partial<{
     /** Whether this is a header cell. */
     header: boolean;
 }> & BoxProps;
-export declare function TableRow(props: RowProps): import("react/jsx-runtime").JSX.Element;
+declare function TableRow(props: RowProps): import("react/jsx-runtime").JSX.Element;
 type CellProps = Partial<{
     /** Additional columns for this cell to expand, assuming there is room. */
     colSpan: number;
@@ -24,5 +42,5 @@ type CellProps = Partial<{
     /** Rows for this cell to expand, assuming there is room. */
     rowSpan: number;
 }> & BoxProps;
-export declare function TableCell(props: CellProps): import("react/jsx-runtime").JSX.Element;
+declare function TableCell(props: CellProps): import("react/jsx-runtime").JSX.Element;
 export {};

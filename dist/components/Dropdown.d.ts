@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { BoxProps } from './Box';
-export type DropdownEntry = {
+type DropdownEntry = {
     displayText: ReactNode;
     value: string | number;
 };
@@ -43,5 +43,10 @@ type Props = {
     /** Text to show when nothing has been selected. */
     placeholder: string;
 }> & BoxProps;
+/**
+ * ## Dropdown
+ * A simple dropdown box component. Lets the user select from a list of options
+ * and displays selected entry.
+ */
 export declare function Dropdown(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

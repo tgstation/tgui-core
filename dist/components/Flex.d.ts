@@ -55,6 +55,38 @@ export type FlexProps = Partial<{
 }> & BoxProps;
 export declare function computeFlexClassName(props: FlexProps): string;
 export declare function computeFlexProps(props: FlexProps): Record<string, any>;
+/**
+ * ## Flex
+ * Quickly manage the layout, alignment, and sizing of grid columns, navigation,
+ * components, and more with a full suite of responsive flexbox utilities.
+ *
+ * If you are new to or unfamiliar with flexbox, we encourage you to read this
+ * [CSS-Tricks flexbox guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/).
+ *
+ * Consists of two elements: `<Flex>` and `<Flex.Item>`. Both of them provide
+ * the most straight-forward mapping to flex CSS properties as possible.
+ *
+ * One of the most basic usage of flex, is to align certain elements
+ * to the left, and certain elements to the right:
+ *
+ * @example
+ * ```tsx
+ * <Flex>
+ *   <Flex.Item grow>Button description</Flex.Item>
+ *   <Flex.Item>
+ *     <Button>Perform an action</Button>
+ *   </Flex.Item>
+ * </Flex>
+ * ```
+ *
+ * Flex item with `grow` property will grow to take all available empty space,
+ * while flex items without grow will take the minimum amount of space. This
+ * effectively places the last flex item to the very end of the flex container.
+ *
+ * @deprecated - Use
+ * [Stack](https://github.com/tgstation/tgui-core/tree/main/lib/components/Stack.tsx)
+ * where possible.
+ */
 export declare function Flex(props: any): import("react/jsx-runtime").JSX.Element;
 export declare namespace Flex {
     var Item: typeof FlexItem;

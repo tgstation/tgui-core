@@ -12,5 +12,11 @@ type Props = Partial<{
     /** Text to display on the button for collapsing */
     title: ReactNode;
 }> & BoxProps;
+/**
+ * ## Collapsible
+ * Displays contents when open, acts as a fluid button when closed.
+ *
+ * Click to toggle, closed by default.
+ */
 export declare function Collapsible(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

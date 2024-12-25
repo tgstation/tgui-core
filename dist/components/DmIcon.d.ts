@@ -25,5 +25,10 @@ type Props = {
     /** Movement state. Default is false */
     movement: any;
 }> & BoxProps;
+/**
+ * ## DmIcon
+ * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
+ * A much faster alternative to base64 icons.
+ */
 export declare function DmIcon(props: Props): string | number | boolean | Iterable<ReactNode> | import("react/jsx-runtime").JSX.Element | null | undefined;
 export {};

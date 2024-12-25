@@ -18,5 +18,9 @@ type ExclusiveProps = None | (Omit<None, 'info'> & {
     /** Red notice */
     danger: boolean;
 });
+/**
+ * ## NoticeBox
+ * A notice box which warns you about something very important.
+ */
 export declare function NoticeBox(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

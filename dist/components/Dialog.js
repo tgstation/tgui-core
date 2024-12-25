@@ -1,13 +1,13 @@
-import { jsx as o, jsxs as e } from "react/jsx-runtime";
-import { Box as r } from "./Box.js";
-import { Button as s } from "./Button.js";
-function d(i) {
-  const { title: n, onClose: t, children: c, width: l, height: h } = i;
-  return /* @__PURE__ */ o("div", { className: "Dialog", children: /* @__PURE__ */ e(r, { className: "Dialog__content", width: l || "370px", height: h, children: [
-    /* @__PURE__ */ e("div", { className: "Dialog__header", children: [
-      /* @__PURE__ */ o("div", { className: "Dialog__title", children: n }),
-      /* @__PURE__ */ o(r, { mr: 2, children: /* @__PURE__ */ o(
-        s,
+import { jsx as t, jsxs as l } from "react/jsx-runtime";
+import { Box as e } from "./Box.js";
+import { Button as r } from "./Button.js";
+function d(o) {
+  const { title: i, onClose: n, children: c, width: a, height: s } = o;
+  return /* @__PURE__ */ t("div", { className: "Dialog", children: /* @__PURE__ */ l(e, { className: "Dialog__content", width: a || "370px", height: s, children: [
+    /* @__PURE__ */ l("div", { className: "Dialog__header", children: [
+      /* @__PURE__ */ t("div", { className: "Dialog__title", children: i }),
+      /* @__PURE__ */ t(e, { mr: 2, children: /* @__PURE__ */ t(
+        r,
         {
           mr: "-3px",
           width: "26px",
@@ -17,42 +17,26 @@ function d(i) {
           icon: "window-close-o",
           tooltip: "Close",
           tooltipPosition: "bottom-start",
-          onClick: t
+          onClick: n
         }
       ) })
     ] }),
     c
   ] }) });
 }
-function a(i) {
-  const { onClick: n, children: t } = i;
-  return /* @__PURE__ */ o(
-    s,
+function m(o) {
+  const { onClick: i, children: n } = o;
+  return /* @__PURE__ */ t(
+    r,
     {
-      onClick: n,
+      onClick: i,
       className: "Dialog__button",
       verticalAlignContent: "middle",
-      children: t
+      children: n
     }
   );
 }
-d.Button = a;
-function p(i) {
-  const { documentName: n, onSave: t, onDiscard: c, onClose: l } = i;
-  return /* @__PURE__ */ e(d, { title: "Notepad", onClose: l, children: [
-    /* @__PURE__ */ e("div", { className: "Dialog__body", children: [
-      "Do you want to save changes to ",
-      n,
-      "?"
-    ] }),
-    /* @__PURE__ */ e("div", { className: "Dialog__footer", children: [
-      /* @__PURE__ */ o(a, { onClick: t, children: "Save" }),
-      /* @__PURE__ */ o(a, { onClick: c, children: "Don't Save" }),
-      /* @__PURE__ */ o(a, { onClick: l, children: "Cancel" })
-    ] })
-  ] });
-}
+d.Button = m;
 export {
-  d as Dialog,
-  p as UnsavedChangesDialog
+  d as Dialog
 };
