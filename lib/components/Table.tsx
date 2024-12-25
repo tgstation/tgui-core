@@ -50,7 +50,7 @@ type RowProps = Partial<{
 }> &
   BoxProps;
 
-export function TableRow(props: RowProps) {
+function TableRow(props: RowProps) {
   const { className, header, ...rest } = props;
 
   return (
@@ -85,7 +85,7 @@ type CellProps = Partial<{
 }> &
   BoxProps;
 
-export function TableCell(props: CellProps) {
+function TableCell(props: CellProps) {
   const { className, collapsing, colSpan, header, ...rest } = props;
 
   return (
