@@ -16,6 +16,12 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+/**
+ * ## Collapsible
+ * Displays contents when open, acts as a fluid button when closed.
+ *
+ * Click to toggle, closed by default.
+ */
 export function Collapsible(props: Props) {
   const {
     children,

@@ -1,4 +1,5 @@
 import {
+  type CSSProperties,
   Component,
   type FocusEventHandler,
   type KeyboardEventHandler,
@@ -10,28 +11,45 @@ import { KEY, isEscape } from '../common/keys';
 import { clamp, round } from '../common/math';
 import { type BooleanLike, classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';
-import { Box } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = Required<{
+  /** Highest possible value. */
   maxValue: number;
+  /** Lowest possible value. */
   minValue: number;
+  /** Adjust value by this amount when dragging the input. */
   step: number;
+  /** Value itself. */
   value: number | string;
 }> &
   Partial<{
+    /** Animates the value if it was changed externally. */
     animated: BooleanLike;
-    className: string;
+    /** Custom class name. */
+    className: BoxProps['className'];
+    /** Makes the input field uneditable & non draggable to prevent user changes */
     disabled: BooleanLike;
+    /** Fill all available horizontal space. */
     fluid: BooleanLike;
-    fontSize: string;
+    /** Input font size */
+    fontSize: CSSProperties['fontSize'];
+    /** Format value using this function before displaying it. */
     format: (value: number) => string;
-    height: string;
-    lineHeight: string;
+    /** Input height */
+    height: CSSProperties['height'];
+    /** Input line height */
+    lineHeight: CSSProperties['lineHeight'];
+    /** An event which fires when you release the input or successfully enter a number. */
     onChange: (value: number) => void;
+    /** An event which fires about every 500ms when you drag the input up and down, on release and on manual editing. */
     onDrag: (value: number) => void;
+    /** Screen distance mouse needs to travel to adjust value by one `step`. */
     stepPixelSize: number;
+    /** Unit to display to the right of value. */
     unit: string;
-    width: string;
+    /** Width in Box units */
+    width: BoxProps['width'];
   }>;
 
 type State = {
@@ -42,6 +60,11 @@ type State = {
   previousValue: number;
 };
 
+/**
+ * ## NumberInput
+ * A fancy, interactive number input, which you can either drag up and down
+ * to fine tune the value, or single click it to manually type a number.
+ */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
   inputRef: RefObject<HTMLInputElement> = createRef();

@@ -29,6 +29,10 @@ type ExclusiveProps =
       danger: boolean;
     });
 
+/**
+ * ## NoticeBox
+ * A notice box which warns you about something very important.
+ */
 export function NoticeBox(props: Props) {
   const { className, color, info, success, warning, danger, ...rest } = props;
 

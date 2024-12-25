@@ -205,10 +205,6 @@ type CheckProps = Partial<{
 }> &
   Props;
 
-/**
- * ## Button.Checkbox
- * A ghetto checkbox, made entirely using existing Button API.
- */
 export function ButtonCheckbox(props: CheckProps) {
   const { checked, ...rest } = props;
 
@@ -222,6 +218,10 @@ export function ButtonCheckbox(props: CheckProps) {
   );
 }
 
+/**
+ * ## Button.Checkbox
+ * A ghetto checkbox, made entirely using existing Button API.
+ */
 Button.Checkbox = ButtonCheckbox;
 
 type ConfirmProps = Partial<{
@@ -231,10 +231,6 @@ type ConfirmProps = Partial<{
 }> &
   Props;
 
-/**
- * ## Button.Confirm
- * A button with an extra confirmation step, using native button component.
- */
 function ButtonConfirm(props: ConfirmProps) {
   const {
     children,
@@ -271,6 +267,10 @@ function ButtonConfirm(props: ConfirmProps) {
   );
 }
 
+/**
+ * ## Button.Confirm
+ * A button with an extra confirmation step, using native button component.
+ */
 Button.Confirm = ButtonConfirm;
 
 type InputProps = Partial<{
@@ -283,12 +283,6 @@ type InputProps = Partial<{
 }> &
   Props;
 
-/**
- * ## Button.Input
- * A button that turns into an input box after the first click.
- *
- * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
- */
 function ButtonInput(props: InputProps) {
   const {
     children,
@@ -395,6 +389,12 @@ function ButtonInput(props: InputProps) {
   return buttonContent;
 }
 
+/**
+ * ## Button.Input
+ * A button that turns into an input box after the first click.
+ *
+ * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
+ */
 Button.Input = ButtonInput;
 
 type FileProps = {
@@ -403,10 +403,6 @@ type FileProps = {
   onSelectFiles: (files: string | string[]) => void;
 } & Props;
 
-/**
- * ## Button.File
- * Accepts file input, based on the native element.
- */
 function ButtonFile(props: FileProps) {
   const { accept, multiple, onSelectFiles, ...rest } = props;
 
@@ -448,4 +444,8 @@ function ButtonFile(props: FileProps) {
   );
 }
 
+/**
+ * ## Button.File
+ * Accepts file input, based on the native element.
+ */
 Button.File = ButtonFile;

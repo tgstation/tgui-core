@@ -1,3 +1,4 @@
+import type { FlexProps } from 'lib/components/Flex';
 import type { CSSProperties } from 'react';
 import type { BoxProps } from '../components/Box';
 import { CSS_COLORS } from './constants';
@@ -349,4 +350,27 @@ export function computeTwClass(input: string | undefined): StyleMap {
   }
 
   return props;
+}
+
+export function computeFlexClassName(props: FlexProps) {
+  return classes([
+    'Flex',
+    props.inline && 'Flex--inline',
+    computeBoxClassName(props),
+  ]);
+}
+
+export function computeFlexProps(props: FlexProps) {
+  const { direction, wrap, align, justify, ...rest } = props;
+
+  return computeBoxProps({
+    style: {
+      ...rest.style,
+      flexDirection: direction,
+      flexWrap: wrap === true ? 'wrap' : wrap,
+      alignItems: align,
+      justifyContent: justify,
+    },
+    ...rest,
+  });
 }

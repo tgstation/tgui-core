@@ -1,6 +1,6 @@
-import { Component, type ReactNode, type RefObject, createRef } from 'react';
+import { type ReactNode, type RefObject, useEffect, useRef } from 'react';
 import { classes } from '../common/react';
-import { Box } from './Box';
+import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
 
 type MenuProps = {
@@ -10,111 +10,90 @@ type MenuProps = {
   width: string;
 };
 
-class Menu extends Component<MenuProps> {
-  private readonly handleClick: (event) => void;
+function Menu(props: MenuProps) {
+  const { children, menuRef, onOutsideClick, width } = props;
 
-  constructor(props) {
-    super(props);
-    this.handleClick = (event) => {
-      if (!this.props.menuRef.current) {
-        return;
-      }
+  function handleClick(event: MouseEvent) {
+    if (!menuRef.current?.contains(event.target as Node)) {
+      onOutsideClick();
+    }
+  }
 
-      if (!this.props.menuRef.current.contains(event.target)) {
-        this.props.onOutsideClick();
-      }
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
     };
-  }
+  }, []);
 
-  componentWillMount() {
-    window.addEventListener('click', this.handleClick);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('click', this.handleClick);
-  }
-
-  render() {
-    const { width, children } = this.props;
-    return (
-      <div
-        className="Menubar__menu"
-        style={{
-          width: width,
-        }}
-      >
-        {children}
-      </div>
-    );
-  }
+  return (
+    <div
+      className="Menubar__menu"
+      style={{
+        width,
+      }}
+    >
+      {children}
+    </div>
+  );
 }
 
 type MenuBarDropdownProps = {
-  children: any;
-  className?: string;
   disabled?: boolean;
   display: any;
-  onClick: () => void;
   onMouseOver: () => void;
   onOutsideClick: () => void;
   open: boolean;
   openWidth: string;
-};
+} & BoxProps;
 
-class MenuBarButton extends Component<MenuBarDropdownProps> {
-  private readonly menuRef: RefObject<HTMLDivElement>;
+function MenuBarButton(props: MenuBarDropdownProps) {
+  const {
+    children,
+    className,
+    disabled,
+    display,
+    onClick,
+    onMouseOver,
+    open,
+    openWidth,
+    onOutsideClick,
+    ...rest
+  } = props;
 
-  constructor(props) {
-    super(props);
-    this.menuRef = createRef();
-  }
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  render() {
-    const { props } = this;
-    const {
-      open,
-      openWidth,
-      children,
-      disabled,
-      display,
-      onMouseOver,
-      onClick,
-      onOutsideClick,
-      ...boxProps
-    } = props;
-    const { className, ...rest } = boxProps;
-
-    return (
-      <div ref={this.menuRef}>
-        <Box
-          className={classes([
-            'MenuBar__MenuBarButton',
-            'MenuBar__font',
-            'MenuBar__hover',
-            className,
-          ])}
-          {...rest}
-          onClick={disabled ? () => null : onClick}
-          onMouseOver={onMouseOver}
+  return (
+    <div ref={menuRef}>
+      <Box
+        className={classes([
+          'MenuBar__MenuBarButton',
+          'MenuBar__font',
+          'MenuBar__hover',
+          className,
+        ])}
+        {...rest}
+        onClick={disabled ? () => null : onClick}
+        onMouseOver={onMouseOver}
+      >
+        <span className="MenuBar__MenuBarButton-text">{display}</span>
+      </Box>
+      {open && (
+        <Menu
+          width={openWidth}
+          menuRef={this.menuRef}
+          onOutsideClick={onOutsideClick}
         >
-          <span className="MenuBar__MenuBarButton-text">{display}</span>
-        </Box>
-        {open && (
-          <Menu
-            width={openWidth}
-            menuRef={this.menuRef}
-            onOutsideClick={onOutsideClick}
-          >
-            {children}
-          </Menu>
-        )}
-      </div>
-    );
-  }
+          {children}
+        </Menu>
+      )}
+    </div>
+  );
 }
 
 type MenuBarItemProps = {
-  children: any;
+  children: ReactNode;
   className?: string;
   disabled?: boolean;
   display: ReactNode;
@@ -126,7 +105,7 @@ type MenuBarItemProps = {
   setOpenOnHover: (flag: boolean) => void;
 };
 
-export function Dropdown(props: MenuBarItemProps) {
+function Dropdown(props: MenuBarItemProps) {
   const {
     entry,
     children,
@@ -167,6 +146,8 @@ export function Dropdown(props: MenuBarItemProps) {
   );
 }
 
+MenuBar.Dropdown = Dropdown;
+
 function MenuItemToggle(props) {
   const { value, displayText, onClick, checked } = props;
   return (
@@ -189,7 +170,13 @@ function MenuItemToggle(props) {
 
 Dropdown.MenuItemToggle = MenuItemToggle;
 
-function MenuItem(props) {
+type MenuItemProps = Partial<{
+  value: any;
+  displayText: string;
+  onClick: (value: any) => void;
+}>;
+
+function MenuItem(props: MenuItemProps) {
   const { value, displayText, onClick } = props;
   return (
     <Box
@@ -198,7 +185,7 @@ function MenuItem(props) {
         'MenuBar__MenuItem',
         'MenuBar__hover',
       ])}
-      onClick={() => onClick(value)}
+      onClick={() => onClick?.(value)}
     >
       {displayText}
     </Box>
@@ -214,12 +201,10 @@ function Separator() {
 Dropdown.Separator = Separator;
 
 type MenuBarProps = {
-  children: any;
+  children: ReactNode;
 };
 
 export function MenuBar(props: MenuBarProps) {
   const { children } = props;
   return <Box className="MenuBar">{children}</Box>;
 }
-
-MenuBar.Dropdown = Dropdown;

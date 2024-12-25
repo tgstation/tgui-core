@@ -1,4 +1,3 @@
-import type { CSSProperties, ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
@@ -7,21 +6,27 @@ type Props = {
   /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */
   name: string;
 } & Partial<{
-  /** Custom CSS class. */
-  className: string;
   /** Icon rotation, in degrees. */
   rotation: number;
   /** Icon size. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
   size: number;
   /** Whether an icon should be spinning. Good for load indicators. */
   spin: BooleanLike;
-  /** Custom CSS. */
-  style: CSSProperties;
 }> &
   Omit<BoxProps, 'children'>;
 
 const FA_OUTLINE_REGEX = /-o$/;
 
+/**
+ * ## Icon
+ * Renders one of the FontAwesome icons of your choice.
+ *
+ * @example
+ * ```tsx
+ * <Icon name="plus" />
+ * ```
+ * @url https://fontawesome.com/v5/search?o=r&m=free
+ */
 export function Icon(props: Props) {
   const { name = '', size, spin, className, rotation, ...rest } = props;
 
@@ -68,14 +73,7 @@ export function Icon(props: Props) {
   );
 }
 
-type IconStackUnique = {
-  children: ReactNode;
-  className?: string;
-};
-
-export type IconStackProps = IconStackUnique & BoxProps;
-
-export function IconStack(props: IconStackProps) {
+function IconStack(props: BoxProps) {
   const { className, children, ...rest } = props;
   return (
     <span
@@ -87,4 +85,8 @@ export function IconStack(props: IconStackProps) {
   );
 }
 
+/**
+ * ## Icon.Stack
+ * Renders a set of icons in a row.
+ */
 Icon.Stack = IconStack;
