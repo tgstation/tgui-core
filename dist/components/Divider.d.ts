@@ -1,15 +1,14 @@
 type Props = Partial<{
-    /** Removes the line, simply adding a gap. */
+    /** Divider can divide content without creating a dividing line. */
     hidden: boolean;
-    /** Rotate the divider to vertical. */
+    /** Divide content vertically. */
     vertical: boolean;
 }>;
 /**
  *
- * ## Dimmer
- * Dims surrounding area to emphasize content placed inside.
- *
- * Content is automatically centered inside the dimmer.
+ * ## Divider
+ * Draws a horizontal or vertical line, dividing a section into groups.
+ * Works like the good old `<hr>` element, but it's fancier.
  */
 export declare function Divider(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};
