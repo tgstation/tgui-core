@@ -23,7 +23,7 @@ type Props = Partial<{
 
 /**
  * ## Stack
- * A higher-level component, that is based on
+ * A higher-level component that is based on
  * [Flex](https://github.com/tgstation/tgui-core/tree/main/lib/components/Flex.tsx).
  *
  * The main difference from `Flex`, is that this component automatically adds

@@ -108,6 +108,10 @@ export function computeFlexProps(props: FlexProps) {
  * Flex item with `grow` property will grow to take all available empty space,
  * while flex items without grow will take the minimum amount of space. This
  * effectively places the last flex item to the very end of the flex container.
+ *
+ * @deprecated - Use
+ * [Stack](https://github.com/tgstation/tgui-core/tree/main/lib/components/Stack.tsx)
+ * where possible.
  */
 export function Flex(props) {
   const { className, ...rest } = props;
