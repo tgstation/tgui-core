@@ -87,6 +87,14 @@ function IconStack(props: BoxProps) {
 
 /**
  * ## Icon.Stack
- * Renders a set of icons in a row.
+ * Renders children icons on top of each other in order to make your own icon.
+ *
+ * @example
+ * ```tsx
+ * <Icon.Stack>
+ *   <Icon name="pen" />
+ *   <Icon name="slash" />
+ * </Icon.Stack>
+ * ```
  */
 Icon.Stack = IconStack;
