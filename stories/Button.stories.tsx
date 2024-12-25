@@ -14,6 +14,7 @@ type Story = StoryObj<StoryProps>;
 export const Default: Story = {
   args: {
     children: 'Click me',
+    icon: '',
   },
 };
 
