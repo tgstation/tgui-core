@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ComponentProps } from 'react';
+import { type ComponentProps, useState } from 'react';
 import { Button } from '../lib/components/Button';
 
 type StoryProps = ComponentProps<typeof Button>;
@@ -19,12 +19,36 @@ export const Default: Story = {
 
 type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
+export const WithIcon: Story = {
+  args: {
+    children: 'Submit',
+    icon: 'envelope',
+  },
+};
+
 export const Checkbox: CheckboxStory = {
   args: {
     children: 'Click me',
     checked: false,
+    color: 'default',
   },
-  render: (args) => <Button.Checkbox {...args} />,
+  render: (args) => {
+    const [checked, setChecked] = useState(false);
+
+    return (
+      <>
+        ** Note that checkbox is transparent by default, so this is set to blue
+        via params **
+        <br />
+        <br />
+        <Button.Checkbox
+          {...args}
+          checked={checked}
+          onClick={() => setChecked(!checked)}
+        />
+      </>
+    );
+  },
 };
 
 type ConfirmStory = StoryObj<ComponentProps<typeof Button.Confirm>>;
@@ -34,7 +58,7 @@ export const Confirm: ConfirmStory = {
     children: 'Click me',
     confirmColor: 'bad',
     confirmContent: 'Confirm?',
-    confirmIcon: 'question',
+    confirmIcon: '',
   },
   render: (args) => <Button.Confirm {...args} />,
 };
