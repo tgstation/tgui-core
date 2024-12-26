@@ -67,7 +67,7 @@ function x(u) {
         e && C !== "right" && /* @__PURE__ */ i(
           S,
           {
-            mr: n ? 1 : 0,
+            mr: n ? 0.5 : 0,
             name: e,
             color: a,
             rotation: N,
@@ -88,7 +88,7 @@ function x(u) {
         e && C === "right" && /* @__PURE__ */ i(
           S,
           {
-            ml: n ? 1 : 0,
+            ml: n ? 0.5 : 0,
             name: e,
             color: a,
             rotation: N,
