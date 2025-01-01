@@ -105,7 +105,7 @@ export class Color {
 const round = (
   number: number,
   digits = 0,
-  base = Math.pow(10, digits),
+  base = 10 ** digits,
 ): number => {
   return Math.round(base * number) / base;
 };
@@ -163,27 +163,28 @@ const angleUnits: Record<string, number> = {
 export const hexToHsva = (hex: string): HsvaColor => rgbaToHsva(hexToRgba(hex));
 
 export const hexToRgba = (hex: string): RgbaColor => {
-  if (hex[0] === '#') hex = hex.substring(1);
+  let hexValue = hex
+  if (hexValue[0] === '#') hexValue = hexValue.substring(1);
 
-  if (hex.length < 6) {
+  if (hexValue.length < 6) {
     return {
-      r: Number.parseInt(hex[0] + hex[0], 16),
-      g: Number.parseInt(hex[1] + hex[1], 16),
-      b: Number.parseInt(hex[2] + hex[2], 16),
+      r: Number.parseInt(hexValue[0] + hexValue[0], 16),
+      g: Number.parseInt(hexValue[1] + hexValue[1], 16),
+      b: Number.parseInt(hexValue[2] + hexValue[2], 16),
       a:
-        hex.length === 4
-          ? round(Number.parseInt(hex[3] + hex[3], 16) / 255, 2)
+      hexValue.length === 4
+          ? round(Number.parseInt(hexValue[3] + hexValue[3], 16) / 255, 2)
           : 1,
     };
   }
 
   return {
-    r: Number.parseInt(hex.substring(0, 2), 16),
-    g: Number.parseInt(hex.substring(2, 4), 16),
-    b: Number.parseInt(hex.substring(4, 6), 16),
+    r: Number.parseInt(hexValue.substring(0, 2), 16),
+    g: Number.parseInt(hexValue.substring(2, 4), 16),
+    b: Number.parseInt(hexValue.substring(4, 6), 16),
     a:
-      hex.length === 8
-        ? round(Number.parseInt(hex.substring(6, 8), 16) / 255, 2)
+    hexValue.length === 8
+        ? round(Number.parseInt(hexValue.substring(6, 8), 16) / 255, 2)
         : 1,
   };
 };
@@ -263,16 +264,16 @@ export const hsvaToRgba = ({ h, s, v, a }: HsvaColor): RgbaColor => {
   s = s / 100;
   v = v / 100;
 
-  const hh = Math.floor(h),
-    b = v * (1 - s),
-    c = v * (1 - (h - hh) * s),
-    d = v * (1 - (1 - h + hh) * s),
-    module = hh % 6;
+  const hh = Math.floor(h)
+  const b = v * (1 - s)
+  const c = v * (1 - (h - hh) * s)
+  const d = v * (1 - (1 - h + hh) * s)
+  const mod = hh % 6;
 
   return {
-    r: [v, c, b, b, d, v][module] * 255,
-    g: [d, v, v, c, b, b][module] * 255,
-    b: [b, b, d, v, v, c][module] * 255,
+    r: [v, c, b, b, d, v][mod] * 255,
+    g: [d, v, v, c, b, b][mod] * 255,
+    b: [b, b, d, v, v, c][mod] * 255,
     a: round(a, 2),
   };
 };
@@ -323,13 +324,13 @@ export const rgbStringToHsva = rgbaStringToHsva;
 
 const format = (number: number) => {
   const hex = number.toString(16);
-  return hex.length < 2 ? '0' + hex : hex;
+  return hex.length < 2 ? `0${hex}` : hex;
 };
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
   const alphaHex = a < 1 ? format(round(a * 255)) : '';
   return (
-    '#' + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex
+    `${'#'}${format(round(r))}${format(round(g))}${format(round(b))}${alphaHex}`
   );
 };
 
