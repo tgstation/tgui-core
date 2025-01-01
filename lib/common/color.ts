@@ -102,11 +102,7 @@ export class Color {
  * SOFTWARE.
  */
 
-const round = (
-  number: number,
-  digits = 0,
-  base = 10 ** digits,
-): number => {
+const round = (number: number, digits = 0, base = 10 ** digits): number => {
   return Math.round(base * number) / base;
 };
 
@@ -163,7 +159,7 @@ const angleUnits: Record<string, number> = {
 export const hexToHsva = (hex: string): HsvaColor => rgbaToHsva(hexToRgba(hex));
 
 export const hexToRgba = (hex: string): RgbaColor => {
-  let hexValue = hex
+  let hexValue = hex;
   if (hexValue[0] === '#') hexValue = hexValue.substring(1);
 
   if (hexValue.length < 6) {
@@ -172,7 +168,7 @@ export const hexToRgba = (hex: string): RgbaColor => {
       g: Number.parseInt(hexValue[1] + hexValue[1], 16),
       b: Number.parseInt(hexValue[2] + hexValue[2], 16),
       a:
-      hexValue.length === 4
+        hexValue.length === 4
           ? round(Number.parseInt(hexValue[3] + hexValue[3], 16) / 255, 2)
           : 1,
     };
@@ -183,7 +179,7 @@ export const hexToRgba = (hex: string): RgbaColor => {
     g: Number.parseInt(hexValue.substring(2, 4), 16),
     b: Number.parseInt(hexValue.substring(4, 6), 16),
     a:
-    hexValue.length === 8
+      hexValue.length === 8
         ? round(Number.parseInt(hexValue.substring(6, 8), 16) / 255, 2)
         : 1,
   };
@@ -264,10 +260,10 @@ export const hsvaToRgba = ({ h, s, v, a }: HsvaColor): RgbaColor => {
   s = s / 100;
   v = v / 100;
 
-  const hh = Math.floor(h)
-  const b = v * (1 - s)
-  const c = v * (1 - (h - hh) * s)
-  const d = v * (1 - (1 - h + hh) * s)
+  const hh = Math.floor(h);
+  const b = v * (1 - s);
+  const c = v * (1 - (h - hh) * s);
+  const d = v * (1 - (1 - h + hh) * s);
   const mod = hh % 6;
 
   return {
@@ -329,9 +325,7 @@ const format = (number: number) => {
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
   const alphaHex = a < 1 ? format(round(a * 255)) : '';
-  return (
-    `${'#'}${format(round(r))}${format(round(g))}${format(round(b))}${alphaHex}`
-  );
+  return `${'#'}${format(round(r))}${format(round(g))}${format(round(b))}${alphaHex}`;
 };
 
 export const rgbaToHsva = ({ r, g, b, a }: RgbaColor): HsvaColor => {

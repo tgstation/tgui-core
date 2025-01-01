@@ -29,7 +29,7 @@ export interface Interaction {
 
 // Finds the proper window object to fix iframe embedding issues
 const getParentWindow = (node?: HTMLDivElement | null): Window => {
-  return (node && node.ownerDocument.defaultView) || self;
+  return node?.ownerDocument?.defaultView || self;
 };
 
 // Returns a relative position of the pointer inside the node's bounding box
@@ -147,8 +147,6 @@ export class Interactive extends Component<InteractiveProps> {
         onMouseDown={this.handleMoveStart}
         className="react-colorful__interactive"
         onKeyDown={this.handleKeyDown}
-        tabIndex={0}
-        role="slider"
       >
         {this.props.children}
       </div>
