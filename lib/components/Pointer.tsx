@@ -12,8 +12,8 @@
  * SOFTWARE.
  */
 
-import { classes } from "../common/react";
-import { ReactNode } from "react";
+import type { ReactNode } from 'react';
+import { classes } from '../common/react';
 
 interface PointerProps {
   className?: string;
@@ -28,7 +28,7 @@ export const Pointer = ({
   left,
   top = 0.5,
 }: PointerProps): ReactNode => {
-  const nodeClassName = classes(["react-colorful__pointer", className]);
+  const nodeClassName = classes(['react-colorful__pointer', className]);
 
   const style = {
     top: `${top * 100}%`,

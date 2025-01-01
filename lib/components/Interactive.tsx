@@ -12,14 +12,15 @@
  * SOFTWARE.
  */
 
-import React, {
+import type React from 'react';
+import {
   Component,
+  type KeyboardEvent,
+  type MouseEvent,
+  type RefObject,
   createRef,
-  RefObject,
-  KeyboardEvent,
-  MouseEvent,
-} from "react";
-import { clamp } from "../common/math";
+} from 'react';
+import { clamp } from '../common/math';
 
 export interface Interaction {
   left: number;
@@ -125,8 +126,8 @@ export class Interactive extends Component<InteractiveProps> {
       ? parentWindow.addEventListener.bind(parentWindow)
       : parentWindow.removeEventListener.bind(parentWindow);
 
-    toggleEvent("mousemove", this.handleMove as unknown as EventListener);
-    toggleEvent("mouseup", this.handleMoveEnd as unknown as EventListener);
+    toggleEvent('mousemove', this.handleMove as unknown as EventListener);
+    toggleEvent('mouseup', this.handleMoveEnd as unknown as EventListener);
   };
 
   componentDidMount() {

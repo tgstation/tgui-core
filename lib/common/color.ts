@@ -16,7 +16,7 @@ export class Color {
   toString(): string {
     // Alpha component needs to permit fractional values, so cannot use |
     let alpha = this.a;
-    if (typeof alpha === "string") {
+    if (typeof alpha === 'string') {
       alpha = Number.parseFloat(this.a as any);
     }
     if (Number.isNaN(alpha)) {
@@ -73,7 +73,7 @@ export class Color {
   static lookup(value: number, colors: Color[]): Color {
     const len = colors.length;
     if (len < 2) {
-      throw new Error("Needs at least two colors!");
+      throw new Error('Needs at least two colors!');
     }
     const scaled = value * (len - 1);
     if (value < EPSILON) {
@@ -163,26 +163,32 @@ const angleUnits: Record<string, number> = {
 export const hexToHsva = (hex: string): HsvaColor => rgbaToHsva(hexToRgba(hex));
 
 export const hexToRgba = (hex: string): RgbaColor => {
-  if (hex[0] === "#") hex = hex.substring(1);
+  if (hex[0] === '#') hex = hex.substring(1);
 
   if (hex.length < 6) {
     return {
-      r: parseInt(hex[0] + hex[0], 16),
-      g: parseInt(hex[1] + hex[1], 16),
-      b: parseInt(hex[2] + hex[2], 16),
-      a: hex.length === 4 ? round(parseInt(hex[3] + hex[3], 16) / 255, 2) : 1,
+      r: Number.parseInt(hex[0] + hex[0], 16),
+      g: Number.parseInt(hex[1] + hex[1], 16),
+      b: Number.parseInt(hex[2] + hex[2], 16),
+      a:
+        hex.length === 4
+          ? round(Number.parseInt(hex[3] + hex[3], 16) / 255, 2)
+          : 1,
     };
   }
 
   return {
-    r: parseInt(hex.substring(0, 2), 16),
-    g: parseInt(hex.substring(2, 4), 16),
-    b: parseInt(hex.substring(4, 6), 16),
-    a: hex.length === 8 ? round(parseInt(hex.substring(6, 8), 16) / 255, 2) : 1,
+    r: Number.parseInt(hex.substring(0, 2), 16),
+    g: Number.parseInt(hex.substring(2, 4), 16),
+    b: Number.parseInt(hex.substring(4, 6), 16),
+    a:
+      hex.length === 8
+        ? round(Number.parseInt(hex.substring(6, 8), 16) / 255, 2)
+        : 1,
   };
 };
 
-export const parseHue = (value: string, unit = "deg"): number => {
+export const parseHue = (value: string, unit = 'deg'): number => {
   return Number(value) * (angleUnits[unit] || 1);
 };
 
@@ -317,13 +323,13 @@ export const rgbStringToHsva = rgbaStringToHsva;
 
 const format = (number: number) => {
   const hex = number.toString(16);
-  return hex.length < 2 ? "0" + hex : hex;
+  return hex.length < 2 ? '0' + hex : hex;
 };
 
 export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
-  const alphaHex = a < 1 ? format(round(a * 255)) : "";
+  const alphaHex = a < 1 ? format(round(a * 255)) : '';
   return (
-    "#" + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex
+    '#' + format(round(r)) + format(round(g)) + format(round(b)) + alphaHex
   );
 };
 
