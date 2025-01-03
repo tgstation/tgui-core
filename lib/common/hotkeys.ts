@@ -123,7 +123,7 @@ export function releaseHotKey(keyCode: number) {
 }
 
 export function releaseHeldKeys() {
-  for (const byondKeyCode of Object.keys(keyState)) {
+  for (const byondKeyCode in keyState) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
       Byond.command(`KeyUp "${byondKeyCode}"`);
@@ -141,7 +141,7 @@ export function setupHotKeys() {
   Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref
     const groupedByRef: Record<string, ByondSkinMacro> = {};
-    for (const key of Object.keys(data)) {
+    for (const key in data) {
       const keyPath = key.split('.');
       const ref = keyPath[1];
       const prop = keyPath[2];
@@ -162,7 +162,7 @@ export function setupHotKeys() {
       return str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
     }
 
-    for (const ref of Object.keys(groupedByRef)) {
+    for (const ref in groupedByRef) {
       const macro = groupedByRef[ref];
       const byondKeyName = unEscape(macro.name);
       byondMacros[byondKeyName] = unEscape(macro.command);
