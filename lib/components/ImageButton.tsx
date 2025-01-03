@@ -9,7 +9,7 @@ import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
-import { DmIcon } from './DmIcon';
+import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
 import { Stack } from './Stack';
@@ -28,11 +28,11 @@ type Props = Partial<{
    */
   buttons: ReactNode;
   /**
-   * Enables alternate layout for `buttons` container.
-   * Without fluid, buttons will be on top and with `pointer-events: none`, useful for text info.
-   * With fluid, buttons will be in "hamburger" style.
+   * Same as buttons, but. Have disabled pointer-events on content inside if non-fluid.
+   * Fluid version have humburger layout.
+   * Can be used with buttons prop.
    */
-  buttonsAlt: boolean;
+  buttonsAlt: ReactNode;
   /** Content under image. Or on the right if fluid. */
   children: ReactNode;
   /** Applies a CSS class to the element. */
@@ -51,6 +51,8 @@ type Props = Partial<{
   dmIcon: string | null;
   /** Parameter `icon_state` of component `DmIcon`. */
   dmIconState: string | null;
+  /** Parameter `direction` of component `DmIcon`. */
+  dmDirection: Direction;
   /**
    * Changes the layout of the button, making it fill the entire horizontally available space.
    * Allows the use of `title`
@@ -216,17 +218,34 @@ export function ImageButton(props: Props) {
         <div
           className={classes([
             'buttonsContainer',
-            buttonsAlt && 'buttonsAltContainer',
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',
           ])}
           style={{
-            width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',
+            width: 'auto',
           }}
         >
           {buttons}
+        </div>
+      )}
+      {buttonsAlt && (
+        <div
+          className={classes([
+            'buttonsContainer',
+            'buttonsAltContainer',
+            !children && 'buttonsEmpty',
+            fluid && color && typeof color === 'string'
+              ? `ImageButton--buttonsContainerColor__${color}`
+              : fluid && 'buttonsContainerColor__default',
+          ])}
+          style={{
+            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
+            maxWidth: !fluid ? `calc(${imageSize}px +  0.5em)` : 'auto',
+          }}
+        >
+          {buttonsAlt}
         </div>
       )}
     </div>

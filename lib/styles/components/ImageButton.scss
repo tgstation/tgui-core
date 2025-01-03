@@ -116,6 +116,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton {
+  /* Better replace via inline-flex after Byond 516 will be stable */
   display: inline-table;
   position: relative;
   text-align: center;
