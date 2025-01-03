@@ -1,5 +1,5 @@
 import { globalEvents as l } from "./events.js";
-import { KEY_ESCAPE as K, KEY_ENTER as E, KEY_SPACE as p, KEY_TAB as h, KEY_CTRL as d, KEY_SHIFT as g, KEY_UP as S, KEY_DOWN as Y, KEY_LEFT as _, KEY_RIGHT as b, KEY_F5 as B } from "./keycodes.js";
+import { KEY_ESCAPE as K, KEY_ENTER as E, KEY_SPACE as p, KEY_TAB as h, KEY_CTRL as d, KEY_SHIFT as g, KEY_UP as S, KEY_DOWN as Y, KEY_LEFT as _, KEY_RIGHT as B, KEY_F5 as w } from "./keycodes.js";
 const m = {}, c = [
   K,
   E,
@@ -10,103 +10,103 @@ const m = {}, c = [
   S,
   Y,
   _,
-  b,
-  B
+  B,
+  w
 ], o = {}, u = [];
-function w(t) {
-  if (t === 16) return "Shift";
-  if (t === 17) return "Ctrl";
-  if (t === 18) return "Alt";
-  if (t === 33) return "Northeast";
-  if (t === 34) return "Southeast";
-  if (t === 35) return "Southwest";
-  if (t === 36) return "Northwest";
-  if (t === 37) return "West";
-  if (t === 38) return "North";
-  if (t === 39) return "East";
-  if (t === 40) return "South";
-  if (t === 45) return "Insert";
-  if (t === 46) return "Delete";
-  if (t >= 48 && t <= 57 || t >= 65 && t <= 90)
-    return String.fromCharCode(t);
-  if (t >= 96 && t <= 105)
-    return `Numpad${t - 96}`;
-  if (t >= 112 && t <= 123)
-    return `F${t - 111}`;
-  if (t === 188) return ",";
-  if (t === 189) return "-";
-  if (t === 190) return ".";
+function F(n) {
+  if (n === 16) return "Shift";
+  if (n === 17) return "Ctrl";
+  if (n === 18) return "Alt";
+  if (n === 33) return "Northeast";
+  if (n === 34) return "Southeast";
+  if (n === 35) return "Southwest";
+  if (n === 36) return "Northwest";
+  if (n === 37) return "West";
+  if (n === 38) return "North";
+  if (n === 39) return "East";
+  if (n === 40) return "South";
+  if (n === 45) return "Insert";
+  if (n === 46) return "Delete";
+  if (n >= 48 && n <= 57 || n >= 65 && n <= 90)
+    return String.fromCharCode(n);
+  if (n >= 96 && n <= 105)
+    return `Numpad${n - 96}`;
+  if (n >= 112 && n <= 123)
+    return `F${n - 111}`;
+  if (n === 188) return ",";
+  if (n === 189) return "-";
+  if (n === 190) return ".";
 }
-function F(t) {
-  const n = String(t);
-  if (n === "Ctrl+F5" || n === "Ctrl+R") {
+function N(n) {
+  const t = String(n);
+  if (t === "Ctrl+F5" || t === "Ctrl+R") {
     location.reload();
     return;
   }
-  if (n === "Ctrl+F" || t.event.defaultPrevented || t.isModifierKey() || c.includes(t.code))
+  if (t === "Ctrl+F" || n.event.defaultPrevented || n.isModifierKey() || c.includes(n.code))
     return;
-  const e = w(t.code);
-  if (!e)
+  const i = F(n.code);
+  if (!i)
     return;
-  const f = m[e];
+  const f = m[i];
   if (f)
     return Byond.command(f);
-  if (t.isDown() && !o[e]) {
-    o[e] = !0;
-    const r = `KeyDown "${e}"`;
+  if (n.isDown() && !o[i]) {
+    o[i] = !0;
+    const r = `KeyDown "${i}"`;
     return Byond.command(r);
   }
-  if (t.isUp() && o[e]) {
-    o[e] = !1;
-    const r = `KeyUp "${e}"`;
+  if (n.isUp() && o[i]) {
+    o[i] = !1;
+    const r = `KeyUp "${i}"`;
     return Byond.command(r);
   }
 }
-function O(t) {
-  c.push(t);
+function P(n) {
+  c.push(n);
 }
-function P(t) {
-  const n = c.indexOf(t);
-  n >= 0 && c.splice(n, 1);
+function R(n) {
+  const t = c.indexOf(n);
+  t >= 0 && c.splice(t, 1);
 }
-function N() {
-  for (const t of Object.keys(o))
-    o[t] && (o[t] = !1, Byond.command(`KeyUp "${t}"`));
+function T() {
+  for (const n in o)
+    o[n] && (o[n] = !1, Byond.command(`KeyUp "${n}"`));
 }
-function R() {
-  Byond.winget("default.*").then((t) => {
-    const n = {};
-    for (const r of Object.keys(t)) {
-      const s = r.split("."), i = s[1], a = s[2];
-      i && a && (n[i] || (n[i] = {}), n[i][a] = t[r]);
+function v() {
+  Byond.winget("default.*").then((n) => {
+    const t = {};
+    for (const r in n) {
+      const s = r.split("."), e = s[1], a = s[2];
+      e && a && (t[e] || (t[e] = {}), t[e][a] = n[r]);
     }
-    const e = /\\"/g;
+    const i = /\\"/g;
     function f(r) {
-      return r.substring(1, r.length - 1).replace(e, '"');
+      return r.substring(1, r.length - 1).replace(i, '"');
     }
-    for (const r of Object.keys(n)) {
-      const s = n[r], i = f(s.name);
-      m[i] = f(s.command);
+    for (const r in t) {
+      const s = t[r], e = f(s.name);
+      m[e] = f(s.command);
     }
   }), l.on("window-blur", () => {
-    N();
-  }), l.on("key", (t) => {
-    for (const n of u)
-      n(t);
-    F(t);
+    T();
+  }), l.on("key", (n) => {
+    for (const t of u)
+      t(n);
+    N(n);
   });
 }
-function v(t) {
-  u.push(t);
-  let n = !1;
+function x(n) {
+  u.push(n);
+  let t = !1;
   return () => {
-    n || (n = !0, u.splice(u.indexOf(t), 1));
+    t || (t = !0, u.splice(u.indexOf(n), 1));
   };
 }
 export {
-  O as acquireHotKey,
-  v as listenForKeyEvents,
-  N as releaseHeldKeys,
-  P as releaseHotKey,
-  R as setupHotKeys
+  P as acquireHotKey,
+  x as listenForKeyEvents,
+  T as releaseHeldKeys,
+  R as releaseHotKey,
+  v as setupHotKeys
 };
