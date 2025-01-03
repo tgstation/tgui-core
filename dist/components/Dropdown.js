@@ -1,5 +1,5 @@
-import { jsx as l, jsxs as p, Fragment as W } from "react/jsx-runtime";
-import { useState as F, useRef as L, useEffect as S } from "react";
+import { jsx as l, jsxs as p, Fragment as F } from "react/jsx-runtime";
+import { useState as L, useRef as S, useEffect as V } from "react";
 import { classes as N } from "../common/react.js";
 import { unit as $ } from "../common/ui.js";
 import { Button as D } from "./Button.js";
@@ -9,17 +9,17 @@ const z = -1;
 function h(u) {
   return typeof u == "string" ? u : u.value;
 }
-function X(u) {
+function Y(u) {
   const {
     autoScroll: v = !0,
     buttons: I,
     className: O,
-    clipSelectedText: k = !0,
+    clipSelectedText: T = !0,
     color: B = "default",
     disabled: d,
     displayText: E,
     icon: x,
-    iconRotation: T,
+    iconRotation: k,
     iconSpin: j,
     menuWidth: C = "15rem",
     noChevron: R,
@@ -30,13 +30,12 @@ function X(u) {
     placeholder: K = "Select...",
     selected: m,
     width: P = "15rem"
-  } = u, [r, f] = F(!1), V = y ? !r : r, w = L(null), i = c.findIndex((e) => h(e) === m) || 0;
+  } = u, [r, f] = L(!1), W = y ? !r : r, w = S(null), i = c.findIndex((e) => h(e) === m) || 0;
   function g(e) {
-    var t;
     let s = e;
     e < i ? s = e < 2 ? 0 : e - 2 : s = e > c.length - 3 ? c.length - 1 : e - 2;
-    const n = (t = w.current) == null ? void 0 : t.children[s];
-    n == null || n.scrollIntoView({ block: "nearest" });
+    const n = w.current, t = n == null ? void 0 : n.children[s];
+    n && t && (n.scrollTop = t.offsetTop);
   }
   function _(e) {
     if (c.length < 1 || d)
@@ -45,7 +44,7 @@ function X(u) {
     let t;
     i < 0 ? t = e === "next" ? n : s : e === "next" ? t = i === n ? s : i + 1 : t = i === s ? n : i - 1, r && v && g(t), o == null || o(h(c[t]));
   }
-  return S(() => {
+  return V(() => {
     var e;
     r && (v && i !== z && g(i), (e = w.current) == null || e.focus());
   }, [r]), /* @__PURE__ */ l(
@@ -104,22 +103,22 @@ function X(u) {
               e.key === "Enter" && !d && (f(!r), a == null || a(e));
             },
             children: [
-              x && /* @__PURE__ */ l(b, { mr: 1, name: x, rotation: T, spin: j }),
+              x && /* @__PURE__ */ l(b, { mr: 1, name: x, rotation: k, spin: j }),
               /* @__PURE__ */ l(
                 "span",
                 {
                   className: "Dropdown__selected-text",
                   style: {
-                    overflow: k ? "hidden" : "visible"
+                    overflow: T ? "hidden" : "visible"
                   },
                   children: E || m && h(m) || K
                 }
               ),
-              !R && /* @__PURE__ */ l("span", { className: "Dropdown__arrow-button", children: /* @__PURE__ */ l(b, { name: V ? "chevron-up" : "chevron-down" }) })
+              !R && /* @__PURE__ */ l("span", { className: "Dropdown__arrow-button", children: /* @__PURE__ */ l(b, { name: W ? "chevron-up" : "chevron-down" }) })
             ]
           }
         ),
-        I && /* @__PURE__ */ p(W, { children: [
+        I && /* @__PURE__ */ p(F, { children: [
           /* @__PURE__ */ l(
             D,
             {
@@ -154,5 +153,5 @@ function X(u) {
   );
 }
 export {
-  X as Dropdown
+  Y as Dropdown
 };
