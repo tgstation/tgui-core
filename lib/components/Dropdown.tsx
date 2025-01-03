@@ -100,7 +100,7 @@ export function Dropdown(props: Props) {
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
 
-  function scrollTo(position: number) {
+  function scrollToElement(position: number) {
     let scrollPos = position;
     if (position < selectedIndex) {
       scrollPos = position < 2 ? 0 : position - 2;
@@ -109,8 +109,12 @@ export function Dropdown(props: Props) {
         position > options.length - 3 ? options.length - 1 : position - 2;
     }
 
-    const element = innerRef.current?.children[scrollPos];
-    element?.scrollIntoView({ block: 'nearest' });
+    const dropdownMenu = innerRef.current;
+    const element = dropdownMenu?.children[scrollPos] as HTMLElement;
+
+    if (dropdownMenu && element) {
+      dropdownMenu.scrollTop = element.offsetTop;
+    }
   }
 
   /** Update the selected value when clicking the left/right buttons */
@@ -132,7 +136,7 @@ export function Dropdown(props: Props) {
     }
 
     if (open && autoScroll) {
-      scrollTo(newIndex);
+      scrollToElement(newIndex);
     }
     onSelected?.(getOptionValue(options[newIndex]));
   }
@@ -144,7 +148,7 @@ export function Dropdown(props: Props) {
     }
 
     if (autoScroll && selectedIndex !== NONE) {
-      scrollTo(selectedIndex);
+      scrollToElement(selectedIndex);
     }
 
     innerRef.current?.focus();
