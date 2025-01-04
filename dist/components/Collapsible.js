@@ -1,35 +1,36 @@
-import { jsxs as n, jsx as e } from "react/jsx-runtime";
-import { useState as p } from "react";
-import { Box as t } from "./Box.js";
-import { Button as b } from "./Button.js";
-function x(o) {
+import { jsxs as i, jsx as e } from "react/jsx-runtime";
+import { useState as b } from "react";
+import { Box as n } from "./Box.js";
+import { Button as u } from "./Button.js";
+function T(o) {
   const {
     children: r,
     child_mt: s = 1,
-    color: m,
-    title: a,
-    buttons: c,
-    icon: i,
-    ...d
-  } = o, [l, h] = p(o.open);
-  return /* @__PURE__ */ n(t, { mb: 1, children: [
-    /* @__PURE__ */ n("div", { className: "Table", children: [
+    childStyles: m,
+    color: a,
+    title: d,
+    buttons: t,
+    icon: c,
+    ...h
+  } = o, [l, p] = b(o.open);
+  return /* @__PURE__ */ i(n, { mb: 1, children: [
+    /* @__PURE__ */ i("div", { className: "Table", children: [
       /* @__PURE__ */ e("div", { className: "Table__cell", children: /* @__PURE__ */ e(
-        b,
+        u,
         {
           fluid: !0,
-          color: m,
-          icon: i || (l ? "chevron-down" : "chevron-right"),
-          onClick: () => h(!l),
-          ...d,
-          children: a
+          color: a,
+          icon: c || (l ? "chevron-down" : "chevron-right"),
+          onClick: () => p(!l),
+          ...h,
+          children: d
         }
       ) }),
-      c && /* @__PURE__ */ e("div", { className: "Table__cell Table__cell--collapsing", children: c })
+      t && /* @__PURE__ */ e("div", { className: "Table__cell Table__cell--collapsing", children: t })
     ] }),
-    l && /* @__PURE__ */ e(t, { mt: s, children: r })
+    l && /* @__PURE__ */ e(n, { mt: s, style: m, children: r })
   ] });
 }
 export {
-  x as Collapsible
+  T as Collapsible
 };

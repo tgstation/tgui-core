@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { BoxProps } from './Box';
 type Props = Partial<{
     /** Buttons or other content to render inline with the button */
@@ -11,6 +11,8 @@ type Props = Partial<{
     open: boolean;
     /** Text to display on the button for collapsing */
     title: ReactNode;
+    /** Custom styles for the child nodes */
+    childStyles: CSSProperties;
 }> & BoxProps;
 /**
  * ## Collapsible
