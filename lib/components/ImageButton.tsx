@@ -77,6 +77,12 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+/**
+ * Stylized button, with the ability to easily and simply insert any picture into it.
+ * - Without image, will be default question icon.
+ * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
+ * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
+ */
 export function ImageButton(props: Props) {
   const {
     asset,

@@ -15,14 +15,14 @@ export default {
 } satisfies Meta<StoryProps>;
 
 type Story = StoryObj<StoryProps>;
+
 export const Default: Story = {
   args: {
     children: 'ImageButton',
   },
 };
 
-type FluidStory = StoryObj<StoryProps>;
-export const DefaultFluid: FluidStory = {
+export const DefaultFluid: Story = {
   args: {
     fluid: true,
     title: 'ImageButton',
@@ -30,8 +30,7 @@ export const DefaultFluid: FluidStory = {
   },
 };
 
-type FilledDefaultStory = StoryObj<StoryProps>;
-export const FilledDefault: FilledDefaultStory = {
+export const FilledDefault: Story = {
   render: () => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -55,14 +54,13 @@ export const FilledDefault: FilledDefaultStory = {
         onClick={() => setSelected(!selected)}
         onRightClick={() => setDisabled(!disabled)}
       >
-        SoulFish
+        Hover me
       </ImageButton>
     );
   },
 };
 
-type FilledFluidStory = StoryObj<StoryProps>;
-export const FilledFluid: FilledFluidStory = {
+export const FilledFluid: Story = {
   render: () => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -96,8 +94,7 @@ export const FilledFluid: FilledFluidStory = {
   },
 };
 
-type MixedStory = StoryObj<StoryProps>;
-export const Mixed: MixedStory = {
+export const Mixed: Story = {
   render: () => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -147,8 +144,7 @@ export const Mixed: MixedStory = {
   },
 };
 
-type ColorsStory = StoryObj<StoryProps>;
-export const Colors: ColorsStory = {
+export const Colors: Story = {
   render: () => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
