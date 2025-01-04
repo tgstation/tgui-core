@@ -9,7 +9,7 @@ import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
-import { DmIcon } from './DmIcon';
+import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
 import { Stack } from './Stack';
@@ -28,11 +28,11 @@ type Props = Partial<{
    */
   buttons: ReactNode;
   /**
-   * Enables alternate layout for `buttons` container.
-   * Without fluid, buttons will be on top and with `pointer-events: none`, useful for text info.
-   * With fluid, buttons will be in "hamburger" style.
+   * Same as buttons, but. Have disabled pointer-events on content inside if non-fluid.
+   * Fluid version have humburger layout.
+   * Can be used with buttons prop.
    */
-  buttonsAlt: boolean;
+  buttonsAlt: ReactNode;
   /** Content under image. Or on the right if fluid. */
   children: ReactNode;
   /** Applies a CSS class to the element. */
@@ -51,6 +51,8 @@ type Props = Partial<{
   dmIcon: string | null;
   /** Parameter `icon_state` of component `DmIcon`. */
   dmIconState: string | null;
+  /** Parameter `direction` of component `DmIcon`. */
+  dmDirection: Direction;
   /**
    * Changes the layout of the button, making it fill the entire horizontally available space.
    * Allows the use of `title`
@@ -58,7 +60,7 @@ type Props = Partial<{
   fluid: boolean;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
   imageSize: number;
-  /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image}` */
+  /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image)}` */
   imageSrc: string;
   /** Called when button is clicked with LMB. */
   onClick: (e: any) => void;
@@ -75,6 +77,12 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+/**
+ * Stylized button, with the ability to easily and simply insert any picture into it.
+ * - Without image, will be default question icon.
+ * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
+ * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
+ */
 export function ImageButton(props: Props) {
   const {
     asset,
@@ -119,7 +127,8 @@ export function ImageButton(props: Props) {
     <div
       className={classes([
         'container',
-        buttons && 'hasButtons',
+        (buttons as boolean) ||
+          (fluid && (buttonsAlt as boolean) && 'hasButtons'),
         !onClick && !onRightClick && 'noAction',
         selected && 'ImageButton--selected',
         disabled && 'ImageButton--disabled',
@@ -216,17 +225,34 @@ export function ImageButton(props: Props) {
         <div
           className={classes([
             'buttonsContainer',
-            buttonsAlt && 'buttonsAltContainer',
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',
           ])}
           style={{
-            width: buttonsAlt ? `calc(${imageSize}px + 0.5em)` : 'auto',
+            width: 'auto',
           }}
         >
           {buttons}
+        </div>
+      )}
+      {buttonsAlt && (
+        <div
+          className={classes([
+            'buttonsContainer',
+            'buttonsAltContainer',
+            !children && 'buttonsEmpty',
+            fluid && color && typeof color === 'string'
+              ? `ImageButton--buttonsContainerColor__${color}`
+              : fluid && 'ImageButton--buttonsContainerColor__default',
+          ])}
+          style={{
+            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
+            maxWidth: !fluid ? `calc(${imageSize}px +  0.5em)` : 'auto',
+          }}
+        >
+          {buttonsAlt}
         </div>
       )}
     </div>
