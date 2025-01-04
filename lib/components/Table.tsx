@@ -8,24 +8,6 @@ type Props = Partial<{
 }> &
   BoxProps;
 
-/**
- * ## Table
- * A straight forward mapping to a standard html table, which is slightly
- * simplified (does not need a `<tbody>` tag) and with sane default styles
- * (e.g. table width is 100% by default).
- *
- * @example
- * ```tsx
- * <Table>
- *   <Table.Row>
- *     <Table.Cell bold>Hello world!</Table.Cell>
- *     <Table.Cell collapsing color="label">
- *       Label
- *     </Table.Cell>
- *   </Table.Row>
- * </Table>
- * ```
- */
 export function Table(props: Props) {
   const { className, collapsing, children, ...rest } = props;
 
@@ -66,12 +48,6 @@ function TableRow(props: RowProps) {
   );
 }
 
-/**
- * ## Table.Row
- * A straight forward mapping to `<tr>` element.
- */
-Table.Row = TableRow;
-
 type CellProps = Partial<{
   /** Additional columns for this cell to expand, assuming there is room. */
   colSpan: number;
@@ -104,7 +80,32 @@ function TableCell(props: CellProps) {
 }
 
 /**
- * ## Table.Cell
- * A straight forward mapping to `<td>` element.
+ * ## Table
+ * A straight forward mapping to a standard html table, which is slightly
+ * simplified (does not need a `<tbody>` tag) and with sane default styles
+ * (e.g. table width is 100% by default).
+ *
+ * @example
+ * ```tsx
+ * <Table>
+ *   <Table.Row>
+ *     <Table.Cell bold>Hello world!</Table.Cell>
+ *     <Table.Cell collapsing color="label">
+ *       Label
+ *     </Table.Cell>
+ *   </Table.Row>
+ * </Table>
+ * ```
  */
-Table.Cell = TableCell;
+export namespace Table {
+  /**
+   * ## Table.Cell
+   * A straight forward mapping to `<td>` element.
+   */
+  export const Cell = TableCell;
+  /**
+   * ## Table.Row
+   * A straight forward mapping to `<tr>` element.
+   */
+  export const Row = TableRow;
+}

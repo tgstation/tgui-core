@@ -3,7 +3,7 @@ import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 type Props = {
-  /** Icon name. See [icon list](https://fontawesome.com/v5/search?o=r&m=free) */
+  /** Icon name. @see https://fontawesome.com/v6/search?o=r&m=free */
   name: string;
 } & Partial<{
   /** Icon rotation, in degrees. */
@@ -17,16 +17,6 @@ type Props = {
 
 const FA_OUTLINE_REGEX = /-o$/;
 
-/**
- * ## Icon
- * Renders one of the FontAwesome icons of your choice.
- *
- * @example
- * ```tsx
- * <Icon name="plus" />
- * ```
- * @url https://fontawesome.com/v5/search?o=r&m=free
- */
 export function Icon(props: Props) {
   const { name = '', size, spin, className, rotation, ...rest } = props;
 
@@ -86,15 +76,27 @@ function IconStack(props: BoxProps) {
 }
 
 /**
- * ## Icon.Stack
- * Renders children icons on top of each other in order to make your own icon.
+ * ## Icon
+ * Renders one of the FontAwesome icons of your choice.
  *
  * @example
  * ```tsx
- * <Icon.Stack>
- *   <Icon name="pen" />
- *   <Icon name="slash" />
- * </Icon.Stack>
+ * <Icon name="plus" />
  * ```
+ * @url https://fontawesome.com/v6/search?o=r&m=free
  */
-Icon.Stack = IconStack;
+export namespace Icon {
+  /**
+   * ## Icon.Stack
+   * Renders children icons on top of each other in order to make your own icon.
+   *
+   * @example
+   * ```tsx
+   * <Icon.Stack>
+   *   <Icon name="pen" />
+   *   <Icon name="slash" />
+   * </Icon.Stack>
+   * ```
+   */
+  export const Stack = IconStack;
+}
