@@ -19,6 +19,88 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+export function Tabs(props: Props) {
+  const { className, vertical, fill, fluid, children, ...rest } = props;
+
+  return (
+    <div
+      className={classes([
+        'Tabs',
+        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
+        fill && 'Tabs--fill',
+        fluid && 'Tabs--fluid',
+        className,
+        computeBoxClassName(rest),
+      ])}
+      {...computeBoxProps(rest)}
+    >
+      {children}
+    </div>
+  );
+}
+
+type TabProps = Partial<{
+  /** Font awesome icon. @see https://fontawesome.com/v6/search?o=r&m=free */
+  icon: string;
+  /** Causes the icon to spin */
+  iconSpin: boolean;
+  /** Left slot content */
+  leftSlot: ReactNode;
+  /** Called when element is clicked */
+  onClick: (e?) => void;
+  /** Right slot content */
+  rightSlot: ReactNode;
+  /** Whether the tab is selected */
+  selected: boolean;
+}> &
+  BoxProps;
+
+function TabItem(props: TabProps) {
+  const {
+    className,
+    selected,
+    color,
+    icon,
+    iconSpin,
+    leftSlot,
+    rightSlot,
+    children,
+    onClick,
+    ...rest
+  } = props;
+
+  function handleClick(evt) {
+    if (onClick) {
+      onClick(evt);
+      evt.target.blur();
+    }
+  }
+
+  return (
+    <div
+      className={classes([
+        'Tab',
+        'Tabs__Tab',
+        `Tab--color--${color}`,
+        selected && 'Tab--selected',
+        className,
+        computeBoxClassName(rest),
+      ])}
+      onClick={handleClick}
+      {...computeBoxProps(rest)}
+    >
+      {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
+        (!!icon && (
+          <div className="Tab__left">
+            <Icon name={icon} spin={iconSpin} />
+          </div>
+        ))}
+      <div className="Tab__text">{children}</div>
+      {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
+    </div>
+  );
+}
+
 /**
  *  ## Tabs
  * Tabs make it easy to explore and switch between different views.
@@ -77,91 +159,11 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export function Tabs(props: Props) {
-  const { className, vertical, fill, fluid, children, ...rest } = props;
-
-  return (
-    <div
-      className={classes([
-        'Tabs',
-        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
-        fill && 'Tabs--fill',
-        fluid && 'Tabs--fluid',
-        className,
-        computeBoxClassName(rest),
-      ])}
-      {...computeBoxProps(rest)}
-    >
-      {children}
-    </div>
-  );
+export namespace Tabs {
+  /**
+   * ## Tabs.Tab
+   * An individual tab element. Tabs function like buttons, so they inherit
+   * a lot of `Button` props.
+   */
+  export const Tab = TabItem;
 }
-
-type TabProps = Partial<{
-  /** Font awesome icon. */
-  icon: string;
-  /** Causes the icon to spin */
-  iconSpin: boolean;
-  /** Left slot content */
-  leftSlot: ReactNode;
-  /** Called when element is clicked */
-  onClick: (e?) => void;
-  /** Right slot content */
-  rightSlot: ReactNode;
-  /** Whether the tab is selected */
-  selected: boolean;
-}> &
-  BoxProps;
-
-function Tab(props: TabProps) {
-  const {
-    className,
-    selected,
-    color,
-    icon,
-    iconSpin,
-    leftSlot,
-    rightSlot,
-    children,
-    onClick,
-    ...rest
-  } = props;
-
-  const handleClick = (e) => {
-    if (onClick) {
-      onClick(e);
-      e.target.blur();
-    }
-  };
-
-  return (
-    <div
-      className={classes([
-        'Tab',
-        'Tabs__Tab',
-        `Tab--color--${color}`,
-        selected && 'Tab--selected',
-        className,
-        computeBoxClassName(rest),
-      ])}
-      onClick={handleClick}
-      {...computeBoxProps(rest)}
-    >
-      {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
-        (!!icon && (
-          <div className="Tab__left">
-            <Icon name={icon} spin={iconSpin} />
-          </div>
-        ))}
-      <div className="Tab__text">{children}</div>
-      {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
-    </div>
-  );
-}
-
-/**
- * ## Tabs.Tab
- * An individual tab element. Tabs function like buttons, so they inherit
- * a lot of `Button` props.
- */
-Tabs.Tab = Tab;
