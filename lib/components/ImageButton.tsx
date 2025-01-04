@@ -60,7 +60,7 @@ type Props = Partial<{
   fluid: boolean;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
   imageSize: number;
-  /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image}` */
+  /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image)}` */
   imageSrc: string;
   /** Called when button is clicked with LMB. */
   onClick: (e: any) => void;
