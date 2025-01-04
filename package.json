@@ -18,7 +18,7 @@
       "sass": "./lib/styles/main.scss"
     },
     "./styles/components/*": {
-      "sass": "./lib/styles/components/*"
+      "sass": "./lib/styles/components/*.scss"
     }
   },
   "repository": {
