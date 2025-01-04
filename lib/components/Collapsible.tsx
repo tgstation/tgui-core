@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type CSSProperties, type ReactNode, useState } from 'react';
 import { Box, type BoxProps } from './Box';
 import { Button } from './Button';
 
@@ -13,6 +13,8 @@ type Props = Partial<{
   open: boolean;
   /** Text to display on the button for collapsing */
   title: ReactNode;
+  /** Custom styles for the child nodes */
+  childStyles: CSSProperties;
 }> &
   BoxProps;
 
@@ -26,6 +28,7 @@ export function Collapsible(props: Props) {
   const {
     children,
     child_mt = 1,
+    childStyles,
     color,
     title,
     buttons,
@@ -52,7 +55,11 @@ export function Collapsible(props: Props) {
           <div className="Table__cell Table__cell--collapsing">{buttons}</div>
         )}
       </div>
-      {open && <Box mt={child_mt}>{children}</Box>}
+      {open && (
+        <Box mt={child_mt} style={childStyles}>
+          {children}
+        </Box>
+      )}
     </Box>
   );
 }
