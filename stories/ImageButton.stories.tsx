@@ -31,13 +31,13 @@ export const DefaultFluid: Story = {
 };
 
 export const FilledDefault: Story = {
-  render: () => {
+  render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
 
     return (
       <ImageButton
-        title={'ImageButton'}
+        {...args}
         base64={soulFishImage}
         disabled={disabled}
         selected={selected}
@@ -61,12 +61,13 @@ export const FilledDefault: Story = {
 };
 
 export const FilledFluid: Story = {
-  render: () => {
+  render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
 
     return (
       <ImageButton
+        {...args}
         fluid
         title={'ImageButton'}
         base64={soulFishImage}
@@ -95,7 +96,7 @@ export const FilledFluid: Story = {
 };
 
 export const Mixed: Story = {
-  render: () => {
+  render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
     const [compact, setCompact] = useState(false);
@@ -125,6 +126,7 @@ export const Mixed: Story = {
 
     return (
       <ImageButton
+        {...args}
         fluid={!compact}
         title={'ImageButton'}
         base64={soulFishImage}
@@ -145,7 +147,7 @@ export const Mixed: Story = {
 };
 
 export const Colors: Story = {
-  render: () => {
+  render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
     const [compact, setCompact] = useState(false);
@@ -191,6 +193,7 @@ export const Colors: Story = {
       <>
         {COLORS.map((color) => (
           <ImageButton
+            {...args}
             key={color}
             color={color}
             fluid={!compact}
