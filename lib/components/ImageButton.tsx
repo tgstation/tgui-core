@@ -108,21 +108,6 @@ export function ImageButton(props: Props) {
     ...rest
   } = props;
 
-  function getFallback(iconName: string, iconSpin: boolean) {
-    return (
-      <Stack height={`${imageSize}px`} width={`${imageSize}px`}>
-        <Stack.Item grow textAlign="center" align="center">
-          <Icon
-            spin={iconSpin}
-            name={iconName}
-            color="gray"
-            style={{ fontSize: `calc(${imageSize}px * 0.75)` }}
-          />
-        </Stack.Item>
-      </Stack>
-    );
-  }
-
   let buttonContent = (
     <div
       className={classes([
@@ -167,12 +152,14 @@ export function ImageButton(props: Props) {
           <DmIcon
             icon={dmIcon}
             icon_state={dmIconState}
-            fallback={dmFallback ? dmFallback : getFallback('spinner', true)}
+            fallback={
+              dmFallback || <Fallback icon="spinner" spin size={imageSize} />
+            }
             height={`${imageSize}px`}
             width={`${imageSize}px`}
           />
         ) : (
-          getFallback('question', false)
+          <Fallback icon="question" />
         )}
       </div>
       {fluid ? (
@@ -256,5 +243,29 @@ export function ImageButton(props: Props) {
         </div>
       )}
     </div>
+  );
+}
+
+type FallbackProps = {
+  icon: string;
+} & Partial<{
+  spin: true;
+  size: number;
+}>;
+
+function Fallback(props: FallbackProps) {
+  const { icon, spin = false, size = 64 } = props;
+
+  return (
+    <Stack height={`${size}px`} width={`${size}px`}>
+      <Stack.Item grow textAlign="center" align="center">
+        <Icon
+          spin={spin}
+          name={icon}
+          color="gray"
+          style={{ fontSize: `calc(${size}px * 0.75)` }}
+        />
+      </Stack.Item>
+    </Stack>
   );
 }

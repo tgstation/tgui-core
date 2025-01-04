@@ -73,10 +73,6 @@ type Props = Partial<{
   EllipsisUnion &
   BoxProps;
 
-/**
- * ## Button
- * Buttons allow users to take actions, and make choices, with a single click.
- */
 export function Button(props: Props) {
   const {
     captureKeys = true,
@@ -205,7 +201,7 @@ type CheckProps = Partial<{
 }> &
   Props;
 
-export function ButtonCheckbox(props: CheckProps) {
+function ButtonCheckbox(props: CheckProps) {
   const { checked, ...rest } = props;
 
   return (
@@ -217,12 +213,6 @@ export function ButtonCheckbox(props: CheckProps) {
     />
   );
 }
-
-/**
- * ## Button.Checkbox
- * A ghetto checkbox, made entirely using existing Button API.
- */
-Button.Checkbox = ButtonCheckbox;
 
 type ConfirmProps = Partial<{
   confirmColor: string;
@@ -267,16 +257,9 @@ function ButtonConfirm(props: ConfirmProps) {
   );
 }
 
-/**
- * ## Button.Confirm
- * A button with an extra confirmation step, using native button component.
- */
-Button.Confirm = ButtonConfirm;
-
 type InputProps = Partial<{
   currentValue: string;
   defaultValue: string;
-  fluid: boolean;
   maxLength: number;
   onCommit: (e: any, value: string) => void;
   placeholder: string;
@@ -389,14 +372,6 @@ function ButtonInput(props: InputProps) {
   return buttonContent;
 }
 
-/**
- * ## Button.Input
- * A button that turns into an input box after the first click.
- *
- * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
- */
-Button.Input = ButtonInput;
-
 type FileProps = {
   accept: string;
   multiple?: boolean;
@@ -445,7 +420,30 @@ function ButtonFile(props: FileProps) {
 }
 
 /**
- * ## Button.File
- * Accepts file input, based on the native element.
+ * ## Button
+ * Buttons allow users to take actions, and make choices, with a single click.
  */
-Button.File = ButtonFile;
+export namespace Button {
+  /**
+   * ## Button.Checkbox
+   * A ghetto checkbox, made entirely using existing Button API.
+   */
+  export const Checkbox = ButtonCheckbox;
+  /**
+   * ## Button.Confirm
+   * A button with an extra confirmation step, using native button component.
+   */
+  export const Confirm = ButtonConfirm;
+  /**
+   * ## Button.Input
+   * A button that turns into an input box after the first click.
+   *
+   * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
+   */
+  export const Input = ButtonInput;
+  /**
+   * ## Button.File
+   * Accepts file input, based on the native element.
+   */
+  export const File = ButtonFile;
+}
