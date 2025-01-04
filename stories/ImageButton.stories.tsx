@@ -5,7 +5,7 @@ import { Button, Icon, ImageButton } from '../lib/components';
 const soulFish = (
   <span style={{ color: 'rgba(255, 255, 255, 0.5' }}>SoulFish</span>
 );
-const base64Image =
+const soulFishImage =
   'iVBORw0KGgoAAAANSUhEUgAAACAAAAAgBAMAAACBVGfHAAAAIVBMVEXAwMAAAP8AAMwAZv9mMwCZZjMAAAD/mTP/zGb/ADMHBwd3bPqIAAAAAXRSTlMAQObYZgAAAI5JREFUKJFjYBhkQAiNz2iEJiAMEmBxQBIAaXENQOgwBgqwhEJVsKWlJRkbCsAF2NLKy9OSjQ0FVWEC5Rlt5cnGxsKmIVADKjo62oWBAoYwMyo6Z6AKlHd0lAMFlK1cYXrKywuNgQIL4AIMDEpAFauA9iIcthjkMgYXuACTlLKhAornFFctQvUtkyLDgAIAaJcdwdTNoTsAAAAASUVORK5CYII=';
 
 type StoryProps = ComponentProps<typeof ImageButton>;
@@ -39,7 +39,7 @@ export const FilledDefault: FilledDefaultStory = {
     return (
       <ImageButton
         title={'ImageButton'}
-        base64={base64Image}
+        base64={soulFishImage}
         disabled={disabled}
         selected={selected}
         buttons={
@@ -71,7 +71,7 @@ export const FilledFluid: FilledFluidStory = {
       <ImageButton
         fluid
         title={'ImageButton'}
-        base64={base64Image}
+        base64={soulFishImage}
         disabled={disabled}
         selected={selected}
         buttonsAlt={
@@ -130,7 +130,7 @@ export const Mixed: MixedStory = {
       <ImageButton
         fluid={!compact}
         title={'ImageButton'}
-        base64={base64Image}
+        base64={soulFishImage}
         imageSize={compact ? 96 : 64}
         disabled={disabled}
         selected={selected}
@@ -199,7 +199,7 @@ export const Colors: ColorsStory = {
             color={color}
             fluid={!compact}
             title={!compact ? color : ''}
-            base64={base64Image}
+            base64={soulFishImage}
             imageSize={compact ? 96 : 48}
             disabled={disabled}
             selected={selected}
