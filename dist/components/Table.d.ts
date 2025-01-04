@@ -3,6 +3,24 @@ type Props = Partial<{
     /** Collapses table to the smallest possible size. */
     collapsing: boolean;
 }> & BoxProps;
+export declare function Table(props: Props): import("react/jsx-runtime").JSX.Element;
+type RowProps = Partial<{
+    /** Whether this is a header cell. */
+    header: boolean;
+}> & BoxProps;
+declare function TableRow(props: RowProps): import("react/jsx-runtime").JSX.Element;
+type CellProps = Partial<{
+    /** Additional columns for this cell to expand, assuming there is room. */
+    colSpan: number;
+    /** Collapses table cell to the smallest possible size,
+    and stops any text inside from wrapping. */
+    collapsing: boolean;
+    /** Whether this is a header cell. */
+    header: boolean;
+    /** Rows for this cell to expand, assuming there is room. */
+    rowSpan: number;
+}> & BoxProps;
+declare function TableCell(props: CellProps): import("react/jsx-runtime").JSX.Element;
 /**
  * ## Table
  * A straight forward mapping to a standard html table, which is slightly
@@ -21,26 +39,16 @@ type Props = Partial<{
  * </Table>
  * ```
  */
-export declare function Table(props: Props): import("react/jsx-runtime").JSX.Element;
 export declare namespace Table {
-    var Row: typeof TableRow;
-    var Cell: typeof TableCell;
+    /**
+     * ## Table.Cell
+     * A straight forward mapping to `<td>` element.
+     */
+    const Cell: typeof TableCell;
+    /**
+     * ## Table.Row
+     * A straight forward mapping to `<tr>` element.
+     */
+    const Row: typeof TableRow;
 }
-type RowProps = Partial<{
-    /** Whether this is a header cell. */
-    header: boolean;
-}> & BoxProps;
-declare function TableRow(props: RowProps): import("react/jsx-runtime").JSX.Element;
-type CellProps = Partial<{
-    /** Additional columns for this cell to expand, assuming there is room. */
-    colSpan: number;
-    /** Collapses table cell to the smallest possible size,
-    and stops any text inside from wrapping. */
-    collapsing: boolean;
-    /** Whether this is a header cell. */
-    header: boolean;
-    /** Rows for this cell to expand, assuming there is room. */
-    rowSpan: number;
-}> & BoxProps;
-declare function TableCell(props: CellProps): import("react/jsx-runtime").JSX.Element;
 export {};

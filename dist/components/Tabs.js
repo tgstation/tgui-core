@@ -1,62 +1,65 @@
-import { jsx as a, jsxs as u } from "react/jsx-runtime";
-import { classes as T, canRender as d } from "../common/react.js";
-import { computeBoxClassName as f, computeBoxProps as h } from "../common/ui.js";
-import { Icon as N } from "./Icon.js";
-function v(l) {
-  const { className: c, vertical: i, fill: o, fluid: e, children: r, ...s } = l;
+import { jsx as a, jsxs as N } from "react/jsx-runtime";
+import { classes as f, canRender as d } from "../common/react.js";
+import { computeBoxClassName as h, computeBoxProps as p } from "../common/ui.js";
+import { Icon as v } from "./Icon.js";
+function T(e) {
+  const { className: i, vertical: c, fill: o, fluid: s, children: r, ...l } = e;
   return /* @__PURE__ */ a(
     "div",
     {
-      className: T([
+      className: f([
         "Tabs",
-        i ? "Tabs--vertical" : "Tabs--horizontal",
+        c ? "Tabs--vertical" : "Tabs--horizontal",
         o && "Tabs--fill",
-        e && "Tabs--fluid",
-        c,
-        f(s)
+        s && "Tabs--fluid",
+        i,
+        h(l)
       ]),
-      ...h(s),
+      ...p(l),
       children: r
     }
   );
 }
-function x(l) {
+function x(e) {
   const {
-    className: c,
-    selected: i,
+    className: i,
+    selected: c,
     color: o,
-    icon: e,
+    icon: s,
     iconSpin: r,
-    leftSlot: s,
+    leftSlot: l,
     rightSlot: t,
-    children: p,
+    children: u,
     onClick: n,
     ...m
-  } = l, _ = (b) => {
+  } = e;
+  function _(b) {
     n && (n(b), b.target.blur());
-  };
-  return /* @__PURE__ */ u(
+  }
+  return /* @__PURE__ */ N(
     "div",
     {
-      className: T([
+      className: f([
         "Tab",
         "Tabs__Tab",
         `Tab--color--${o}`,
-        i && "Tab--selected",
-        c,
-        f(m)
+        c && "Tab--selected",
+        i,
+        h(m)
       ]),
       onClick: _,
-      ...h(m),
+      ...p(m),
       children: [
-        d(s) && /* @__PURE__ */ a("div", { className: "Tab__left", children: s }) || !!e && /* @__PURE__ */ a("div", { className: "Tab__left", children: /* @__PURE__ */ a(N, { name: e, spin: r }) }),
-        /* @__PURE__ */ a("div", { className: "Tab__text", children: p }),
+        d(l) && /* @__PURE__ */ a("div", { className: "Tab__left", children: l }) || !!s && /* @__PURE__ */ a("div", { className: "Tab__left", children: /* @__PURE__ */ a(v, { name: s, spin: r }) }),
+        /* @__PURE__ */ a("div", { className: "Tab__text", children: u }),
         d(t) && /* @__PURE__ */ a("div", { className: "Tab__right", children: t })
       ]
     }
   );
 }
-v.Tab = x;
+((e) => {
+  e.Tab = x;
+})(T || (T = {}));
 export {
-  v as Tabs
+  T as Tabs
 };

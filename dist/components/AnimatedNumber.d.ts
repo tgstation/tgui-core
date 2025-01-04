@@ -9,13 +9,13 @@ type Props = {
      * If provided, a function that formats the inner string. By default,
      * attempts to match the numeric precision of `value`.
      */
-    format?: (value: number) => string;
+    format: (value: number) => string;
     /**
      * If provided, the initial value displayed. By default, the same as `value`.
      * If `initial` and `value` are different, the component immediately starts
      * animating.
      */
-    initial?: number;
+    initial: number;
 }>;
 /**
  * ## AnimatedNumber

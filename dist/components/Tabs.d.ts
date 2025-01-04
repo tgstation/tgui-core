@@ -13,6 +13,22 @@ type Props = Partial<{
     /** Use a vertical configuration, where tabs will be stacked vertically. */
     vertical: boolean;
 }> & BoxProps;
+export declare function Tabs(props: Props): import("react/jsx-runtime").JSX.Element;
+type TabProps = Partial<{
+    /** Font awesome icon. @see https://fontawesome.com/v6/search?o=r&m=free */
+    icon: string;
+    /** Causes the icon to spin */
+    iconSpin: boolean;
+    /** Left slot content */
+    leftSlot: ReactNode;
+    /** Called when element is clicked */
+    onClick: (e?: any) => void;
+    /** Right slot content */
+    rightSlot: ReactNode;
+    /** Whether the tab is selected */
+    selected: boolean;
+}> & BoxProps;
+declare function TabItem(props: TabProps): import("react/jsx-runtime").JSX.Element;
 /**
  *  ## Tabs
  * Tabs make it easy to explore and switch between different views.
@@ -71,22 +87,12 @@ type Props = Partial<{
  * </Section>
  * ```
  */
-export declare function Tabs(props: Props): import("react/jsx-runtime").JSX.Element;
 export declare namespace Tabs {
-    var Tab: (props: TabProps) => import("react/jsx-runtime").JSX.Element;
+    /**
+     * ## Tabs.Tab
+     * An individual tab element. Tabs function like buttons, so they inherit
+     * a lot of `Button` props.
+     */
+    const Tab: typeof TabItem;
 }
-type TabProps = Partial<{
-    /** Font awesome icon. */
-    icon: string;
-    /** Causes the icon to spin */
-    iconSpin: boolean;
-    /** Left slot content */
-    leftSlot: ReactNode;
-    /** Called when element is clicked */
-    onClick: (e?: any) => void;
-    /** Right slot content */
-    rightSlot: ReactNode;
-    /** Whether the tab is selected */
-    selected: boolean;
-}> & BoxProps;
 export {};

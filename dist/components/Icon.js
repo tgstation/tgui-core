@@ -1,43 +1,45 @@
-import { jsx as m } from "react/jsx-runtime";
-import { classes as l } from "../common/react.js";
-import { computeBoxProps as p, computeBoxClassName as u } from "../common/ui.js";
+import { jsx as l } from "react/jsx-runtime";
+import { classes as p } from "../common/react.js";
+import { computeBoxProps as u, computeBoxClassName as N } from "../common/ui.js";
 const f = /-o$/;
-function d(c) {
-  const { name: s = "", size: o, spin: a, className: N, rotation: r, ...e } = c, n = e.style || {};
-  o && (n.fontSize = `${o * 100}%`), r && (n.transform = `rotate(${r}deg)`), e.style = n;
-  const x = p(e);
+function m(o) {
+  const { name: s = "", size: a, spin: e, className: x, rotation: r, ...c } = o, n = c.style || {};
+  a && (n.fontSize = `${a * 100}%`), r && (n.transform = `rotate(${r}deg)`), c.style = n;
+  const I = u(c);
   let t = "";
   if (s.startsWith("tg-"))
     t = s;
   else {
-    const I = f.test(s), i = s.replace(f, ""), S = !i.startsWith("fa-");
-    t = I ? "far " : "fas ", S && (t += "fa-"), t += i, a && (t += " fa-spin");
+    const S = f.test(s), i = s.replace(f, ""), d = !i.startsWith("fa-");
+    t = S ? "far " : "fas ", d && (t += "fa-"), t += i, e && (t += " fa-spin");
   }
-  return /* @__PURE__ */ m(
+  return /* @__PURE__ */ l(
     "i",
     {
-      className: l([
+      className: p([
         "Icon",
         t,
-        N,
-        u(e)
+        x,
+        N(c)
       ]),
-      ...x
+      ...I
     }
   );
 }
-function g(c) {
-  const { className: s, children: o, ...a } = c;
-  return /* @__PURE__ */ m(
+function g(o) {
+  const { className: s, children: a, ...e } = o;
+  return /* @__PURE__ */ l(
     "span",
     {
-      className: l(["IconStack", s, u(a)]),
-      ...p(a),
-      children: o
+      className: p(["IconStack", s, N(e)]),
+      ...u(e),
+      children: a
     }
   );
 }
-d.Stack = g;
+((o) => {
+  o.Stack = g;
+})(m || (m = {}));
 export {
-  d as Icon
+  m as Icon
 };

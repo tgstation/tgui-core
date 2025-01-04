@@ -17,7 +17,7 @@ function m(e) {
     }
   );
 }
-function i(e) {
+function b(e) {
   const { className: l, header: a, ...s } = e;
   return /* @__PURE__ */ c(
     "tr",
@@ -32,9 +32,8 @@ function i(e) {
     }
   );
 }
-m.Row = i;
-function T(e) {
-  const { className: l, collapsing: a, colSpan: s, header: o, ...b } = e;
+function _(e) {
+  const { className: l, collapsing: a, colSpan: s, header: o, ...i } = e;
   return /* @__PURE__ */ c(
     "td",
     {
@@ -46,11 +45,13 @@ function T(e) {
         t(e)
       ]),
       colSpan: s,
-      ...n(b)
+      ...n(i)
     }
   );
 }
-m.Cell = T;
+((e) => {
+  e.Cell = _, e.Row = b;
+})(m || (m = {}));
 export {
   m as Table
 };

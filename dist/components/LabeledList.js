@@ -1,29 +1,29 @@
-import { jsx as e, jsxs as d } from "react/jsx-runtime";
+import { jsx as l, jsxs as d } from "react/jsx-runtime";
 import { classes as c } from "../common/react.js";
 import { unit as g } from "../common/ui.js";
 import { Box as r } from "./Box.js";
 import { Divider as x } from "./Divider.js";
 import { Tooltip as N } from "./Tooltip.js";
-function b(l) {
-  const { children: t } = l;
-  return /* @__PURE__ */ e("table", { className: "LabeledList", children: /* @__PURE__ */ e("tbody", { children: t }) });
+function b(e) {
+  const { children: t } = e;
+  return /* @__PURE__ */ l("table", { className: "LabeledList", children: /* @__PURE__ */ l("tbody", { children: t }) });
 }
-function v(l) {
+function v(e) {
   const {
     className: t,
-    label: a,
+    label: o,
     labelColor: m = "label",
     labelWrap: L,
     color: p,
     textAlign: _,
-    buttons: o,
+    buttons: a,
     content: f,
     children: h,
     verticalAlign: s = "baseline",
     tooltip: n
-  } = l;
+  } = e;
   let i;
-  a && (i = a, typeof a == "string" && (i += ":")), n !== void 0 && (i = /* @__PURE__ */ e(N, { content: n, children: /* @__PURE__ */ e(
+  o && (i = o, typeof o == "string" && (i += ":")), n !== void 0 && (i = /* @__PURE__ */ l(N, { content: n, children: /* @__PURE__ */ l(
     r,
     {
       as: "span",
@@ -33,7 +33,7 @@ function v(l) {
       children: i
     }
   ) }));
-  const u = /* @__PURE__ */ e(
+  const u = /* @__PURE__ */ l(
     r,
     {
       as: "td",
@@ -56,7 +56,7 @@ function v(l) {
         color: p,
         textAlign: _,
         className: "LabeledList__cell",
-        colSpan: o ? void 0 : 2,
+        colSpan: a ? void 0 : 2,
         verticalAlign: s,
         children: [
           f,
@@ -64,13 +64,12 @@ function v(l) {
         ]
       }
     ),
-    o && /* @__PURE__ */ e("td", { className: "LabeledList__cell LabeledList__buttons", children: o })
+    a && /* @__PURE__ */ l("td", { className: "LabeledList__cell LabeledList__buttons", children: a })
   ] });
 }
-b.Item = v;
-function y(l) {
-  const t = l.size ? g(Math.max(0, l.size - 1)) : 0;
-  return /* @__PURE__ */ e("tr", { className: "LabeledList__row", children: /* @__PURE__ */ e(
+function y(e) {
+  const t = e.size ? g(Math.max(0, e.size - 1)) : 0;
+  return /* @__PURE__ */ l("tr", { className: "LabeledList__row", children: /* @__PURE__ */ l(
     "td",
     {
       colSpan: 3,
@@ -78,11 +77,13 @@ function y(l) {
         paddingTop: t,
         paddingBottom: t
       },
-      children: /* @__PURE__ */ e(x, {})
+      children: /* @__PURE__ */ l(x, {})
     }
   ) });
 }
-b.Divider = y;
+((e) => {
+  e.Divider = y, e.Item = v;
+})(b || (b = {}));
 export {
   b as LabeledList
 };

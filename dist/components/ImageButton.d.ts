@@ -2,6 +2,7 @@ import { Placement } from '@popperjs/core';
 import { ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
+import { Direction } from './DmIcon';
 type Props = Partial<{
     /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
     asset: string[];
@@ -15,11 +16,11 @@ type Props = Partial<{
      */
     buttons: ReactNode;
     /**
-     * Enables alternate layout for `buttons` container.
-     * Without fluid, buttons will be on top and with `pointer-events: none`, useful for text info.
-     * With fluid, buttons will be in "hamburger" style.
+     * Same as buttons, but. Have disabled pointer-events on content inside if non-fluid.
+     * Fluid version have humburger layout.
+     * Can be used with buttons prop.
      */
-    buttonsAlt: boolean;
+    buttonsAlt: ReactNode;
     /** Content under image. Or on the right if fluid. */
     children: ReactNode;
     /** Applies a CSS class to the element. */
@@ -38,6 +39,8 @@ type Props = Partial<{
     dmIcon: string | null;
     /** Parameter `icon_state` of component `DmIcon`. */
     dmIconState: string | null;
+    /** Parameter `direction` of component `DmIcon`. */
+    dmDirection: Direction;
     /**
      * Changes the layout of the button, making it fill the entire horizontally available space.
      * Allows the use of `title`
@@ -45,7 +48,7 @@ type Props = Partial<{
     fluid: boolean;
     /** Parameter responsible for the size of the image, component and standard "stubs". */
     imageSize: number;
-    /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image}` */
+    /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image)}` */
     imageSrc: string;
     /** Called when button is clicked with LMB. */
     onClick: (e: any) => void;
@@ -60,5 +63,11 @@ type Props = Partial<{
     /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
     tooltipPosition: Placement;
 }> & BoxProps;
+/**
+ * Stylized button, with the ability to easily and simply insert any picture into it.
+ * - Without image, will be default question icon.
+ * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
+ * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
+ */
 export declare function ImageButton(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};
