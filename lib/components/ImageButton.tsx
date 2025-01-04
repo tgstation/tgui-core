@@ -121,7 +121,8 @@ export function ImageButton(props: Props) {
     <div
       className={classes([
         'container',
-        buttons && 'hasButtons',
+        (buttons as boolean) ||
+          (fluid && (buttonsAlt as boolean) && 'hasButtons'),
         !onClick && !onRightClick && 'noAction',
         selected && 'ImageButton--selected',
         disabled && 'ImageButton--disabled',
@@ -238,7 +239,7 @@ export function ImageButton(props: Props) {
             !children && 'buttonsEmpty',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'buttonsContainerColor__default',
+              : fluid && 'ImageButton--buttonsContainerColor__default',
           ])}
           style={{
             width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
