@@ -17,7 +17,7 @@
       "default": "./lib/styles/main.scss",
       "sass": "./lib/styles/main.scss"
     },
-    "./styles/components/*": {
+    "./styles/components/*.scss": {
       "sass": "./lib/styles/components/*.scss"
     }
   },
