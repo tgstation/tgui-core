@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/react';
 import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
 import { withConsole } from '@storybook/addon-console';
-import '../lib/styles/main.scss';
+import '../styles/main.scss';
 
 const preview: Preview = {
   parameters: {
