@@ -48,6 +48,9 @@ importers:
       '@storybook/test':
         specifier: ^8.4.7
         version: 8.4.7(storybook@8.4.7(prettier@3.3.3))
+      '@storybook/theming':
+        specifier: ^8.4.7
+        version: 8.4.7(storybook@8.4.7(prettier@3.3.3))
       '@types/node':
         specifier: ^22.9.0
         version: 22.9.0
