@@ -67,7 +67,7 @@ function N(o) {
         i && C !== "right" && /* @__PURE__ */ r(
           S,
           {
-            mr: n ? 0.5 : 0,
+            mr: n && 0.5,
             name: i,
             color: a,
             rotation: I,
@@ -88,7 +88,7 @@ function N(o) {
         i && C === "right" && /* @__PURE__ */ r(
           S,
           {
-            ml: n ? 0.5 : 0,
+            ml: n && 0.5,
             name: i,
             color: a,
             rotation: I,
