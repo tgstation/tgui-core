@@ -151,7 +151,7 @@ export function Button(props: Props) {
       <div className="Button__content">
         {icon && iconPosition !== 'right' && (
           <Icon
-            mr={toDisplay ? 0.5 : 0}
+            mr={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
@@ -173,7 +173,7 @@ export function Button(props: Props) {
         )}
         {icon && iconPosition === 'right' && (
           <Icon
-            ml={toDisplay ? 0.5 : 0}
+            ml={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
