@@ -17,14 +17,27 @@ export const Default: Story = {
   },
 };
 
-type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
-
 export const WithIcon: Story = {
   args: {
-    children: 'Submit',
     icon: 'envelope',
   },
+
+  render: (args) => {
+    return (
+      <>
+        <Button {...args}>Default</Button>
+        <br />
+        <Button {...args} iconPosition="right">
+          Icon Right
+        </Button>
+        <br />
+        <Button {...args} /> Only Icon
+      </>
+    );
+  },
 };
+
+type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
 export const Checkbox: CheckboxStory = {
   args: {
