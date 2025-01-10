@@ -61,36 +61,53 @@ export const FilledDefault: Story = {
 };
 
 export const FilledFluid: Story = {
+  args: {
+    fluid: true,
+    title: 'ImageButton',
+    base64: soulFishImage,
+    tooltip: 'Also, you can Right Click on it',
+    tooltipPosition: 'bottom',
+  },
+
   render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
+    const buttons = (
+      <Button
+        color={disabled ? 'bad' : 'transparent'}
+        onClick={() => setDisabled(!disabled)}
+      >
+        <Icon name={'power-off'} size={1.66} mb={1} />
+        <br />
+        {disabled ? 'Enable' : 'Disable'}
+      </Button>
+    );
 
     return (
-      <ImageButton
-        {...args}
-        fluid
-        title={'ImageButton'}
-        base64={soulFishImage}
-        disabled={disabled}
-        selected={selected}
-        buttonsAlt={
-          <Button
-            color={disabled ? 'bad' : 'transparent'}
-            onClick={() => setDisabled(!disabled)}
-          >
-            <Icon name={'power-off'} size={1.66} mb={1} />
-            <br />
-            {disabled ? 'Enable' : 'Disable'}
-          </Button>
-        }
-        tooltip={'Also, you can Right Click on it'}
-        tooltipPosition={'bottom'}
-        onClick={() => setSelected(!selected)}
-        onRightClick={() => setDisabled(!disabled)}
-      >
-        You can put any component you want inside "buttons" or "buttonsAlt"
-        props
-      </ImageButton>
+      <>
+        <ImageButton
+          {...args}
+          disabled={disabled}
+          selected={selected}
+          buttonsAlt={buttons}
+          onClick={() => setSelected(!selected)}
+          onRightClick={() => setDisabled(!disabled)}
+        >
+          Fluid with buttonsAlt prop. buttonsAlt container has a fixed width
+          that depends on the size of the image
+        </ImageButton>
+        <ImageButton
+          {...args}
+          disabled={disabled}
+          selected={selected}
+          buttons={buttons}
+          onClick={() => setSelected(!selected)}
+          onRightClick={() => setDisabled(!disabled)}
+        >
+          Fluid with buttons prop. buttons container can have custom width. Here
+          is auto width
+        </ImageButton>
+      </>
     );
   },
 };
