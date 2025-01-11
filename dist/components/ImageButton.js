@@ -35,7 +35,7 @@ function W(d) {
     {
       className: l([
         "container",
-        i || e && p && "hasButtons",
+        e && (!!i || !!p) && "hasButtons",
         !m && !f && "noAction",
         C && "ImageButton--selected",
         r && "ImageButton--disabled",
