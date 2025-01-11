@@ -113,7 +113,7 @@ export function ImageButton(props: Props) {
       className={classes([
         'container',
         fluid &&
-          ((buttons as boolean) || (buttonsAlt as boolean)) &&
+          (!!buttons || !!buttonsAlt) &&
           'hasButtons',
         !onClick && !onRightClick && 'noAction',
         selected && 'ImageButton--selected',
