@@ -112,8 +112,7 @@ export function ImageButton(props: Props) {
     <div
       className={classes([
         'container',
-        (buttons as boolean) ||
-          (fluid && (buttonsAlt as boolean) && 'hasButtons'),
+        fluid && (!!buttons || !!buttonsAlt) && 'hasButtons',
         !onClick && !onRightClick && 'noAction',
         selected && 'ImageButton--selected',
         disabled && 'ImageButton--disabled',
