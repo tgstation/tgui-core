@@ -36,7 +36,7 @@ $bg-map: colors.$bg-map !default;
 
   @if $hoverable {
     &:hover {
-      background-color: rgba(lighten($color, 50%), $opacity);
+      background-color: rgba(lighten($color, 66%), $opacity);
     }
   }
 }
@@ -73,6 +73,11 @@ $bg-map: colors.$bg-map !default;
 .ImageButton--disabled {
   background-color: rgba($color-disabled, 0.25) !important;
   border-color: rgba($color-disabled, 0.25) !important;
+
+  & ~ .buttonsContainer {
+    background-color: rgba($color-disabled, 0.25) !important;
+    border-color: rgba($color-disabled, 0.25) !important;
+  }
 }
 
 .ImageButton--selected {
@@ -161,10 +166,10 @@ $bg-map: colors.$bg-map !default;
       bottom: inherit !important;
       /** Text outline. Sort of. */
       text-shadow:
-        0px 1px 1px base.$color-bg,
-        1px 0px 1px base.$color-bg,
-        1px 0px 1px base.$color-bg,
-        -1px 0px 1px base.$color-bg;
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg;
     }
 
     &.buttonsEmpty {
