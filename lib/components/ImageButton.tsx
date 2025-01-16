@@ -230,6 +230,7 @@ export function ImageButton(props: Props) {
           className={classes([
             'buttonsContainer',
             !children && 'buttonsEmpty',
+            fluid && disabled && 'ImageButton--disabled',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',
@@ -247,6 +248,7 @@ export function ImageButton(props: Props) {
             'buttonsContainer',
             'buttonsAltContainer',
             !children && 'buttonsEmpty',
+            fluid && disabled && 'ImageButton--disabled',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',

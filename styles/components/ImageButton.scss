@@ -73,11 +73,6 @@ $bg-map: colors.$bg-map !default;
 .ImageButton--disabled {
   background-color: rgba($color-disabled, 0.25) !important;
   border-color: rgba($color-disabled, 0.25) !important;
-
-  & ~ .buttonsContainer {
-    background-color: rgba($color-disabled, 0.25) !important;
-    border-color: rgba($color-disabled, 0.25) !important;
-  }
 }
 
 .ImageButton--selected {
