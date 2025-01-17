@@ -6,6 +6,12 @@ import { Direction } from './DmIcon';
 type Props = Partial<{
     /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
     asset: string[];
+    /**
+     * Asset size. Used for asset scaling. Example: `assetSize={32}`
+     * With that, you can use `imageSize` to set asset image size in px.
+     * By default, it's 32px. So if you have 32x32 you don't need to touch it.
+     */
+    assetSize: number;
     /** Classic way to put images. Example: `base64={thing.image}` */
     base64: string;
     /**
