@@ -54,7 +54,11 @@ export function Image(props: Props) {
           }, 1000);
         }
       }}
-      src={src}
+      src={
+        src ||
+        /** Use transparent base64 pixel if there is no src. So we don't get broken image icon when using assets */
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+      }
       {...computedProps}
       alt="dm icon"
     />

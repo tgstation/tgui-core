@@ -18,6 +18,12 @@ import { Tooltip } from './Tooltip';
 type Props = Partial<{
   /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
   asset: string[];
+  /**
+   * Asset size. Used for asset scaling. Example: `assetSize={32}`
+   * With that, you can use `imageSize` to set asset image size in px.
+   * By default, it's 32px. So if you have 32x32 you don't need to touch it.
+   */
+  assetSize: number;
   /** Classic way to put images. Example: `base64={thing.image}` */
   base64: string;
   /**
@@ -86,6 +92,7 @@ type Props = Partial<{
 export function ImageButton(props: Props) {
   const {
     asset,
+    assetSize = 32,
     base64,
     buttons,
     buttonsAlt,
@@ -139,10 +146,10 @@ export function ImageButton(props: Props) {
       }}
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
+      {/** There is too many ternaty operators, why we can't just use unified image type? */}
       <div className="image">
-        {base64 || asset || imageSrc ? (
+        {base64 || imageSrc ? (
           <Image
-            className={classes((!base64 && !imageSrc && asset) || [])}
             src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
             width={`${imageSize}px`}
@@ -157,10 +164,21 @@ export function ImageButton(props: Props) {
             height={`${imageSize}px`}
             width={`${imageSize}px`}
           />
+        ) : asset ? (
+          <Image
+            className={classes(asset || [])}
+            height={`${imageSize}px`}
+            width={`${imageSize}px`}
+            style={{
+              transform: `scale(${imageSize / assetSize})`,
+              transformOrigin: 'top left',
+            }}
+          />
         ) : (
-          <Fallback icon="question" />
+          <Fallback icon="question" size={imageSize} />
         )}
       </div>
+      {/** End of image container */}
       {fluid ? (
         <div className="info">
           {title && (
@@ -212,6 +230,7 @@ export function ImageButton(props: Props) {
           className={classes([
             'buttonsContainer',
             !children && 'buttonsEmpty',
+            fluid && disabled && 'ImageButton--disabled',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',
@@ -229,6 +248,7 @@ export function ImageButton(props: Props) {
             'buttonsContainer',
             'buttonsAltContainer',
             !children && 'buttonsEmpty',
+            fluid && disabled && 'ImageButton--disabled',
             fluid && color && typeof color === 'string'
               ? `ImageButton--buttonsContainerColor__${color}`
               : fluid && 'ImageButton--buttonsContainerColor__default',

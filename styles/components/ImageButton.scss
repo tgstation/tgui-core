@@ -36,7 +36,7 @@ $bg-map: colors.$bg-map !default;
 
   @if $hoverable {
     &:hover {
-      background-color: rgba(lighten($color, 50%), $opacity);
+      background-color: rgba(lighten($color, 66%), $opacity);
     }
   }
 }
@@ -159,6 +159,12 @@ $bg-map: colors.$bg-map !default;
       pointer-events: none;
       top: 1px;
       bottom: inherit !important;
+      /** Text outline. Sort of. */
+      text-shadow:
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg,
+        0px 0px 4px base.$color-bg;
     }
 
     &.buttonsEmpty {
@@ -249,6 +255,7 @@ $bg-map: colors.$bg-map !default;
       overflow: hidden;
       pointer-events: auto;
       top: inherit;
+      text-shadow: none;
 
       & > * {
         border-top: 1px solid rgba(255, 255, 255, 0.075);
