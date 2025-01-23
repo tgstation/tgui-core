@@ -23,7 +23,7 @@ export type FlexProps = Partial<{
    */
   direction: string;
   /** Makes flexbox container inline, with similar behavior to an `inline` property on a `Box`. */
-  inline: boolean;
+  inlineFlex: boolean;
   /**
    * This defines the alignment along the main axis. It helps distribute extra free space leftover when either all the flex items on a line are
    * inflexible, or are flexible but have reached their maximum size. It also exerts some control over the alignment of items when they overflow
@@ -61,7 +61,7 @@ export type FlexProps = Partial<{
 export function computeFlexClassName(props: FlexProps) {
   return classes([
     'Flex',
-    props.inline && 'Flex--inline',
+    props.inlineFlex && 'Flex--inline',
     computeBoxClassName(props),
   ]);
 }
