@@ -57,7 +57,7 @@ export function Image(props: Props) {
       src={
         src ||
         /** Use transparent base64 pixel if there is no src. So we don't get broken image icon when using assets */
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
+        'https://e7.pngegg.com/pngimages/444/845/png-clipart-shrek-shrek-thumbnail.png'
       }
       {...computedProps}
       alt="dm icon"
