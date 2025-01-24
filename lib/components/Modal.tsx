@@ -1,6 +1,6 @@
 import { KeyboardEvent } from 'react';
 
-import { isEscape, KEY } from '../common/keys';
+import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
@@ -16,9 +16,9 @@ import { Dimmer } from './Dimmer';
 export function Modal(
   props: BoxProps & {
     /** Fires once the enter key is pressed */
-    onEnter?: ((e: KeyboardEvent<HTMLInputElement>) => void);
+    onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void;
     /** Fires once the escape key is pressed */
-    onEscape?: ((e: KeyboardEvent<HTMLInputElement>) => void);
+    onEscape?: (e: KeyboardEvent<HTMLInputElement>) => void;
   },
 ) {
   const { className, children, onEnter, onEscape, ...rest } = props;
