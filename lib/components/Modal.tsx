@@ -1,4 +1,4 @@
-import { KeyboardEvent } from 'react';
+import type { KeyboardEvent } from 'react';
 
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
