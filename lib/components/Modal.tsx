@@ -6,6 +6,14 @@ import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
+export type ModalProps = BoxProps &
+  Partial<{
+    /** Fires once the enter key is pressed */
+    onEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
+    /** Fires once the escape key is pressed */
+    onEscape: (e: KeyboardEvent<HTMLInputElement>) => void;
+  }>;
+
 /**
  * ## Modal
  * A modal window. Uses a [Dimmer](https://github.com/tgstation/tgui-core/tree/main/lib/components/Dimmer.tsx)
@@ -13,14 +21,7 @@ import { Dimmer } from './Dimmer';
  *
  * Must be a direct child of a layout component (e.g. `Window`).
  */
-export function Modal(
-  props: BoxProps & {
-    /** Fires once the enter key is pressed */
-    onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void;
-    /** Fires once the escape key is pressed */
-    onEscape?: (e: KeyboardEvent<HTMLInputElement>) => void;
-  },
-) {
+export function Modal(props: ModalProps) {
   const { className, children, onEnter, onEscape, ...rest } = props;
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
