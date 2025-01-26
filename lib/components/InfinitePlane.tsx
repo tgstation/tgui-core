@@ -38,7 +38,10 @@ export type MouseEventExtension = {
   screenZoomY: number;
 };
 
-export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneState> {
+export class InfinitePlane extends Component<
+  InfinitePlaneProps,
+  InfinitePlaneState
+> {
   constructor(props: InfinitePlaneProps) {
     super(props);
 
@@ -76,7 +79,7 @@ export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneSt
     const { zoom } = this.state;
     event.screenZoomX = event.screenX * zoom ** -1;
     event.screenZoomY = event.screenY * zoom ** -1;
-  }
+  };
 
   handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     this.setState((state) => {
@@ -86,13 +89,13 @@ export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneSt
         lastTop: event.clientY - state.top,
       };
     });
-  }
+  };
 
   onMouseUp = () => {
     this.setState({
       mouseDown: false,
     });
-  }
+  };
 
   handleZoomIncrease = (_event: any) => {
     const { onZoomChange } = this.props;
@@ -104,7 +107,7 @@ export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneSt
     if (onZoomChange) {
       onZoomChange(newZoomValue);
     }
-  }
+  };
 
   handleZoomDecrease = (_event: any) => {
     const { onZoomChange } = this.props;
@@ -117,7 +120,7 @@ export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneSt
     if (onZoomChange) {
       onZoomChange(newZoomValue);
     }
-  }
+  };
 
   handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const { onBackgroundMoved, initialLeft = 0, initialTop = 0 } = this.props;
@@ -136,7 +139,7 @@ export class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneSt
         onBackgroundMoved(newX + initialLeft, newY + initialTop);
       }
     }
-  }
+  };
 
   render() {
     const {
