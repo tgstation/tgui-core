@@ -1,9 +1,9 @@
-import { Component, PropsWithChildren } from 'react';
+import { Component, type PropsWithChildren } from 'react';
 import { computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
 import { Stack } from './Stack';
-import { BoxProps } from './Box';
 
 const ZOOM_MIN_VAL = 0.5;
 const ZOOM_MAX_VAL = 1.5;
@@ -125,19 +125,19 @@ export class InfinitePlane extends Component<
   handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const { onBackgroundMoved, initialLeft = 0, initialTop = 0 } = this.props;
     if (this.state.mouseDown) {
-      let newX;
-      let newY;
+      let newX: number;
+      let newY: number;
       this.setState((state) => {
         newX = event.clientX - state.lastLeft;
         newY = event.clientY - state.lastTop;
+        if (onBackgroundMoved) {
+          onBackgroundMoved(newX + initialLeft, newY + initialTop);
+        }
         return {
           left: newX,
           top: newY,
         };
       });
-      if (onBackgroundMoved) {
-        onBackgroundMoved(newX + initialLeft, newY + initialTop);
-      }
     }
   };
 
