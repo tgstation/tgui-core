@@ -1,5 +1,6 @@
-import { Component } from 'react';
+import { Component, type PropsWithChildren } from 'react';
 import { computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
 import { Stack } from './Stack';
@@ -9,8 +10,39 @@ const ZOOM_MAX_VAL = 1.5;
 
 const ZOOM_INCREMENT = 0.1;
 
-export class InfinitePlane extends Component {
-  constructor(props) {
+export type InfinitePlaneProps = PropsWithChildren<
+  {
+    onZoomChange?: (newZoomValue: number) => void;
+    onBackgroundMoved?: (newX: number, newY: number) => void;
+    initialLeft?: number;
+    initialTop?: number;
+    backgroundImage?: string;
+    imageWidth: number;
+  } & BoxProps
+>;
+
+type InfinitePlaneState = {
+  mouseDown: boolean;
+
+  left: number;
+  top: number;
+
+  lastLeft: number;
+  lastTop: number;
+
+  zoom: number;
+};
+
+export type MouseEventExtension = {
+  screenZoomX: number;
+  screenZoomY: number;
+};
+
+export class InfinitePlane extends Component<
+  InfinitePlaneProps,
+  InfinitePlaneState
+> {
+  constructor(props: InfinitePlaneProps) {
     super(props);
 
     this.state = {
@@ -24,14 +56,6 @@ export class InfinitePlane extends Component {
 
       zoom: 1,
     };
-
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleZoomIncrease = this.handleZoomIncrease.bind(this);
-    this.handleZoomDecrease = this.handleZoomDecrease.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
-
-    this.doOffsetMouse = this.doOffsetMouse.bind(this);
   }
 
   componentDidMount() {
@@ -50,13 +74,14 @@ export class InfinitePlane extends Component {
     window.removeEventListener('mouseup', this.doOffsetMouse);
   }
 
-  doOffsetMouse(event) {
+  // This is really, REALLY cursed and basically overrides a built-in browser event via propagation rules
+  doOffsetMouse = (event: MouseEvent & MouseEventExtension) => {
     const { zoom } = this.state;
     event.screenZoomX = event.screenX * zoom ** -1;
     event.screenZoomY = event.screenY * zoom ** -1;
-  }
+  };
 
-  handleMouseDown(event) {
+  handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     this.setState((state) => {
       return {
         mouseDown: true,
@@ -64,15 +89,15 @@ export class InfinitePlane extends Component {
         lastTop: event.clientY - state.top,
       };
     });
-  }
+  };
 
-  onMouseUp() {
+  onMouseUp = () => {
     this.setState({
       mouseDown: false,
     });
-  }
+  };
 
-  handleZoomIncrease(_event) {
+  handleZoomIncrease = (_event: any) => {
     const { onZoomChange } = this.props;
     const { zoom } = this.state;
     const newZoomValue = Math.min(zoom + ZOOM_INCREMENT, ZOOM_MAX_VAL);
@@ -82,9 +107,9 @@ export class InfinitePlane extends Component {
     if (onZoomChange) {
       onZoomChange(newZoomValue);
     }
-  }
+  };
 
-  handleZoomDecrease(_event) {
+  handleZoomDecrease = (_event: any) => {
     const { onZoomChange } = this.props;
     const { zoom } = this.state;
     const newZoomValue = Math.max(zoom - ZOOM_INCREMENT, ZOOM_MIN_VAL);
@@ -95,26 +120,26 @@ export class InfinitePlane extends Component {
     if (onZoomChange) {
       onZoomChange(newZoomValue);
     }
-  }
+  };
 
-  handleMouseMove(event) {
+  handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const { onBackgroundMoved, initialLeft = 0, initialTop = 0 } = this.props;
     if (this.state.mouseDown) {
-      let newX;
-      let newY;
+      let newX: number;
+      let newY: number;
       this.setState((state) => {
         newX = event.clientX - state.lastLeft;
         newY = event.clientY - state.lastTop;
+        if (onBackgroundMoved) {
+          onBackgroundMoved(newX + initialLeft, newY + initialTop);
+        }
         return {
           left: newX,
           top: newY,
         };
       });
-      if (onBackgroundMoved) {
-        onBackgroundMoved(newX + initialLeft, newY + initialTop);
-      }
     }
-  }
+  };
 
   render() {
     const {
@@ -132,7 +157,6 @@ export class InfinitePlane extends Component {
 
     return (
       <div
-        ref={this.ref}
         {...computeBoxProps({
           ...rest,
           style: {
