@@ -161,6 +161,7 @@ export function toTitleCase(str: string): string {
   return currentStr;
 }
 
+const TRANSLATE_REGEX = /&(nbsp|amp|quot|lt|gt|apos|trade|copy);/g;
 const TRANSLATIONS = {
   amp: '&',
   apos: "'",
@@ -168,6 +169,8 @@ const TRANSLATIONS = {
   lt: '<',
   nbsp: ' ',
   quot: '"',
+  trade: '™',
+  cops: '©',
 } as const;
 
 /**
@@ -188,10 +191,7 @@ export function decodeHtmlEntities(str: string): string {
       .replace(/<br>/gi, '\n')
       .replace(/<\/?[a-z0-9-_]+[^>]*>/gi, '')
       // Basic entities
-      .replace(
-        /&(nbsp|amp|quot|lt|gt|apos);/g,
-        (_match, entity) => TRANSLATIONS[entity],
-      )
+      .replace(TRANSLATE_REGEX, (_match, entity) => TRANSLATIONS[entity])
       // Decimal entities
       .replace(/&#?([0-9]+);/gi, (_match, numStr) => {
         const num = Number.parseInt(numStr, 10);
