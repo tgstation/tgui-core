@@ -1,4 +1,4 @@
-function p(e, t = (r) => JSON.stringify(r)) {
+function l(e, t = (r) => JSON.stringify(r)) {
   const r = e.toLowerCase().trim();
   return (n) => {
     if (!r)
@@ -8,16 +8,16 @@ function p(e, t = (r) => JSON.stringify(r)) {
   };
 }
 const a = ["a", "e", "i", "o", "u"];
-function l(e, t, r) {
+function f(e, t, r) {
   return t === 1 ? e : r ? e + r : e.endsWith("s") || e.endsWith("x") || e.endsWith("z") || e.endsWith("ch") || e.endsWith("sh") ? `${e}es` : e.endsWith("y") && !a.includes(e.charAt(e.length - 2)) ? `${e.slice(0, -1)}ies` : `${e}s`;
 }
 function c(e) {
   return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-function f(e) {
+function h(e) {
   return e.replace(/(^\w{1})|(\s+\w{1})/g, (t) => t.toUpperCase());
 }
-function h(e) {
+function g(e) {
   return e.replace(/^\w/, (t) => t.toUpperCase());
 }
 const i = ["Id", "Tv"], u = [
@@ -43,7 +43,7 @@ const i = ["Id", "Tv"], u = [
   "To",
   "With"
 ];
-function g(e) {
+function d(e) {
   if (!e) return e;
   let t = e.replace(/([^\W_]+[^\s-]*) */g, (r) => c(r));
   for (const r of u) {
@@ -56,20 +56,19 @@ function g(e) {
   }
   return t;
 }
-const s = {
+const s = /&(nbsp|amp|quot|lt|gt|apos|trade|copy);/g, p = {
   amp: "&",
   apos: "'",
   gt: ">",
   lt: "<",
   nbsp: " ",
-  quot: '"'
+  quot: '"',
+  trade: "™",
+  cops: "©"
 };
-function d(e) {
+function m(e) {
   return e && e.replace(/<br>/gi, `
-`).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(
-    /&(nbsp|amp|quot|lt|gt|apos);/g,
-    (t, r) => s[r]
-  ).replace(/&#?([0-9]+);/gi, (t, r) => {
+`).replace(/<\/?[a-z0-9-_]+[^>]*>/gi, "").replace(s, (t, r) => p[r]).replace(/&#?([0-9]+);/gi, (t, r) => {
     const n = Number.parseInt(r, 10);
     return String.fromCharCode(n);
   }).replace(/&#x?([0-9a-f]+);/gi, (t, r) => {
@@ -80,10 +79,10 @@ function d(e) {
 export {
   a as VOWELS,
   c as capitalize,
-  f as capitalizeAll,
-  h as capitalizeFirst,
-  p as createSearch,
-  d as decodeHtmlEntities,
-  l as pluralize,
-  g as toTitleCase
+  h as capitalizeAll,
+  g as capitalizeFirst,
+  l as createSearch,
+  m as decodeHtmlEntities,
+  f as pluralize,
+  d as toTitleCase
 };
