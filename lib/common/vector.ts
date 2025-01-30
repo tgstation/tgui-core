@@ -40,7 +40,7 @@ export function vecInverse(vec: Vector): Vector {
 }
 
 export function vecLength(vec: Vector): number {
-  return Math.sqrt(vecMultiply(vec, vec).reduce(ADD));
+  return Math.sqrt(vecMultiply(vec, vec).reduce(add));
 }
 
 export function vecNormalize(vec: Vector): Vector {
