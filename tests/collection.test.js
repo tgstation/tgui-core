@@ -2,11 +2,11 @@ import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { zip } from '../lib/common/collections.ts';
 
-const vector1 = [1, 2, 3];
-const vector2 = [4, 7, 8, 1];
-const vector3 = [6, 2, 5];
+const array1 = [1, 2, 3];
+const array2 = [4, 7, 8, 1];
+const array3 = [6, 2, 5];
 
-// Vector Addition tests
+// Array Zip tests
 describe('Array zip', () => {
   it('Array zip: None same sized arrays, smaller first', () => {
     const result = [
@@ -15,7 +15,7 @@ describe('Array zip', () => {
       [3, 8],
       [undefined, 1],
     ];
-    assert.deepEqual(zip(vector1, vector2), result);
+    assert.deepEqual(zip(array1, array2), result);
   });
 
   it('Array zip: None same sized arrays, larger first', () => {
@@ -25,7 +25,7 @@ describe('Array zip', () => {
       [8, 3],
       [1, undefined],
     ];
-    assert.deepEqual(zip(vector2, vector1), result);
+    assert.deepEqual(zip(array2, array1), result);
   });
 
   it('Array zip: Same sized arrays', () => {
@@ -34,6 +34,6 @@ describe('Array zip', () => {
       [2, 2],
       [3, 5],
     ];
-    assert.deepEqual(zip(vector1, vector3), result);
+    assert.deepEqual(zip(array1, array3), result);
   });
 });
