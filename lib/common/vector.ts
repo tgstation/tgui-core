@@ -1,26 +1,35 @@
 import { zip } from './collections';
 
-const ADD = (a: number, b: number): number => a + b;
-const SUB = (a: number, b: number): number => a - b;
-const MUL = (a: number, b: number): number => a * b;
-const DIV = (a: number, b: number): number => a / b;
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+function sub(a: number, b: number): number {
+  return a - b;
+}
+function mul(a: number, b: number): number {
+  return a * b;
+}
+function div(a: number, b: number): number {
+  return a / b;
+}
 
 export type Vector = number[];
 
 export function vecAdd(...vecs: Vector[]): Vector {
-  return zip(...vecs).map((x) => x.reduce(ADD));
+  return zip(...vecs).map((x) => x.reduce(add));
 }
 
 export function vecSubtract(...vecs: Vector[]): Vector {
-  return zip(...vecs).map((x) => x.reduce(SUB));
+  return zip(...vecs).map((x) => x.reduce(sub));
 }
 
 export function vecMultiply(...vecs: Vector[]): Vector {
-  return zip(...vecs).map((x) => x.reduce(MUL));
+  return zip(...vecs).map((x) => x.reduce(mul));
 }
 
 export function vecDivide(...vecs: Vector[]): Vector {
-  return zip(...vecs).map((x) => x.reduce(DIV));
+  return zip(...vecs).map((x) => x.reduce(div));
 }
 
 export function vecScale(vec: Vector, n: number): Vector {
