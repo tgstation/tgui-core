@@ -16,14 +16,14 @@ const vector3 = [6, 2, 5];
 
 // Vector Addition tests
 describe('Vector addition', () => {
-  it('Vector addition: None same sized vectors, larger first', () => {
+  it('Vector addition: None same sized vectors, smaller first', () => {
     const result = [5, 9, 11, Number.NaN];
     assert.deepEqual(vecAdd(vector1, vector2), result);
   });
 
-  it('Vector addition: None same sized vectors, smaller first', () => {
+  it('Vector addition: None same sized vectors, larger first', () => {
     const result = [5, 9, 11, Number.NaN];
-    assert.deepEqual(vecAdd(vector1, vector2), result);
+    assert.deepEqual(vecAdd(vector2, vector1), result);
   });
 
   it('Vector addition: Same sized vectors', () => {
@@ -34,12 +34,12 @@ describe('Vector addition', () => {
 
 // Vector Subtraction tests
 describe('Vector subtraction', () => {
-  it('Vector subtraction: None same sized vectors, larger first', () => {
+  it('Vector subtraction: None same sized vectors, smaller first', () => {
     const result = [-3, -5, -5, Number.NaN];
     assert.deepEqual(vecSubtract(vector1, vector2), result);
   });
 
-  it('Vector subtraction: None same sized vectors, smaller first', () => {
+  it('Vector subtraction: None same sized vectors, larger first', () => {
     const result = [3, 5, 5, Number.NaN];
     assert.deepEqual(vecSubtract(vector2, vector1), result);
   });
@@ -52,12 +52,12 @@ describe('Vector subtraction', () => {
 
 // Vector Multiplication tests
 describe('Vector multiplicaiton', () => {
-  it('Vector multiplicaiton: None same sized vectors, larger first', () => {
+  it('Vector multiplicaiton: None same sized vectors, smaller first', () => {
     const result = [4, 14, 24, Number.NaN];
     assert.deepEqual(vecMultiply(vector1, vector2), result);
   });
 
-  it('Vector multiplicaiton: None same sized vectors, smaller first', () => {
+  it('Vector multiplicaiton: None same sized vectors, larger first', () => {
     const result = [4, 14, 24, Number.NaN];
     assert.deepEqual(vecMultiply(vector2, vector1), result);
   });
@@ -75,7 +75,7 @@ describe('Vector division', () => {
     assert.deepEqual(vecDivide(vector1, vector2), result);
   });
 
-  it('Vector division: None same sized vectors, smaller first', () => {
+  it('Vector division: None same sized vectors, larger first', () => {
     const result = [4, 3.5, 8 / 3, Number.NaN];
     assert.deepEqual(vecDivide(vector2, vector1), result);
   });
