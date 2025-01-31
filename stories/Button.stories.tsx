@@ -39,7 +39,6 @@ export const WithIcon: Story = {
 
 export const Ellipsis: Story = {
   args: {
-    fluid: true,
     ellipsis: true,
     icon: 'envelope',
     children: 'Very long content. Very long content. Very long content.',
@@ -48,14 +47,15 @@ export const Ellipsis: Story = {
   render: (args) => {
     return (
       <>
+        <Button {...args} width={10} icon={null} />
         <Button {...args} width={10} />
         <Button {...args} ellipsis={false} width={10} />
-        <br />
-        And with Stack too
         <Stack fill>
           {Array.from({ length: 10 }, () => (
             <Stack.Item grow key={'doesntMatter'}>
-              <Button {...args} />
+              <Button {...args} fluid>
+                Inside Stack
+              </Button>
             </Stack.Item>
           ))}
         </Stack>
