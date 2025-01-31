@@ -53,7 +53,7 @@ export const Ellipsis: Story = {
         <br />
         And with Stack too
         <Stack fill>
-          {Array.from({ length: 1 }, () => (
+          {Array.from({ length: 10 }, () => (
             <Stack.Item grow key={'doesntMatter'}>
               <Button {...args} />
             </Stack.Item>

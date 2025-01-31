@@ -167,7 +167,7 @@ $bg-map: colors.$bg-map !default;
   align-self: stretch;
 
   &--ellipsis {
-    display: flex;
+    display: flex; // Inline flex will broke ellipsis, don't change it.
     align-items: center;
   }
 }
