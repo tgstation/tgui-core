@@ -12,6 +12,11 @@ $zebra-background-color: base.$color-bg-section !default;
   height: 100%;
 }
 
+.Stack__item--grow {
+  min-width: 0;
+  min-height: 0;
+}
+
 .Stack--horizontal > .Stack__item {
   margin-left: 0.5em;
 

@@ -103,11 +103,16 @@ type StackItemProps = FlexItemProps &
   }>;
 
 function StackItem(props: StackItemProps) {
-  const { className, innerRef, ...rest } = props;
+  const { className, innerRef, grow, ...rest } = props;
 
   return (
     <div
-      className={classes(['Stack__item', className, computeBoxClassName(rest)])}
+      className={classes([
+        'Stack__item',
+        grow && 'Stack__item--grow',
+        className,
+        computeBoxClassName(rest),
+      ])}
       ref={innerRef}
       {...computeFlexItemProps(rest)}
     />

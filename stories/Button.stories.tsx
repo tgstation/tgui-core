@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps, useState } from 'react';
-import { Button } from '../lib/components/Button';
+import { Button, Stack } from '../lib/components';
 
 type StoryProps = ComponentProps<typeof Button>;
 
@@ -32,6 +32,33 @@ export const WithIcon: Story = {
         </Button>
         <br />
         <Button {...args} /> Only Icon
+      </>
+    );
+  },
+};
+
+export const Ellipsis: Story = {
+  args: {
+    fluid: true,
+    ellipsis: true,
+    icon: 'envelope',
+    children: 'Very long content. Very long content. Very long content.',
+  },
+
+  render: (args) => {
+    return (
+      <>
+        <Button {...args} width={10} />
+        <Button {...args} ellipsis={false} width={10} />
+        <br />
+        And with Stack too
+        <Stack fill>
+          {Array.from({ length: 1 }, () => (
+            <Stack.Item grow key={'doesntMatter'}>
+              <Button {...args} />
+            </Stack.Item>
+          ))}
+        </Stack>
       </>
     );
   },
