@@ -1,15 +1,6 @@
-function s(...n) {
-  if (n.length === 0)
-    return [];
-  const o = n.length, r = n[0].length, u = [];
-  for (let t = 0; t < r; t++) {
-    const l = [];
-    for (let e = 0; e < o; e++)
-      l.push(n[e][t]);
-    u.push(l);
-  }
-  return u;
+function m(...a) {
+  return Array(Math.max(...a.map((p) => p.length))).fill(void 0).map((p, t) => a.map((i) => i[t]));
 }
 export {
-  s as zip
+  m as zip
 };
