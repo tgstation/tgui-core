@@ -42,19 +42,19 @@ const string1 = 'TestString';
 const string2 = 'TestString2';
 const string3 = 'TestString';
 
-// String compare tests
-describe('String compare', () => {
-  it('String compare: Lower string first', () => {
+// StringCompare tests
+describe('StringCompare', () => {
+  it('StringCompare: Lower string first', () => {
     const result = -1;
     assert.deepEqual(stringCompare(string1, string2), result);
   });
 
-  it('String compare:: Higher string first', () => {
+  it('StringCompare: Higher string first', () => {
     const result = 1;
     assert.deepEqual(stringCompare(string2, string1), result);
   });
 
-  it('String compare:: Equal strings', () => {
+  it('StringCompare: Equal strings', () => {
     const result = 0;
     assert.deepEqual(stringCompare(string1, string3), result);
   });
