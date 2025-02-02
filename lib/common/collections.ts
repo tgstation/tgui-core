@@ -16,7 +16,7 @@ export function zip<T extends unknown[][]>(...arr: T): Zip<T> {
 /**
  * Helper function for string compares with native sorts
  * @param a first string to compare
- * @param b secon string to compare
+ * @param b second string to compare
  * @returns -1 for a < b, 1 for a > b and 0 otherwise
  */
 export function stringCompare(a: string, b: string) {
