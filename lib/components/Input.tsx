@@ -169,10 +169,16 @@ export function Input(props: Props) {
     }
   }, []);
 
-  /** Updates the initial value on props change */
+  /** Updates the value on props change */
   useEffect(() => {
     if (updateOnPropsChange) {
-      setValue(value);
+      const input = inputRef.current;
+      if (input) {
+        const isActive = document.activeElement === input;
+        if(!isActive) {
+          setValue(value);
+        }
+      }
     }
   }, [value]);
 
