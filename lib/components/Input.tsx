@@ -175,7 +175,7 @@ export function Input(props: Props) {
       const input = inputRef.current;
       if (input) {
         const isActive = document.activeElement === input;
-        if(!isActive) {
+        if (!isActive) {
           setValue(value);
         }
       }
