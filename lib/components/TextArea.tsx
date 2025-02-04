@@ -19,9 +19,9 @@ type Props = Partial<{
   dontUseTabForIndent: boolean;
   /** Provices the markup character to apply on ctrl + u to apply to marked sections */
   underlineMarker: string;
-  /** Provices the cursive character to apply on ctrl + k to apply to marked sections */
-  kursiveMarker: string;
-  /** Provices the bold character to apply on ctrl + b to apply to marked sections */
+  /** Provices the markup character to apply on ctrl + i to apply to marked sections */
+  italicsMarker: string;
+  /** Provices the markup character to apply on ctrl + b to apply to marked sections */
   boldMarker: string;
   fluid: boolean;
   maxLength: number;
@@ -49,7 +49,7 @@ export const TextArea = forwardRef(
       displayedValue,
       dontUseTabForIndent,
       underlineMarker,
-      kursiveMarker,
+      italicsMarker,
       boldMarker,
       maxLength,
       noborder,
@@ -128,7 +128,7 @@ export const TextArea = forwardRef(
       }
 
       if (
-        kursiveMarker &&
+        italicsMarker &&
         (event.ctrlKey || event.metaKey) &&
         event.key === KEY.I
       ) {
@@ -136,7 +136,7 @@ export const TextArea = forwardRef(
         const { value, selectionStart, selectionEnd } = event.currentTarget;
         event.currentTarget.value = getMarkupString(
           value,
-          kursiveMarker,
+          italicsMarker,
           selectionStart,
           selectionEnd,
         );
