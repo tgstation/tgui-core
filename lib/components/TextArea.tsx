@@ -130,7 +130,7 @@ export const TextArea = forwardRef(
       if (
         kursiveMarker &&
         (event.ctrlKey || event.metaKey) &&
-        event.key === KEY.K
+        event.key === KEY.I
       ) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
