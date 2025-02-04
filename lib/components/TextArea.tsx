@@ -17,6 +17,12 @@ type Props = Partial<{
   autoSelect: boolean;
   displayedValue: string;
   dontUseTabForIndent: boolean;
+  /** Provices the markup character to apply on ctrl + u to apply to marked sections */
+  underlineMarker: string;
+  /** Provices the cursive character to apply on ctrl + k to apply to marked sections */
+  kursiveMarker: string;
+  /** Provices the bold character to apply on ctrl + b to apply to marked sections */
+  boldMarker: string;
   fluid: boolean;
   maxLength: number;
   noborder: boolean;
@@ -42,6 +48,9 @@ export const TextArea = forwardRef(
       autoSelect,
       displayedValue,
       dontUseTabForIndent,
+      underlineMarker,
+      kursiveMarker,
+      boldMarker,
       maxLength,
       noborder,
       onChange,
@@ -58,6 +67,15 @@ export const TextArea = forwardRef(
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [scrolledAmount, setScrolledAmount] = useState(0);
+
+    function getMarkupString(
+      inputText: string,
+      markupType: string,
+      startPosition: number,
+      endPosition: number,
+    ) {
+      return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
+    }
 
     function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
       if (event.key === KEY.Enter) {
@@ -91,6 +109,54 @@ export const TextArea = forwardRef(
         const { value, selectionStart, selectionEnd } = event.currentTarget;
         event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
         event.currentTarget.selectionEnd = selectionStart + 1;
+      }
+
+      if (
+        underlineMarker &&
+        (event.ctrlKey || event.metaKey) &&
+        event.key === KEY.U
+      ) {
+        event.preventDefault();
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        event.currentTarget.value = getMarkupString(
+          value,
+          underlineMarker,
+          selectionStart,
+          selectionEnd,
+        );
+        event.currentTarget.selectionEnd = selectionEnd + 2;
+      }
+
+      if (
+        kursiveMarker &&
+        (event.ctrlKey || event.metaKey) &&
+        event.key === KEY.K
+      ) {
+        event.preventDefault();
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        event.currentTarget.value = getMarkupString(
+          value,
+          kursiveMarker,
+          selectionStart,
+          selectionEnd,
+        );
+        event.currentTarget.selectionEnd = selectionEnd + 2;
+      }
+
+      if (
+        boldMarker &&
+        (event.ctrlKey || event.metaKey) &&
+        event.key === KEY.B
+      ) {
+        event.preventDefault();
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        event.currentTarget.value = getMarkupString(
+          value,
+          boldMarker,
+          selectionStart,
+          selectionEnd,
+        );
+        event.currentTarget.selectionEnd = selectionEnd + 2;
       }
     }
 
