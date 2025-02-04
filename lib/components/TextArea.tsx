@@ -15,15 +15,13 @@ import { toInputValue } from './Input';
 type Props = Partial<{
   autoFocus: boolean;
   autoSelect: boolean;
-  displayedValue: string;
-  dontUseTabForIndent: boolean;
-  /** Provides the markup character to apply on ctrl + u around a selected section */
-  underlineMarker: string;
-  /** Provides the markup character to apply on ctrl + i around a selected section */
-  italicsMarker: string;
   /** Provides the markup character to apply on ctrl + b around a selected section */
   boldMarker: string;
+  displayedValue: string;
+  dontUseTabForIndent: boolean;
   fluid: boolean;
+  /** Provides the markup character to apply on ctrl + i around a selected section */
+  italicsMarker: string;
   maxLength: number;
   noborder: boolean;
   /** Fires when user is 'done typing': Clicked out, blur, enter key (but not shift+enter) */
@@ -37,6 +35,8 @@ type Props = Partial<{
   placeholder: string;
   scrollbar: boolean;
   selfClear: boolean;
+  /** Provides the markup character to apply on ctrl + u around a selected section */
+  underlineMarker: string;
   value: string;
 }> &
   BoxProps;
@@ -46,11 +46,10 @@ export const TextArea = forwardRef(
     const {
       autoFocus,
       autoSelect,
+      boldMarker,
       displayedValue,
       dontUseTabForIndent,
-      underlineMarker,
       italicsMarker,
-      boldMarker,
       maxLength,
       noborder,
       onChange,
@@ -60,6 +59,7 @@ export const TextArea = forwardRef(
       placeholder,
       scrollbar,
       selfClear,
+      underlineMarker,
       value,
       ...boxProps
     } = props;
