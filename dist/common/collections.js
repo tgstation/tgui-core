@@ -1,6 +1,10 @@
-function m(...a) {
-  return Array(Math.max(...a.map((p) => p.length))).fill(void 0).map((p, t) => a.map((i) => i[t]));
+function p(...n) {
+  return Array(Math.max(...n.map((t) => t.length))).fill(void 0).map((t, r) => n.map((i) => i[r]));
+}
+function a(n, t) {
+  return n < t ? -1 : n > t ? 1 : 0;
 }
 export {
-  m as zip
+  a as stringCompare,
+  p as zip
 };
