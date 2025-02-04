@@ -17,11 +17,11 @@ type Props = Partial<{
   autoSelect: boolean;
   displayedValue: string;
   dontUseTabForIndent: boolean;
-  /** Provices the markup character to apply on ctrl + u to apply to marked sections */
+  /** Provides the markup character to apply on ctrl + u around a selected section */
   underlineMarker: string;
-  /** Provices the markup character to apply on ctrl + i to apply to marked sections */
+  /** Provides the markup character to apply on ctrl + i around a selected section */
   italicsMarker: string;
-  /** Provices the markup character to apply on ctrl + b to apply to marked sections */
+  /** Provides the markup character to apply on ctrl + b around a selected section */
   boldMarker: string;
   fluid: boolean;
   maxLength: number;
