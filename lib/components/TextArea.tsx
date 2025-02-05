@@ -37,6 +37,15 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+function getMarkupString(
+  inputText: string,
+  markupType: string,
+  startPosition: number,
+  endPosition: number,
+) {
+  return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
+}
+
 export const TextArea = forwardRef(
   (props: Props, forwardedRef: RefObject<HTMLTextAreaElement>) => {
     const {
@@ -61,15 +70,6 @@ export const TextArea = forwardRef(
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [scrolledAmount, setScrolledAmount] = useState(0);
-
-    function getMarkupString(
-      inputText: string,
-      markupType: string,
-      startPosition: number,
-      endPosition: number,
-    ) {
-      return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
-    }
 
     function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
       if (event.key === KEY.Enter) {
@@ -120,7 +120,7 @@ export const TextArea = forwardRef(
           selectionEnd,
         );
         event.currentTarget.selectionEnd =
-          selectionEnd + markupString.length + 1;
+          selectionEnd + markupString.length * 2;
       }
     }
 
