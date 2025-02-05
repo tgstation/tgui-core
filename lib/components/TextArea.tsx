@@ -31,7 +31,7 @@ type Props = Partial<{
   placeholder: string;
   scrollbar: boolean;
   selfClear: boolean;
-  /** Provides a Record with key: markupChar entries  */
+  /** Provides a Record with key: markupChar entries which can be used for ctrl + key combinations to surround a selected text with the markup character */
   userMarkup: Record<string, string>;
   value: string;
 }> &
