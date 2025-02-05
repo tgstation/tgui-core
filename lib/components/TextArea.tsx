@@ -15,13 +15,9 @@ import { toInputValue } from './Input';
 type Props = Partial<{
   autoFocus: boolean;
   autoSelect: boolean;
-  /** Provides the markup character to apply on ctrl + b around a selected section */
-  boldMarker: string;
   displayedValue: string;
   dontUseTabForIndent: boolean;
   fluid: boolean;
-  /** Provides the markup character to apply on ctrl + i around a selected section */
-  italicsMarker: string;
   maxLength: number;
   noborder: boolean;
   /** Fires when user is 'done typing': Clicked out, blur, enter key (but not shift+enter) */
@@ -35,8 +31,8 @@ type Props = Partial<{
   placeholder: string;
   scrollbar: boolean;
   selfClear: boolean;
-  /** Provides the markup character to apply on ctrl + u around a selected section */
-  underlineMarker: string;
+  /** Provides a Record with key: markupChar entries  */
+  userMarkup: Record<string, string>;
   value: string;
 }> &
   BoxProps;
@@ -46,10 +42,8 @@ export const TextArea = forwardRef(
     const {
       autoFocus,
       autoSelect,
-      boldMarker,
       displayedValue,
       dontUseTabForIndent,
-      italicsMarker,
       maxLength,
       noborder,
       onChange,
@@ -59,7 +53,7 @@ export const TextArea = forwardRef(
       placeholder,
       scrollbar,
       selfClear,
-      underlineMarker,
+      userMarkup,
       value,
       ...boxProps
     } = props;
@@ -112,47 +106,15 @@ export const TextArea = forwardRef(
       }
 
       if (
-        underlineMarker &&
+        userMarkup &&
         (event.ctrlKey || event.metaKey) &&
-        event.key === KEY.U
+        userMarkup[event.key]
       ) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
         event.currentTarget.value = getMarkupString(
           value,
-          underlineMarker,
-          selectionStart,
-          selectionEnd,
-        );
-        event.currentTarget.selectionEnd = selectionEnd + 2;
-      }
-
-      if (
-        italicsMarker &&
-        (event.ctrlKey || event.metaKey) &&
-        event.key === KEY.I
-      ) {
-        event.preventDefault();
-        const { value, selectionStart, selectionEnd } = event.currentTarget;
-        event.currentTarget.value = getMarkupString(
-          value,
-          italicsMarker,
-          selectionStart,
-          selectionEnd,
-        );
-        event.currentTarget.selectionEnd = selectionEnd + 2;
-      }
-
-      if (
-        boldMarker &&
-        (event.ctrlKey || event.metaKey) &&
-        event.key === KEY.B
-      ) {
-        event.preventDefault();
-        const { value, selectionStart, selectionEnd } = event.currentTarget;
-        event.currentTarget.value = getMarkupString(
-          value,
-          boldMarker,
+          userMarkup[event.key],
           selectionStart,
           selectionEnd,
         );

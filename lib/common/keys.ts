@@ -23,7 +23,6 @@
 export enum KEY {
   A = 'a',
   Alt = 'Alt',
-  B = 'b',
   Backspace = 'Backspace',
   Control = 'Control',
   D = 'd',
@@ -35,7 +34,6 @@ export enum KEY {
   Esc = 'Esc',
   Escape = 'Escape',
   Home = 'Home',
-  I = 'i',
   Insert = 'Insert',
   Left = 'ArrowLeft',
   N = 'n',
@@ -46,7 +44,6 @@ export enum KEY {
   Shift = 'Shift',
   Space = ' ',
   Tab = 'Tab',
-  U = 'u',
   Up = 'ArrowUp',
   W = 'w',
   Z = 'z',
