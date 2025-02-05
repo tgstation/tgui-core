@@ -112,7 +112,7 @@ export const TextArea = forwardRef(
       ) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
-        const markupString = userMarkup[event.key]
+        const markupString = userMarkup[event.key];
         event.currentTarget.value = getMarkupString(
           value,
           markupString,
