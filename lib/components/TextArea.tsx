@@ -118,7 +118,7 @@ export const TextArea = forwardRef(
           selectionStart,
           selectionEnd,
         );
-        event.currentTarget.selectionEnd = selectionEnd + 2;
+        event.currentTarget.selectionEnd = selectionEnd +  userMarkup[event.key].length + 1;
       }
     }
 
