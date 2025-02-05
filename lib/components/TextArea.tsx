@@ -112,13 +112,14 @@ export const TextArea = forwardRef(
       ) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
+        const markupString = userMarkup[event.key]
         event.currentTarget.value = getMarkupString(
           value,
-          userMarkup[event.key],
+          markupString,
           selectionStart,
           selectionEnd,
         );
-        event.currentTarget.selectionEnd = selectionEnd +  userMarkup[event.key].length + 1;
+        event.currentTarget.selectionEnd = selectionEnd + markupString.length + 1;
       }
     }
 
