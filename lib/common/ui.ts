@@ -129,6 +129,15 @@ export type StringStyleMap = {
   /** Top margin. */
   top: string | BooleanLike;
 
+  // Gap
+
+  /** Gap on all sides. */
+  g: string | BooleanLike;
+  /** Row gap. */
+  gr: string | BooleanLike;
+  /** Column gap. */
+  gc: string | BooleanLike;
+
   // Overflow
 
   /** Overflow property. */
@@ -228,6 +237,10 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   mt: mapUnitPropTo('marginTop', halfUnit),
   mx: mapDirectionalUnitPropTo('margin', halfUnit, ['Left', 'Right']),
   my: mapDirectionalUnitPropTo('margin', halfUnit, ['Top', 'Bottom']),
+  // Gap
+  g: mapUnitPropTo('gap', halfUnit),
+  gr: mapUnitPropTo('rowGap', halfUnit),
+  gc: mapUnitPropTo('columnGap', halfUnit),
   // Padding
   p: mapDirectionalUnitPropTo('padding', halfUnit, [
     'Top',
