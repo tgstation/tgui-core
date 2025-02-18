@@ -31,9 +31,20 @@ type Props = Partial<{
   placeholder: string;
   scrollbar: boolean;
   selfClear: boolean;
+  /** Provides a Record with key: markupChar entries which can be used for ctrl + key combinations to surround a selected text with the markup character */
+  userMarkup: Record<string, string>;
   value: string;
 }> &
   BoxProps;
+
+function getMarkupString(
+  inputText: string,
+  markupType: string,
+  startPosition: number,
+  endPosition: number,
+) {
+  return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
+}
 
 export const TextArea = forwardRef(
   (props: Props, forwardedRef: RefObject<HTMLTextAreaElement>) => {
@@ -51,6 +62,7 @@ export const TextArea = forwardRef(
       placeholder,
       scrollbar,
       selfClear,
+      userMarkup,
       value,
       ...boxProps
     } = props;
@@ -91,6 +103,24 @@ export const TextArea = forwardRef(
         const { value, selectionStart, selectionEnd } = event.currentTarget;
         event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
         event.currentTarget.selectionEnd = selectionStart + 1;
+      }
+
+      if (
+        userMarkup &&
+        (event.ctrlKey || event.metaKey) &&
+        userMarkup[event.key]
+      ) {
+        event.preventDefault();
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        const markupString = userMarkup[event.key];
+        event.currentTarget.value = getMarkupString(
+          value,
+          markupString,
+          selectionStart,
+          selectionEnd,
+        );
+        event.currentTarget.selectionEnd =
+          selectionEnd + markupString.length * 2;
       }
     }
 

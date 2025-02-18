@@ -235,8 +235,8 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   ml: mapUnitPropTo('marginLeft', halfUnit),
   mr: mapUnitPropTo('marginRight', halfUnit),
   mt: mapUnitPropTo('marginTop', halfUnit),
-  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['Left', 'Right']),
-  my: mapDirectionalUnitPropTo('margin', halfUnit, ['Top', 'Bottom']),
+  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
+  my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
   // Gap
   g: mapUnitPropTo('gap', halfUnit),
   gr: mapUnitPropTo('rowGap', halfUnit),
@@ -252,8 +252,8 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   pl: mapUnitPropTo('paddingLeft', halfUnit),
   pr: mapUnitPropTo('paddingRight', halfUnit),
   pt: mapUnitPropTo('paddingTop', halfUnit),
-  px: mapDirectionalUnitPropTo('padding', halfUnit, ['Left', 'Right']),
-  py: mapDirectionalUnitPropTo('padding', halfUnit, ['Top', 'Bottom']),
+  px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
+  py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
   // Color props
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),

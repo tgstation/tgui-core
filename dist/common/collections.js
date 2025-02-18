@@ -1,15 +1,10 @@
-function s(...n) {
-  if (n.length === 0)
-    return [];
-  const o = n.length, r = n[0].length, u = [];
-  for (let t = 0; t < r; t++) {
-    const l = [];
-    for (let e = 0; e < o; e++)
-      l.push(n[e][t]);
-    u.push(l);
-  }
-  return u;
+function p(...n) {
+  return Array(Math.max(...n.map((t) => t.length))).fill(void 0).map((t, r) => n.map((i) => i[r]));
+}
+function a(n, t) {
+  return n < t ? -1 : n > t ? 1 : 0;
 }
 export {
-  s as zip
+  a as stringCompare,
+  p as zip
 };

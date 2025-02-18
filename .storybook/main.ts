@@ -1,4 +1,3 @@
-import { dirname, join } from 'node:path';
 import type { StorybookConfig } from '@storybook/react-vite';
 import sass from 'sass';
 
@@ -6,11 +5,11 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.tsx'],
 
   addons: [
-    getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@storybook/addon-console'),
+    '@storybook/addon-onboarding',
+    '@storybook/addon-essentials',
+    '@chromatic-com/storybook',
+    '@storybook/addon-interactions',
+    '@storybook/addon-console',
     {
       name: 'storybook-addon-sass-postcss',
       options: {
@@ -23,7 +22,7 @@ const config: StorybookConfig = {
   ],
 
   framework: {
-    name: getAbsolutePath('@storybook/react-vite'),
+    name: '@storybook/react-vite',
     options: {},
   },
 
@@ -35,7 +34,3 @@ const config: StorybookConfig = {
 };
 
 export default config;
-
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}

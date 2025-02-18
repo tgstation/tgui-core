@@ -16,9 +16,9 @@ function N(o) {
     compact: h,
     content: B,
     disabled: t,
-    ellipsis: c,
+    ellipsis: i,
     fluid: e,
-    icon: i,
+    icon: c,
     iconColor: a,
     iconPosition: C,
     iconRotation: I,
@@ -26,10 +26,10 @@ function N(o) {
     iconSpin: P,
     onClick: f,
     selected: x,
-    tooltip: g,
+    tooltip: b,
     tooltipPosition: w,
     verticalAlignContent: y,
-    ...b
+    ...g
   } = o, n = B || u;
   let k = /* @__PURE__ */ r(
     "div",
@@ -47,7 +47,7 @@ function N(o) {
         y && `Button--verticalAlignContent--${y}`,
         l && typeof l == "string" ? `Button--color--${l}` : "Button--color--default",
         d,
-        j(b)
+        j(g)
       ]),
       tabIndex: t ? void 0 : 0,
       onClick: (p) => {
@@ -62,44 +62,44 @@ function N(o) {
           E(p.key) && p.preventDefault();
         }
       },
-      ...q(b),
-      children: /* @__PURE__ */ _("div", { className: "Button__content", children: [
-        i && C !== "right" && /* @__PURE__ */ r(
-          S,
-          {
-            mr: n && 0.5,
-            name: i,
-            color: a,
-            rotation: I,
-            size: R,
-            spin: P
-          }
-        ),
-        c ? /* @__PURE__ */ r(
-          "span",
-          {
-            className: F([
-              "Button--ellipsis",
-              i && "Button__textMargin"
-            ]),
-            children: n
-          }
-        ) : n,
-        i && C === "right" && /* @__PURE__ */ r(
-          S,
-          {
-            ml: n && 0.5,
-            name: i,
-            color: a,
-            rotation: I,
-            size: R,
-            spin: P
-          }
-        )
-      ] })
+      ...q(g),
+      children: /* @__PURE__ */ _(
+        "div",
+        {
+          className: F([
+            "Button__content",
+            i && "Button__content--ellipsis"
+          ]),
+          children: [
+            c && C !== "right" && /* @__PURE__ */ r(
+              S,
+              {
+                mr: n && 0.5,
+                name: c,
+                color: a,
+                rotation: I,
+                size: R,
+                spin: P
+              }
+            ),
+            i ? /* @__PURE__ */ r("span", { className: "Button--ellipsis", children: n }) : n,
+            c && C === "right" && /* @__PURE__ */ r(
+              S,
+              {
+                ml: n && 0.5,
+                name: c,
+                color: a,
+                rotation: I,
+                size: R,
+                spin: P
+              }
+            )
+          ]
+        }
+      )
     }
   );
-  return g && (k = /* @__PURE__ */ r(v, { content: g, position: w, children: k })), k;
+  return b && (k = /* @__PURE__ */ r(v, { content: b, position: w, children: k })), k;
 }
 function T(o) {
   const { checked: s, ...u } = o;
@@ -123,14 +123,14 @@ function L(o) {
     ellipsis: h = !0,
     icon: B,
     onClick: t,
-    ...c
-  } = o, [e, i] = A(!1);
+    ...i
+  } = o, [e, c] = A(!1);
   function a(C) {
     if (!e) {
-      i(!0);
+      c(!0);
       return;
     }
-    t == null || t(C), i(!1);
+    t == null || t(C), c(!1);
   }
   return /* @__PURE__ */ r(
     N,
@@ -138,12 +138,12 @@ function L(o) {
       icon: e ? l : B,
       color: e ? m : u,
       onClick: a,
-      ...c,
+      ...i,
       children: e ? d : s
     }
   );
 }
-function M(o) {
+function Y(o) {
   const {
     children: s,
     color: u = "default",
@@ -153,22 +153,22 @@ function M(o) {
     disabled: h,
     fluid: B,
     icon: t,
-    iconRotation: c,
+    iconRotation: i,
     iconSpin: e,
-    maxLength: i,
+    maxLength: c,
     onCommit: a = () => null,
     placeholder: C,
     tooltip: I,
     tooltipPosition: R,
     ...P
-  } = o, [f, x] = A(!1), g = V(), w = m || s;
+  } = o, [f, x] = A(!1), b = V(), w = m || s;
   function y(n) {
-    const k = g.current;
+    const k = b.current;
     if (!k) return;
     k.value !== "" ? a(n, k.value) : l && a(n, l);
   }
   $(() => {
-    const n = g.current;
+    const n = b.current;
     if (n && f) {
       n.value = d || "";
       try {
@@ -177,7 +177,7 @@ function M(o) {
       }
     }
   }, [f, d]);
-  let b = /* @__PURE__ */ _(
+  let g = /* @__PURE__ */ _(
     O,
     {
       className: F([
@@ -189,13 +189,13 @@ function M(o) {
       ...P,
       onClick: () => x(!0),
       children: [
-        t && /* @__PURE__ */ r(S, { name: t, rotation: c, spin: e }),
+        t && /* @__PURE__ */ r(S, { name: t, rotation: i, spin: e }),
         /* @__PURE__ */ r("div", { children: w }),
         /* @__PURE__ */ r(
           "input",
           {
             disabled: !!h,
-            ref: g,
+            ref: b,
             className: "NumberInput__input",
             style: {
               display: f ? "" : "none",
@@ -216,23 +216,23 @@ function M(o) {
       ]
     }
   );
-  return I && (b = /* @__PURE__ */ r(v, { content: I, position: R, children: b })), b;
+  return I && (g = /* @__PURE__ */ r(v, { content: I, position: R, children: g })), g;
 }
-function Y(o) {
+function G(o) {
   const { accept: s, multiple: u, onSelectFiles: m, ...d } = o, l = z(null);
   async function h(t) {
-    const c = Array.from(t).map((e) => {
-      const i = new FileReader();
+    const i = Array.from(t).map((e) => {
+      const c = new FileReader();
       return new Promise((a) => {
-        i.onload = () => a(i.result), i.readAsText(e);
+        c.onload = () => a(c.result), c.readAsText(e);
       });
     });
-    return await Promise.all(c);
+    return await Promise.all(i);
   }
   async function B(t) {
-    const c = t.target.files;
-    if (c != null && c.length) {
-      const e = await h(c);
+    const i = t.target.files;
+    if (i != null && i.length) {
+      const e = await h(i);
       m(u ? e : e[0]);
     }
   }
@@ -255,7 +255,7 @@ function Y(o) {
   ] });
 }
 ((o) => {
-  o.Checkbox = T, o.Confirm = L, o.Input = M, o.File = Y;
+  o.Checkbox = T, o.Confirm = L, o.Input = Y, o.File = G;
 })(N || (N = {}));
 export {
   N as Button
