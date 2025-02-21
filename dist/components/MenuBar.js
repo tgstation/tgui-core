@@ -1,6 +1,6 @@
-import { jsx as t, jsxs as p } from "react/jsx-runtime";
+import { jsx as t, jsxs as f } from "react/jsx-runtime";
 import { useRef as B, useEffect as h } from "react";
-import { classes as _ } from "../common/react.js";
+import { classes as p } from "../common/react.js";
 import { Box as l } from "./Box.js";
 import { Icon as v } from "./Icon.js";
 function k(n) {
@@ -34,12 +34,12 @@ function N(n) {
     openWidth: s,
     onOutsideClick: m,
     ...M
-  } = n, f = B(null);
-  return /* @__PURE__ */ p("div", { ref: f, children: [
+  } = n, _ = B(null);
+  return /* @__PURE__ */ f("div", { ref: _, children: [
     /* @__PURE__ */ t(
       l,
       {
-        className: _([
+        className: p([
           "MenuBar__MenuBarButton",
           "MenuBar__font",
           "MenuBar__hover",
@@ -55,7 +55,7 @@ function N(n) {
       k,
       {
         width: s,
-        menuRef: this.menuRef,
+        menuRef: _,
         onOutsideClick: m,
         children: e
       }
@@ -99,10 +99,10 @@ function d(n) {
 O.Dropdown = d;
 function g(n) {
   const { value: e, displayText: o, onClick: r, checked: a } = n;
-  return /* @__PURE__ */ p(
+  return /* @__PURE__ */ f(
     l,
     {
-      className: _([
+      className: p([
         "MenuBar__font",
         "MenuBar__MenuItem",
         "MenuBar__MenuItemToggle",
@@ -122,7 +122,7 @@ function C(n) {
   return /* @__PURE__ */ t(
     l,
     {
-      className: _([
+      className: p([
         "MenuBar__font",
         "MenuBar__MenuItem",
         "MenuBar__hover"
