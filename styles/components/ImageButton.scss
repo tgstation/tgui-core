@@ -11,7 +11,7 @@
 $color-default: colors.bg(base.$color-bg-section) !default;
 $color-disabled: hsl(0, 54.7%, 25.1%) !default;
 $color-selected: colors.bg(colors.$green) !default;
-$color-divider: rgba(255, 255, 255, 0.1) !default;
+$color-divider: hsla(0, 0%, 100%, 0.1) !default;
 $divider-thickness: base.em(2px) !default;
 $bg-map: colors.$bg-map !default;
 
@@ -24,7 +24,7 @@ $bg-map: colors.$bg-map !default;
   $transition-duration: 0.2s
 ) {
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.3, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.3, hsla(0, 0%, 0%, 1), hsla(0, 0%, 100%, 1));
 
   background-color: rgba($color, $opacity);
   color: $text-color;
@@ -258,7 +258,7 @@ $bg-map: colors.$bg-map !default;
       text-shadow: none;
 
       & > * {
-        border-top: 1px solid rgba(255, 255, 255, 0.075);
+        border-top: 1px solid hsla(0, 0%, 100%, 0.075);
 
         &:first-child {
           border-top: 0;
@@ -274,7 +274,7 @@ $bg-map: colors.$bg-map !default;
       white-space: pre-wrap;
       line-height: base.em(14px);
       height: 100%;
-      border-left: 1px solid rgba(255, 255, 255, 0.075);
+      border-left: 1px solid hsla(0, 0%, 100%, 0.075);
     }
   }
 }
