@@ -82,7 +82,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
       {open && (
         <Menu
           width={openWidth}
-          menuRef={this.menuRef}
+          menuRef={menuRef}
           onOutsideClick={onOutsideClick}
         >
           {children}
