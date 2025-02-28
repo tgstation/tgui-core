@@ -230,8 +230,8 @@ function ButtonConfirm(props: ConfirmProps) {
     confirmIcon,
     ellipsis = true,
     icon,
-    onClick,
     onBlur,
+    onClick,
     ...rest
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
