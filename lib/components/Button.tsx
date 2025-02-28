@@ -59,10 +59,10 @@ type Props = Partial<{
   iconSize: number;
   /** Makes the icon spin */
   iconSpin: BooleanLike;
-  /** Called when element is clicked */
-  onClick: (e: any) => void;
   /** Called when the button is blurred */
   onBlur: (e: any) => void;
+  /** Called when element is clicked */
+  onClick: (e: any) => void;
   /** Activates the button (gives it a green color) */
   selected: BooleanLike;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
@@ -236,6 +236,11 @@ function ButtonConfirm(props: ConfirmProps) {
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
 
+  function handleBlur(event: FocusEvent) {
+    setClickedOnce(false);
+    onBlur?.(event);
+  }
+
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     if (!clickedOnce) {
       setClickedOnce(true);
@@ -246,17 +251,12 @@ function ButtonConfirm(props: ConfirmProps) {
     setClickedOnce(false);
   }
 
-  function handleBlur(event: FocusEvent) {
-    setClickedOnce(false);
-    onBlur?.(event);
-  }
-
   return (
     <Button
       icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
-      onClick={handleClick}
       onBlur={handleBlur}
+      onClick={handleClick}
       {...rest}
     >
       {clickedOnce ? confirmContent : children}
