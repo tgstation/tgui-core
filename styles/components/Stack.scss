@@ -8,41 +8,11 @@
 
 $zebra-background-color: base.$color-bg-section !default;
 
-.Stack--fill {
-  height: 100%;
-}
+.Stack {
+  gap: 0.5em;
 
-.Stack--horizontal > .Stack__item {
-  margin-left: 0.5em;
-
-  &:first-child {
-    margin-left: 0;
-  }
-}
-
-.Stack--vertical > .Stack__item {
-  margin-top: 0.5em;
-
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.Stack--reverse > .Stack__item {
-  margin-left: 0;
-  margin-right: 0.5em;
-
-  &:first-child {
-    margin-right: 0;
-  }
-}
-
-.Stack--reverse--vertical > .Stack__item {
-  margin-top: 0;
-  margin-bottom: 0.5em;
-
-  &:first-child {
-    margin-bottom: 0;
+  &--fill {
+    height: 100%;
   }
 }
 
