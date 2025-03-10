@@ -1,7 +1,8 @@
-import { type ReactNode, type RefObject, useEffect, useRef } from 'react';
+import { type ReactNode, type RefObject, useRef } from 'react';
 import { classes } from '../common/react';
 import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
+import { Popper } from './Popper';
 
 type MenuProps = {
   children: any;
@@ -11,21 +12,7 @@ type MenuProps = {
 };
 
 function Menu(props: MenuProps) {
-  const { children, menuRef, onOutsideClick, width } = props;
-
-  function handleClick(event: MouseEvent) {
-    if (!menuRef.current?.contains(event.target as Node)) {
-      onOutsideClick();
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('click', handleClick);
-
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
+  const { children, width } = props;
 
   return (
     <div
@@ -79,15 +66,20 @@ function MenuBarButton(props: MenuBarDropdownProps) {
       >
         <span className="MenuBar__MenuBarButton-text">{display}</span>
       </Box>
-      {open && (
-        <Menu
-          width={openWidth}
-          menuRef={menuRef}
-          onOutsideClick={onOutsideClick}
-        >
-          {children}
-        </Menu>
-      )}
+      <Popper
+        onClickOutside={onOutsideClick}
+        placement="bottom-start"
+        content={
+          <Menu
+            width={openWidth}
+            menuRef={menuRef}
+            onOutsideClick={onOutsideClick}
+          >
+            {children}
+          </Menu>
+        }
+        isOpen={open}
+      />
     </div>
   );
 }
@@ -161,7 +153,7 @@ function MenuItemToggle(props) {
       onClick={() => onClick(value)}
     >
       <div className="MenuBar__MenuItemToggle__check">
-        {checked && <Icon size={1.3} name="check" />}
+        <Icon size={1.3} name={checked ? 'check' : ''} />
       </div>
       {displayText}
     </Box>
