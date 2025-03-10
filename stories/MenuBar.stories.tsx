@@ -32,8 +32,8 @@ export const Default: StoryObj<StoryProps> = {
   },
   render: (args) => {
     const [openMenuBar, setOpenMenuBar] = useState<string | null>(null);
-    const [openOnHover, setOpenOnHover] = useState<boolean>(false);
-    const [checkbox, setCheckbox] = useState<boolean>(false);
+    const [openOnHover, setOpenOnHover] = useState(false);
+    const [checkbox, setCheckbox] = useState(false);
 
     const menuBarProps = {
       openMenuBar: openMenuBar,
@@ -42,10 +42,10 @@ export const Default: StoryObj<StoryProps> = {
       setOpenOnHover: setOpenOnHover,
     };
 
-    const closeMenu = () => {
+    function closeMenu() {
       setOpenMenuBar(null);
       setOpenOnHover(false);
-    };
+    }
 
     return (
       <MenuBar>
