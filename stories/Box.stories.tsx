@@ -12,9 +12,15 @@ export default {
 type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
-  args: {
-    children: 'Box',
-  },
+  render: () => (
+    <Box>
+      <Box style={{ border: 'thin solid red' }} px={5} py={5}>
+        Item 1
+      </Box>
+      <Box style={{ border: 'thin solid blue' }}>Item 2</Box>
+      <Box style={{ border: 'thin solid green' }}>Item 3</Box>
+    </Box>
+  ),
 };
 
 export const WithTw: Story = {
