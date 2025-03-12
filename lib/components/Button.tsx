@@ -150,12 +150,7 @@ export function Button(props: Props) {
       }}
       {...computeBoxProps(rest)}
     >
-      <div
-        className={classes([
-          'Button__content',
-          ellipsis && 'Button__content--ellipsis',
-        ])}
-      >
+      <div className="Button__content">
         {icon && iconPosition !== 'right' && (
           <Icon
             mr={toDisplay && 0.5}
@@ -169,7 +164,14 @@ export function Button(props: Props) {
         {!ellipsis ? (
           toDisplay
         ) : (
-          <span className="Button--ellipsis">{toDisplay}</span>
+          <span
+            className={classes([
+              'Button--ellipsis',
+              icon && 'Button__textMargin',
+            ])}
+          >
+            {toDisplay}
+          </span>
         )}
         {icon && iconPosition === 'right' && (
           <Icon
