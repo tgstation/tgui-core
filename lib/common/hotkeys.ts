@@ -1,6 +1,5 @@
 import { type KeyEvent, globalEvents } from './events';
 import * as keycodes from './keycodes';
-import { ByondKeyUp, ByondKeyDown } from './constants';
 
 // BYOND macros, in `key: command` format.
 const byondMacros: Record<string, string> = {};
@@ -94,13 +93,13 @@ function handlePassthrough(key: KeyEvent) {
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
-    const command = `${ByondKeyDown()} "${byondKeyCode}"`;
+    const command = `${globalThis.ByondKeyDown} "${byondKeyCode}"`;
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
-    const command = `${ByondKeyUp()} "${byondKeyCode}"`;
+    const command = `${globalThis.ByondKeyUp} "${byondKeyCode}"`;
     return Byond.command(command);
   }
 }
@@ -127,7 +126,7 @@ export function releaseHeldKeys() {
   for (const byondKeyCode in keyState) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
-      Byond.command(`${ByondKeyUp()} "${byondKeyCode}"`);
+      Byond.command(`${globalThis.ByondKeyUp} "${byondKeyCode}"`);
     }
   }
 }
@@ -138,6 +137,11 @@ type ByondSkinMacro = {
 };
 
 export function setupHotKeys() {
+  if (!globalThis.ByondKeyUp){
+    globalThis.ByondKeyUp = 'KeyUp';
+    globalThis.ByondKeyDown = 'KeyDown';
+  }
+
   // Read macros
   Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref

@@ -1,20 +1,19 @@
-import { globalEvents as m } from "./events.js";
-import { KEY_ESCAPE as E, KEY_ENTER as p, KEY_SPACE as h, KEY_TAB as d, KEY_CTRL as g, KEY_SHIFT as S, KEY_UP as Y, KEY_DOWN as _, KEY_LEFT as B, KEY_RIGHT as $, KEY_F5 as w } from "./keycodes.js";
-import { ByondKeyUp as l, ByondKeyDown as F } from "./constants.js";
+import { globalEvents as a } from "./events.js";
+import { KEY_ESCAPE as m, KEY_ENTER as h, KEY_SPACE as p, KEY_TAB as E, KEY_CTRL as d, KEY_SHIFT as g, KEY_UP as B, KEY_DOWN as T, KEY_LEFT as b, KEY_RIGHT as S, KEY_F5 as Y } from "./keycodes.js";
 const K = {}, c = [
-  E,
-  p,
+  m,
   h,
+  p,
+  E,
   d,
   g,
-  S,
-  Y,
-  _,
   B,
-  $,
-  w
+  T,
+  b,
+  S,
+  Y
 ], i = {}, u = [];
-function N(n) {
+function _(n) {
   if (n === 16) return "Shift";
   if (n === 17) return "Ctrl";
   if (n === 18) return "Alt";
@@ -38,7 +37,7 @@ function N(n) {
   if (n === 189) return "-";
   if (n === 190) return ".";
 }
-function T(n) {
+function y(n) {
   const t = String(n);
   if (t === "Ctrl+F5" || t === "Ctrl+R") {
     location.reload();
@@ -46,58 +45,58 @@ function T(n) {
   }
   if (t === "Ctrl+F" || n.event.defaultPrevented || n.isModifierKey() || c.includes(n.code))
     return;
-  const o = N(n.code);
+  const o = _(n.code);
   if (!o)
     return;
-  const f = K[o];
-  if (f)
-    return Byond.command(f);
+  const s = K[o];
+  if (s)
+    return Byond.command(s);
   if (n.isDown() && !i[o]) {
     i[o] = !0;
-    const r = `${F()} "${o}"`;
+    const r = `${globalThis.ByondKeyDown} "${o}"`;
     return Byond.command(r);
   }
   if (n.isUp() && i[o]) {
     i[o] = !1;
-    const r = `${l()} "${o}"`;
+    const r = `${globalThis.ByondKeyUp} "${o}"`;
     return Byond.command(r);
   }
 }
-function v(n) {
+function N(n) {
   c.push(n);
 }
-function x(n) {
+function U(n) {
   const t = c.indexOf(n);
   t >= 0 && c.splice(t, 1);
 }
-function b() {
+function w() {
   for (const n in i)
-    i[n] && (i[n] = !1, Byond.command(`${l()} "${n}"`));
+    i[n] && (i[n] = !1, Byond.command(`${globalThis.ByondKeyUp} "${n}"`));
 }
-function A() {
-  Byond.winget("default.*").then((n) => {
+function D() {
+  globalThis.ByondKeyUp || (globalThis.ByondKeyUp = "KeyUp", globalThis.ByondKeyDown = "KeyDown"), Byond.winget("default.*").then((n) => {
     const t = {};
     for (const r in n) {
-      const s = r.split("."), e = s[1], a = s[2];
-      e && a && (t[e] || (t[e] = {}), t[e][a] = n[r]);
+      const f = r.split("."), e = f[1], l = f[2];
+      e && l && (t[e] || (t[e] = {}), t[e][l] = n[r]);
     }
     const o = /\\"/g;
-    function f(r) {
+    function s(r) {
       return r.substring(1, r.length - 1).replace(o, '"');
     }
     for (const r in t) {
-      const s = t[r], e = f(s.name);
-      K[e] = f(s.command);
+      const f = t[r], e = s(f.name);
+      K[e] = s(f.command);
     }
-  }), m.on("window-blur", () => {
-    b();
-  }), m.on("key", (n) => {
+  }), a.on("window-blur", () => {
+    w();
+  }), a.on("key", (n) => {
     for (const t of u)
       t(n);
-    T(n);
+    y(n);
   });
 }
-function D(n) {
+function H(n) {
   u.push(n);
   let t = !1;
   return () => {
@@ -105,9 +104,9 @@ function D(n) {
   };
 }
 export {
-  v as acquireHotKey,
-  D as listenForKeyEvents,
-  b as releaseHeldKeys,
-  x as releaseHotKey,
-  A as setupHotKeys
+  N as acquireHotKey,
+  H as listenForKeyEvents,
+  w as releaseHeldKeys,
+  U as releaseHotKey,
+  D as setupHotKeys
 };

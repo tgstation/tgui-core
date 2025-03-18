@@ -1,4 +1,4 @@
-const n = 2, t = 1, i = 0, m = -1, c = {
+const t = 2, n = 1, i = 0, m = -1, c = {
   // Department colors
   department: {
     captain: "#c06616",
@@ -267,8 +267,8 @@ const n = 2, t = 1, i = 0, m = -1, c = {
     label: "Nitrium",
     color: "brown"
   }
-], b = () => "KeyUp", s = () => "KeyDown";
-function g(a, o) {
+];
+function b(a, o) {
   if (!a) return o || "None";
   const r = a.toLowerCase();
   for (let l = 0; l < e.length; l++)
@@ -276,7 +276,7 @@ function g(a, o) {
       return e[l].label;
   return o || "None";
 }
-function p(a) {
+function s(a) {
   if (!a) return "black";
   const o = a.toLowerCase();
   for (let r = 0; r < e.length; r++)
@@ -284,13 +284,13 @@ function p(a) {
       return e[r].color;
   return "black";
 }
-const f = (a) => {
+const g = (a) => {
   if (!a) return;
   const o = a.toLowerCase();
   for (let r = 0; r < e.length; r++)
     if (e[r].id === o)
       return e[r];
-}, h = (a) => {
+}, p = (a) => {
   if (a) {
     for (let o = 0; o < e.length; o++)
       if (e[o].path === a)
@@ -298,17 +298,15 @@ const f = (a) => {
   }
 };
 export {
-  s as ByondKeyDown,
-  b as ByondKeyUp,
   c as COLORS,
   u as CSS_COLORS,
   d as RADIO_CHANNELS,
   m as UI_CLOSE,
   i as UI_DISABLED,
-  n as UI_INTERACTIVE,
-  t as UI_UPDATE,
-  p as getGasColor,
-  f as getGasFromId,
-  h as getGasFromPath,
-  g as getGasLabel
+  t as UI_INTERACTIVE,
+  n as UI_UPDATE,
+  s as getGasColor,
+  g as getGasFromId,
+  p as getGasFromPath,
+  b as getGasLabel
 };
