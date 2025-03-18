@@ -95,10 +95,6 @@ export declare const RADIO_CHANNELS: readonly [{
     readonly freq: 1459;
     readonly color: "#1ecc43";
 }];
-declare global {
-    var ByondKeyUp: string;
-    var ByondKeyDown: string;
-}
 export declare function getGasLabel(gasId: string, fallbackValue?: string): string;
 export declare function getGasColor(gasId: string): string;
 export declare const getGasFromId: (gasId: string) => Gas | undefined;
