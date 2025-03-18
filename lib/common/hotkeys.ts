@@ -137,7 +137,7 @@ type ByondSkinMacro = {
 };
 
 export function setupHotKeys() {
-  if (!globalThis.ByondKeyUp){
+  if (!globalThis.ByondKeyUp) {
     globalThis.ByondKeyUp = 'KeyUp';
     globalThis.ByondKeyDown = 'KeyDown';
   }
