@@ -295,8 +295,8 @@ const GASES = [
 ] as const;
 
 declare global {
-	var ByondKeyUp: string;
-	var ByondKeyDown: string;
+  var ByondKeyUp: string;
+  var ByondKeyDown: string;
 }
 
 // Returns gas label based on gasId
