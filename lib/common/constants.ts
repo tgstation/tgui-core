@@ -294,6 +294,9 @@ const GASES = [
   },
 ] as const;
 
+export const ByondKeyUp = () => 'KeyUp';
+export const ByondKeyDown = () => 'KeyDown';
+
 // Returns gas label based on gasId
 export function getGasLabel(gasId: string, fallbackValue?: string): string {
   if (!gasId) return fallbackValue || 'None';

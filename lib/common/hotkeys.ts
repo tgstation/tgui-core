@@ -1,5 +1,6 @@
 import { type KeyEvent, globalEvents } from './events';
 import * as keycodes from './keycodes';
+import { ByondKeyUp, ByondKeyDown } from './constants';
 
 // BYOND macros, in `key: command` format.
 const byondMacros: Record<string, string> = {};
@@ -93,13 +94,13 @@ function handlePassthrough(key: KeyEvent) {
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
-    const command = `KeyDown "${byondKeyCode}"`;
+    const command = `${ByondKeyDown()} "${byondKeyCode}"`;
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
-    const command = `KeyUp "${byondKeyCode}"`;
+    const command = `${ByondKeyUp()} "${byondKeyCode}"`;
     return Byond.command(command);
   }
 }
@@ -126,7 +127,7 @@ export function releaseHeldKeys() {
   for (const byondKeyCode in keyState) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
-      Byond.command(`KeyUp "${byondKeyCode}"`);
+      Byond.command(`${ByondKeyUp()} "${byondKeyCode}"`);
     }
   }
 }
