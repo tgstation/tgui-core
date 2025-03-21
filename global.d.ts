@@ -22,9 +22,9 @@ declare module '*.svg' {
 }
 
 declare global {
-	var ByondKeyUp: string;
-	var ByondKeyDown: string;
-  }
+  var ByondKeyUp: string;
+  var ByondKeyDown: string;
+}
 
 namespace JSX {
   interface IntrinsicElements {
