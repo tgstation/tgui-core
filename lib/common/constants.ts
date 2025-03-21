@@ -294,11 +294,6 @@ const GASES = [
   },
 ] as const;
 
-declare global {
-  var ByondKeyUp: string;
-  var ByondKeyDown: string;
-}
-
 // Returns gas label based on gasId
 export function getGasLabel(gasId: string, fallbackValue?: string): string {
   if (!gasId) return fallbackValue || 'None';

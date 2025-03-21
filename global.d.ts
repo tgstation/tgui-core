@@ -21,6 +21,11 @@ declare module '*.svg' {
   export default content;
 }
 
+declare global {
+	var ByondKeyUp: string;
+	var ByondKeyDown: string;
+  }
+
 namespace JSX {
   interface IntrinsicElements {
     blink: any;
