@@ -42,7 +42,7 @@ $bg-map: colors.$bg-map !default;
   outline: 0;
   border-radius: $border-radius;
   margin-bottom: base.em(2px);
-  transition-property: background-color, color;
+  transition-property: background-color, color, opacity;
   transition-duration: 0.2s;
   // Disable selection in buttons
   user-select: none;
@@ -147,7 +147,6 @@ $bg-map: colors.$bg-map !default;
 .Button--disabled {
   cursor: default;
   opacity: 0.5;
-  transition-property: background-color, color, opacity;
 }
 
 .Button--selected {
