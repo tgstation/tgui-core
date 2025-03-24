@@ -21,11 +21,13 @@
     transform-origin: bottom;
   }
 
-  &[data-position="top-start"] {
+  &[data-position="top-start"],
+  &[data-position="right-end"] {
     transform-origin: bottom left;
   }
 
-  &[data-position="top-end"] {
+  &[data-position="top-end"],
+  &[data-position="left-end"] {
     transform-origin: bottom right;
   }
 
@@ -33,11 +35,13 @@
     transform-origin: top;
   }
 
-  &[data-position="bottom-start"] {
+  &[data-position="bottom-start"],
+  &[data-position="right-start"] {
     transform-origin: top left;
   }
 
-  &[data-position="bottom-end"] {
+  &[data-position="bottom-end"],
+  &[data-position="left-start"] {
     transform-origin: top right;
   }
 

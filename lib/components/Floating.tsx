@@ -102,6 +102,7 @@ export function Floating(props: Props) {
     <>
       <div
         ref={refs.setReference}
+        style={{ display: 'flow-root' }}
         {...getReferenceProps({ onClick: (e) => e.stopPropagation() })}
       >
         {children}
