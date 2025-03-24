@@ -12,8 +12,54 @@ $text-color-selected: color.scale($color-default, $lightness: 25%) !default;
 $tab-color: transparent !default;
 $tab-color-hovered: rgba(255, 255, 255, 0.075) !default;
 $tab-color-selected: rgba(255, 255, 255, 0.125) !default;
+$transition-duration: 0.2s !default;
 $border-radius: base.$border-radius !default;
 $fg-map: colors.$fg-map !default;
+
+@mixin indicator($position) {
+  position: relative;
+  padding-#{$position}: math.div(1em, 6);
+
+  &:before {
+    content: "";
+    position: absolute;
+    #{$position}: 0;
+    background-color: $color-default;
+    transition: transform $transition-duration;
+  }
+
+  @if $position == bottom or $position == top {
+    &:before {
+      width: 100%;
+      height: math.div(1em, 6);
+      transform: scaleX(0);
+    }
+
+    &:active:before {
+      transform: scaleX(0.25);
+    }
+
+    &--selected:before {
+      transform: scaleX(0.99999) !important;
+    }
+  }
+
+  @if $position == left or $position == right {
+    &:before {
+      width: math.div(1em, 6);
+      height: 100%;
+      transform: scaleY(0);
+    }
+
+    &:active:before {
+      transform: scaleY(0.25);
+    }
+
+    &--selected:before {
+      transform: scaleY(0.99999) !important;
+    }
+  }
+}
 
 .Tabs {
   display: flex;
@@ -62,6 +108,8 @@ $fg-map: colors.$fg-map !default;
 }
 
 .Tab {
+  user-select: none;
+  cursor: base.$cursor-hover;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,6 +117,7 @@ $fg-map: colors.$fg-map !default;
   color: $text-color;
   min-height: 2.25em;
   min-width: 4em;
+  transition: background-color $transition-duration;
 }
 
 .Tab:not(.Tab--selected):hover {
@@ -76,6 +125,7 @@ $fg-map: colors.$fg-map !default;
 }
 
 .Tab--selected {
+  cursor: base.$cursor-default;
   background-color: $tab-color-selected;
   color: $text-color-selected;
 }
@@ -99,28 +149,18 @@ $fg-map: colors.$fg-map !default;
 
 .Tabs--horizontal {
   .Tab {
-    border-top: math.div(1em, 6) solid transparent;
-    border-bottom: math.div(1em, 6) solid transparent;
     border-top-left-radius: 0.25em;
     border-top-right-radius: 0.25em;
-  }
-
-  .Tab--selected {
-    border-bottom: math.div(1em, 6) solid $color-default;
+    @include indicator(bottom);
   }
 }
 
 .Tabs--vertical {
   .Tab {
     min-height: 2em;
-    border-left: math.div(1em, 6) solid transparent;
-    border-right: math.div(1em, 6) solid transparent;
     border-top-left-radius: 0.25em;
     border-bottom-left-radius: 0.25em;
-  }
-
-  .Tab--selected {
-    border-right: math.div(1em, 6) solid $color-default;
+    @include indicator(right);
   }
 }
 
