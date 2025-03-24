@@ -38,6 +38,11 @@ $bg-map: colors.$bg-map !default;
     &:hover {
       background-color: rgba(lighten($color, 66%), $opacity);
     }
+
+    &:active {
+      background-color: rgba($color, $opacity);
+      box-shadow: inset 0 0 0.5rem $divider-thickness $color-divider;
+    }
   }
 }
 
@@ -73,6 +78,11 @@ $bg-map: colors.$bg-map !default;
 .ImageButton--disabled {
   background-color: rgba($color-disabled, 0.25) !important;
   border-color: rgba($color-disabled, 0.25) !important;
+  box-shadow: none !important;
+
+  &.container {
+    cursor: base.$cursor-disabled !important;
+  }
 }
 
 .ImageButton--selected {
@@ -132,6 +142,7 @@ $bg-map: colors.$bg-map !default;
     display: flex;
     flex-direction: column;
     border-radius: 0.33em;
+    cursor: base.$cursor-hover;
   }
 
   .image {
