@@ -24,7 +24,7 @@ $fg-map: colors.$fg-map !default;
     content: "";
     position: absolute;
     #{$position}: 0;
-    background-color: $color-default;
+    background-color: currentColor;
     transition: transform $transition-duration;
   }
 
@@ -167,13 +167,5 @@ $fg-map: colors.$fg-map !default;
 @each $color-name, $color-value in $fg-map {
   .Tab--selected.Tab--color--#{$color-name} {
     color: color.scale($color-value, $lightness: 25%);
-  }
-
-  .Tabs--horizontal .Tab--selected.Tab--color--#{$color-name} {
-    border-bottom-color: $color-value;
-  }
-
-  .Tabs--vertical .Tab--selected.Tab--color--#{$color-name} {
-    border-right-color: $color-value;
   }
 }
