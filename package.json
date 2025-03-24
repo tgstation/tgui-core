@@ -2,8 +2,15 @@
   "name": "tgui-core",
   "version": "1.8.4",
   "description": "TGUI core component library",
-  "keywords": ["TGUI", "library", "typescript"],
-  "files": ["dist", "styles"],
+  "keywords": [
+    "TGUI",
+    "library",
+    "typescript"
+  ],
+  "files": [
+    "dist",
+    "styles"
+  ],
   "exports": {
     "./components": {
       "import": "./dist/components/index.js",
@@ -40,6 +47,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@chromatic-com/storybook": "^3.2.3",
+    "@floating-ui/react": "^0.27.5",
     "@popperjs/core": "^2.11.8",
     "@storybook/addon-console": "^3.0.0",
     "@storybook/addon-essentials": "^8.4.7",
@@ -69,6 +77,5 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
+  }
 }
