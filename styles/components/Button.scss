@@ -32,7 +32,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button {
-  cursor: pointer;
+  cursor: base.$cursor-hover;
   position: relative;
   display: inline-block;
   line-height: 1.667em;
@@ -145,7 +145,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button--disabled {
-  cursor: default;
+  cursor: base.$cursor-disabled;
   opacity: 0.5;
 }
 

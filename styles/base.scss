@@ -14,6 +14,9 @@ $color-bg-end: color.adjust(
   $lightness: -$color-bg-grad-spread
 ) !default;
 
+$cursor-hover: pointer !default;
+$cursor-disabled: default !default;
+
 $unit: 12px;
 $font-size: 1 * $unit !default;
 $border-radius: 0.16em !default;
