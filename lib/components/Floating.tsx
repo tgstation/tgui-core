@@ -35,11 +35,8 @@ type Props = {
    * @default 200
    */
   hoverDelay: number;
-  /**
-   * Transition time in ms.
-   * @default 200
-   */
-  transitionTime: number;
+  /** Disables open/close floating element animations. */
+  disableAnimations: number;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
   /** Sends current open state.*/
@@ -58,7 +55,7 @@ export function Floating(props: Props) {
     contentClass,
     hoverOpen,
     hoverDelay,
-    transitionTime,
+    disableAnimations,
     placement,
     onOpenChange,
   } = props;
@@ -92,7 +89,7 @@ export function Floating(props: Props) {
     openMethod,
   ]);
   const { isMounted, status } = useTransitionStatus(context, {
-    duration: transitionTime || 200,
+    duration: disableAnimations ? 0 : 200,
   });
 
   // Send current open state, if useState provided by UI
@@ -111,7 +108,10 @@ export function Floating(props: Props) {
         <FloatingPortal>
           <div
             ref={refs.setFloating}
-            className={classes(['Floating', contentClass])}
+            className={classes([
+              contentClass,
+              !disableAnimations && 'Floating',
+            ])}
             data-position={context.placement}
             data-transition={status}
             style={{ ...floatingStyles, zIndex: props.baseZIndex || 5 }}
