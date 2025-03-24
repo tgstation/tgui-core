@@ -36,7 +36,7 @@ type Props = {
    */
   hoverDelay: number;
   /** Disables open/close floating element animations. */
-  disableAnimations: number;
+  disableAnimations: boolean;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
   /**
