@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { Placement } from '@floating-ui/react';
+import type { Placement } from '@popperjs/core';
 import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
