@@ -41,6 +41,8 @@ type Props = {
   placement: Placement;
   /** Sends current open state.*/
   onOpenChange?: (open: boolean) => void;
+  /** Called when the user clicks outside the floating element. */
+  onClickOutside?: () => void;
 }>;
 
 /**
@@ -58,12 +60,16 @@ export function Floating(props: Props) {
     disableAnimations,
     placement,
     onOpenChange,
+    onClickOutside,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
-    onOpenChange: setIsOpen,
+    onOpenChange(isOpen, _, reason) {
+      setIsOpen(isOpen);
+      reason === 'outside-press' && onClickOutside?.();
+    },
     placement: placement || 'bottom',
     transform: false,
     middleware: [
