@@ -78,7 +78,6 @@ export function Floating(props: Props) {
     open: isOpen,
     onOpenChange(isOpen, _, reason) {
       setIsOpen(isOpen);
-      // Send current open state, if useState provided by UI
       onOpenChange?.(isOpen);
       reason === 'outside-press' && onClickOutside?.();
     },
