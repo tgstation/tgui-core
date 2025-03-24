@@ -39,9 +39,19 @@ type Props = {
   disableAnimations: number;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
-  /** Sends current open state.*/
+  /**
+   * Called when the open state changes.
+   * Returns the new open state.
+   *
+   * Can be used this way:
+   * ```tsx
+   * onOpenChange={open ? makeThingsOnOpen : makeThingsOnClose}
+   * ```
+   */
   onOpenChange?: (open: boolean) => void;
-  /** Called when the user clicks outside the floating element. */
+  /**
+   * Called when the user clicks outside the floating element.
+   */
   onClickOutside?: () => void;
 }>;
 
@@ -68,22 +78,13 @@ export function Floating(props: Props) {
     open: isOpen,
     onOpenChange(isOpen, _, reason) {
       setIsOpen(isOpen);
+      // Send current open state, if useState provided by UI
+      onOpenChange?.(isOpen);
       reason === 'outside-press' && onClickOutside?.();
     },
     placement: placement || 'bottom',
     transform: false,
-    middleware: [
-      offset(6),
-      flip({
-        fallbackPlacements: [
-          'bottom-end',
-          'bottom-start',
-          'top',
-          'top-end',
-          'top-start',
-        ],
-      }),
-    ],
+    middleware: [offset(6), flip()],
   });
 
   const dismiss = useDismiss(context);
@@ -97,9 +98,6 @@ export function Floating(props: Props) {
   const { isMounted, status } = useTransitionStatus(context, {
     duration: disableAnimations ? 0 : 200,
   });
-
-  // Send current open state, if useState provided by UI
-  onOpenChange?.(isOpen);
 
   return (
     <>
