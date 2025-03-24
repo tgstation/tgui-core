@@ -4,6 +4,7 @@ import {
   flip,
   offset,
   useClick,
+  useDismiss,
   useFloating,
   useHover,
   useInteractions,
@@ -11,24 +12,29 @@ import {
 import { type ReactNode, useState } from 'react';
 
 type Props = {
-  /** Interacting with this element will open the Floating element. */
+  /** Interacting with this element will open the floating element. */
   children: ReactNode;
-  /** The content to display like FLoating. */
+  /** The content to display like fLoating. */
   content: ReactNode;
-  /** Whether the Floating element is open. */
-  isOpen: boolean;
+} & Partial<{
+  /**
+   * Base z-index of the floating element
+   * @default 5
+   */
+  baseZIndex: number;
   /**
    * Open Floating element with hovering of reference element.
    */
   hoverOpen: boolean;
-} & Partial<{
   /**
-   * Base z-index of the Floating element
-   * @default 5
+   * Delay in ms before opening and closing the floating element on hover.
+   * @default 200
    */
-  baseZIndex: number;
-  /** Where to place the tooltip relative to the reference element */
+  hoverDelay: number;
+  /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
+  /** Sends current open state.*/
+  onOpenChange?: (open: boolean) => void;
 }>;
 
 /**
@@ -37,12 +43,13 @@ type Props = {
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
 export function Floating(props: Props) {
-  const { children, content, isOpen, hoverOpen, placement } = props;
-  const [open, setOpen] = useState(false);
+  const { children, content, hoverOpen, hoverDelay, placement, onOpenChange } =
+    props;
 
+  const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
-    open: isOpen || open,
-    onOpenChange: setOpen,
+    open: isOpen,
+    onOpenChange: setIsOpen,
     placement: placement || 'bottom',
     middleware: [
       offset(6),
@@ -58,12 +65,30 @@ export function Floating(props: Props) {
     ],
   });
 
-  const openMethod = hoverOpen ? useHover(context) : useClick(context);
-  const { getReferenceProps, getFloatingProps } = useInteractions([openMethod]);
+  const delay = hoverDelay || 200;
+  const dismiss = useDismiss(context);
+  const openMethod = hoverOpen
+    ? useHover(context, { restMs: delay, delay: { close: delay } })
+    : useClick(context);
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    dismiss,
+    openMethod,
+  ]);
+
+  // Send current open state, if useState provided by UI
+  onOpenChange?.(isOpen);
 
   return (
     <>
-      <div ref={refs.setReference} {...getReferenceProps()}>
+      <div
+        ref={refs.setReference}
+        style={{ display: 'flow-root' }}
+        {...getReferenceProps({
+          onClick(event) {
+            event.stopPropagation();
+          },
+        })}
+      >
         {children}
       </div>
       {isOpen && (
