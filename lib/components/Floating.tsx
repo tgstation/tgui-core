@@ -8,8 +8,10 @@ import {
   useFloating,
   useHover,
   useInteractions,
+  useTransitionStatus,
 } from '@floating-ui/react';
 import { type ReactNode, useState } from 'react';
+import { classes } from '../common/react';
 
 type Props = {
   /** Interacting with this element will open the floating element. */
@@ -22,6 +24,8 @@ type Props = {
    * @default 5
    */
   baseZIndex: number;
+  /** Class with will be applied to the content. */
+  contentClass: string;
   /**
    * Open Floating element with hovering of reference element.
    */
@@ -31,6 +35,11 @@ type Props = {
    * @default 200
    */
   hoverDelay: number;
+  /**
+   * Transition time in ms.
+   * @default 200
+   */
+  transitionTime: number;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
   /** Sends current open state.*/
@@ -43,14 +52,23 @@ type Props = {
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
 export function Floating(props: Props) {
-  const { children, content, hoverOpen, hoverDelay, placement, onOpenChange } =
-    props;
+  const {
+    children,
+    content,
+    contentClass,
+    hoverOpen,
+    hoverDelay,
+    transitionTime,
+    placement,
+    onOpenChange,
+  } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
     placement: placement || 'bottom',
+    transform: false,
     middleware: [
       offset(6),
       flip({
@@ -65,15 +83,17 @@ export function Floating(props: Props) {
     ],
   });
 
-  const delay = hoverDelay || 200;
   const dismiss = useDismiss(context);
   const openMethod = hoverOpen
-    ? useHover(context, { restMs: delay, delay: { close: delay } })
+    ? useHover(context, { restMs: hoverDelay || 200 })
     : useClick(context);
   const { getReferenceProps, getFloatingProps } = useInteractions([
     dismiss,
     openMethod,
   ]);
+  const { isMounted, status } = useTransitionStatus(context, {
+    duration: transitionTime || 200,
+  });
 
   // Send current open state, if useState provided by UI
   onOpenChange?.(isOpen);
@@ -82,19 +102,17 @@ export function Floating(props: Props) {
     <>
       <div
         ref={refs.setReference}
-        style={{ display: 'flow-root' }}
-        {...getReferenceProps({
-          onClick(event) {
-            event.stopPropagation();
-          },
-        })}
+        {...getReferenceProps({ onClick: (e) => e.stopPropagation() })}
       >
         {children}
       </div>
-      {isOpen && (
+      {isMounted && (
         <FloatingPortal>
           <div
             ref={refs.setFloating}
+            className={classes(['Floating', contentClass])}
+            data-position={context.placement}
+            data-transition={status}
             style={{ ...floatingStyles, zIndex: props.baseZIndex || 5 }}
             {...getFloatingProps()}
           >
