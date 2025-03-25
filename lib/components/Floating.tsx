@@ -71,6 +71,8 @@ type Props = {
   allowedOutsideClasses: string;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
+  /** Close the content after interaction with it. */
+  closeAfterInteract: boolean;
   /**
    * Called when the open state changes.
    * Returns the new open state.
@@ -79,8 +81,6 @@ type Props = {
    * onOpenChange={open ? makeThingsOnOpen : makeThingsOnClose}
    * ```
    */
-  /** Close the content after interaction with it. */
-  closeAfterInteract: boolean;
   onOpenChange: (open: boolean) => void;
 }>;
 
