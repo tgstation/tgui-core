@@ -60,6 +60,8 @@ type Props = {
   placement: Placement;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
+  /** Close the floating element after interaction with it. */
+  closeAfterInteract: boolean;
   /**
    * Called when the open state changes.
    * Returns the new open state.
@@ -93,6 +95,7 @@ export function Floating(props: Props) {
     noWrap,
     placement,
     stopChildPropagation,
+    closeAfterInteract,
     onOpenChange,
     onClickOutside,
   } = props;
@@ -134,8 +137,6 @@ export function Floating(props: Props) {
     duration: animationDuration || 200,
   });
 
-  // Generate our children which will be used as reference
-  let floatingChildren: ReactElement;
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
     ...(stopChildPropagation && {
@@ -143,6 +144,16 @@ export function Floating(props: Props) {
     }),
   });
 
+  const floatingProps = getFloatingProps({
+    onClick: () => {
+      if (closeAfterInteract) {
+        setIsOpen(false);
+      }
+    },
+  });
+
+  // Generate our children which will be used as reference
+  let floatingChildren: ReactElement;
   if (noWrap && isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
@@ -168,7 +179,7 @@ export function Floating(props: Props) {
             data-position={context.placement}
             data-transition={status}
             style={{ ...floatingStyles, zIndex: baseZIndex || 5 }}
-            {...getFloatingProps()}
+            {...floatingProps}
           >
             {content}
           </div>
