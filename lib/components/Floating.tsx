@@ -38,7 +38,7 @@ type Props = {
    * Works only with JSX elements wrapped in `React.forwardRef`
    * or default HTML elements.
    */
-  contentNoWrap: boolean;
+  childrenNoWrap: boolean;
   /** Classes with will be applied to the content. */
   contentClasses: string;
   /** Use calculated by Floating UI children width as content width. */
@@ -94,7 +94,7 @@ export function Floating(props: Props) {
     children,
     content,
     placement,
-    contentNoWrap,
+    childrenNoWrap,
     contentClasses,
     contentAutoWidth,
     contentOffset = 6,
@@ -178,7 +178,7 @@ export function Floating(props: Props) {
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
-  if (contentNoWrap && isValidElement(children)) {
+  if (childrenNoWrap && isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
     floatingChildren = <span {...referenceProps}>{children}</span>;
