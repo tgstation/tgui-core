@@ -1,4 +1,6 @@
 .Floating {
+  z-index: 5;
+
   &--animated {
     &[data-transition="open"] {
       opacity: 1;
