@@ -1,6 +1,7 @@
 import {
   FloatingPortal,
   type Placement,
+  autoUpdate,
   flip,
   offset,
   size,
@@ -31,8 +32,13 @@ type Props = {
    * @default 5
    */
   baseZIndex: number;
-  /** Class with will be applied to the content. */
-  contentClass: string;
+  /** Classes with will be applied to the content. */
+  contentClasses: string;
+  /**
+   * Indentation of floating element from children.
+   * @default 6
+   */
+  contentOffset: number;
   /** Calculate floating width automatically, by using children width. */
   contentAutoWidth: boolean;
   /**
@@ -59,6 +65,8 @@ type Props = {
    * or default HTML elements.
    */
   noWrap: boolean;
+  /** Whitelisted classes, click on which will not close the floating element if he's outside. */
+  allowOutsideClasses: string;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
   /** Stops event propagation on children. */
@@ -90,16 +98,18 @@ export function Floating(props: Props) {
   const {
     children,
     content,
-    contentClass,
+    contentClasses,
+    contentOffset = 6,
+    contentAutoWidth,
     baseZIndex,
     animationDuration,
     hoverDelay,
     hoverOpen,
     noWrap,
     placement,
+    allowOutsideClasses,
     stopChildPropagation,
     closeAfterInteract,
-    contentAutoWidth,
     onOpenChange,
     onClickOutside,
   } = props;
@@ -112,10 +122,11 @@ export function Floating(props: Props) {
       onOpenChange?.(isOpen);
       reason === 'outside-press' && onClickOutside?.();
     },
+    whileElementsMounted: autoUpdate,
     placement: placement || 'bottom',
     transform: false,
     middleware: [
-      offset(6),
+      offset(contentOffset),
       flip({
         padding: 6,
         fallbackPlacements: [
@@ -137,7 +148,16 @@ export function Floating(props: Props) {
     ],
   });
 
-  const dismiss = useDismiss(context);
+  const dismiss = useDismiss(context, {
+    // Allow to add some secured classes, click on which will not close the floating element
+    // Even if he's outside reference
+    outsidePress: (event) =>
+      (allowOutsideClasses &&
+        event.target instanceof Element &&
+        !event.target.closest(classes([allowOutsideClasses]))) ||
+      false,
+  });
+
   const openMethod = hoverOpen
     ? useHover(context, { restMs: hoverDelay || 200 })
     : useClick(context);
@@ -185,7 +205,7 @@ export function Floating(props: Props) {
             ref={refs.setFloating}
             className={classes([
               'Floating',
-              contentClass,
+              contentClasses,
               !animationDuration && 'Floating--animated',
             ])}
             data-position={context.placement}
