@@ -32,8 +32,15 @@ type Props = {
   baseZIndex: number;
   /** Class with will be applied to the content. */
   contentClass: string;
-  /** Disables open/close floating element animations. */
-  disableAnimations: boolean;
+  /**
+   * How long the animation takes in ms.
+   * If specified, default animation will be disabled,
+   * so you can freely make your own.
+   *
+   * Fully disables animations if 0
+   * @default 200
+   */
+  animationDuration: number;
   /**
    * Delay in ms before opening and closing the floating element on hover.
    * @default 200
@@ -80,7 +87,7 @@ export function Floating(props: Props) {
     content,
     contentClass,
     baseZIndex,
-    disableAnimations,
+    animationDuration,
     hoverDelay,
     hoverOpen,
     noWrap,
@@ -112,7 +119,7 @@ export function Floating(props: Props) {
     openMethod,
   ]);
   const { isMounted, status } = useTransitionStatus(context, {
-    duration: disableAnimations ? 0 : 200,
+    duration: animationDuration || 200,
   });
 
   // Generate our children which will be used as reference
@@ -142,8 +149,9 @@ export function Floating(props: Props) {
           <div
             ref={refs.setFloating}
             className={classes([
+              'Floating',
               contentClass,
-              !disableAnimations && 'Floating',
+              !animationDuration && 'Floating--animated',
             ])}
             data-position={context.placement}
             data-transition={status}
