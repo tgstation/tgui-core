@@ -107,7 +107,19 @@ export function Floating(props: Props) {
     },
     placement: placement || 'bottom',
     transform: false,
-    middleware: [offset(6), flip()],
+    middleware: [
+      offset(6),
+      flip({
+        padding: 6,
+        fallbackPlacements: [
+          'bottom-start',
+          'bottom-end',
+          'top',
+          'top-start',
+          'top-end',
+        ],
+      }),
+    ],
   });
 
   const dismiss = useDismiss(context);
