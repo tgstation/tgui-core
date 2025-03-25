@@ -28,65 +28,60 @@ type Props = {
   content: ReactNode;
 } & Partial<{
   /**
-   * Base z-index of the floating element
-   * @default 5
+   * Where the content will be displayed, relative to children.
+   * - See [Placement](https://floating-ui.com/docs/useFloating#placement)
+   * @default 'bottom'
    */
-  baseZIndex: number;
-  /** Classes with will be applied to the content. */
-  contentClasses: string;
-  /**
-   * Indentation of floating element from children.
-   * @default 6
-   */
-  contentOffset: number;
-  /** Calculate floating width automatically, by using children width. */
-  contentAutoWidth: boolean;
-  /**
-   * How long the animation takes in ms.
-   * If specified, default animation will be disabled,
-   * so you can freely make your own.
-   *
-   * Fully disables animations if 0
-   * @default 200
-   */
-  animationDuration: number;
-  /**
-   * Delay in ms before opening and closing the floating element on hover.
-   * @default 200
-   */
-  hoverDelay: number;
-  /**
-   * Open Floating element with hovering of reference element.
-   */
-  hoverOpen: boolean;
+  placement: Placement;
   /**
    * Passes ref directly to children, without wrapping it first.
    * Works only with JSX elements wrapped in `React.forwardRef`
    * or default HTML elements.
    */
-  noWrap: boolean;
-  /** Whitelisted classes, click on which will not close the floating element if he's outside. */
-  allowOutsideClasses: string;
-  /** Where to place the tooltip relative to the reference element. */
-  placement: Placement;
+  contentNoWrap: boolean;
+  /** Classes with will be applied to the content. */
+  contentClasses: string;
+  /** Use calculated by Floating UI children width as content width. */
+  contentAutoWidth: boolean;
+  /**
+   * Indentation of content element from children.
+   * @default 6
+   */
+  contentOffset: number;
+  /**
+   * How long the animation takes in ms.
+   * - If specified, default animation will be disabled.
+   * - Fully disables animations if 0
+   * @default 200
+   */
+  animationDuration: number;
+  /** Content will open when you hover over children. */
+  hoverOpen: boolean;
+  /**
+   * Delay in ms before opening and closing the content.
+   * - Works only if used `hoverOpen` prop.
+   * @default 200
+   */
+  hoverDelay: number;
+  /**
+   * Whitelisted classes.
+   * Used to allow to add some secured classes,
+   * click on which will not close the content.
+   */
+  allowedOutsideClasses: string;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
-  /** Close the floating element after interaction with it. */
-  closeAfterInteract: boolean;
   /**
    * Called when the open state changes.
    * Returns the new open state.
-   *
    * Can be used this way:
    * ```tsx
    * onOpenChange={open ? makeThingsOnOpen : makeThingsOnClose}
    * ```
    */
+  /** Close the content after interaction with it. */
+  closeAfterInteract: boolean;
   onOpenChange: (open: boolean) => void;
-  /**
-   * Called when the user clicks outside the floating element.
-   */
-  onClickOutside: () => void;
 }>;
 
 /**
@@ -98,29 +93,26 @@ export function Floating(props: Props) {
   const {
     children,
     content,
-    contentClasses,
-    contentOffset = 6,
-    contentAutoWidth,
-    baseZIndex,
-    animationDuration,
-    hoverDelay,
-    hoverOpen,
-    noWrap,
     placement,
-    allowOutsideClasses,
+    contentNoWrap,
+    contentClasses,
+    contentAutoWidth,
+    contentOffset = 6,
+    animationDuration,
+    hoverOpen,
+    hoverDelay,
+    allowedOutsideClasses,
     stopChildPropagation,
     closeAfterInteract,
     onOpenChange,
-    onClickOutside,
   } = props;
 
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
-    onOpenChange(isOpen, _, reason) {
+    onOpenChange(isOpen) {
       setIsOpen(isOpen);
       onOpenChange?.(isOpen);
-      reason === 'outside-press' && onClickOutside?.();
     },
     whileElementsMounted: autoUpdate,
     placement: placement || 'bottom',
@@ -148,26 +140,26 @@ export function Floating(props: Props) {
     ],
   });
 
+  const { isMounted, status } = useTransitionStatus(context, {
+    duration: animationDuration || 200,
+  });
+
   const dismiss = useDismiss(context, {
-    // Allow to add some secured classes, click on which will not close the floating element
-    // Even if he's outside reference
     outsidePress: (event) =>
-      (allowOutsideClasses &&
+      (allowedOutsideClasses &&
         event.target instanceof Element &&
-        !event.target.closest(classes([allowOutsideClasses]))) ||
+        !event.target.closest(classes([allowedOutsideClasses]))) ||
       false,
   });
 
-  const openMethod = hoverOpen
-    ? useHover(context, { restMs: hoverDelay || 200 })
-    : useClick(context);
+  const click = useClick(context);
+  const hover = useHover(context, { restMs: hoverDelay || 200 });
+  const openMethod = hoverOpen ? hover : click;
+
   const { getReferenceProps, getFloatingProps } = useInteractions([
     dismiss,
     openMethod,
   ]);
-  const { isMounted, status } = useTransitionStatus(context, {
-    duration: animationDuration || 200,
-  });
 
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
@@ -186,14 +178,10 @@ export function Floating(props: Props) {
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
-  if (noWrap && isValidElement(children)) {
+  if (contentNoWrap && isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
-    floatingChildren = (
-      <div style={{ display: 'flow-root' }} {...referenceProps}>
-        {children}
-      </div>
-    );
+    floatingChildren = <span {...referenceProps}>{children}</span>;
   }
 
   return (
@@ -205,12 +193,12 @@ export function Floating(props: Props) {
             ref={refs.setFloating}
             className={classes([
               'Floating',
-              contentClasses,
               !animationDuration && 'Floating--animated',
+              contentClasses,
             ])}
             data-position={context.placement}
             data-transition={status}
-            style={{ ...floatingStyles, zIndex: baseZIndex || 5 }}
+            style={{ ...floatingStyles }}
             {...floatingProps}
           >
             {content}
