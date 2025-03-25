@@ -3,6 +3,7 @@ import {
   type Placement,
   flip,
   offset,
+  size,
   useClick,
   useDismiss,
   useFloating,
@@ -32,6 +33,8 @@ type Props = {
   baseZIndex: number;
   /** Class with will be applied to the content. */
   contentClass: string;
+  /** Calculate floating width automatically, by using children width. */
+  contentAutoWidth: boolean;
   /**
    * How long the animation takes in ms.
    * If specified, default animation will be disabled,
@@ -96,6 +99,7 @@ export function Floating(props: Props) {
     placement,
     stopChildPropagation,
     closeAfterInteract,
+    contentAutoWidth,
     onOpenChange,
     onClickOutside,
   } = props;
@@ -122,6 +126,14 @@ export function Floating(props: Props) {
           'top-end',
         ],
       }),
+      contentAutoWidth &&
+        size({
+          apply({ rects, elements }) {
+            Object.assign(elements.floating.style, {
+              minWidth: `${rects.reference.width}px`,
+            });
+          },
+        }),
     ],
   });
 
