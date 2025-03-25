@@ -51,6 +51,8 @@ type Props = {
   noWrap: boolean;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
+  /** Stops event propagation on children. */
+  stopChildPropagation: boolean;
   /**
    * Called when the open state changes.
    * Returns the new open state.
@@ -60,11 +62,11 @@ type Props = {
    * onOpenChange={open ? makeThingsOnOpen : makeThingsOnClose}
    * ```
    */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange: (open: boolean) => void;
   /**
    * Called when the user clicks outside the floating element.
    */
-  onClickOutside?: () => void;
+  onClickOutside: () => void;
 }>;
 
 /**
@@ -83,6 +85,7 @@ export function Floating(props: Props) {
     hoverOpen,
     noWrap,
     placement,
+    stopChildPropagation,
     onOpenChange,
     onClickOutside,
   } = props;
@@ -116,7 +119,9 @@ export function Floating(props: Props) {
   let floatingChildren: ReactElement;
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
-    onClick: (e: React.MouseEvent) => e.stopPropagation(),
+    ...(stopChildPropagation && {
+      onClick: (event) => event.stopPropagation(),
+    }),
   });
 
   if (noWrap && isValidElement(children)) {
