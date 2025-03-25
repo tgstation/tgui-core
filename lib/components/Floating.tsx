@@ -10,7 +10,13 @@ import {
   useInteractions,
   useTransitionStatus,
 } from '@floating-ui/react';
-import { type ReactNode, useState } from 'react';
+import {
+  type ReactElement,
+  type ReactNode,
+  cloneElement,
+  isValidElement,
+  useState,
+} from 'react';
 import { classes } from '../common/react';
 
 type Props = {
@@ -26,17 +32,23 @@ type Props = {
   baseZIndex: number;
   /** Class with will be applied to the content. */
   contentClass: string;
-  /**
-   * Open Floating element with hovering of reference element.
-   */
-  hoverOpen: boolean;
+  /** Disables open/close floating element animations. */
+  disableAnimations: boolean;
   /**
    * Delay in ms before opening and closing the floating element on hover.
    * @default 200
    */
   hoverDelay: number;
-  /** Disables open/close floating element animations. */
-  disableAnimations: boolean;
+  /**
+   * Open Floating element with hovering of reference element.
+   */
+  hoverOpen: boolean;
+  /**
+   * Passes ref directly to children, without wrapping it first.
+   * Works only with JSX elements wrapped in `React.forwardRef`
+   * or default HTML elements.
+   */
+  noWrap: boolean;
   /** Where to place the tooltip relative to the reference element. */
   placement: Placement;
   /**
@@ -65,9 +77,11 @@ export function Floating(props: Props) {
     children,
     content,
     contentClass,
-    hoverOpen,
-    hoverDelay,
+    baseZIndex,
     disableAnimations,
+    hoverDelay,
+    hoverOpen,
+    noWrap,
     placement,
     onOpenChange,
     onClickOutside,
@@ -98,15 +112,26 @@ export function Floating(props: Props) {
     duration: disableAnimations ? 0 : 200,
   });
 
-  return (
-    <>
-      <div
-        ref={refs.setReference}
-        style={{ display: 'flow-root' }}
-        {...getReferenceProps({ onClick: (e) => e.stopPropagation() })}
-      >
+  // Generate our children which will be used as reference
+  let floatingChildren: ReactElement;
+  const referenceProps = getReferenceProps({
+    ref: refs.setReference,
+    onClick: (e: React.MouseEvent) => e.stopPropagation(),
+  });
+
+  if (noWrap && isValidElement(children)) {
+    floatingChildren = cloneElement(children as ReactElement, referenceProps);
+  } else {
+    floatingChildren = (
+      <div style={{ display: 'flow-root' }} {...referenceProps}>
         {children}
       </div>
+    );
+  }
+
+  return (
+    <>
+      {floatingChildren}
       {isMounted && (
         <FloatingPortal>
           <div
@@ -117,7 +142,7 @@ export function Floating(props: Props) {
             ])}
             data-position={context.placement}
             data-transition={status}
-            style={{ ...floatingStyles, zIndex: props.baseZIndex || 5 }}
+            style={{ ...floatingStyles, zIndex: baseZIndex || 5 }}
             {...getFloatingProps()}
           >
             {content}
