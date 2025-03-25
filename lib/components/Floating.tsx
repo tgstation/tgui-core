@@ -24,7 +24,7 @@ import { classes } from '../common/react';
 type Props = {
   /** Interacting with this element will open the floating element. */
   children: ReactNode;
-  /** The content to display like fLoating. */
+  /** The content to display like floating. */
   content: ReactNode;
 } & Partial<{
   /**
