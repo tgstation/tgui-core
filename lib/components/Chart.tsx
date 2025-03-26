@@ -101,7 +101,6 @@ export function Chart(props: Props) {
       return;
     }
 
-    console.log('Resized');
     const rect = element.getBoundingClientRect();
     setViewBox([rect.width, rect.height]);
   }
