@@ -41,6 +41,8 @@ type Props = {
   childrenNoWrap: boolean;
   /** Classes with will be applied to the content. */
   contentClasses: string;
+  /** Inline styles with will be applied to the content. */
+  contentStyles: React.CSSProperties;
   /** Use calculated by Floating UI children width as content width. */
   contentAutoWidth: boolean;
   /**
@@ -67,6 +69,7 @@ type Props = {
    * Whitelisted classes.
    * Used to allow to add some secured classes,
    * click on which will not close the content.
+   * - Classes must be sent like this: `".class1, .class2"`
    */
   allowedOutsideClasses: string;
   /** Stops event propagation on children. */
@@ -96,6 +99,7 @@ export function Floating(props: Props) {
     placement,
     childrenNoWrap,
     contentClasses,
+    contentStyles,
     contentAutoWidth,
     contentOffset = 6,
     animationDuration,
@@ -129,14 +133,14 @@ export function Floating(props: Props) {
           'top-end',
         ],
       }),
-      contentAutoWidth &&
-        size({
-          apply({ rects, elements }) {
-            Object.assign(elements.floating.style, {
-              minWidth: `${rects.reference.width}px`,
-            });
-          },
-        }),
+      size({
+        apply({ rects, elements }) {
+          Object.assign(elements.floating.style, {
+            height: `${rects.floating.height}px`,
+            ...(contentAutoWidth && { width: `${rects.reference.width}px` }),
+          });
+        },
+      }),
     ],
   });
 
@@ -148,7 +152,7 @@ export function Floating(props: Props) {
     outsidePress: (event) =>
       (allowedOutsideClasses &&
         event.target instanceof Element &&
-        !event.target.closest(classes([allowedOutsideClasses]))) ||
+        !event.target.closest(allowedOutsideClasses)) ||
       false,
   });
 
@@ -171,7 +175,7 @@ export function Floating(props: Props) {
   const floatingProps = getFloatingProps({
     onClick: () => {
       if (closeAfterInteract) {
-        setIsOpen(false);
+        context.onOpenChange(false);
       }
     },
   });
@@ -198,7 +202,7 @@ export function Floating(props: Props) {
             ])}
             data-position={context.placement}
             data-transition={status}
-            style={{ ...floatingStyles }}
+            style={{ ...floatingStyles, ...contentStyles }}
             {...floatingProps}
           >
             {content}
