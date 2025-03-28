@@ -1,4 +1,5 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { unit } from '../common/ui';
 import type { BoxProps } from './Box';
@@ -183,7 +184,7 @@ export function Dropdown(props: Props) {
                       onSelected?.(value);
                     }}
                     onKeyDown={(event) => {
-                      if (event.key === 'Enter') {
+                      if (event.key === KEY.Enter) {
                         onSelected?.(value);
                       }
                     }}
