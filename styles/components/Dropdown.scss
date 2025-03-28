@@ -93,7 +93,7 @@
       transition: background-color 0.1s;
 
       &.selected {
-        background-color: hsla(0, 0%, 66%, 0.2) !important;
+        background-color: hsla(0, 0%, 100%, 0.2) !important;
         transition-duration: 0s;
       }
 
@@ -101,12 +101,12 @@
         cursor: pointer;
 
         &:hover {
-          background-color: hsla(0, 0%, 33%, 0.2);
+          background-color: hsla(0, 0%, 50%, 0.2);
           transition-duration: 0s;
         }
 
         &:active {
-          background-color: hsla(0, 0%, 50%, 0.2);
+          background-color: hsla(0, 0%, 75%, 0.2);
           transition-duration: 0s;
         }
       }
