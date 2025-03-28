@@ -4,7 +4,7 @@ $background-color: base.$color-bg !default;
 
 .Modal {
   background-color: $background-color;
-  padding: 0.5rem;
+  padding: 1rem;
 
   &__dimmer .Dimmer__inner {
     // 1rem for window padding, 1rem like modal margin
