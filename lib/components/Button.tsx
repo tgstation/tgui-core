@@ -43,7 +43,7 @@ type Props = Partial<{
   circular: boolean;
   /** Reduces the padding of the button */
   compact: boolean;
-  /** Disables and greys out the button */
+  /** Disables button and makes it semi-transparent */
   disabled: BooleanLike;
   /** Fill all available horizontal space */
   fluid: boolean;

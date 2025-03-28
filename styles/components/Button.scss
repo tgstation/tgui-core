@@ -3,7 +3,6 @@
 @use "../functions" as *;
 
 $color-default: colors.bg(colors.$primary) !default;
-$color-disabled: hsl(0, 0%, 60%) !default;
 $color-selected: colors.bg(colors.$green) !default;
 $color-caution: colors.bg(colors.$yellow) !default;
 $color-danger: colors.bg(colors.$red) !default;
@@ -16,25 +15,24 @@ $bg-map: colors.$bg-map !default;
   $luminance: luminance($color);
   $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
-  transition:
-    color 50ms,
-    background-color 50ms;
   background-color: $color;
   color: $text-color;
 
-  &:focus {
-    transition:
-      color 100ms,
-      background-color 100ms;
-  }
+  &:not(.Button--disabled) {
+    &:hover {
+      background-color: lighten($color, 30%);
+      color: $text-color;
+    }
 
-  &:hover {
-    background-color: lighten($color, 30%);
-    color: $text-color;
+    &:active {
+      background-color: darken($color, 7.5%);
+      color: $text-color;
+    }
   }
 }
 
 .Button {
+  cursor: base.$cursor-hover;
   position: relative;
   display: inline-block;
   line-height: 1.667em;
@@ -44,9 +42,14 @@ $bg-map: colors.$bg-map !default;
   outline: 0;
   border-radius: $border-radius;
   margin-bottom: base.em(2px);
+  transition-property: background-color, color, opacity;
+  transition-duration: 0.2s;
   // Disable selection in buttons
   user-select: none;
-  -ms-user-select: none;
+
+  &:active {
+    transition: none;
+  }
 
   &:last-child {
     margin-right: 0;
@@ -128,13 +131,22 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button--color--transparent {
-  @include button-color(base.$color-bg);
-  background-color: rgba(base.$color-bg, 0);
   color: $color-transparent-text;
+
+  &:not(.Button--disabled) {
+    &:hover {
+      background-color: hsla(0, 0%, 50%, 0.15);
+    }
+
+    &:active {
+      background-color: hsla(0, 0%, 50%, 0.25);
+    }
+  }
 }
 
 .Button--disabled {
-  background-color: $color-disabled !important;
+  cursor: base.$cursor-disabled;
+  opacity: 0.5;
 }
 
 .Button--selected {
