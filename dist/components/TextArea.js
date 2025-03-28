@@ -1,73 +1,87 @@
-import { jsxs as B, jsx as i } from "react/jsx-runtime";
-import { forwardRef as F, useRef as I, useState as Y, useImperativeHandle as C, useEffect as x } from "react";
-import { KEY as p, isEscape as H } from "../common/keys.js";
-import { classes as f } from "../common/react.js";
-import { Box as L } from "./Box.js";
-import { toInputValue as g } from "./Input.js";
-const M = F(
-  (b, h) => {
+import { jsxs as I, jsx as x } from "react/jsx-runtime";
+import { forwardRef as M, useRef as Y, useState as C, useImperativeHandle as H, useEffect as y } from "react";
+import { KEY as A, isEscape as L } from "../common/keys.js";
+import { classes as p } from "../common/react.js";
+import { Box as U } from "./Box.js";
+import { toInputValue as _ } from "./Input.js";
+function q(u, s, l, t) {
+  return `${u.substring(0, l)}${s}${u.substring(l, t)}${s}${u.substring(t)}`;
+}
+const X = M(
+  (u, s) => {
     const {
-      autoFocus: d,
-      autoSelect: o,
-      displayedValue: a,
-      dontUseTabForIndent: A,
-      maxLength: _,
-      noborder: y,
-      onChange: l,
-      onEnter: u,
-      onEscape: s,
-      onInput: c,
-      placeholder: w,
-      scrollbar: S,
-      selfClear: m,
-      value: n,
-      ...E
-    } = b, { className: K, fluid: N, nowrap: k, ...D } = E, e = I(null), [R, V] = Y(0);
-    function $(r) {
-      if (r.key === p.Enter) {
+      autoFocus: l,
+      autoSelect: t,
+      displayedValue: o,
+      dontUseTabForIndent: w,
+      maxLength: S,
+      noborder: $,
+      onChange: i,
+      onEnter: f,
+      onEscape: g,
+      onInput: d,
+      placeholder: k,
+      scrollbar: E,
+      selfClear: b,
+      userMarkup: m,
+      value: T,
+      ...K
+    } = u, { className: D, fluid: N, nowrap: R, ...V } = K, a = Y(null), [j, B] = C(0);
+    function F(r) {
+      if (r.key === A.Enter) {
         if (r.shiftKey) {
           r.currentTarget.focus();
           return;
         }
-        u == null || u(r, r.currentTarget.value), m && (r.currentTarget.value = ""), r.currentTarget.blur();
+        f == null || f(r, r.currentTarget.value), b && (r.currentTarget.value = ""), r.currentTarget.blur();
         return;
       }
-      if (H(r.key)) {
-        s == null || s(r), m ? r.currentTarget.value = "" : (r.currentTarget.value = g(n), r.currentTarget.blur());
+      if (L(r.key)) {
+        g == null || g(r), b ? r.currentTarget.value = "" : (r.currentTarget.value = _(T), r.currentTarget.blur());
         return;
       }
-      if (!A && r.key === p.Tab) {
+      if (!w && r.key === A.Tab) {
         r.preventDefault();
-        const { value: t, selectionStart: T, selectionEnd: j } = r.currentTarget;
-        r.currentTarget.value = `${t.substring(0, T)}	${t.substring(j)}`, r.currentTarget.selectionEnd = T + 1;
+        const { value: e, selectionStart: c, selectionEnd: n } = r.currentTarget;
+        r.currentTarget.value = `${e.substring(0, c)}	${e.substring(n)}`, r.currentTarget.selectionEnd = c + 1;
+      }
+      if (m && (r.ctrlKey || r.metaKey) && m[r.key]) {
+        r.preventDefault();
+        const { value: e, selectionStart: c, selectionEnd: n } = r.currentTarget, h = m[r.key];
+        r.currentTarget.value = q(
+          e,
+          h,
+          c,
+          n
+        ), r.currentTarget.selectionEnd = n + h.length * 2;
       }
     }
-    return C(
-      h,
-      () => e.current
-    ), x(() => {
-      if (!d && !o) return;
-      const r = e.current;
-      r && (d || o) && setTimeout(() => {
-        r.focus(), o && r.select();
+    return H(
+      s,
+      () => a.current
+    ), y(() => {
+      if (!l && !t) return;
+      const r = a.current;
+      r && (l || t) && setTimeout(() => {
+        r.focus(), t && r.select();
       }, 1);
-    }, []), x(() => {
-      const r = e.current;
+    }, []), y(() => {
+      const r = a.current;
       if (!r) return;
-      const t = g(n);
-      r.value !== t && (r.value = t);
-    }, [n]), /* @__PURE__ */ B(
-      L,
+      const e = _(T);
+      r.value !== e && (r.value = e);
+    }, [T]), /* @__PURE__ */ I(
+      U,
       {
-        className: f([
+        className: p([
           "TextArea",
           N && "TextArea--fluid",
-          y && "TextArea--noborder",
-          K
+          $ && "TextArea--noborder",
+          D
         ]),
-        ...D,
+        ...V,
         children: [
-          !!a && /* @__PURE__ */ i(
+          !!o && /* @__PURE__ */ x(
             "div",
             {
               style: {
@@ -76,40 +90,40 @@ const M = F(
                 position: "absolute",
                 width: "100%"
               },
-              children: /* @__PURE__ */ i(
+              children: /* @__PURE__ */ x(
                 "div",
                 {
-                  className: f([
+                  className: p([
                     "TextArea__textarea",
                     "TextArea__textarea_custom"
                   ]),
                   style: {
-                    transform: `translateY(-${R}px)`
+                    transform: `translateY(-${j}px)`
                   },
-                  children: a
+                  children: o
                 }
               )
             }
           ),
-          /* @__PURE__ */ i(
+          /* @__PURE__ */ x(
             "textarea",
             {
-              className: f([
+              className: p([
                 "TextArea__textarea",
-                S && "TextArea__textarea--scrollable",
-                k && "TextArea__nowrap"
+                E && "TextArea__textarea--scrollable",
+                R && "TextArea__nowrap"
               ]),
-              maxLength: _,
-              onBlur: (r) => l == null ? void 0 : l(r, r.target.value),
-              onChange: (r) => c == null ? void 0 : c(r, r.target.value),
-              onKeyDown: $,
+              maxLength: S,
+              onBlur: (r) => i == null ? void 0 : i(r, r.target.value),
+              onChange: (r) => d == null ? void 0 : d(r, r.target.value),
+              onKeyDown: F,
               onScroll: () => {
-                a && e.current && V(e.current.scrollTop);
+                o && a.current && B(a.current.scrollTop);
               },
-              placeholder: w,
-              ref: e,
+              placeholder: k,
+              ref: a,
               style: {
-                color: a ? "rgba(0, 0, 0, 0)" : "inherit"
+                color: o ? "rgba(0, 0, 0, 0)" : "inherit"
               }
             }
           )
@@ -119,5 +133,5 @@ const M = F(
   }
 );
 export {
-  M as TextArea
+  X as TextArea
 };

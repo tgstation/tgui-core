@@ -37,5 +37,8 @@ jobs:
       - name: Run Biome
         run: biome ci .
 
+      - name: Run tests
+        run: pnpm test
+
       - name: Run build script
         run: pnpm build

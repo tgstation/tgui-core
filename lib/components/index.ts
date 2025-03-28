@@ -16,6 +16,7 @@ export { DraggableControl } from './DraggableControl';
 export { Dropdown } from './Dropdown';
 export { FitText } from './FitText';
 export { Flex } from './Flex';
+export { Floating } from './Floating';
 export { Icon } from './Icon';
 export { Image } from './Image';
 export { ImageButton } from './ImageButton';

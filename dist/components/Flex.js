@@ -4,7 +4,7 @@ import { computeBoxClassName as m, computeBoxProps as a, unit as f } from "../co
 function p(e) {
   return r([
     "Flex",
-    e.inline && "Flex--inline",
+    e.inlineFlex && "Flex--inline",
     m(e)
   ]);
 }

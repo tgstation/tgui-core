@@ -43,7 +43,7 @@ type Props = Partial<{
   circular: boolean;
   /** Reduces the padding of the button */
   compact: boolean;
-  /** Disables and greys out the button */
+  /** Disables button and makes it semi-transparent */
   disabled: BooleanLike;
   /** Fill all available horizontal space */
   fluid: boolean;
@@ -59,6 +59,8 @@ type Props = Partial<{
   iconSize: number;
   /** Makes the icon spin */
   iconSpin: BooleanLike;
+  /** Called when the button is blurred */
+  onBlur: (e: any) => void;
   /** Called when element is clicked */
   onClick: (e: any) => void;
   /** Activates the button (gives it a green color) */
@@ -148,7 +150,12 @@ export function Button(props: Props) {
       }}
       {...computeBoxProps(rest)}
     >
-      <div className="Button__content">
+      <div
+        className={classes([
+          'Button__content',
+          ellipsis && 'Button__content--ellipsis',
+        ])}
+      >
         {icon && iconPosition !== 'right' && (
           <Icon
             mr={toDisplay && 0.5}
@@ -162,14 +169,7 @@ export function Button(props: Props) {
         {!ellipsis ? (
           toDisplay
         ) : (
-          <span
-            className={classes([
-              'Button--ellipsis',
-              icon && 'Button__textMargin',
-            ])}
-          >
-            {toDisplay}
-          </span>
+          <span className="Button--ellipsis">{toDisplay}</span>
         )}
         {icon && iconPosition === 'right' && (
           <Icon
@@ -230,10 +230,16 @@ function ButtonConfirm(props: ConfirmProps) {
     confirmIcon,
     ellipsis = true,
     icon,
+    onBlur,
     onClick,
     ...rest
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
+
+  function handleBlur(event: FocusEvent) {
+    setClickedOnce(false);
+    onBlur?.(event);
+  }
 
   function handleClick(event: MouseEvent<HTMLDivElement>) {
     if (!clickedOnce) {
@@ -249,6 +255,7 @@ function ButtonConfirm(props: ConfirmProps) {
     <Button
       icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
+      onBlur={handleBlur}
       onClick={handleClick}
       {...rest}
     >

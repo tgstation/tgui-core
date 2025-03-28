@@ -43,6 +43,8 @@ type Props = Partial<{
     iconSize: number;
     /** Makes the icon spin */
     iconSpin: BooleanLike;
+    /** Called when the button is blurred */
+    onBlur: (e: any) => void;
     /** Called when element is clicked */
     onClick: (e: any) => void;
     /** Activates the button (gives it a green color) */

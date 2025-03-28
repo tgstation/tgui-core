@@ -1,4 +1,4 @@
-import { Component, type RefObject, createRef } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { zip } from '../common/collections';
 import { Box, type BoxProps } from './Box';
 
@@ -13,12 +13,9 @@ type Props = {
 }> &
   BoxProps;
 
-type State = {
-  viewBox: [number, number];
-};
-
 type Point = number[];
 type Range = [number, number];
+type ViewBox = [number, number];
 
 function normalizeData(
   data: Point[],
@@ -63,93 +60,80 @@ function dataToPolylinePoints(data) {
   return points;
 }
 
-class LineChart extends Component<Props> {
-  ref: RefObject<HTMLDivElement>;
-  state: State;
+const computedStyles: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  overflow: 'hidden',
+};
 
-  constructor(props: Props) {
-    super(props);
-    this.ref = createRef();
-    this.state = {
-      // Initial guess
-      viewBox: [600, 200],
-    };
-    this.handleResize = this.handleResize.bind(this);
+export function Chart(props: Props) {
+  const {
+    data = [],
+    rangeX,
+    rangeY,
+    fillColor = 'none',
+    strokeColor = '#ffffff',
+    strokeWidth = 2,
+    ...rest
+  } = props;
+
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [viewBox, setViewBox] = useState<ViewBox>([600, 200]);
+
+  const normalized = normalizeData(data, viewBox, rangeX, rangeY);
+  // Push data outside viewBox and form a fillable polygon
+  if (normalized.length > 0) {
+    const first = normalized[0];
+    const last = normalized[normalized.length - 1];
+    normalized.push([viewBox[0] + strokeWidth, last[1]]);
+    normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
+    normalized.push([-strokeWidth, -strokeWidth]);
+    normalized.push([-strokeWidth, first[1]]);
   }
+  const points = dataToPolylinePoints(normalized);
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  handleResize = () => {
-    const element = this.ref.current;
+  function handleResize() {
+    const element = innerRef.current;
     if (!element) {
       return;
     }
-    this.setState({
-      viewBox: [element.offsetWidth, element.offsetHeight],
-    });
-  };
 
-  render() {
-    const {
-      data = [],
-      rangeX,
-      rangeY,
-      fillColor = 'none',
-      strokeColor = '#ffffff',
-      strokeWidth = 2,
-      ...rest
-    } = this.props;
-    const { viewBox } = this.state;
-    const normalized = normalizeData(data, viewBox, rangeX, rangeY);
-    // Push data outside viewBox and form a fillable polygon
-    if (normalized.length > 0) {
-      const first = normalized[0];
-      const last = normalized[normalized.length - 1];
-      normalized.push([viewBox[0] + strokeWidth, last[1]]);
-      normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
-      normalized.push([-strokeWidth, -strokeWidth]);
-      normalized.push([-strokeWidth, first[1]]);
-    }
-    const points = dataToPolylinePoints(normalized);
-    const divProps = { ...rest, className: '', ref: this.ref };
-
-    return (
-      <Box position="relative" {...rest}>
-        <Box {...divProps}>
-          <svg
-            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
-            preserveAspectRatio="none"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <title>chart</title>
-            <polyline
-              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
-              fill={fillColor}
-              stroke={strokeColor}
-              strokeWidth={strokeWidth}
-              points={points}
-            />
-          </svg>
-        </Box>
-      </Box>
-    );
+    const rect = element.getBoundingClientRect();
+    setViewBox([rect.width, rect.height]);
   }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <Box position="relative" {...rest}>
+      <div ref={innerRef} style={computedStyles}>
+        <svg
+          viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
+          preserveAspectRatio="none"
+          style={computedStyles}
+        >
+          <title>chart</title>
+          <polyline
+            transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            points={points}
+          />
+        </svg>
+      </div>
+    </Box>
+  );
 }
 
-export const Chart = {
-  Line: LineChart,
-};
+Chart.Line = Chart;
