@@ -137,14 +137,12 @@ export function Floating(props: Props) {
           'top-end',
         ],
       }),
-      size({
-        apply({ rects, elements }) {
-          Object.assign(elements.floating.style, {
-            height: `${rects.floating.height}px`,
-            ...(contentAutoWidth && { width: `${rects.reference.width}px` }),
-          });
-        },
-      }),
+      contentAutoWidth &&
+        size({
+          apply({ rects, elements }) {
+            elements.floating.style.width = `${rects.reference.width}px`;
+          },
+        }),
     ],
   });
 
