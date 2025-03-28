@@ -13,6 +13,7 @@ import {
   useTransitionStatus,
 } from '@floating-ui/react';
 import {
+  type CSSProperties,
   type ReactElement,
   type ReactNode,
   cloneElement,
@@ -42,7 +43,7 @@ type Props = {
   /** Classes with will be applied to the content. */
   contentClasses: string;
   /** Inline styles with will be applied to the content. */
-  contentStyles: React.CSSProperties;
+  contentStyles: CSSProperties;
   /** Use calculated by Floating UI children width as content width. */
   contentAutoWidth: boolean;
   /**
