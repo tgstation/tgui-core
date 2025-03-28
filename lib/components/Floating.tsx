@@ -19,7 +19,7 @@ import {
   isValidElement,
   useState,
 } from 'react';
-import { classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 
 type Props = {
   /** Interacting with this element will open the floating element. */
@@ -50,6 +50,8 @@ type Props = {
    * @default 6
    */
   contentOffset: number;
+  /** Disables all interactions. */
+  disabled: BooleanLike;
   /**
    * How long the animation takes in ms.
    * - If specified, default animation will be disabled.
@@ -102,6 +104,7 @@ export function Floating(props: Props) {
     contentStyles,
     contentAutoWidth,
     contentOffset = 6,
+    disabled,
     animationDuration,
     hoverOpen,
     hoverDelay,
@@ -156,8 +159,11 @@ export function Floating(props: Props) {
       false,
   });
 
-  const click = useClick(context);
-  const hover = useHover(context, { restMs: hoverDelay || 200 });
+  const click = useClick(context, { enabled: !disabled });
+  const hover = useHover(context, {
+    enabled: !disabled,
+    restMs: hoverDelay || 200,
+  });
   const openMethod = hoverOpen ? hover : click;
 
   const { getReferenceProps, getFloatingProps } = useInteractions([

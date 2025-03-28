@@ -163,6 +163,7 @@ export function Dropdown(props: Props) {
         allowedOutsideClasses=".Dropdown__button"
         contentClasses="Dropdown__menu--wrapper"
         contentStyles={{ maxWidth: unit(menuWidth) }}
+        disabled={disabled}
         onOpenChange={setOpen}
         content={
           <div ref={innerRef} className="Dropdown__menu">
