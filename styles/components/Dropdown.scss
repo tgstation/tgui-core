@@ -73,7 +73,7 @@
 
     &--wrapper {
       overflow: hidden;
-      background-color: rgba(base.$color-bg, 0.85);
+      background-color: rgba(darken(base.$color-bg, 5%), 0.85);
       color: hsl(0, 0%, 100%);
       border: base.em(1px) solid var(--border-color);
       border-radius: base.em(6px);
