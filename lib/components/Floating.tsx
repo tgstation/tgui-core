@@ -124,7 +124,7 @@ export function Floating(props: Props) {
     },
     whileElementsMounted: autoUpdate,
     placement: placement || 'bottom',
-    transform: false,
+    transform: false, // More expensive but allows to use transform for animations
     middleware: [
       offset(contentOffset),
       flip({

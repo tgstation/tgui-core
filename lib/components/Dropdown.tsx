@@ -220,7 +220,12 @@ export function Dropdown(props: Props) {
           }}
         >
           {icon && (
-            <Icon mr={1} name={icon} rotation={iconRotation} spin={iconSpin} />
+            <Icon
+              className="Dropdown__icon"
+              name={icon}
+              rotation={iconRotation}
+              spin={iconSpin}
+            />
           )}
           <span
             className="Dropdown__selected-text"
@@ -235,7 +240,8 @@ export function Dropdown(props: Props) {
           {!noChevron && (
             <Icon
               className={classes([
-                'Dropdown__arrow--button',
+                'Dropdown__icon',
+                'Dropdown__icon--arrow',
                 over && 'over',
                 open && 'open',
               ])}

@@ -43,7 +43,7 @@
     border-right: base.em(1px) solid hsla(0, 0%, 0%, 0.33);
   }
 
-  &__arrow--button {
+  &__icon {
     display: inline-block;
     align-content: center;
     height: 100%;
@@ -52,9 +52,16 @@
     // Override Button styles
     margin: 0 !important;
 
-    &.open:not(.over),
-    &.over:not(.open) {
-      transform: rotate(180deg);
+    &--arrow {
+      &.open:not(.over),
+      &.over:not(.open) {
+        transform: rotate(180deg);
+      }
+    }
+
+    // Move text closer to icon
+    ~ .Dropdown__selected-text {
+      padding-left: 0;
     }
   }
 
