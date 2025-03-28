@@ -152,6 +152,7 @@ export function Floating(props: Props) {
   });
 
   const dismiss = useDismiss(context, {
+    ancestorScroll: true,
     outsidePress: (event) =>
       (allowedOutsideClasses &&
         event.target instanceof Element &&
