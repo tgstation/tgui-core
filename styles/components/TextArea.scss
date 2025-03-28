@@ -60,7 +60,7 @@ $border-radius: Input.$border-radius !default;
   word-wrap: break-word;
   overflow: hidden;
 
-  &:-ms-input-placeholder {
+  &::placeholder {
     font-style: italic;
     color: hsl(0, 0%, 46.7%);
     color: hsla(0, 0%, 100%, 0.45);

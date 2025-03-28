@@ -34,7 +34,7 @@ export function Modal(props: ModalProps) {
   }
 
   return (
-    <Dimmer onKeyDown={handleKeyDown}>
+    <Dimmer className="Modal__dimmer" onKeyDown={handleKeyDown}>
       <div
         className={classes(['Modal', className, computeBoxClassName(rest)])}
         {...computeBoxProps(rest)}
