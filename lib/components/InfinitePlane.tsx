@@ -1,216 +1,187 @@
-import { Component, type PropsWithChildren } from 'react';
+import {
+  type MouseEvent,
+  type PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
 import { Stack } from './Stack';
 
+type Props = {
+  /** The width of the image to display. */
+  imageWidth: number;
+} & Partial<{
+  /** The background image to display. */
+  backgroundImage: string;
+  /** The initial left position of the image. */
+  initialLeft: number;
+  /** The initial top position of the image. */
+  initialTop: number;
+  /** A callback function that is called when the background image is moved. */
+  onBackgroundMoved: (newX: number, newY: number) => void;
+  /** A callback function that is called when the zoom value changes. */
+  onZoomChange: (newZoomValue: number) => void;
+}> &
+  BoxProps &
+  PropsWithChildren;
+
+enum ZoomDirection {
+  Increase = 'increase',
+  Decrease = 'decrease',
+}
+
 const ZOOM_MIN_VAL = 0.5;
 const ZOOM_MAX_VAL = 1.5;
 
 const ZOOM_INCREMENT = 0.1;
 
-export type InfinitePlaneProps = PropsWithChildren<
-  {
-    onZoomChange?: (newZoomValue: number) => void;
-    onBackgroundMoved?: (newX: number, newY: number) => void;
-    initialLeft?: number;
-    initialTop?: number;
-    backgroundImage?: string;
-    imageWidth: number;
-  } & BoxProps
->;
+export function InfinitePlane(props: Props) {
+  const {
+    backgroundImage,
+    children,
+    imageWidth,
+    initialLeft = 0,
+    initialTop = 0,
+    onBackgroundMoved,
+    onZoomChange,
+    ...rest
+  } = props;
 
-type InfinitePlaneState = {
-  mouseDown: boolean;
+  const [lastLeft, setLastLeft] = useState(0);
+  const [lastTop, setLastTop] = useState(0);
+  const [left, setLeft] = useState(0);
+  const [mouseDown, setMouseDown] = useState(false);
+  const [top, setTop] = useState(0);
+  const [zoom, setZoom] = useState(1);
 
-  left: number;
-  top: number;
+  function handleMouseDown(event: MouseEvent<HTMLDivElement>) {
+    setLastLeft(event.clientX - left);
+    setLastTop(event.clientY - top);
+    setMouseDown(true);
+  }
 
-  lastLeft: number;
-  lastTop: number;
+  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+    if (!mouseDown) return;
 
-  zoom: number;
-};
+    const newX = event.clientX - lastLeft;
+    const newY = event.clientY - lastTop;
 
-export type MouseEventExtension = {
-  screenZoomX: number;
-  screenZoomY: number;
-};
+    onBackgroundMoved?.(newX + initialLeft, newY + initialTop);
 
-export class InfinitePlane extends Component<
-  InfinitePlaneProps,
-  InfinitePlaneState
-> {
-  constructor(props: InfinitePlaneProps) {
-    super(props);
+    setLeft(newX);
+    setTop(newY);
+  }
 
-    this.state = {
-      mouseDown: false,
+  function onMouseUp() {
+    setMouseDown(false);
+  }
 
-      left: 0,
-      top: 0,
+  function handleZoom(direction: ZoomDirection) {
+    if (direction === ZoomDirection.Increase && zoom >= ZOOM_MAX_VAL) return;
+    if (direction === ZoomDirection.Decrease && zoom <= ZOOM_MIN_VAL) return;
 
-      lastLeft: 0,
-      lastTop: 0,
+    const increment =
+      direction === ZoomDirection.Increase ? ZOOM_INCREMENT : -ZOOM_INCREMENT;
+    const newZoom = Math.round((zoom + increment) * 10) / 10;
 
-      zoom: 1,
+    setZoom(newZoom);
+    onZoomChange?.(newZoom);
+  }
+
+  useEffect(() => {
+    window.addEventListener('mouseup', onMouseUp);
+
+    return () => {
+      window.removeEventListener('mouseup', onMouseUp);
     };
-  }
+  }, []);
 
-  componentDidMount() {
-    window.addEventListener('mouseup', this.onMouseUp);
+  const finalLeft = initialLeft + left;
+  const finalTop = initialTop + top;
 
-    window.addEventListener('mousedown', this.doOffsetMouse);
-    window.addEventListener('mousemove', this.doOffsetMouse);
-    window.addEventListener('mouseup', this.doOffsetMouse);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mouseup', this.onMouseUp);
-
-    window.removeEventListener('mousedown', this.doOffsetMouse);
-    window.removeEventListener('mousemove', this.doOffsetMouse);
-    window.removeEventListener('mouseup', this.doOffsetMouse);
-  }
-
-  // This is really, REALLY cursed and basically overrides a built-in browser event via propagation rules
-  doOffsetMouse = (event: MouseEvent & MouseEventExtension) => {
-    const { zoom } = this.state;
-    event.screenZoomX = event.screenX * zoom ** -1;
-    event.screenZoomY = event.screenY * zoom ** -1;
-  };
-
-  handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    this.setState((state) => {
-      return {
-        mouseDown: true,
-        lastLeft: event.clientX - state.left,
-        lastTop: event.clientY - state.top,
-      };
-    });
-  };
-
-  onMouseUp = () => {
-    this.setState({
-      mouseDown: false,
-    });
-  };
-
-  handleZoomIncrease = (_event: any) => {
-    const { onZoomChange } = this.props;
-    const { zoom } = this.state;
-    const newZoomValue = Math.min(zoom + ZOOM_INCREMENT, ZOOM_MAX_VAL);
-    this.setState({
-      zoom: newZoomValue,
-    });
-    if (onZoomChange) {
-      onZoomChange(newZoomValue);
-    }
-  };
-
-  handleZoomDecrease = (_event: any) => {
-    const { onZoomChange } = this.props;
-    const { zoom } = this.state;
-    const newZoomValue = Math.max(zoom - ZOOM_INCREMENT, ZOOM_MIN_VAL);
-    this.setState({
-      zoom: newZoomValue,
-    });
-
-    if (onZoomChange) {
-      onZoomChange(newZoomValue);
-    }
-  };
-
-  handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const { onBackgroundMoved, initialLeft = 0, initialTop = 0 } = this.props;
-    if (this.state.mouseDown) {
-      let newX: number;
-      let newY: number;
-      this.setState((state) => {
-        newX = event.clientX - state.lastLeft;
-        newY = event.clientY - state.lastTop;
-        if (onBackgroundMoved) {
-          onBackgroundMoved(newX + initialLeft, newY + initialTop);
-        }
-        return {
-          left: newX,
-          top: newY,
-        };
-      });
-    }
-  };
-
-  render() {
-    const {
-      children,
-      backgroundImage,
-      imageWidth,
-      initialLeft = 0,
-      initialTop = 0,
-      ...rest
-    } = this.props;
-    const { left, top, zoom } = this.state;
-
-    const finalLeft = initialLeft + left;
-    const finalTop = initialTop + top;
-
-    return (
+  return (
+    <div
+      {...computeBoxProps({
+        ...rest,
+        style: {
+          ...rest.style,
+          height: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+          width: '100%',
+        },
+      })}
+    >
       <div
-        {...computeBoxProps({
-          ...rest,
-          style: {
-            ...rest.style,
-            overflow: 'hidden',
-            position: 'relative',
-          },
-        })}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        style={{
+          backgroundImage: `url("${backgroundImage}")`,
+          backgroundPosition: `${finalLeft}px ${finalTop}px`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: `${zoom * imageWidth}px`,
+          height: '100%',
+          inset: 0,
+          position: 'absolute',
+          width: '100%',
+        }}
+      />
+      <div
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        style={{
+          height: '100%',
+          inset: 0,
+          pointerEvents: 'none',
+          position: 'absolute',
+          transform: `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
+          transformOrigin: 'top left',
+          width: '100%',
+        }}
       >
-        <div
-          onMouseDown={this.handleMouseDown}
-          onMouseMove={this.handleMouseMove}
-          style={{
-            position: 'fixed',
-            height: '100%',
-            width: '100%',
-            backgroundImage: `url("${backgroundImage}")`,
-            backgroundPosition: `${finalLeft}px ${finalTop}px`,
-            backgroundRepeat: 'repeat',
-            backgroundSize: `${zoom * imageWidth}px`,
-          }}
-        />
-        <div
-          onMouseDown={this.handleMouseDown}
-          onMouseMove={this.handleMouseMove}
-          style={{
-            position: 'fixed',
-            transform: `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
-            transformOrigin: 'top left',
-            height: '100%',
-            width: '100%',
-          }}
-        >
-          {children}
-        </div>
-
-        <Stack position="absolute" width="100%">
-          <Stack.Item>
-            <Button icon="minus" onClick={this.handleZoomDecrease} />
-          </Stack.Item>
-          <Stack.Item grow={1}>
-            <ProgressBar
-              minValue={ZOOM_MIN_VAL}
-              value={zoom}
-              maxValue={ZOOM_MAX_VAL}
-            >
-              {zoom}x
-            </ProgressBar>
-          </Stack.Item>
-          <Stack.Item>
-            <Button icon="plus" onClick={this.handleZoomIncrease} />
-          </Stack.Item>
-        </Stack>
+        {children}
       </div>
-    );
-  }
+      <ZoomControls zoom={zoom} onZoomClick={handleZoom} />
+    </div>
+  );
+}
+
+type ZoomProps = {
+  zoom: number;
+  onZoomClick: (direction: ZoomDirection) => void;
+};
+
+function ZoomControls(props: ZoomProps) {
+  const { zoom, onZoomClick } = props;
+
+  return (
+    <div style={{ position: 'absolute', top: 5, left: 5, right: 5 }}>
+      <Stack>
+        <Stack.Item>
+          <Button
+            icon="minus"
+            onClick={() => onZoomClick(ZoomDirection.Decrease)}
+          />
+        </Stack.Item>
+        <Stack.Item grow>
+          <ProgressBar
+            minValue={ZOOM_MIN_VAL}
+            value={zoom}
+            maxValue={ZOOM_MAX_VAL}
+          >
+            {zoom}x
+          </ProgressBar>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            icon="plus"
+            onClick={() => onZoomClick(ZoomDirection.Increase)}
+          />
+        </Stack.Item>
+      </Stack>
+    </div>
+  );
 }
