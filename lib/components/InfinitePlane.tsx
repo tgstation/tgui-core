@@ -38,6 +38,25 @@ const ZOOM_MAX_VAL = 1.5;
 
 const ZOOM_INCREMENT = 0.1;
 
+/**
+ * ## InfinitePlane
+ * Creates a scrolling infinite plane using a background image.
+ *
+ * @example
+ * ```tsx
+ * <InfinitePlane imageWidth={100} backgroundImage="https://example.com/image.png">
+ *   <Box position="absolute" top={0} left={0}>
+ *     Hello, world!
+ *   </Box>
+ *   <Box position="absolute" top={0} left={100}>
+ *     Hello, world!
+ *   </Box>
+ *   <Box position="absolute" top={0} left={200}>
+ *     Hello, world!
+ *   </Box>
+ * </InfinitePlane>
+ * ```
+ */
 export function InfinitePlane(props: Props) {
   const {
     backgroundImage,

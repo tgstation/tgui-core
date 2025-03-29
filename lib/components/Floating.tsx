@@ -95,7 +95,7 @@ type Props = {
 }>;
 
 /**
- * ## FLoating
+ * ## Floating
  *  Floating lets you position elements so that they don't go out of the bounds of the window.
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */

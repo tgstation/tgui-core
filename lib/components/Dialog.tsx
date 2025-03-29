@@ -3,15 +3,32 @@ import { Box } from './Box';
 import { Button } from './Button';
 
 type DialogProps = {
+  /** The content of the dialog. */
   children: ReactNode;
+  /** The height of the dialog. */
   height?: string;
+  /** The function to call when close is clicked */
   onClose: () => void;
+  /** The title of the dialog. */
   title: ReactNode;
+  /** The width of the dialog. */
   width?: string;
 };
 
+/**
+ * ## Dialog
+ * A themed dialog for user interaction.
+ *
+ * @example
+ * ```tsx
+ * <Dialog title="Dialog Title" onClose={() => {}}>
+ *   <div>Dialog Content</div>
+ * </Dialog>
+ * ```
+ */
 export function Dialog(props: DialogProps) {
   const { title, onClose, children, width, height } = props;
+
   return (
     <div className="Dialog">
       <Box className="Dialog__content" width={width || '370px'} height={height}>
@@ -19,15 +36,15 @@ export function Dialog(props: DialogProps) {
           <div className="Dialog__title">{title}</div>
           <Box mr={2}>
             <Button
-              mr="-3px"
-              width="26px"
-              lineHeight="22px"
-              textAlign="center"
               color="transparent"
               icon="window-close-o"
+              lineHeight="22px"
+              mr="-3px"
+              onClick={onClose}
+              textAlign="center"
               tooltip="Close"
               tooltipPosition="bottom-start"
-              onClick={onClose}
+              width="26px"
             />
           </Box>
         </div>

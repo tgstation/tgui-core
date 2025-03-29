@@ -23,8 +23,8 @@ const fontAwesomeEmoticons = [
   'shocked',
 ];
 
-function InfinitePlaneWrapper() {
-  return (
+export const Default: Story = {
+  render: () => (
     <div
       style={{
         height: 600,
@@ -39,14 +39,14 @@ function InfinitePlaneWrapper() {
         initialLeft={165}
         initialTop={250}
       >
-        {fontAwesomeEmoticons.map((icon) => (
-          <Icon key={icon} name={icon} ml={5} style={{ color: 'orange' }} />
+        {fontAwesomeEmoticons.map((icon, index) => (
+          <Icon
+            key={icon}
+            name={icon}
+            style={{ color: 'orange', position: 'absolute', left: index * 50 }}
+          />
         ))}
       </InfinitePlane>
     </div>
-  );
-}
-
-export const Default: Story = {
-  render: () => <InfinitePlaneWrapper />,
+  ),
 };
