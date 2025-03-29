@@ -14,20 +14,14 @@ export default {
 
 type Story = StoryObj<StoryProps>;
 
-const defaultItems = [
-  {
-    value: 'item-1',
-    displayText: 'Item 1',
-  },
-  {
-    value: 'item-2',
-    displayText: 'Item 2',
-  },
-  {
-    value: 'item-3',
-    displayText: 'Item 3',
-  },
-];
+const defaultItems: any[] = [];
+
+for (let i = 0; i < 15; i++) {
+  defaultItems.push({
+    value: `item-${i}`,
+    displayText: `Item ${i}`,
+  });
+}
 
 type ShowcaseProps = {
   title: string;

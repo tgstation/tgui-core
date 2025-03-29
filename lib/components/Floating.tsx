@@ -88,6 +88,10 @@ type Props = {
    * ```
    */
   onOpenChange: (open: boolean) => void;
+  /**
+   * Called when mounted
+   */
+  onMounted: () => void;
 }>;
 
 /**
@@ -112,6 +116,7 @@ export function Floating(props: Props) {
     allowedOutsideClasses,
     stopChildPropagation,
     closeAfterInteract,
+    onMounted,
     onOpenChange,
   } = props;
 
@@ -122,7 +127,12 @@ export function Floating(props: Props) {
       setIsOpen(isOpen);
       onOpenChange?.(isOpen);
     },
-    whileElementsMounted: autoUpdate,
+    whileElementsMounted: (reference, floating, update) => {
+      if (onMounted !== undefined) {
+        onMounted();
+      }
+      return autoUpdate(reference, floating, update);
+    },
     placement: placement || 'bottom',
     transform: false, // More expensive but allows to use transform for animations
     middleware: [
