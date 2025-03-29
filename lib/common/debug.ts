@@ -24,13 +24,13 @@ export function getShallowTypes(
       output[key] = 'emptyarray';
     } else if (typeof data[key] === 'object' && data[key] !== null) {
       // Please inspect it further and make a new type for it
-      output[key] = 'object (inspect) || Record<string, any>';
+      output[key] = 'Record<string, (something)>';
     } else if (typeof data[key] === 'number') {
       const num = Number(data[key]);
 
       // 0 and 1 could be booleans from byond
       if (num === 1 || num === 0) {
-        output[key] = `${num}, BooleanLike?`;
+        output[key] = `${num}, BooleanLike possible`;
         continue;
       }
       output[key] = data[key];
