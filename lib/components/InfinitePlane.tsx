@@ -1,4 +1,9 @@
-import { type PropsWithChildren, useEffect, useState } from 'react';
+import {
+  type MouseEvent,
+  type PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
@@ -52,10 +57,22 @@ export function InfinitePlane(props: Props) {
   const [top, setTop] = useState(0);
   const [zoom, setZoom] = useState(1);
 
-  function handleMouseDown(event: React.MouseEvent<HTMLDivElement>) {
+  function handleMouseDown(event: MouseEvent<HTMLDivElement>) {
     setLastLeft(event.clientX - left);
     setLastTop(event.clientY - top);
     setMouseDown(true);
+  }
+
+  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+    if (!mouseDown) return;
+
+    const newX = event.clientX - lastLeft;
+    const newY = event.clientY - lastTop;
+
+    onBackgroundMoved?.(newX + initialLeft, newY + initialTop);
+
+    setLeft(newX);
+    setTop(newY);
   }
 
   function onMouseUp() {
@@ -72,18 +89,6 @@ export function InfinitePlane(props: Props) {
 
     setZoom(newZoom);
     onZoomChange?.(newZoom);
-  }
-
-  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
-    if (!mouseDown) return;
-
-    const newX = event.clientX - lastLeft;
-    const newY = event.clientY - lastTop;
-
-    onBackgroundMoved?.(newX + initialLeft, newY + initialTop);
-
-    setLeft(newX);
-    setTop(newY);
   }
 
   useEffect(() => {
