@@ -22,7 +22,7 @@ $bg-map: colors.$bg-map !default;
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: color.adjust($color, $lightness: 30%);
+      background-color: color.adjust($color, $lightness: 12.5%);
       color: $text-color;
     }
 
