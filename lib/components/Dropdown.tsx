@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 import { KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { unit } from '../common/ui';
@@ -110,7 +110,6 @@ export function Dropdown(props: Props) {
 
     const dropdownMenu = innerRef.current;
     const element = dropdownMenu?.children[scrollPos] as HTMLElement;
-
     if (dropdownMenu && element) {
       dropdownMenu.scrollTop = element.offsetTop;
     }
@@ -139,19 +138,6 @@ export function Dropdown(props: Props) {
     }
     onSelected?.(getOptionValue(options[newIndex]));
   }
-
-  /** Allows the menu to be scrollable on open */
-  useEffect(() => {
-    if (open && autoScroll && selectedIndex !== NONE) {
-      /**
-       * Floating uses async FloatingPortal,
-       * the dropdown content is not yet ready when you open it.
-       */
-      requestAnimationFrame(() => {
-        scrollToElement(selectedIndex);
-      });
-    }
-  }, [open]);
 
   return (
     <div className="Dropdown">
@@ -195,6 +181,16 @@ export function Dropdown(props: Props) {
             )}
           </div>
         }
+        onMounted={() => {
+          if (open && autoScroll && selectedIndex !== NONE) {
+            /**
+             * Floating uses async FloatingPortal,
+             * the dropdown content is not yet ready when you open it.
+             */
+
+            scrollToElement(selectedIndex);
+          }
+        }}
       >
         <div
           className={classes([
