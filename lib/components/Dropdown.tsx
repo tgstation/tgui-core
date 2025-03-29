@@ -110,7 +110,6 @@ export function Dropdown(props: Props) {
 
     const dropdownMenu = innerRef.current;
     const element = dropdownMenu?.children[scrollPos] as HTMLElement;
-    console.log(dropdownMenu, element);
     if (dropdownMenu && element) {
       dropdownMenu.scrollTop = element.offsetTop;
     }
