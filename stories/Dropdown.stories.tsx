@@ -63,6 +63,18 @@ const defaultItems = [
     value: 'item-12',
     displayText: 'Item 12',
   },
+  {
+    value: 'item-13',
+    displayText: 'Item 13',
+  },
+  {
+    value: 'item-14',
+    displayText: 'Item 14',
+  },
+  {
+    value: 'item-15',
+    displayText: 'Item 15',
+  },
 ];
 
 type ShowcaseProps = {
