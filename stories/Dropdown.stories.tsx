@@ -27,6 +27,42 @@ const defaultItems = [
     value: 'item-3',
     displayText: 'Item 3',
   },
+  {
+    value: 'item-4',
+    displayText: 'Item 4',
+  },
+  {
+    value: 'item-5',
+    displayText: 'Item 5',
+  },
+  {
+    value: 'item-6',
+    displayText: 'Item 6',
+  },
+  {
+    value: 'item-7',
+    displayText: 'Item 7',
+  },
+  {
+    value: 'item-8',
+    displayText: 'Item 8',
+  },
+  {
+    value: 'item-9',
+    displayText: 'Item 9',
+  },
+  {
+    value: 'item-10',
+    displayText: 'Item 10',
+  },
+  {
+    value: 'item-11',
+    displayText: 'Item 11',
+  },
+  {
+    value: 'item-12',
+    displayText: 'Item 12',
+  },
 ];
 
 type ShowcaseProps = {
@@ -38,7 +74,7 @@ function Showcase(props: ShowcaseProps) {
   return (
     <Stack.Item mr={4}>
       {title}
-      <Box mb={4} />
+      <Box mb={35} />
       {children}
     </Stack.Item>
   );
@@ -52,7 +88,7 @@ function DropdownStories() {
     : 'Dropdown';
 
   return (
-    <Stack>
+    <Stack fill>
       <Showcase title="Default">
         <Dropdown
           displayText={displayText}
