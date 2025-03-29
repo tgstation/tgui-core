@@ -3,6 +3,7 @@
 
 // Core styles
 @include meta.load-css("./reset.scss");
+@include meta.load-css("./css-variables.scss");
 
 // Components
 @include meta.load-css("./components/BlockQuote.scss");

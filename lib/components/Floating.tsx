@@ -13,13 +13,14 @@ import {
   useTransitionStatus,
 } from '@floating-ui/react';
 import {
+  type CSSProperties,
   type ReactElement,
   type ReactNode,
   cloneElement,
   isValidElement,
   useState,
 } from 'react';
-import { classes } from '../common/react';
+import { type BooleanLike, classes } from '../common/react';
 
 type Props = {
   /** Interacting with this element will open the floating element. */
@@ -42,7 +43,7 @@ type Props = {
   /** Classes with will be applied to the content. */
   contentClasses: string;
   /** Inline styles with will be applied to the content. */
-  contentStyles: React.CSSProperties;
+  contentStyles: CSSProperties;
   /** Use calculated by Floating UI children width as content width. */
   contentAutoWidth: boolean;
   /**
@@ -50,6 +51,8 @@ type Props = {
    * @default 6
    */
   contentOffset: number;
+  /** Disables all interactions. */
+  disabled: BooleanLike;
   /**
    * How long the animation takes in ms.
    * - If specified, default animation will be disabled.
@@ -102,6 +105,7 @@ export function Floating(props: Props) {
     contentStyles,
     contentAutoWidth,
     contentOffset = 6,
+    disabled,
     animationDuration,
     hoverOpen,
     hoverDelay,
@@ -120,7 +124,7 @@ export function Floating(props: Props) {
     },
     whileElementsMounted: autoUpdate,
     placement: placement || 'bottom',
-    transform: false,
+    transform: false, // More expensive but allows to use transform for animations
     middleware: [
       offset(contentOffset),
       flip({
@@ -133,14 +137,12 @@ export function Floating(props: Props) {
           'top-end',
         ],
       }),
-      size({
-        apply({ rects, elements }) {
-          Object.assign(elements.floating.style, {
-            height: `${rects.floating.height}px`,
-            ...(contentAutoWidth && { width: `${rects.reference.width}px` }),
-          });
-        },
-      }),
+      contentAutoWidth &&
+        size({
+          apply({ rects, elements }) {
+            elements.floating.style.width = `${rects.reference.width}px`;
+          },
+        }),
     ],
   });
 
@@ -149,6 +151,7 @@ export function Floating(props: Props) {
   });
 
   const dismiss = useDismiss(context, {
+    ancestorScroll: true,
     outsidePress: (event) =>
       (allowedOutsideClasses &&
         event.target instanceof Element &&
@@ -156,8 +159,11 @@ export function Floating(props: Props) {
       false,
   });
 
-  const click = useClick(context);
-  const hover = useHover(context, { restMs: hoverDelay || 200 });
+  const click = useClick(context, { enabled: !disabled });
+  const hover = useHover(context, {
+    enabled: !disabled,
+    restMs: hoverDelay || 200,
+  });
   const openMethod = hoverOpen ? hover : click;
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
