@@ -10,8 +10,8 @@
       "require": "./dist/components/index.cjs"
     },
     "./styles": {
-      "default": "./styles/main.scss",
-      "sass": "./styles/main.scss"
+      "sass": "./styles/main.scss",
+      "default": "./styles/main.scss"
     },
     "./styles/components/*": {
       "sass": "./styles/components/*"
