@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @use "../base";
 @use "../colors";
 @use "../functions" as *;
@@ -20,12 +22,12 @@ $bg-map: colors.$bg-map !default;
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: lighten($color, 30%);
+      background-color: color.adjust($color, $lightness: 30%);
       color: $text-color;
     }
 
     &:active {
-      background-color: darken($color, 7.5%);
+      background-color: color.adjust($color, $lightness: -7.5%);
       color: $text-color;
     }
   }
