@@ -172,8 +172,6 @@ export function computeFlexItemProps(props: FlexItemProps) {
   return computeBoxProps({
     style: {
       ...style,
-      minWidth: grow !== undefined && 0,
-      minHeight: grow !== undefined && 0,
       flexGrow: grow !== undefined && Number(grow),
       flexShrink: shrink !== undefined && Number(shrink),
       flexBasis: unit(computedBasis),

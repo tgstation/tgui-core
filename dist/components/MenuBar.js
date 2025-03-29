@@ -1,22 +1,17 @@
-import { jsx as t, jsxs as p } from "react/jsx-runtime";
-import { useRef as B, useEffect as h } from "react";
+import { jsx as r, jsxs as B } from "react/jsx-runtime";
+import { useRef as f } from "react";
 import { classes as _ } from "../common/react.js";
-import { Box as l } from "./Box.js";
-import { Icon as v } from "./Icon.js";
+import { Box as m } from "./Box.js";
+import { Icon as h } from "./Icon.js";
+import { Popper as v } from "./Popper.js";
 function k(n) {
-  const { children: e, menuRef: o, onOutsideClick: r, width: a } = n;
-  function u(i) {
-    var c;
-    (c = o.current) != null && c.contains(i.target) || r();
-  }
-  return h(() => (document.addEventListener("click", u), () => {
-    document.removeEventListener("click", u);
-  }), []), /* @__PURE__ */ t(
+  const { children: e, width: o } = n;
+  return /* @__PURE__ */ r(
     "div",
     {
       className: "Menubar__menu",
       style: {
-        width: a
+        width: o
       },
       children: e
     }
@@ -26,18 +21,18 @@ function N(n) {
   const {
     children: e,
     className: o,
-    disabled: r,
+    disabled: t,
     display: a,
     onClick: u,
-    onMouseOver: i,
+    onMouseOver: s,
     open: c,
-    openWidth: s,
-    onOutsideClick: m,
+    openWidth: l,
+    onOutsideClick: i,
     ...M
-  } = n, f = B(null);
-  return /* @__PURE__ */ p("div", { ref: f, children: [
-    /* @__PURE__ */ t(
-      l,
+  } = n, p = f(null);
+  return /* @__PURE__ */ B("div", { ref: p, children: [
+    /* @__PURE__ */ r(
+      m,
       {
         className: _([
           "MenuBar__MenuBarButton",
@@ -46,18 +41,26 @@ function N(n) {
           o
         ]),
         ...M,
-        onClick: r ? () => null : u,
-        onMouseOver: i,
-        children: /* @__PURE__ */ t("span", { className: "MenuBar__MenuBarButton-text", children: a })
+        onClick: t ? () => null : u,
+        onMouseOver: s,
+        children: /* @__PURE__ */ r("span", { className: "MenuBar__MenuBarButton-text", children: a })
       }
     ),
-    c && /* @__PURE__ */ t(
-      k,
+    /* @__PURE__ */ r(
+      v,
       {
-        width: s,
-        menuRef: this.menuRef,
-        onOutsideClick: m,
-        children: e
+        onClickOutside: i,
+        placement: "bottom-start",
+        content: /* @__PURE__ */ r(
+          k,
+          {
+            width: l,
+            menuRef: p,
+            onOutsideClick: i,
+            children: e
+          }
+        ),
+        isOpen: c
       }
     )
   ] });
@@ -66,41 +69,41 @@ function d(n) {
   const {
     entry: e,
     children: o,
-    openWidth: r,
+    openWidth: t,
     display: a,
     setOpenMenuBar: u,
-    openMenuBar: i,
+    openMenuBar: s,
     setOpenOnHover: c,
-    openOnHover: s,
-    disabled: m,
+    openOnHover: l,
+    disabled: i,
     className: M
   } = n;
-  return /* @__PURE__ */ t(
+  return /* @__PURE__ */ r(
     N,
     {
-      openWidth: r,
+      openWidth: t,
       display: a,
-      disabled: m,
-      open: i === e,
+      disabled: i,
+      open: s === e,
       className: M,
       onClick: () => {
-        u(i === e ? null : e), c(!s);
+        u(s === e ? null : e), c(!l);
       },
       onOutsideClick: () => {
         u(null), c(!1);
       },
       onMouseOver: () => {
-        s && u(e);
+        l && u(e);
       },
       children: o
     }
   );
 }
-O.Dropdown = d;
-function g(n) {
-  const { value: e, displayText: o, onClick: r, checked: a } = n;
-  return /* @__PURE__ */ p(
-    l,
+C.Dropdown = d;
+function O(n) {
+  const { value: e, displayText: o, onClick: t, checked: a } = n;
+  return /* @__PURE__ */ B(
+    m,
     {
       className: _([
         "MenuBar__font",
@@ -108,39 +111,39 @@ function g(n) {
         "MenuBar__MenuItemToggle",
         "MenuBar__hover"
       ]),
-      onClick: () => r(e),
+      onClick: () => t(e),
       children: [
-        /* @__PURE__ */ t("div", { className: "MenuBar__MenuItemToggle__check", children: a && /* @__PURE__ */ t(v, { size: 1.3, name: "check" }) }),
+        /* @__PURE__ */ r("div", { className: "MenuBar__MenuItemToggle__check", children: /* @__PURE__ */ r(h, { size: 1.3, name: a ? "check" : "" }) }),
         o
       ]
     }
   );
 }
-d.MenuItemToggle = g;
-function C(n) {
-  const { value: e, displayText: o, onClick: r } = n;
-  return /* @__PURE__ */ t(
-    l,
+d.MenuItemToggle = O;
+function I(n) {
+  const { value: e, displayText: o, onClick: t } = n;
+  return /* @__PURE__ */ r(
+    m,
     {
       className: _([
         "MenuBar__font",
         "MenuBar__MenuItem",
         "MenuBar__hover"
       ]),
-      onClick: () => r == null ? void 0 : r(e),
+      onClick: () => t == null ? void 0 : t(e),
       children: o
     }
   );
 }
-d.MenuItem = C;
-function I() {
-  return /* @__PURE__ */ t("div", { className: "MenuBar__Separator" });
+d.MenuItem = I;
+function g() {
+  return /* @__PURE__ */ r("div", { className: "MenuBar__Separator" });
 }
-d.Separator = I;
-function O(n) {
+d.Separator = g;
+function C(n) {
   const { children: e } = n;
-  return /* @__PURE__ */ t(l, { className: "MenuBar", children: e });
+  return /* @__PURE__ */ r(m, { className: "MenuBar", children: e });
 }
 export {
-  O as MenuBar
+  C as MenuBar
 };
