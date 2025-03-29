@@ -213,7 +213,7 @@ export function Dropdown(props: Props) {
             onClick?.(event);
           }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter' && !disabled) {
+            if (event.key === KEY.Enter && !disabled) {
               onClick?.(event);
             }
           }}
@@ -239,7 +239,7 @@ export function Dropdown(props: Props) {
                 over && 'over',
                 open && 'open',
               ])}
-              name={'chevron-down'}
+              name="chevron-down"
             />
           )}
         </div>
