@@ -32,7 +32,7 @@ function Showcase(props: ShowcaseProps) {
   return (
     <Stack.Item mr={4}>
       {title}
-      <Box mb={4} />
+      <Box mb={35} />
       {children}
     </Stack.Item>
   );
@@ -46,7 +46,7 @@ function DropdownStories() {
     : 'Dropdown';
 
   return (
-    <Stack>
+    <Stack fill>
       <Showcase title="Default">
         <Dropdown
           displayText={displayText}
