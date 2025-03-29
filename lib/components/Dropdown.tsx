@@ -27,8 +27,6 @@ type Props = {
   autoScroll: boolean;
   /** Whether to display previous / next buttons */
   buttons: boolean;
-  /** Whether to clip the selected text */
-  clipSelectedText: boolean;
   /** Color of dropdown button */
   color: string;
   /** Disables the dropdown */
@@ -45,12 +43,14 @@ type Props = {
   menuWidth: number;
   /** Whether or not the arrow on the right hand side of the dropdown button is visible */
   noChevron: boolean;
-  /** Called when dropdown button is clicked */
-  onClick: (event) => void;
   /** Dropdown renders over instead of below */
   over: boolean;
   /** Text to show when nothing has been selected. */
   placeholder: string;
+  /** @deprecated If you want to allow dropdown breaks layout, set width 100% */
+  clipSelectedText: boolean;
+  /** Called when dropdown button is clicked */
+  onClick: (event) => void;
 }> &
   BoxProps;
 
@@ -76,7 +76,6 @@ export function Dropdown(props: Props) {
     autoScroll = true,
     buttons,
     className,
-    clipSelectedText = true,
     color = 'default',
     disabled,
     displayText,
@@ -227,12 +226,7 @@ export function Dropdown(props: Props) {
               spin={iconSpin}
             />
           )}
-          <span
-            className="Dropdown__selected-text"
-            style={{
-              overflow: clipSelectedText ? 'hidden' : 'visible',
-            }}
-          >
+          <span className="Dropdown__selected-text">
             {displayText ||
               (selected && getOptionValue(selected)) ||
               placeholder}
