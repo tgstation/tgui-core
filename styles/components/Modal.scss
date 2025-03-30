@@ -1,9 +1,5 @@
-@use "../base";
-
-$background-color: base.$color-bg !default;
-
 .Modal {
-  background-color: $background-color;
+  background-color: var(--color-base);
   padding: 1rem;
 
   &__dimmer .Dimmer__inner {

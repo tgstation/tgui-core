@@ -2,7 +2,7 @@
 @use "../colors";
 @use "../functions" as *;
 
-$fg-map: colors.$fg-map !default;
+$fg-map: colors.$color-map !default;
 $ring-color: hsl(212.2, 46.8%, 60.2%) !default;
 
 .RoundGauge {

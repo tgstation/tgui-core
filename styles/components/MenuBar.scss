@@ -1,9 +1,5 @@
-@use "sass:color";
 @use "../base";
-
-$separator-color: base.$color-bg-section;
-$background-color: base.$color-bg !default;
-$dropdown-z-index: 5;
+@use "../functions" as *;
 
 .MenuBar {
   display: flex;
@@ -17,7 +13,7 @@ $dropdown-z-index: 5;
 
 .MenuBar__hover {
   &:hover {
-    background-color: color.adjust($background-color, $lightness: 30%);
+    background-color: adjust-lightness(var(--color-base), 20);
     transition: background-color 0ms;
   }
 }
@@ -28,16 +24,15 @@ $dropdown-z-index: 5;
 
 .MenuBar__menu {
   position: absolute;
-  z-index: $dropdown-z-index;
-  background-color: $background-color;
+  background-color: var(--color-base);
   padding: 0.3rem 0.3rem 0.3rem 0.3rem;
   box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.55);
+  z-index: 5;
 }
 
 .MenuBar__MenuItem {
-  z-index: $dropdown-z-index;
   transition: background-color 100ms ease-out;
-  background-color: $background-color;
+  background-color: var(--color-base);
   white-space: nowrap;
   padding: 0.3rem 2rem 0.3rem 3rem;
 }
@@ -67,5 +62,5 @@ $dropdown-z-index: 5;
 .MenuBar__Separator {
   display: block;
   margin: 0.3rem 0.3rem 0.3rem 2.3rem;
-  border-top: 1px solid $separator-color;
+  border-top: 1px solid var(--color-border-dark);
 }

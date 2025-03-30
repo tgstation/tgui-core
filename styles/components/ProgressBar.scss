@@ -2,10 +2,10 @@
 @use "../colors";
 @use "../functions" as *;
 
-$color-default-fill: colors.bg(colors.$primary) !default;
+$color-default-fill: colors.$primary !default;
 $background-color: hsla(0, 0%, 0%, 0) !default;
 $border-radius: base.$border-radius !default;
-$bg-map: colors.$bg-map !default;
+$bg-map: colors.$color-map !default;
 
 .ProgressBar {
   display: inline-block;

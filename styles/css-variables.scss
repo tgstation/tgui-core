@@ -1,5 +1,82 @@
-// Future is here. Only 1 variable for now :c
+@use "./base";
 
 :root {
-  --border-color: hsla(0, 0%, 100%, 0.1);
+  // MARK: Background colors
+  --color-base: hsl(0, 0%, 15%);
+  --color-section: hsla(0, 0%, 0%, 0.33);
+  --base-gradient-spread: 2;
+  --color-base-start: hsl(
+    from var(--color-base) h s calc(l + var(--base-gradient-spread))
+  );
+  --color-base-end: hsl(
+    from var(--color-base) h s calc(l - var(--base-gradient-spread))
+  );
+
+  // MARK: Scrollbar
+  --color-scrollbar-base: hsl(0, 0%, 9.75%);
+  --color-scrollbar-thumb: hsl(
+    from var(--color-scrollbar-base) h s calc(l + 13.25)
+  );
+
+  // MARK: Base colors
+  --color-red: hsl(0, 70%, 50%);
+  --color-orange: hsl(25, 90%, 55%);
+  --color-yellow: hsl(50, 97.5%, 50%);
+  --color-olive: hsl(70, 75%, 45%);
+  --color-green: hsl(140, 70%, 40%);
+  --color-teal: hsl(180, 100%, 35%);
+  --color-blue: hsl(210, 65%, 47.5%);
+  --color-violet: hsl(260, 60%, 50%);
+  --color-purple: hsl(290, 60%, 50%);
+  --color-pink: hsl(325, 70%, 55%);
+  --color-brown: hsl(25, 47.5%, 45%);
+
+  // MARK: Grayscale colors
+  --color-black: hsl(0, 0%, 0%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-grey: hsl(0, 0%, 50%);
+  --color-light-grey: hsl(0, 0%, 66.6%);
+  --color-gray: var(--color-grey);
+  --color-light-gray: var(--color-light-grey);
+
+  // MARK: Semantic colors
+  --primary-hue: 210;
+  --primary-saturation: 37.5%;
+  --primary-lightness: 45%;
+  --color-primary: hsl(
+    var(--primary-hue),
+    var(--primary-saturation),
+    var(--primary-lightness)
+  );
+  --color-good: hsl(95, 62.5%, 40%);
+  --color-average: hsl(32.5, 90%, 50%);
+  --color-bad: hsl(0, 72.5%, 50%);
+  --color-label: hsl(210, 17.5%, 57.5%);
+
+  // MARK: Text colors
+  --color-text: var(--color-white);
+  --color-text-translucent: adjust-alpha(var(--color-text), 0.5);
+  --color-text-translucent-light: adjust-alpha(var(--color-text), 0.75);
+  --color-text-fixed: var(--color-white); // Used in Button
+
+  // MARK: Border
+  $border-thickness: base.em(2px);
+  --border-thickness: $border-thickness;
+  --color-border: hsla(0, 0%, 100%, 0.1);
+  --color-border-dark: hsla(0, 0%, 0%, 0.33);
+
+  // MARK: Adjustments
+  /// Background lightness multiplier
+  --adjust-bg: -5;
+  /// Foreground lightness multiplier
+  --adjust-fg: 5;
+  /// Hover lightness multiplier
+  --adjust-hover: 5;
+  /// Active lightness multiplier
+  --adjust-active: -12.5;
+
+  // MARK: Cursors
+  --cursor-default: default;
+  --cursor-pointer: pointer;
+  --cursor-disabled: var(--cursor-default);
 }

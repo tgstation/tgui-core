@@ -1,34 +1,28 @@
-@use "sass:color";
-
 @use "../base";
 @use "../colors";
 @use "../functions" as *;
 
-$color-default: colors.bg(colors.$primary) !default;
-$color-selected: colors.bg(colors.$green) !default;
-$color-caution: colors.bg(colors.$yellow) !default;
-$color-danger: colors.bg(colors.$red) !default;
-$color-transparent-text: hsla(0, 0%, 100%, 0.5) !default;
+$color-default: colors.$primary !default;
+$color-selected: colors.$green !default;
+$color-caution: colors.$yellow !default;
+$color-danger: colors.$red !default;
+$color-transparent-text: var(--color-text-translucent) !default;
 $border-radius: base.$border-radius !default;
-$bg-map: colors.$bg-map !default;
+$bg-map: colors.$color-map !default;
 
 @mixin button-color($color) {
-  // Adapt text color to background luminance to ensure high contast
-  $luminance: luminance($color);
-  $text-color: if($luminance > 0.4, hsla(0, 0%, 0%, 1), hsla(0, 0%, 100%, 1));
-
-  background-color: $color;
-  color: $text-color;
+  background-color: adjust-lightness($color, var(--adjust-bg));
+  color: var(--color-text-fixed);
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: color.adjust($color, $lightness: 12.5%);
-      color: $text-color;
+      background-color: adjust-lightness($color, var(--adjust-hover));
+      color: var(--color-text-fixed);
     }
 
     &:active {
-      background-color: color.adjust($color, $lightness: -7.5%);
-      color: $text-color;
+      background-color: adjust-lightness($color, var(--adjust-active));
+      color: var(--color-text-fixed);
     }
   }
 }
@@ -116,6 +110,10 @@ $bg-map: colors.$bg-map !default;
 
 @each $color-name, $color-value in $bg-map {
   .Button--color--#{$color-name} {
+    @if $color-name == "white" or $color-name == "yellow" {
+      --color-text-fixed: var(--color-black);
+    }
+
     @include button-color($color-value);
   }
 }
@@ -133,7 +131,7 @@ $bg-map: colors.$bg-map !default;
 }
 
 .Button--color--transparent {
-  color: $color-transparent-text;
+  color: var(--color-text-translucent);
 
   &:not(.Button--disabled) {
     &:hover {

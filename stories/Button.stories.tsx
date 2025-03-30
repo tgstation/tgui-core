@@ -64,6 +64,37 @@ export const Ellipsis: Story = {
   },
 };
 
+export const Colors: Story = {
+  render: () => {
+    const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
+    const COLORS_SPECTRUM = [
+      'red',
+      'orange',
+      'yellow',
+      'olive',
+      'green',
+      'teal',
+      'blue',
+      'violet',
+      'purple',
+      'pink',
+      'brown',
+      'grey',
+    ];
+
+    return (
+      <>
+        {COLORS_STATES.map((color) => (
+          <Button key={color} color={color} >{color}</Button>
+        ))}
+        {COLORS_SPECTRUM.map((color) => (
+          <Button key={color} color={color} >{color}</Button>
+        ))}
+      </>
+    );
+  },
+};
+
 type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
 export const Checkbox: CheckboxStory = {

@@ -6,8 +6,6 @@
 @use "../base";
 @use "./Divider";
 
-$zebra-background-color: base.$color-bg-section !default;
-
 .Stack {
   gap: 0.5em;
 
@@ -17,13 +15,13 @@ $zebra-background-color: base.$color-bg-section !default;
 }
 
 .Stack--zebra > .Stack__item:nth-child(even) {
-  background-color: $zebra-background-color;
+  background-color: var(--color-section);
 }
 
 .Stack--horizontal > .Stack__divider:not(.Stack__divider--hidden) {
-  border-left: Divider.$thickness solid Divider.$color;
+  border-left: Divider.$thickness solid var(--color-border);
 }
 
 .Stack--vertical > .Stack__divider:not(.Stack__divider--hidden) {
-  border-top: Divider.$thickness solid Divider.$color;
+  border-top: Divider.$thickness solid var(--color-border);
 }

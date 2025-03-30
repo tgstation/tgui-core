@@ -3,32 +3,29 @@
  * @copyright 2024 Aylong (https://github.com/AyIong)
  * @license MIT
  */
-@use 'sass:color';
+@use "sass:color";
 
 @use "../base";
 @use "../colors";
 @use "../functions" as *;
 
-$color-default: colors.bg(base.$color-bg-section) !default;
+$color-default: base.$color-bg-section !default;
 $color-disabled: hsl(0, 54.7%, 25.1%) !default;
-$color-selected: colors.bg(colors.$green) !default;
+$color-selected: colors.$green !default;
 $color-divider: hsla(0, 0%, 100%, 0.1) !default;
 $divider-thickness: base.em(2px) !default;
-$bg-map: colors.$bg-map !default;
+$bg-map: colors.$color-map !default;
 
 @mixin button-style(
   $color,
-  $border-color: rgba(color.adjust($color, $lightness: 50%), 0.2),
+  $border-color: adjust-alpha(adjust-lightness($color, 15), 0.2),
   $border-width: 1px 0 0 0,
   $opacity: 0.2,
   $hoverable: true,
   $transition-duration: 0.2s
 ) {
-  $luminance: luminance($color);
-  $text-color: if($luminance > 0.3, hsla(0, 0%, 0%, 1), hsla(0, 0%, 100%, 1));
-
-  background-color: rgba($color, $opacity);
-  color: $text-color;
+  background-color: adjust-alpha($color, $opacity);
+  color: var(--color-text);
   border: solid $border-color;
   border-width: $border-width;
   transition-property: background-color, border-color, box-shadow;
@@ -36,7 +33,7 @@ $bg-map: colors.$bg-map !default;
 
   @if $hoverable {
     &:hover {
-      background-color: rgba(color.adjust($color, $lightness: 66%), $opacity);
+      background-color: adjust-alpha(adjust-lightness($color, 15), $opacity);
     }
 
     &:active {
@@ -54,7 +51,7 @@ $bg-map: colors.$bg-map !default;
   .ImageButton--contentColor__#{$color-name} {
     @include button-style(
       $color-value,
-      $border-color: color.adjust($color-value, $lightness: 25%),
+      $border-color: adjust-lightness($color-value, 25),
       $opacity: 1,
       $hoverable: false
     );
@@ -72,7 +69,10 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ImageButton--color__default {
-  @include button-style(color.adjust($color-default, $lightness: 85%), $border-width: 1px);
+  @include button-style(
+    adjust-lightness($color-default, 25),
+    $border-width: 1px
+  );
 }
 
 .ImageButton--disabled {
@@ -88,15 +88,15 @@ $bg-map: colors.$bg-map !default;
 .ImageButton--selected {
   @include button-style(
     $color-selected,
-    $border-color: rgba($color-selected, 0.25),
+    $border-color: adjust-alpha($color-selected, 0.25),
     $border-width: 1px
   );
 }
 
 .ImageButton--contentColor__default {
   @include button-style(
-    color.adjust($color-default, $lightness: 80%),
-    $border-color: color.adjust($color-default, $lightness: 100%),
+    adjust-lightness($color-default, 80),
+    $border-color: adjust-lightness($color-default, 100),
     $opacity: 1,
     $hoverable: false
   );
@@ -104,13 +104,13 @@ $bg-map: colors.$bg-map !default;
 
 .ImageButton--contentDisabled {
   background-color: $color-disabled !important;
-  border-top: 1px solid color.adjust($color-disabled, $lightness: 25%) !important;
+  border-top: 1px solid adjust-lightness($color-disabled, 25) !important;
 }
 
 .ImageButton--contentSelected {
   @include button-style(
     $color-selected,
-    $border-color: color.adjust($color-selected, $lightness: 25%),
+    $border-color: adjust-lightness($color-selected, 25),
     $opacity: 1,
     $hoverable: false
   );
@@ -118,7 +118,7 @@ $bg-map: colors.$bg-map !default;
 
 .ImageButton--buttonsContainerColor__default {
   @include button-style(
-    color.adjust($color-default, $lightness: 85%),
+    adjust-lightnesst($color-default, 85),
     $border-width: 1px 1px 1px 0,
     $hoverable: false,
     $transition-duration: 0

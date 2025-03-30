@@ -1,7 +1,5 @@
-@use 'sass:color';
-
 @use "../base";
-@use "../colors";
+@use "../functions" as *;
 
 .Dropdown {
   display: flex;
@@ -42,7 +40,7 @@
     white-space: nowrap;
     height: 100%;
     padding: 0.25em 0.5em;
-    border-right: base.em(1px) solid hsla(0, 0%, 0%, 0.33);
+    border-right: base.em(1px) solid var(--color-border-dark);
   }
 
   &__icon {
@@ -75,9 +73,12 @@
 
     &--wrapper {
       overflow: hidden;
-      background-color: rgba(color.adjust(base.$color-bg, $lightness: -5%), 0.85);
-      color: hsl(0, 0%, 100%);
-      border: base.em(1px) solid var(--border-color);
+      background-color: adjust-lightness(
+        adjust-lightness(var(--color-base), -5.5),
+        0.5
+      );
+      color: var(--color-text);
+      border: base.em(1px) solid var(--color-border);
       border-radius: base.em(6px);
       backdrop-filter: blur(12px);
     }

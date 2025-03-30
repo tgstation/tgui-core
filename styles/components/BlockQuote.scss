@@ -1,7 +1,8 @@
 @use "../base";
 @use "../colors";
+@use "../functions" as *;
 
-$color-default: colors.fg(colors.$label) !default;
+$color-default: adjust-lightness(var(--color-label), 5) !default;
 
 .BlockQuote {
   color: $color-default;

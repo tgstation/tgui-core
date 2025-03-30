@@ -1,11 +1,6 @@
-@use "sass:color";
-@use "../styles/base.scss" as base;
-@use "../styles/colors.scss" as colors;
-
 html,
 body {
-  scrollbar-color: color.adjust(base.$color-bg, $lightness: 6%)
-    color.adjust(base.$color-bg, $lightness: -4.25%);
-  background-color: base.$color-bg;
-  color: colors.$white;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-base);
+  background-color: var(--color-base);
+  color: var(--color-white);
 }

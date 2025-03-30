@@ -10,7 +10,6 @@ $separator-color: colors.$primary !default;
 .Section {
   position: relative;
   margin-bottom: 0.5em;
-  background-color: functions.fake-alpha($background-color, base.$color-bg);
   background-color: $background-color;
   box-sizing: border-box;
 

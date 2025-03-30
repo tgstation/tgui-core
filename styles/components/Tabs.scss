@@ -3,18 +3,15 @@
 @use "../base";
 @use "../colors";
 
-$color-default: color.scale(
-  colors.fg(colors.$primary),
-  $lightness: 75%
-) !default;
+$color-default: adjust-lightness(colors.$primary, 75) !default;
 $text-color: hsla(0, 0%, 100%, 0.5) !default;
-$text-color-selected: color.scale($color-default, $lightness: 25%) !default;
+$text-color-selected: adjust-lightness($color-default, 25) !default;
 $tab-color: transparent !default;
 $tab-color-hovered: hsla(0, 0%, 100%, 0.075) !default;
 $tab-color-selected: hsla(0, 0%, 100%, 0.125) !default;
 $transition-duration: 0.2s !default;
 $border-radius: base.$border-radius !default;
-$fg-map: colors.$fg-map !default;
+$fg-map: colors.$color-map !default;
 
 @mixin indicator($position) {
   position: relative;
@@ -65,7 +62,7 @@ $fg-map: colors.$fg-map !default;
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  background-color: base.$color-bg-section;
+  background-color: var(--color-section);
 }
 
 .Tabs--fill {
@@ -166,6 +163,6 @@ $fg-map: colors.$fg-map !default;
 
 @each $color-name, $color-value in $fg-map {
   .Tab--selected.Tab--color--#{$color-name} {
-    color: color.scale($color-value, $lightness: 25%);
+    color: adjust-lightness($color-value, 25);
   }
 }

@@ -1,22 +1,20 @@
+/**
+ * @deprecated Use css-variables
+ */
+
 @use "sass:color";
 @use "sass:math";
 
 $color-fg: hsl(0, 0%, 100%) !default;
-$color-bg: hsl(0, 0%, 14%) !default;
-$color-bg-section: hsla(0, 0%, 0%, 0.33) !default;
-$color-bg-grad-spread: 2% !default;
-$color-bg-start: color.adjust(
-  $color-bg,
-  $lightness: $color-bg-grad-spread
-) !default;
-$color-bg-end: color.adjust(
-  $color-bg,
-  $lightness: -$color-bg-grad-spread
-) !default;
+$color-bg: var(--color-base) !default;
+$color-bg-section: var(--color-section) !default;
+$color-bg-grad-spread: var(--base-gradient-spread) !default;
+$color-bg-start: var(--color-base-start) !default;
+$color-bg-end: var(--color-base-end) !default;
 
-$cursor-default: default !default;
-$cursor-hover: pointer !default;
-$cursor-disabled: $cursor-default !default;
+$cursor-default: var(--cursor-default) !default;
+$cursor-hover: var(--cursor-pointer) !default;
+$cursor-disabled: var(--cursor-default) !default;
 
 $unit: 12px;
 $font-size: 1 * $unit !default;
