@@ -32,6 +32,8 @@ export const WithIcon: Story = {
         </Button>
         <br />
         <Button {...args} /> Only Icon
+        <br />
+        <Button compact {...args} /> Compact
       </>
     );
   },

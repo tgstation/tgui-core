@@ -10,14 +10,17 @@ $border-radius: Input.$border-radius !default;
 .TextArea {
   position: relative;
   display: inline-block;
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
+  border: var(--border-thickness-small) solid var(--color-border-input);
   border-radius: $border-radius;
   background-color: $background-color;
   margin-right: base.em(2px);
   line-height: base.em(17px);
   box-sizing: border-box;
   width: 100%;
+
+  &:focus-within {
+    border-color: var(--color-border-input-focus);
+  }
 }
 
 .TextArea--fluid {
@@ -39,10 +42,7 @@ $border-radius: Input.$border-radius !default;
 .TextArea__textarea {
   display: block;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   border: 0;
   outline: 0;
   width: 100%;
@@ -62,8 +62,7 @@ $border-radius: Input.$border-radius !default;
 
   &::placeholder {
     font-style: italic;
-    color: hsl(0, 0%, 46.7%);
-    color: hsla(0, 0%, 100%, 0.45);
+    color: var(--color-text-translucent);
   }
 }
 

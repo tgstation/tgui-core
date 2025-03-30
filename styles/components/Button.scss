@@ -2,42 +2,42 @@
 @use "../colors";
 @use "../functions" as *;
 
-$color-default: colors.$primary !default;
-$color-selected: colors.$green !default;
-$color-caution: colors.$yellow !default;
-$color-danger: colors.$red !default;
+$color-default: var(--color-button-default) !default;
+$color-selected: var(--color-button-selected) !default;
+$color-caution: var(--color-button-caution) !default;
+$color-danger: var(--color-button-danger) !default;
 $color-transparent-text: var(--color-text-translucent) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$color-map !default;
 
 @mixin button-color($color) {
-  background-color: adjust-lightness($color, var(--adjust-bg));
+  cursor: var(--cursor-pointer);
+  background-color: hsl(from $color h s calc(l + var(--adjust-bg)));
   color: var(--color-text-fixed);
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: adjust-lightness($color, var(--adjust-hover));
+      background-color: hsl(from $color h s calc(l + var(--adjust-hover)));
       color: var(--color-text-fixed);
     }
 
     &:active {
-      background-color: adjust-lightness($color, var(--adjust-active));
+      background-color: hsl(from $color h s calc(l + var(--adjust-active)));
       color: var(--color-text-fixed);
     }
   }
 }
 
 .Button {
-  cursor: base.$cursor-hover;
   position: relative;
   display: inline-block;
-  line-height: 1.667em;
-  padding: 0 0.5em;
-  margin-right: base.em(2px);
   white-space: nowrap;
+  line-height: 1.667em;
+  padding: 0 var(--space-m);
+  margin-right: var(--space-xs);
+  margin-bottom: var(--space-xs);
   outline: 0;
   border-radius: $border-radius;
-  margin-bottom: base.em(2px);
   transition-property: background-color, color, opacity;
   transition-duration: 0.2s;
   // Disable selection in buttons
@@ -52,60 +52,67 @@ $bg-map: colors.$color-map !default;
     margin-bottom: 0;
   }
 
-  .fa,
-  .fas,
-  .far {
-    margin-left: -0.25em;
-    margin-right: -0.25em;
+  &__content {
+    display: block;
+    align-self: stretch;
+
+    &--ellipsis {
+      display: flex; // Inline flex will broke ellipsis, don't change it.
+      align-items: center;
+    }
+  }
+
+  i {
     min-width: 1.333em;
     text-align: center;
   }
-}
 
-.Button--dropdown {
-  line-height: base.em(16px);
-  height: base.em(22px);
-  padding: 0.2rem 0.5rem;
-}
+  &:has(i) {
+    padding-left: 0;
 
-.Button--hasContent {
-  // Add a margin to the icon to keep it separate from the text
-  .fa,
-  .fas,
-  .far {
-    margin-right: 0.25em;
+    i {
+      margin: 0 var(--space-s);
+    }
   }
-}
 
-.Button--hasContent.Button--iconPosition--right {
-  .fa,
-  .fas,
-  .far {
-    margin-right: 0px;
-    margin-left: 3px;
+  &--icon-right:has(i) {
+    padding-left: var(--space-m);
+    padding-right: var(--space-s);
+
+    i {
+      margin: 0 0 0 var(--space-s);
+    }
   }
-}
 
-.Button--ellipsis {
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  margin-right: -0.33em;
-}
+  &--empty:has(i) {
+    padding: 0;
+  }
 
-.Button--fluid {
-  display: block;
-  margin-left: 0;
-  margin-right: 0;
-}
+  &--compact {
+    padding: 0 var(--space-s);
+    line-height: 1.333em;
 
-.Button--circular {
-  border-radius: 50%;
-}
+    &:has(i) i {
+      margin: 0 var(--space-xxs);
+    }
+  }
 
-.Button--compact {
-  padding: 0 0.25em;
-  line-height: 1.333em;
+  &--circular {
+    border-radius: 50%;
+  }
+
+  &--fluid {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &--ellipsis {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: calc(-1 * var(--space-s));
+  }
 }
 
 @each $color-name, $color-value in $bg-map {
@@ -130,27 +137,27 @@ $bg-map: colors.$color-map !default;
   @include button-color($color-danger);
 }
 
+.Button--selected {
+  @include button-color($color-selected);
+}
+
 .Button--color--transparent {
-  color: var(--color-text-translucent);
+  color: $color-transparent-text;
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: hsla(0, 0%, 50%, 0.15);
+      background-color: var(--color-hover);
     }
 
     &:active {
-      background-color: hsla(0, 0%, 50%, 0.25);
+      background-color: var(--color-active);
     }
   }
 }
 
 .Button--disabled {
-  cursor: base.$cursor-disabled;
+  cursor: var(--cursor-disabled);
   opacity: 0.5;
-}
-
-.Button--selected {
-  @include button-color($color-selected);
 }
 
 .Button--flex {
@@ -172,14 +179,4 @@ $bg-map: colors.$color-map !default;
 
 .Button--verticalAlignContent--bottom {
   justify-content: flex-end;
-}
-
-.Button__content {
-  display: block;
-  align-self: stretch;
-
-  &--ellipsis {
-    display: flex; // Inline flex will broke ellipsis, don't change it.
-    align-items: center;
-  }
 }

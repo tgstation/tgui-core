@@ -12,15 +12,18 @@ $mono-font-family: "Consolas", monospace !default;
   position: relative;
   display: inline-block;
   width: base.em(120px);
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
+  border: var(--border-thickness-small) solid var(--color-border-input);
   border-radius: $border-radius;
-  color: $text-color;
+  color: var(--color-text);
   background-color: $background-color;
   padding: 0 base.em(4px);
   margin-right: base.em(2px);
   line-height: base.em(17px);
   overflow: visible;
+
+  &:focus-within {
+    border-color: var(--color-border-input-focus);
+  }
 }
 
 .Input--fluid {
@@ -50,13 +53,12 @@ $mono-font-family: "Consolas", monospace !default;
   padding: 0 0.5em;
   font-family: $font-family;
   background-color: transparent;
-  color: $text-color;
+  color: var(--color-text);
   color: inherit;
 
   &::placeholder {
     font-style: italic;
-    color: hsl(0, 0%, 46.7%);
-    color: hsla(0, 0%, 100%, 0.45);
+    color: var(--color-text-translucent);
   }
 }
 

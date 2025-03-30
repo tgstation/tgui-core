@@ -4,9 +4,9 @@
 .Dropdown {
   display: flex;
   align-items: stretch;
-  gap: 0.25rem;
-  margin-right: base.em(2px);
-  margin-bottom: base.em(2px);
+  gap: var(--space-s);
+  margin-right: var(--space-xs);
+  margin-bottom: var(--space-xs);
 
   &:last-child {
     margin-right: 0;
@@ -15,21 +15,18 @@
 
   // Override Button styles
   .Button {
-    margin: 0 !important;
-    align-content: center !important;
+    margin: 0;
+    align-content: center;
   }
 
   &__control {
-    font-family: Verdana, sans-serif;
-    font-size: base.em(12px);
-    display: flex !important;
+    display: flex;
     overflow: hidden;
     flex: 1;
-
-    // Override Button styles
-    &.Button {
-      padding: 0 !important;
-    }
+    font-family: Verdana, sans-serif;
+    font-size: base.em(12px);
+    line-height: base.em(16px);
+    height: base.em(22px);
   }
 
   &__selected-text {
@@ -39,18 +36,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     height: 100%;
-    padding: 0.25em 0.5em;
-    border-right: base.em(1px) solid var(--color-border-dark);
+    padding: var(--space-s) var(--space-m);
+    border-right: var(--border-thickness-small) solid var(--color-border-dark);
   }
 
   &__icon {
     display: inline-block;
     align-content: center;
+    text-align: center;
     height: 100%;
     width: base.em(22px);
     transition: transform 0.2s;
-    // Override Button styles
-    margin: 0 !important;
 
     &--arrow {
       &.open:not(.over),
@@ -69,7 +65,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     max-height: base.em(200px);
-    padding: 0.33em;
+    padding: var(--space-sm);
 
     &--wrapper {
       overflow: hidden;
@@ -78,7 +74,7 @@
         0.5
       );
       color: var(--color-text);
-      border: base.em(1px) solid var(--color-border);
+      border: var(--border-thickness-small) solid var(--color-border);
       border-radius: base.em(6px);
       backdrop-filter: blur(12px);
     }
@@ -91,12 +87,12 @@
       font-family: Verdana, sans-serif;
       font-size: base.em(12px);
       line-height: base.em(16px);
-      padding: base.em(2px) base.em(6px);
+      padding: var(--space-xs) var(--space-m);
       border-radius: base.em(3px);
       transition: background-color 0.1s;
 
       &.selected {
-        background-color: hsla(0, 0%, 100%, 0.2) !important;
+        background-color: var(--color-selected) !important;
         transition-duration: 0s;
       }
 
@@ -104,12 +100,12 @@
         cursor: pointer;
 
         &:hover {
-          background-color: hsla(0, 0%, 50%, 0.2);
+          background-color: var(--color-hover);
           transition-duration: 0s;
         }
 
         &:active {
-          background-color: hsla(0, 0%, 75%, 0.2);
+          background-color: var(--color-active);
           transition-duration: 0s;
         }
       }

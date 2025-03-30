@@ -11,8 +11,8 @@ $border-radius: Input.$border-radius !default;
 .NumberInput {
   position: relative;
   display: inline-block;
-  border: base.em(1px) solid $border-color;
-  border: base.em(1px) solid rgba($border-color, 0.75);
+  border: var(--border-thickness-small) solid $border-color;
+  border: var(--border-thickness-small) solid rgba($border-color, 0.75);
   border-radius: $border-radius;
   color: $border-color;
   background-color: $background-color;
@@ -45,7 +45,7 @@ $border-radius: Input.$border-radius !default;
   left: 0;
   width: base.em(3px);
   box-sizing: border-box;
-  border-bottom: base.em(1px) solid $border-color;
+  border-bottom: var(--border-thickness-small) solid $border-color;
   background-color: $border-color;
 }
 

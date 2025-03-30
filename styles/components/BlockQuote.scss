@@ -1,14 +1,13 @@
-@use "../base";
-@use "../colors";
-@use "../functions" as *;
-
-$color-default: adjust-lightness(var(--color-label), 5) !default;
+$color-default: hsl(
+  from var(--color-label) h s calc(l + var(--adjust-fg))
+) !default;
 
 .BlockQuote {
-  color: $color-default;
-  border-left: base.em(2px) solid $color-default;
-  padding-left: 0.5em;
-  margin-bottom: 0.5em;
+  color: hsl(from var(--color-label) h s calc(l + var(--adjust-fg)));
+  border-left: var(--border-thickness-medium) solid
+    hsl(from var(--color-label) h s calc(l + var(--adjust-fg)));
+  padding-left: var(--space-m);
+  margin-bottom: var(--space-m);
 
   &:last-child {
     margin-bottom: 0;

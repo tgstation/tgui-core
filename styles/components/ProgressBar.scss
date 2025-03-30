@@ -12,7 +12,7 @@ $bg-map: colors.$color-map !default;
   position: relative;
   width: 100%;
   padding: 0 0.5em;
-  border-width: base.em(1px) !important;
+  border-width: var(--border-thickness-small) !important;
   border-style: solid !important;
   border-radius: $border-radius;
   background-color: $background-color;
@@ -40,7 +40,7 @@ $bg-map: colors.$color-map !default;
 }
 
 .ProgressBar--color--default {
-  border: base.em(1px) solid $color-default-fill;
+  border: var(--border-thickness-small) solid $color-default-fill;
 
   .ProgressBar__fill {
     background-color: $color-default-fill;

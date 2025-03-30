@@ -7,7 +7,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: adjust-alpha(var(--color-section), 0.5);
+  background-color: hsl(from var(--color-section) h s l / 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,22 +25,22 @@
   display: flex;
   height: 2em;
   line-height: 1.928em;
-  background-color: adjust-alpha(var(--color-section), 0.5);
+  background-color: hsl(from var(--color-section) h s l / 0.5);
   user-select: none;
   -ms-user-select: none;
 }
 
 .Dialog__title {
+  flex-grow: 1;
   display: inline;
   font-style: italic;
-  margin-left: 1rem;
-  margin-right: 2rem;
-  flex-grow: 1;
+  margin-left: var(--space-xl);
+  margin-right: var(--space-xxl);
   opacity: 0.33;
 }
 
 .Dialog__body {
-  margin: 2rem 1rem 2rem 1rem;
+  margin: var(--space-xxl) var(--space-xl);
   flex-grow: 1;
 }
 
@@ -48,12 +48,12 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding: 1rem;
-  background-color: adjust-alpha(var(--color-section), 0.25);
+  padding: var(--space-xl);
+  background-color: hsl(from var(--color-section) h s l / 0.25);
 }
 
 .Dialog__button {
-  margin: 0 1rem 0 1rem;
+  margin: 0 var(--space-xl);
   height: 2rem;
   min-width: 6rem;
   text-align: center;
@@ -63,13 +63,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 3rem;
   justify-content: flex-end;
-  margin-right: 1rem;
+  padding-left: var(--space-xxl);
+  margin-right: var(--space-xl);
 }
 
 .SaveAsDialog__input {
-  margin-left: 1rem;
+  margin-left: var(--space-xl);
   width: 80%;
 }
 
@@ -90,12 +90,12 @@
 
 .Dialog__FileEntry {
   text-align: center;
-  margin: 1rem;
+  margin: var(--space-xl);
 }
 
 .Dialog__FileIcon {
   display: inline-block;
-  margin: 0 0 1rem 0;
+  margin: 0 0 var(--space-xl) 0;
   position: relative;
   width: 6vh;
   height: auto;

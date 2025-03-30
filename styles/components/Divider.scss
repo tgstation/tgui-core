@@ -1,13 +1,13 @@
 @use "../base";
 
-$thickness: base.em(2px) !default;
+$thickness: var(--border-thickness-medium) !default;
 $spacing: 0.5em;
 
 .Divider--horizontal {
   margin: $spacing 0;
 
   &:not(.Divider--hidden) {
-    border-top: $thickness solid var(--color-border);
+    border-top: var(--border-thickness-medium) solid var(--color-border);
   }
 }
 
@@ -16,6 +16,6 @@ $spacing: 0.5em;
   margin: 0 $spacing;
 
   &:not(.Divider--hidden) {
-    border-left: $thickness solid var(--color-border);
+    border-left: var(--border-thickness-medium) solid var(--color-border);
   }
 }

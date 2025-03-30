@@ -21,7 +21,7 @@ $separator-color: colors.$primary !default;
 .Section__title {
   position: relative;
   padding: 0.5em;
-  border-bottom: base.em(2px) solid $separator-color;
+  border-bottom: var(--border-thickness-medium) solid $separator-color;
 }
 
 .Section__titleText {
