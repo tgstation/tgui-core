@@ -9,7 +9,7 @@ $separator-color: colors.$primary !default;
 
 .Section {
   position: relative;
-  margin-bottom: 0.5em;
+  margin-bottom: var(--space-m);
   background-color: $background-color;
   box-sizing: border-box;
 
@@ -20,8 +20,8 @@ $separator-color: colors.$primary !default;
 
 .Section__title {
   position: relative;
-  padding: 0.5em;
-  border-bottom: var(--border-thickness-medium) solid $separator-color;
+  padding: var(--space-m);
+  border-bottom: var(--border-thickness-small) solid $separator-color;
 }
 
 .Section__titleText {
@@ -33,8 +33,8 @@ $separator-color: colors.$primary !default;
 .Section__buttons {
   position: absolute;
   display: inline-block;
-  right: 0.5em;
-  margin-top: base.em(-1px);
+  right: var(--space-m);
+  margin-top: calc(-1 * var(--space-xxs));
 }
 
 .Section__rest {
@@ -42,7 +42,7 @@ $separator-color: colors.$primary !default;
 }
 
 .Section__content {
-  padding: 0.66em 0.5em;
+  padding: var(--space-ml) var(--space-m);
 }
 
 .Section--fitted > .Section__rest > .Section__content {
@@ -65,23 +65,7 @@ $separator-color: colors.$primary !default;
 
 .Section--fill.Section--scrollable > .Section__rest > .Section__content {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.Section--fill.Section--iefix {
-  display: table !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  & > .Section__rest {
-    display: table-row !important;
-    height: 100% !important;
-  }
+  inset: 0;
 }
 
 .Section--scrollable {
@@ -117,12 +101,11 @@ $separator-color: colors.$primary !default;
 // Nested sections
 .Section .Section {
   background-color: transparent;
-  margin-left: -0.5em;
-  margin-right: -0.5em;
+  margin: 0 calc(-1 * var(--space-m)); // Compensate for padding: 0.5em;
 
   // Remove extra space above the first nested section
   &:first-child {
-    margin-top: -0.5em;
+    margin-top: calc(-1 * var(--space-m));
   }
 }
 

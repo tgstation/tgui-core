@@ -10,7 +10,7 @@ $border-radius: Input.$border-radius !default;
 .TextArea {
   position: relative;
   display: inline-block;
-  border: var(--border-thickness-small) solid var(--color-border-input);
+  border: var(--border-thickness-tiny) solid var(--color-border-input);
   border-radius: $border-radius;
   background-color: $background-color;
   margin-right: base.em(2px);

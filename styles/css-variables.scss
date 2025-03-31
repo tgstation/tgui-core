@@ -20,7 +20,7 @@
 
   /* Base colors */
   --color-red: hsl(0, 70%, 50%);
-  --color-orange: hsl(25, 90%, 55%);
+  --color-orange: hsl(25, 90%, 50%);
   --color-yellow: hsl(50, 97.5%, 50%);
   --color-olive: hsl(70, 75%, 45%);
   --color-green: hsl(140, 70%, 40%);
@@ -28,7 +28,7 @@
   --color-blue: hsl(210, 65%, 47.5%);
   --color-violet: hsl(260, 60%, 50%);
   --color-purple: hsl(290, 60%, 50%);
-  --color-pink: hsl(325, 70%, 55%);
+  --color-pink: hsl(325, 70%, 50%);
   --color-brown: hsl(25, 47.5%, 45%);
 
   /* Grayscale colors */
@@ -71,31 +71,66 @@
   --color-button-caution: var(--color-yellow);
   --color-button-danger: var(--color-red);
 
-  /* Sizes */
-  --border-thickness-thick: 0.25em;
-  --border-thickness-medium: calc(var(--border-thickness-thick) / 2);
-  --border-thickness-small: calc(var(--border-thickness-thick) / 3);
+  /* Border thickness */
+  --border-thickness-unit: 0.5em;
+  /* 1px | 0.085em */
+  --border-thickness-tiny: calc(var(--border-thickness-unit) * 0.5 * 0.34);
+  /* 2px | 0.17em */
+  --border-thickness-small: calc(var(--border-thickness-unit) * 0.34);
+  /* 3px | 0.25em */
+  --border-thickness-medium: calc(var(--border-thickness-unit) * 0.5);
+  /* 4px | 0.33em */
+  --border-thickness-large: calc(var(--border-thickness-unit) * 0.66);
+  /* 6px | 0.5em */
+  --border-thickness-larger: var(--border-thickness-unit);
+
+  /* Border radius */
+  --border-radius-unit: 1rem;
+  /* 2px | 0.17rem */
+  --border-radius-tiny: calc(var(--border-radius-unit) * 0.25 * 0.68);
+  /* 3px | 0.25rem */
+  --border-radius-small: calc(var(--border-radius-unit) * 0.25);
+  /* 4px | 0.33rem */
+  --border-radius-medium: calc(var(--border-radius-unit) * 0.33);
+  /* 6px | 0.5rem */
+  --border-radius-large: calc(var(--border-radius-unit) * 0.5);
+  /* 10px | 0.75rem */
+  --border-radius-larger: calc(var(--border-radius-unit) * 0.75);
+  /* 12px | 1rem*/
+  --border-radius-huge: var(--border-radius-unit);
+  /* 24px | 2rem*/
+  --border-radius-giant: calc(var(--border-radius-unit) * 2);
+  /* Maximum border radius. Makes perfect circles */
+  --border-radius-circular: 99999px;
 
   /* Spacing */
-  --space-xxs: calc(0.25em * 0.33); // 1px
-  --space-xs: calc(0.25em * 0.66); // 2px
-  --space-s: 0.25em; // 3px
-  --space-sm: calc(0.5em * 0.66); // 4px
-  --space-m: 0.5em; // 6px
-  --space-ml: calc(0.5em * 1.5); // 8px
-  --space-l: 0.75em; // 10px
-  --space-xl: 1em; // 12px
-  --space-xxl: 2em; // 24px
+  --space-unit: 1em;
+  /* 1px | 0.085em */
+  --space-xxs: calc(var(--space-unit) * 0.25 * 0.34);
+  /* 2px | 0.17em */
+  --space-xs: calc(var(--space-unit) * 0.25 * 0.68);
+  /* 3px | 0.25em */
+  --space-s: calc(var(--space-unit) * 0.25);
+  /* 4px | 0.33em */
+  --space-sm: calc(var(--space-unit) * 0.33);
+  /* 6px | 0.5em */
+  --space-m: calc(var(--space-unit) * 0.5);
+  /* 8px | 0.66em */
+  --space-ml: calc(var(--space-unit) * 0.66);
+  /* 10px | 0.75em */
+  --space-l: calc(var(--space-unit) * 0.75);
+  /* 12px | 1em*/
+  --space-xl: var(--space-unit);
+  /* 24px | 2em*/
+  --space-xxl: calc(var(--space-unit) * 2);
 
   /* Adjustments */
-  /// Background lightness multiplier
-  --adjust-bg: -5;
-  /// Foreground lightness multiplier
-  --adjust-fg: 5;
-  /// Hover lightness multiplier
-  --adjust-hover: 5;
-  /// Active lightness multiplier
-  --adjust-active: -12.5;
+  /* Color lightness multiplier. + for FG - for BG */
+  --adjust-color: 5;
+  /* Color lightness multiplier wneh hovered */
+  --adjust-hover: 10;
+  /* Color lightness multiplier when active (clicked) */
+  --adjust-active: 7.5;
 
   /* Cursors */
   --cursor-default: default;

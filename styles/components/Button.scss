@@ -12,17 +12,23 @@ $bg-map: colors.$color-map !default;
 
 @mixin button-color($color) {
   cursor: var(--cursor-pointer);
-  background-color: hsl(from $color h s calc(l + var(--adjust-bg)));
+  background-color: hsl(from $color h s calc(l - var(--adjust-color)));
   color: var(--color-text-fixed);
 
   &:not(.Button--disabled) {
     &:hover {
-      background-color: hsl(from $color h s calc(l + var(--adjust-hover)));
+      background-color: hsl(
+        from $color h s
+          calc(calc(l - var(--adjust-color)) + var(--adjust-hover))
+      );
       color: var(--color-text-fixed);
     }
 
     &:active {
-      background-color: hsl(from $color h s calc(l + var(--adjust-active)));
+      background-color: hsl(
+        from $color h s
+          calc(calc(l - var(--adjust-color)) - var(--adjust-active))
+      );
       color: var(--color-text-fixed);
     }
   }
@@ -37,7 +43,7 @@ $bg-map: colors.$color-map !default;
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
   outline: 0;
-  border-radius: $border-radius;
+  border-radius: var(--border-radius-tiny);
   transition-property: background-color, color, opacity;
   transition-duration: 0.2s;
   // Disable selection in buttons
@@ -117,8 +123,10 @@ $bg-map: colors.$color-map !default;
 
 @each $color-name, $color-value in $bg-map {
   .Button--color--#{$color-name} {
-    @if $color-name == "white" or $color-name == "yellow" {
-      --color-text-fixed: var(--color-black);
+    @each $color in colors.$low-contrast-color-map {
+      @if $color-name == $color {
+        --color-text-fixed: var(--color-black);
+      }
     }
 
     @include button-color($color-value);

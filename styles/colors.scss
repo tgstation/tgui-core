@@ -33,6 +33,7 @@ $bad: var(--color-bad) !default;
 $label: var(--color-label) !default;
 
 // Mappings of color names
+$color-map: ();
 $_gen_map: (
   "black": var(--color-black),
   "white": var(--color-white),
@@ -56,11 +57,10 @@ $_gen_map: (
   "bad": var(--color-bad),
   "label": var(--color-label),
 );
+$low-contrast-color-map: ("yellow", "white");
 
 // Color names for which to generate a color map
 $color-map-keys: map.keys($_gen_map) !default;
-
-$color-map: ();
 @each $color-name in $color-map-keys {
   // prettier-ignore
   $color-map: map.merge($color-map, (

@@ -1,10 +1,10 @@
 @use "../base";
 @use "../functions" as *;
 
-$text-color: base.$color-fg !default;
+$text-color: var(--color-text) !default;
 $background-color: hsl(0, 0%, 3.9%) !default;
-$border-color: hsl(212.3, 100%, 76.7%) !default;
-$border-radius: base.$border-radius !default;
+$border-color: var(--color-border-input) !default;
+$border-radius: var(--border-radius-tiny) !default;
 $font-family: Verdana, sans-serif !default;
 $mono-font-family: "Consolas", monospace !default;
 
@@ -12,12 +12,12 @@ $mono-font-family: "Consolas", monospace !default;
   position: relative;
   display: inline-block;
   width: base.em(120px);
-  border: var(--border-thickness-small) solid var(--color-border-input);
-  border-radius: $border-radius;
+  border: var(--border-thickness-tiny) solid var(--color-border-input);
+  border-radius: var(--border-radius-tiny);
   color: var(--color-text);
   background-color: $background-color;
-  padding: 0 base.em(4px);
-  margin-right: base.em(2px);
+  padding: 0 var(--space-sm);
+  margin-right: var(--space-xs);
   line-height: base.em(17px);
   overflow: visible;
 
@@ -50,7 +50,7 @@ $mono-font-family: "Consolas", monospace !default;
   line-height: base.em(17px);
   height: base.em(17px);
   margin: 0;
-  padding: 0 0.5em;
+  padding: 0 var(--space-m);
   font-family: $font-family;
   background-color: transparent;
   color: var(--color-text);

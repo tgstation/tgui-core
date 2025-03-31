@@ -3,21 +3,20 @@
 @use "../functions" as *;
 @use "./Input";
 
-$text-color: Input.$text-color !default;
+$text-color: var(--color-text) !default;
 $background-color: Input.$background-color !default;
-$border-color: Input.$border-color !default;
-$border-radius: Input.$border-radius !default;
+$border-color: var(--color-border-input) !default;
+$border-radius: var(--border-radius-tiny) !default;
 
 .NumberInput {
   position: relative;
   display: inline-block;
-  border: var(--border-thickness-small) solid $border-color;
-  border: var(--border-thickness-small) solid rgba($border-color, 0.75);
-  border-radius: $border-radius;
-  color: $border-color;
+  border: var(--border-radius-tiny) solid var(--color-border-input);
+  border-radius: var(--border-radius-tiny);
+  color: var(--color-border-input);
   background-color: $background-color;
-  padding: 0 base.em(4px);
-  margin-right: base.em(2px);
+  padding: 0 var(--space-sm);
+  margin-right: var(--space-xs);
   line-height: base.em(17px);
   text-align: right;
   overflow: visible;
@@ -29,14 +28,14 @@ $border-radius: Input.$border-radius !default;
 }
 
 .NumberInput__content {
-  margin-left: 0.5em;
+  margin-left: var(--space-m);
 }
 
 .NumberInput__barContainer {
   position: absolute;
-  top: base.em(2px);
-  bottom: base.em(2px);
-  left: base.em(2px);
+  top: var(--space-xs);
+  bottom: var(--space-xs);
+  left: var(--space-xs);
 }
 
 .NumberInput__bar {
@@ -45,17 +44,14 @@ $border-radius: Input.$border-radius !default;
   left: 0;
   width: base.em(3px);
   box-sizing: border-box;
-  border-bottom: var(--border-thickness-small) solid $border-color;
-  background-color: $border-color;
+  border-bottom: var(--border-thickness-tiny) solid var(--color-border-input);
+  background-color: var(--color-border-input);
 }
 
 .NumberInput__input {
   display: block;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   border: 0;
   outline: 0;
   width: 100%;
@@ -63,9 +59,9 @@ $border-radius: Input.$border-radius !default;
   line-height: base.em(17px);
   height: base.em(17px);
   margin: 0;
-  padding: 0 0.5em;
+  padding: 0 var(--space-m);
   font-family: Verdana, sans-serif;
   background-color: $background-color;
-  color: $text-color;
+  color: var(--color-text);
   text-align: right;
 }

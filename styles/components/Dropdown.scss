@@ -37,7 +37,7 @@
     white-space: nowrap;
     height: 100%;
     padding: var(--space-s) var(--space-m);
-    border-right: var(--border-thickness-small) solid var(--color-border-dark);
+    border-right: var(--border-thickness-tiny) solid var(--color-border-dark);
   }
 
   &__icon {
@@ -74,8 +74,8 @@
         0.5
       );
       color: var(--color-text);
-      border: var(--border-thickness-small) solid var(--color-border);
-      border-radius: base.em(6px);
+      border: var(--border-thickness-tiny) solid var(--color-border);
+      border-radius: var(--border-radius-large);
       backdrop-filter: blur(12px);
     }
 
@@ -88,7 +88,7 @@
       font-size: base.em(12px);
       line-height: base.em(16px);
       padding: var(--space-xs) var(--space-m);
-      border-radius: base.em(3px);
+      border-radius: var(--border-radius-small);
       transition: background-color 0.1s;
 
       &.selected {

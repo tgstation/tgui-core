@@ -16,9 +16,9 @@
 }
 
 .Stack--horizontal > .Stack__divider:not(.Stack__divider--hidden) {
-  border-left: var(--border-thickness-medium) solid var(--color-border);
+  border-left: var(--border-thickness-small) solid var(--color-border);
 }
 
 .Stack--vertical > .Stack__divider:not(.Stack__divider--hidden) {
-  border-top: var(--border-thickness-medium) solid var(--color-border);
+  border-top: var(--border-thickness-small) solid var(--color-border);
 }
