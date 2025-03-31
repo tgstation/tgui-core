@@ -16,7 +16,7 @@ function Menu(props: MenuProps) {
 
   return (
     <div
-      className="Menubar__menu"
+      className="MenuBar__menu"
       style={{
         width,
       }}

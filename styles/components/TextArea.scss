@@ -2,24 +2,24 @@
 @use "../functions" as *;
 @use "./Input";
 
-$text-color: Input.$text-color !default;
-$background-color: Input.$background-color !default;
-$border-color: Input.$border-color !default;
-$border-radius: Input.$border-radius !default;
+$text-color: 0 !default;
+$background-color: 0 !default;
+$border-color: 0 !default;
+$border-radius: 0 !default;
 
 .TextArea {
   position: relative;
   display: inline-block;
-  border: var(--border-thickness-tiny) solid var(--color-border-input);
-  border-radius: $border-radius;
-  background-color: $background-color;
+  border: var(--border-thickness-tiny) solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background);
   margin-right: base.em(2px);
   line-height: base.em(17px);
   box-sizing: border-box;
   width: 100%;
 
   &:focus-within {
-    border-color: var(--color-border-input-focus);
+    border-color: var(--input-border-color-focus);
   }
 }
 
@@ -51,10 +51,10 @@ $border-radius: Input.$border-radius !default;
   line-height: base.em(17px);
   min-height: base.em(17px);
   margin: 0;
-  padding: 0 0.5em;
+  padding: 0 var(--space-m);
   font-family: inherit;
   background-color: transparent;
-  color: inherit;
+  color: var(--input-color);
   box-sizing: border-box;
   // Make sure the div and the textarea wrap words in the same way
   word-wrap: break-word;
@@ -62,7 +62,7 @@ $border-radius: Input.$border-radius !default;
 
   &::placeholder {
     font-style: italic;
-    color: var(--color-text-translucent);
+    color: var(--input-color-placeholder);
   }
 }
 

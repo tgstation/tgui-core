@@ -1,0 +1,59 @@
+/**
+ * TGUI
+ * Components Variables
+ *
+ * This file contains all variables used in components,
+ * or almost all...
+ *
+ * If you make a new component, or edit an existing one
+ * and you need a new color for it, it is highly advisable to
+ * add a new variable for the component, and only then use the color.
+ *
+ * If vars-colors.scss or vars-values.scss doens't have needed variable
+ * you can create it there and then use it here.
+ *
+ * That's allows downstreams to customize each component as needed,
+ * creating their own unique TGUI designs with ease.
+ *
+ * Don't add new base colors here, that files only for mixing and modifying
+ * variables from vars-colors.scss and vars-values.scss,
+ * for their further use in components.
+ *
+ * Made with love by Aylong (https://github.com/AyIong)
+ */
+
+:root {
+  /* Button */
+  --button-background-default: var(--color-primary);
+  --button-background-selected: var(--color-green);
+  --button-background-caution: var(--color-yellow);
+  --button-background-danger: var(--color-red);
+
+  /* Tabs */
+  --tab-background: transparent;
+  --tab-background-hover: var(--color-hover);
+  --tab-background-selected: var(--color-selected);
+  --tab-color: var(--color-text-translucent);
+  --tab-color-selected: hsl(from var(--color-primary) h s 90);
+  --tab-border-radius: var(--border-radius-small);
+  --tab-indicator-size: var(--border-thickness-small);
+  --tab-transition: var(--transition-time-medium);
+  --tabs-container-background: var(--color-section);
+
+  /* Input */
+  --input-background: hsl(from var(--color-base) h s 5);
+  --input-color: var(--color-text);
+  --input-color-placeholder: var(--color-text-translucent);
+  --input-border-color: var(--color-border-primary);
+  --input-border-color-focus: var(--color-border-secondary);
+  --input-border-radius: var(--border-radius-tiny);
+  --input-transition: var(--transition-time-medium);
+
+  /* Number Input */
+  --number-input-background: var(--input-background);
+  --number-input-color: var(--input-color);
+  --number-input-border-color: var(--input-border-color);
+  --number-input-border-color-active: var(--input-border-color-focus);
+  --number-input-border-radius: var(--input-border-radius);
+  --number-input-transition: var(--input-transition);
+}

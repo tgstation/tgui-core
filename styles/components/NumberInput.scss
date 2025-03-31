@@ -3,24 +3,29 @@
 @use "../functions" as *;
 @use "./Input";
 
-$text-color: var(--color-text) !default;
+$text-color: 0 !default;
 $background-color: Input.$background-color !default;
-$border-color: var(--color-border-input) !default;
-$border-radius: var(--border-radius-tiny) !default;
+$border-color: 0 !default;
+$border-radius: 0 !default;
 
 .NumberInput {
+  cursor: var(--cursor-n-resize);
+  overflow: visible;
   position: relative;
   display: inline-block;
-  border: var(--border-radius-tiny) solid var(--color-border-input);
-  border-radius: var(--border-radius-tiny);
-  color: var(--color-border-input);
-  background-color: $background-color;
+  text-align: right;
+  line-height: base.em(17px);
   padding: 0 var(--space-sm);
   margin-right: var(--space-xs);
-  line-height: base.em(17px);
-  text-align: right;
-  overflow: visible;
-  cursor: n-resize;
+  background-color: var(--number-input-background);
+  color: var(--number-input-border-color-active);
+  border: var(--border-thickness-tiny) solid var(--number-input-border-color);
+  border-radius: var(--number-input-border-radius);
+  transition: border-color var(--number-input-transition);
+
+  &:active {
+    border-color: var(--number-input-border-color-active);
+  }
 }
 
 .NumberInput--fluid {
@@ -44,13 +49,15 @@ $border-radius: var(--border-radius-tiny) !default;
   left: 0;
   width: base.em(3px);
   box-sizing: border-box;
-  border-bottom: var(--border-thickness-tiny) solid var(--color-border-input);
-  background-color: var(--color-border-input);
+  border-bottom: var(--border-thickness-tiny) solid
+    var(--number-input-border-color-active);
+  background-color: var(--number-input-border-color-active);
 }
 
 .NumberInput__input {
   display: block;
   position: absolute;
+  text-align: right;
   inset: 0;
   border: 0;
   outline: 0;
@@ -61,7 +68,6 @@ $border-radius: var(--border-radius-tiny) !default;
   margin: 0;
   padding: 0 var(--space-m);
   font-family: Verdana, sans-serif;
-  background-color: $background-color;
-  color: var(--color-text);
-  text-align: right;
+  background-color: var(--number-input-background);
+  color: var(--number-input-color);
 }

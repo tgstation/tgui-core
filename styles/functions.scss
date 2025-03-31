@@ -14,31 +14,3 @@
   }
   @return math.div($value, $value * 0 + 1);
 }
-
-// MARK: Color
-/**
- * Changes color hue
- */
-@function hue-shift($color, $hue-delta) {
-  @return hsl(from $color calc(h + $hue-delta) s l);
-}
-/**
- * Changes color saturacy
- */
-@function adjust-saturation($color, $saturation-delta) {
-  @return hsl(from $color h calc(s + $saturation-delta) l);
-}
-
-/**
- * Changes color lightness
- */
-@function adjust-lightness($color, $lightness-delta) {
-  @return hsl(from $color h s calc(l + $lightness-delta));
-}
-
-/**
- * Changes color opacity
- */
-@function adjust-alpha($color, $opacity) {
-  @return hsl(from $color h s l / $opacity);
-}

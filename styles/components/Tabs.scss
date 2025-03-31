@@ -1,39 +1,33 @@
-@use "sass:color";
-@use "sass:math";
-@use "../base";
 @use "../colors";
 
-$color-default: adjust-lightness(colors.$primary, 75) !default;
-$text-color: hsla(0, 0%, 100%, 0.5) !default;
-$text-color-selected: adjust-lightness($color-default, 25) !default;
-$tab-color: transparent !default;
-$tab-color-hovered: hsla(0, 0%, 100%, 0.075) !default;
-$tab-color-selected: hsla(0, 0%, 100%, 0.125) !default;
-$transition-duration: 0.2s !default;
-$border-radius: base.$border-radius !default;
 $fg-map: colors.$color-map !default;
+
+$color-default: 0 !default;
+$text-color: 0 !default;
+$text-color-selected: 0 !default;
+$tab-color: 0 !default;
+$tab-color-hovered: 0 !default;
+$tab-color-selected: 0 !default;
+$transition-duration: 0 !default;
+$border-radius: 0 !default;
 
 @mixin indicator($position) {
   position: relative;
-  padding-#{$position}: math.div(1em, 6);
+  padding-#{$position}: var(--tab-indicator-size);
 
   &:before {
     content: "";
     position: absolute;
     #{$position}: 0;
     background-color: currentColor;
-    transition: transform $transition-duration;
+    transition: transform var(--tab-transition);
   }
 
   @if $position == bottom or $position == top {
     &:before {
       width: 100%;
-      height: math.div(1em, 6);
+      height: var(--tab-indicator-size);
       transform: scaleX(0);
-    }
-
-    &:active:before {
-      transform: scaleX(0.25);
     }
 
     &--selected:before {
@@ -43,13 +37,9 @@ $fg-map: colors.$color-map !default;
 
   @if $position == left or $position == right {
     &:before {
-      width: math.div(1em, 6);
+      width: var(--tab-indicator-size);
       height: 100%;
       transform: scaleY(0);
-    }
-
-    &:active:before {
-      transform: scaleY(0.25);
     }
 
     &--selected:before {
@@ -62,7 +52,7 @@ $fg-map: colors.$color-map !default;
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  background-color: var(--color-section);
+  background-color: var(--tabs-container-background);
 }
 
 .Tabs--fill {
@@ -75,21 +65,21 @@ $fg-map: colors.$color-map !default;
 }
 
 .Section:not(.Section--fitted) .Tabs {
-  margin: 0 -0.5em 0.5em;
+  margin: 0 calc(-1 * var(--space-m)) var(--space-m);
 
   &:first-child {
-    margin-top: -0.5em;
+    margin-top: calc(-1 * var(--space-m));
   }
 }
 
 .Tabs--vertical {
   flex-direction: column;
-  padding: 0.25em 0 0.25em 0.25em;
+  padding: var(--space-s) 0 var(--space-s) var(--space-s);
 }
 
 .Tabs--horizontal {
-  margin-bottom: 0.5em;
-  padding: 0.25em 0.25em 0 0.25em;
+  margin-bottom: var(--space-m);
+  padding: var(--space-s) var(--space-s) 0;
 
   &:last-child {
     margin-bottom: 0;
@@ -106,48 +96,55 @@ $fg-map: colors.$color-map !default;
 
 .Tab {
   user-select: none;
-  cursor: base.$cursor-hover;
+  cursor: var(--cursor-pointer);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $tab-color;
-  color: $text-color;
+  background-color: var(--tab-background);
+  color: var(--tab-color);
   min-height: 2.25em;
   min-width: 4em;
-  transition: background-color $transition-duration;
+  transition-property: background-color, color;
+  transition-duration: var(--tab-transition);
+
+  &:not(.Tab--selected) {
+    &:hover {
+      background-color: var(--tab-background-hover);
+    }
+
+    &:active {
+      color: var(--tab-color-selected);
+    }
+  }
+
+  &--selected {
+    cursor: var(--cursor-default);
+    background-color: var(--tab-background-selected);
+    color: var(--tab-color-selected);
+  }
 }
 
-.Tab:not(.Tab--selected):hover {
-  background-color: $tab-color-hovered;
-}
-
-.Tab--selected {
-  cursor: base.$cursor-default;
-  background-color: $tab-color-selected;
-  color: $text-color-selected;
-}
-
-.Tab__text {
+.Tab .Tab__text {
   flex-grow: 1;
-  margin: 0 0.5em;
+  margin: 0 var(--space-m);
 }
 
 .Tab__left {
   min-width: 1.5em;
   text-align: center;
-  margin-left: 0.25em;
+  margin-left: var(--space-s);
 }
 
 .Tab__right {
   min-width: 1.5em;
   text-align: center;
-  margin-right: 0.25em;
+  margin-right: var(--space-s);
 }
 
 .Tabs--horizontal {
   .Tab {
-    border-top-left-radius: 0.25em;
-    border-top-right-radius: 0.25em;
+    border-top-left-radius: var(--tab-border-radius);
+    border-top-right-radius: var(--tab-border-radius);
     @include indicator(bottom);
   }
 }
@@ -155,14 +152,14 @@ $fg-map: colors.$color-map !default;
 .Tabs--vertical {
   .Tab {
     min-height: 2em;
-    border-top-left-radius: 0.25em;
-    border-bottom-left-radius: 0.25em;
+    border-top-left-radius: var(--tab-border-radius);
+    border-bottom-left-radius: var(--tab-border-radius);
     @include indicator(right);
   }
 }
 
 @each $color-name, $color-value in $fg-map {
   .Tab--selected.Tab--color--#{$color-name} {
-    color: adjust-lightness($color-value, 25);
+    color: hsl(from $color-value h s calc(l + 17.5));
   }
 }

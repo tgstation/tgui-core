@@ -1,5 +1,4 @@
 @use "../base";
-@use "../functions" as *;
 
 .Dropdown {
   display: flex;
@@ -69,10 +68,7 @@
 
     &--wrapper {
       overflow: hidden;
-      background-color: adjust-lightness(
-        adjust-lightness(var(--color-base), -5.5),
-        0.5
-      );
+      background-color: hsl(from var(--color-base) h s calc(l - 5.5) / 0.85);
       color: var(--color-text);
       border: var(--border-thickness-tiny) solid var(--color-border);
       border-radius: var(--border-radius-large);

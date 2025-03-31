@@ -13,19 +13,19 @@
 
 .MenuBar__hover {
   &:hover {
-    background-color: adjust-lightness(var(--color-base), 20);
+    background-color: hsl(from var(--color-base) h s calc(l + 20));
     transition: background-color 0ms;
   }
 }
 
 .MenuBar__MenuBarButton {
-  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  padding: var(--space-s) var(--space-m);
 }
 
 .MenuBar__menu {
   position: absolute;
   background-color: var(--color-base);
-  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+  padding: var(--space-sm);
   box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.55);
   z-index: 5;
 }
@@ -34,17 +34,19 @@
   transition: background-color 100ms ease-out;
   background-color: var(--color-base);
   white-space: nowrap;
-  padding: 0.3rem 2rem 0.3rem 3rem;
+  padding: var(--space-sm) var(--space-xl) var(--space-sm)
+    calc(var(--space-xxl) + 1rem);
 }
 
 .MenuBar__MenuItemToggle {
-  padding: 0.3rem 2rem 0.3rem 0;
+  padding: var(--space-sm) var(--space-xl) var(--space-sm) 0;
 }
 
 .MenuBar__MenuItemToggle__check {
   display: inline-block;
   vertical-align: middle;
-  min-width: 3rem;
+  text-align: center;
+  min-width: 2.5rem;
   padding-left: 0.3rem;
 }
 
@@ -61,6 +63,6 @@
 
 .MenuBar__Separator {
   display: block;
-  margin: 0.3rem 0.3rem 0.3rem 2.3rem;
-  border-top: 1px solid var(--color-border-dark);
+  margin: var(--space-sm);
+  border-top: var(--border-thickness-tiny) solid var(--color-border);
 }

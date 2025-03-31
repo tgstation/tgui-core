@@ -1,28 +1,28 @@
 @use "../base";
 @use "../functions" as *;
 
-$text-color: var(--color-text) !default;
-$background-color: hsl(0, 0%, 3.9%) !default;
-$border-color: var(--color-border-input) !default;
-$border-radius: var(--border-radius-tiny) !default;
+$text-color: 0 !default;
+$background-color: 0 !default;
+$border-color: 0 !default;
+$border-radius: 0 !default;
 $font-family: Verdana, sans-serif !default;
 $mono-font-family: "Consolas", monospace !default;
 
 .Input {
+  overflow: visible;
   position: relative;
   display: inline-block;
   width: base.em(120px);
-  border: var(--border-thickness-tiny) solid var(--color-border-input);
-  border-radius: var(--border-radius-tiny);
-  color: var(--color-text);
-  background-color: $background-color;
+  line-height: base.em(17px);
   padding: 0 var(--space-sm);
   margin-right: var(--space-xs);
-  line-height: base.em(17px);
-  overflow: visible;
+  background-color: var(--input-background);
+  color: var(--input-color);
+  border: var(--border-thickness-tiny) solid var(--input-border-color);
+  border-radius: var(--input-border-radius);
 
   &:focus-within {
-    border-color: var(--color-border-input-focus);
+    border-color: var(--input-border-color-focus);
   }
 }
 
@@ -39,10 +39,7 @@ $mono-font-family: "Consolas", monospace !default;
 .Input__input {
   display: block;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   border: 0;
   outline: 0;
   width: 100%;
@@ -53,12 +50,12 @@ $mono-font-family: "Consolas", monospace !default;
   padding: 0 var(--space-m);
   font-family: $font-family;
   background-color: transparent;
-  color: var(--color-text);
+  color: var(--input-color);
   color: inherit;
 
   &::placeholder {
     font-style: italic;
-    color: var(--color-text-translucent);
+    color: var(--input-color-placeholder);
   }
 }
 

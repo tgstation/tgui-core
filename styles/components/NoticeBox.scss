@@ -28,7 +28,7 @@ $bg-map: colors.$color-map !default;
 
 @mixin box-color($color) {
   color: var(--color-text-fixed);
-  background-color: adjust-lightness(adjust-saturation($color, -15), -15);
+  background-color: hsl(from $color h calc(s - 15) calc(l - 15));
 }
 
 @each $color-name, $color-value in $bg-map {
