@@ -182,6 +182,7 @@ function ZoomControls(props: ZoomProps) {
         <Stack.Item>
           <Button
             icon="minus"
+            disabled={zoom <= ZOOM_MIN_VAL}
             onClick={() => onZoomClick(ZoomDirection.Decrease)}
           />
         </Stack.Item>
@@ -197,6 +198,7 @@ function ZoomControls(props: ZoomProps) {
         <Stack.Item>
           <Button
             icon="plus"
+            disabled={zoom >= ZOOM_MAX_VAL}
             onClick={() => onZoomClick(ZoomDirection.Increase)}
           />
         </Stack.Item>
