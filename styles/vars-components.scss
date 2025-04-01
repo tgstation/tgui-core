@@ -13,7 +13,7 @@
  * you can create it there and then use it here.
  *
  * That's allows downstreams to customize each component as needed,
- * creating their own unique TGUI designs with ease.
+ * creating their own unique TGUI designs with ease (almost).
  *
  * Don't add new base colors here, that files only for mixing and modifying
  * variables from vars-colors.scss and vars-values.scss,
@@ -23,11 +23,53 @@
  */
 
 :root {
+  /* BlockQuote */
+  --blockquote-color: hsl(
+    from var(--color-label) h s calc(l + var(--adjust-color))
+  );
+  --blockquote-border: var(--border-thickness-small) solid;
+
   /* Button */
+  --button-color-transparent: var(--color-text-translucent);
   --button-background-default: var(--color-primary);
   --button-background-selected: var(--color-green);
   --button-background-caution: var(--color-yellow);
   --button-background-danger: var(--color-red);
+  --button-border-radius: var(--border-radius-tiny);
+  --button-transition: var(--transition-time-medium);
+  --button-transition-timing: ease;
+
+  /* Dialog */
+  --dialog-background: hsl(from var(--color-section) h s l / 0.5);
+
+  /* Dimmer */
+  --dimmer-background-opacity: 0.75;
+  --dimmer-background: hsl(
+    from var(--color-base) h s 5 / var(--dimmer-background-opacity)
+  );
+
+  /* Divider */
+  --divider-color: var(--color-border);
+  --divider-border: var(--border-thickness-small) solid var(--divider-color);
+
+  /* Dropdown */
+  --dropdown-transition: var(--transition-time-medium);
+  --dropdown-menu-color: var(--color-text);
+  --dropdown-menu-background: hsl(
+    from var(--color-base) h s calc(l - 5.5) / 0.85
+  );
+  --dropdown-menu-border: var(--border-thickness-tiny) solid var(--color-border);
+  --dropdown-menu-border-radius: var(--border-radius-large);
+  --dropdown-menu-blur: var(--blur-medium);
+  --dropdown-entry-background-hover: var(--color-hover);
+  --dropdown-entry-background-active: var(--color-active);
+  --dropdown-entry-background-selected: var(--color-selected);
+  --dropdown-entry-border-radius: var(--border-radius-small);
+  --dropdown-entry-transition: var(--transition-time-fast);
+
+  /* Floating */
+  --floating-transition-time: var(--transition-time-medium);
+  --floating-transition-timing: ease;
 
   /* Tabs */
   --tab-background: transparent;

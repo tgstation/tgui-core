@@ -2,13 +2,14 @@
 @use "../colors";
 @use "../functions" as *;
 
-$color-default: var(--button-background-default) !default;
-$color-selected: var(--button-background-selected) !default;
-$color-caution: var(--button-background-caution) !default;
-$color-danger: var(--button-background-danger) !default;
-$color-transparent-text: var(--color-text-translucent) !default;
-$border-radius: base.$border-radius !default;
 $bg-map: colors.$color-map !default;
+
+$color-default: 0 !default;
+$color-selected: 0 !default;
+$color-caution: 0 !default;
+$color-danger: 0 !default;
+$color-transparent-text: 0 !default;
+$border-radius: 0 !default;
 
 @mixin button-color($color) {
   cursor: var(--cursor-pointer);
@@ -44,9 +45,10 @@ $bg-map: colors.$color-map !default;
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
   outline: 0;
-  border-radius: var(--border-radius-tiny);
+  border-radius: var(--button-border-radius);
   transition-property: background-color, color, opacity;
-  transition-duration: 0.2s;
+  transition-duration: var(--button-transition);
+  transition-timing-function: var(--button-transition-timing);
   // Disable selection in buttons
   user-select: none;
 
@@ -136,7 +138,7 @@ $bg-map: colors.$color-map !default;
 
 /* Do not move it down, cause it will override selected by specificity */
 .Button--color--transparent {
-  color: $color-transparent-text;
+  color: var(--button-color-transparent);
 
   &:not(.Button--disabled) {
     &:hover {
@@ -150,19 +152,19 @@ $bg-map: colors.$color-map !default;
 }
 
 .Button--color--default {
-  @include button-color($color-default);
+  @include button-color(var(--button-background-default));
 }
 
 .Button--color--caution {
-  @include button-color($color-caution);
+  @include button-color(var(--button-background-caution));
 }
 
 .Button--color--danger {
-  @include button-color($color-danger);
+  @include button-color(var(--button-background-danger));
 }
 
 .Button--selected {
-  @include button-color($color-selected);
+  @include button-color(var(--button-background-selected));
 }
 
 .Button--disabled {

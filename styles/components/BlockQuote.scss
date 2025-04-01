@@ -1,11 +1,8 @@
-$color-default: hsl(
-  from var(--color-label) h s calc(l + var(--adjust-color))
-) !default;
+$color-default: 0 !default;
 
 .BlockQuote {
-  color: hsl(from var(--color-label) h s calc(l + var(--adjust-color)));
-  border-left: var(--border-thickness-small) solid
-    hsl(from var(--color-label) h s calc(l + var(--adjust-color)));
+  color: var(--blockquote-color);
+  border-left: var(--blockquote-border);
   padding-left: var(--space-m);
   margin-bottom: var(--space-m);
 

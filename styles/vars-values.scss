@@ -8,6 +8,10 @@
  * Made with love by Aylong (https://github.com/AyIong)
  */
 :root {
+  /* Font */
+  --font-family: Verdana, Geneva, sans-serif;
+  --font-family-mono: Consolas, monospace;
+
   /* Border thickness */
   --border-thickness-unit: 0.5em;
   /* 1px | 0.085em */
@@ -75,6 +79,9 @@
   /* Shadows */
 
   /* Blur */
+  --blur-small: blur(6px);
+  --blur-medium: blur(12px);
+  --blur-large: blur(24px);
 
   /* Adjustments */
   /* Color lightness multiplier. + for FG - for BG */

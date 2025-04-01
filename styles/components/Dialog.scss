@@ -3,31 +3,27 @@
 
 .Dialog {
   position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: hsl(from var(--color-section) h s l / 0.5);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--dialog-background);
 }
 
 .Dialog__content {
-  background-color: var(--color-base);
-  font-family: Consolas, monospace;
-  font-size: base.em(14px);
   display: flex;
   flex-direction: column;
+  font-family: var(--font-family-mono);
+  font-size: base.em(14px);
+  background-color: var(--color-base);
 }
 
 .Dialog__header {
+  user-select: none;
   display: flex;
   height: 2em;
   line-height: 1.928em;
-  background-color: hsl(from var(--color-section) h s l / 0.5);
-  user-select: none;
-  -ms-user-select: none;
+  background-color: var(--dialog-background);
 }
 
 .Dialog__title {
@@ -49,7 +45,7 @@
   flex-direction: row;
   justify-content: flex-end;
   padding: var(--space-xl);
-  background-color: hsl(from var(--color-section) h s l / 0.25);
+  background-color: hsl(from var(--dialog-background) h s l / 0.25);
 }
 
 .Dialog__button {
@@ -78,14 +74,13 @@
 }
 
 .Dialog__FileList {
+  overflow: auto scroll;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
   align-content: flex-start;
   max-height: 20rem;
-  overflow: auto;
-  overflow-y: scroll;
 }
 
 .Dialog__FileEntry {
@@ -94,11 +89,11 @@
 }
 
 .Dialog__FileIcon {
-  display: inline-block;
-  margin: 0 0 var(--space-xl) 0;
+  cursor: default;
   position: relative;
+  display: inline-block;
+  text-align: center;
   width: 6vh;
   height: auto;
-  text-align: center;
-  cursor: default;
+  margin: 0 0 var(--space-xl) 0;
 }
