@@ -362,6 +362,6 @@ export const COMPONENT_COLORS = {
     'purple',
     'pink',
     'brown',
-    'grey'
-  ]
+    'grey',
+  ],
 } as const;

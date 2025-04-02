@@ -18,8 +18,8 @@
 
 :root {
   /* Background colors */
-  --color-base: hsl(0, 0%, 15%);
-  --color-secondary: hsl(from var(--color-base) h s calc(l + 10));
+  --color-base: hsl(0, 0%, 12.5%);
+  --color-secondary: hsl(from var(--color-base) h s calc(l + 7.5));
   --color-section: hsla(0, 0%, 0%, 0.33);
   --base-gradient-spread: 2;
   --color-base-start: hsl(
