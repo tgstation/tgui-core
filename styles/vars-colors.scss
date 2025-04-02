@@ -56,9 +56,9 @@
   --color-light-gray: var(--color-light-grey);
 
   /* Action colors */
-  --color-hover: hsla(0, 0%, 50%, 0.15);
-  --color-active: hsla(0, 0%, 50%, 0.2);
-  --color-selected: hsla(0, 0%, 50%, 0.3);
+  --color-hover: hsla(0, 0%, 50%, 0.25);
+  --color-active: hsla(0, 0%, 50%, 0.3);
+  --color-selected: hsla(0, 0%, 50%, 0.4);
 
   /* Semantic colors */
   --primary-hue: 210;
@@ -75,7 +75,8 @@
   --color-text: var(--color-white);
   --color-text-translucent: hsl(from var(--color-text) h s l / 0.5);
   --color-text-translucent-light: hsl(from var(--color-text) h s l / 0.75);
-  --color-text-fixed: var(--color-white); // Used in Button
+  --color-text-fixed-white: var(--color-white);
+  --color-text-fixed-black: var(--color-black);
 
   /* Border */
   --color-border: hsla(0, 0%, 100%, 0.1);

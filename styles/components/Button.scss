@@ -14,7 +14,7 @@ $border-radius: 0 !default;
 @mixin button-color($color) {
   cursor: var(--cursor-pointer);
   background-color: hsl(from $color h s calc(l - var(--adjust-color)));
-  color: var(--color-text-fixed);
+  color: var(--color-text-fixed-white);
 
   &:not(.Button--disabled) {
     &:hover {
@@ -22,7 +22,6 @@ $border-radius: 0 !default;
         from $color h s
           calc(calc(l - var(--adjust-color)) + var(--adjust-hover))
       );
-      color: var(--color-text-fixed);
     }
 
     &:active {
@@ -30,7 +29,6 @@ $border-radius: 0 !default;
         from $color h s
           calc(calc(l - var(--adjust-color)) - var(--adjust-active))
       );
-      color: var(--color-text-fixed);
     }
   }
 }
@@ -128,7 +126,7 @@ $border-radius: 0 !default;
   .Button--color--#{$color-name} {
     @each $color in colors.$low-contrast-color-map {
       @if $color-name == $color {
-        --color-text-fixed: var(--color-black);
+        --color-text-fixed-white: var(--color-black);
       }
     }
 
@@ -143,6 +141,7 @@ $border-radius: 0 !default;
   &:not(.Button--disabled) {
     &:hover {
       background-color: var(--color-hover);
+      color: var(--color-text);
     }
 
     &:active {

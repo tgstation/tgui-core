@@ -59,19 +59,6 @@ $border-radius: 0 !default;
   height: 100%;
 }
 
-// Interoperability with sections
-.Section .Tabs {
-  background-color: transparent;
-}
-
-.Section:not(.Section--fitted) .Tabs {
-  margin: 0 calc(-1 * var(--space-m)) var(--space-m);
-
-  &:first-child {
-    margin-top: calc(-1 * var(--space-m));
-  }
-}
-
 .Tabs--vertical {
   flex-direction: column;
   padding: var(--space-s) 0 var(--space-s) var(--space-s);
@@ -161,5 +148,18 @@ $border-radius: 0 !default;
 @each $color-name, $color-value in $fg-map {
   .Tab--selected.Tab--color--#{$color-name} {
     color: hsl(from $color-value h s calc(l + 17.5));
+  }
+}
+
+// Interoperability with sections
+.Section .Tabs {
+  background-color: transparent;
+}
+
+.Section:not(.Section--fitted) .Tabs {
+  margin: 0 calc(-1 * var(--space-m)) var(--space-m);
+
+  &:first-child {
+    margin-top: calc(-1 * var(--space-m));
   }
 }

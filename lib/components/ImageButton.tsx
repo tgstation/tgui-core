@@ -87,7 +87,6 @@ type Props = Partial<{
  * Stylized button, with the ability to easily and simply insert any picture into it.
  * - Without image, will be default question icon.
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
- * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
  */
 export function ImageButton(props: Props) {
   const {
@@ -117,16 +116,7 @@ export function ImageButton(props: Props) {
 
   let buttonContent = (
     <div
-      className={classes([
-        'container',
-        fluid && (!!buttons || !!buttonsAlt) && 'hasButtons',
-        !onClick && !onRightClick && 'noAction',
-        selected && 'ImageButton--selected',
-        disabled && 'ImageButton--disabled',
-        color && typeof color === 'string'
-          ? `ImageButton--color__${color}`
-          : 'ImageButton--color__default',
-      ])}
+      className={'ImageButton__container'}
       tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
@@ -147,7 +137,7 @@ export function ImageButton(props: Props) {
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
     >
       {/** There is too many ternaty operators, why we can't just use unified image type? */}
-      <div className="image">
+      <div className="ImageButton__image">
         {base64 || imageSrc ? (
           <Image
             src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
@@ -180,29 +170,23 @@ export function ImageButton(props: Props) {
       </div>
       {/** End of image container */}
       {fluid ? (
-        <div className="info">
+        <div className="ImageButton__content">
           {title && (
-            <span className={classes(['title', children && 'divider'])}>
+            <span
+              className={classes([
+                'ImageButton__content--title',
+                children && 'ImageButton__content--divider',
+              ])}
+            >
               {title}
             </span>
           )}
-          {children && <span className="contentFluid">{children}</span>}
+          {children && (
+            <span className="ImageButton__content--text">{children}</span>
+          )}
         </div>
       ) : (
-        children && (
-          <span
-            className={classes([
-              'content',
-              selected && 'ImageButton--contentSelected',
-              disabled && 'ImageButton--contentDisabled',
-              color && typeof color === 'string'
-                ? `ImageButton--contentColor__${color}`
-                : 'ImageButton--contentColor__default',
-            ])}
-          >
-            {children}
-          </span>
-        )
+        children && <span className={'ImageButton__content'}>{children}</span>
       )}
     </div>
   );
@@ -220,6 +204,11 @@ export function ImageButton(props: Props) {
       className={classes([
         'ImageButton',
         fluid && 'ImageButton--fluid',
+        selected && 'ImageButton--selected',
+        disabled && 'ImageButton--disabled',
+        color && typeof color === 'string'
+          ? `ImageButton__color--${color}`
+          : 'ImageButton__color--default',
         className,
       ])}
       {...computeBoxProps(rest)}
@@ -228,12 +217,8 @@ export function ImageButton(props: Props) {
       {buttons && (
         <div
           className={classes([
-            'buttonsContainer',
-            !children && 'buttonsEmpty',
-            fluid && disabled && 'ImageButton--disabled',
-            fluid && color && typeof color === 'string'
-              ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'ImageButton--buttonsContainerColor__default',
+            'ImageButton__buttons',
+            !children && 'ImageButton__buttons--empty',
           ])}
           style={{
             width: 'auto',
@@ -245,13 +230,9 @@ export function ImageButton(props: Props) {
       {buttonsAlt && (
         <div
           className={classes([
-            'buttonsContainer',
-            'buttonsAltContainer',
-            !children && 'buttonsEmpty',
-            fluid && disabled && 'ImageButton--disabled',
-            fluid && color && typeof color === 'string'
-              ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'ImageButton--buttonsContainerColor__default',
+            'ImageButton__buttons',
+            'ImageButton__buttons--alt',
+            !children && 'ImageButton__buttons--empty',
           ])}
           style={{
             width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,

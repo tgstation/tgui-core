@@ -9,11 +9,8 @@
  * and you need a new color for it, it is highly advisable to
  * add a new variable for the component, and only then use the color.
  *
- * If vars-colors.scss or vars-values.scss doens't have needed variable
- * you can create it there and then use it here.
- *
- * That's allows downstreams to customize each component as needed,
- * creating their own unique TGUI designs with ease (almost).
+ * That's allows downstreams/other codebases to customize each component as needed,
+ * creating their own unique (almost) TGUI designs with ease (almost).
  *
  * Don't add new base colors here, that files only for mixing and modifying
  * variables from vars-colors.scss and vars-values.scss,
@@ -73,8 +70,8 @@
 
   /* Tabs */
   --tab-background: transparent;
-  --tab-background-hover: var(--color-hover);
-  --tab-background-selected: var(--color-selected);
+  --tab-background-hover: hsl(from var(--color-hover) h s calc(l * 0.75));
+  --tab-background-selected: hsl(from var(--color-selected) h s calc(l * 0.75));
   --tab-color: var(--color-text-translucent);
   --tab-color-selected: hsl(from var(--color-primary) h s 90);
   --tab-border-radius: var(--border-radius-small);
@@ -90,6 +87,10 @@
   --input-border-color-focus: var(--color-border-secondary);
   --input-border-radius: var(--border-radius-tiny);
   --input-transition: var(--transition-time-medium);
+
+  /* Notice Box */
+  --notice-box-stripes: hsla(0, 0%, 0%, 0.1);
+  --notice-box-background: hsl(37.5, 40%, 57.5%);
 
   /* Number Input */
   --number-input-background: var(--input-background);

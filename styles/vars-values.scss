@@ -77,6 +77,9 @@
   --transition-time-slowest: var(--transition-time-unit);
 
   /* Shadows */
+  --shadow-unit: 1rem;
+  /* 0 0 0.5rem 0.085rem */
+  --shadow-inset-glow: 0 0 calc(var(--shadow-unit) * 0.5);
 
   /* Blur */
   --blur-small: blur(6px);
