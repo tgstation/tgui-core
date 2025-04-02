@@ -111,6 +111,7 @@
   /* Notice Box */
   --notice-box-stripes: hsla(0, 0%, 0%, 0.1);
   --notice-box-background: hsl(37.5, 40%, 57.5%);
+  --notice-box-color: var(--color-text-fixed-black);
 
   /* Number Input */
   --number-input-background: var(--input-background);
@@ -148,8 +149,11 @@
 
   /* Tooltip */
   --tooltip-color: var(--color-text);
-  --tooltip-background: hsl(from var(--color-base) h s calc(l - 10) / 0.85);
-  --tooltip-border-radius: var(--border-radius-tiny);
+  --tooltip-background-lightness: 5;
+  --tooltip-background: hsl(
+    from var(--color-base) h s var(--tooltip-background-lightness) / 0.85
+  );
+  --tooltip-border-radius: var(--border-radius-medium);
   --tooltip-transition-time: var(--transition-time-medium);
   --tooltip-transition-timing: ease-out;
   --tooltip-blur: var(--blur-medium);

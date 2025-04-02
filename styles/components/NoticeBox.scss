@@ -11,7 +11,7 @@ $color-stripes: 0 !default;
   font-style: italic;
   padding: var(--space-sm) var(--space-m);
   margin-bottom: var(--space-m);
-  color: var(--color-text-fixed-black);
+  color: var(--notice-box-color);
   background-color: var(--notice-box-background);
   background-image: repeating-linear-gradient(
     -45deg,

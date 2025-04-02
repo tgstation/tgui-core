@@ -19,6 +19,7 @@
 :root {
   /* Background colors */
   --color-base: hsl(0, 0%, 15%);
+  --color-secondary: hsl(from var(--color-base) h s calc(l + 10));
   --color-section: hsla(0, 0%, 0%, 0.33);
   --base-gradient-spread: 2;
   --color-base-start: hsl(
@@ -29,7 +30,7 @@
   );
 
   /* Scrollbar */
-  --color-scrollbar-base: hsl(0, 0%, 9.75%);
+  --color-scrollbar-base: hsl(from var(--color-base) h s calc(l - 5.25));
   --color-scrollbar-thumb: hsl(
     from var(--color-scrollbar-base) h s calc(l + 13.25)
   );
