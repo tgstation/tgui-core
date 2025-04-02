@@ -78,8 +78,12 @@
 
   /* Shadows */
   --shadow-unit: 1rem;
-  /* 0 0 0.5rem 0.085rem */
-  --shadow-inset-glow: 0 0 calc(var(--shadow-unit) * 0.5);
+  /* 0 0 0.5rem */
+  --shadow-glow-small: 0 0 calc(var(--shadow-unit) * 0.5);
+  /* 0 0 1rem */
+  --shadow-glow-medium: 0 0 var(--shadow-unit);
+  /* 0 0 2rem */
+  --shadow-glow-large: 0 0 calc(var(--shadow-unit) * 2);
 
   /* Blur */
   --blur-small: blur(6px);

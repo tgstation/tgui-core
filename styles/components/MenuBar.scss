@@ -1,19 +1,18 @@
 @use "../base";
-@use "../functions" as *;
 
 .MenuBar {
   display: flex;
 }
 
 .MenuBar__font {
-  font-family: Verdana, sans-serif;
+  font-family: var(--menu-bar-font-family);
   font-size: base.em(12px);
   line-height: base.em(17px);
 }
 
 .MenuBar__hover {
   &:hover {
-    background-color: hsl(from var(--color-base) h s calc(l + 20));
+    background-color: hsl(from var(--menu-bar-background) h s calc(l + 20));
     transition: background-color 0ms;
   }
 }
@@ -24,15 +23,15 @@
 
 .MenuBar__menu {
   position: absolute;
-  background-color: var(--color-base);
+  background-color: var(--menu-bar-background);
   padding: var(--space-sm);
-  box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.55);
+  box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.5);
   z-index: 5;
 }
 
 .MenuBar__MenuItem {
-  transition: background-color 100ms ease-out;
-  background-color: var(--color-base);
+  transition: background-color var(--menu-bar-transition) ease-out;
+  background-color: var(--menu-bar-background);
   white-space: nowrap;
   padding: var(--space-sm) var(--space-xl) var(--space-sm)
     calc(var(--space-xxl) + 1rem);
@@ -47,7 +46,7 @@
   vertical-align: middle;
   text-align: center;
   min-width: 2.5rem;
-  padding-left: 0.3rem;
+  padding-left: var(--space-sm);
 }
 
 .MenuBar__over {

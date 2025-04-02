@@ -1,8 +1,8 @@
 @use "../base";
 @use "../colors";
-@use "../functions" as *;
 
 $bg-map: colors.$color-map !default;
+$fg-map: colors.$color-map !default;
 
 $color-default: 0 !default;
 $color-selected: 0 !default;

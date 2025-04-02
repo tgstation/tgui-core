@@ -1,9 +1,29 @@
-@use "../base";
 @use "../colors";
-@use "../functions" as *;
 
+$pi: 3.1416;
 $fg-map: colors.$color-map !default;
-$ring-color: hsl(212.2, 46.8%, 60.2%) !default;
+$ring-color: 0 !default;
+
+@keyframes RoundGauge__alertAnim {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes RoundGauge__needleAlertAnim {
+  0% {
+    transform: rotate(var(--round-gauge-needle-alert-rotation));
+  }
+  50% {
+    transform: rotate(calc(-1 * var(--round-gauge-needle-alert-rotation)));
+  }
+}
 
 .RoundGauge {
   font-size: 1rem;
@@ -11,9 +31,12 @@ $ring-color: hsl(212.2, 46.8%, 60.2%) !default;
   height: 1.3em;
   margin: 0 auto;
   margin-bottom: 0.2em;
-}
 
-$pi: 3.1416;
+  &__wrapper {
+    display: inline-block;
+    text-align: center;
+  }
+}
 
 .RoundGauge__ringTrack {
   fill: transparent;
@@ -25,20 +48,20 @@ $pi: 3.1416;
 
 .RoundGauge__ringFill {
   fill: transparent;
-  stroke: $ring-color;
+  stroke: var(--round-gauge-ring-color);
   stroke-width: 10;
   stroke-dasharray: 100 * $pi;
-  transition: stroke 50ms ease-out;
+  transition: stroke var(--round-gauge-transition) ease-out;
 }
 
 .RoundGauge__needle,
 .RoundGauge__ringFill {
-  transition: transform 50ms ease-in-out;
+  transition: transform var(--round-gauge-transition) ease-in-out;
 }
 
 .RoundGauge__needleLine,
 .RoundGauge__needleMiddle {
-  fill: colors.$bad;
+  fill: var(--color-red);
 }
 
 .RoundGauge__alert {
@@ -47,6 +70,16 @@ $pi: 3.1416;
   stroke-linejoin: round;
   stroke-miterlimit: 2;
   fill: hsla(0, 0%, 100%, 0.1);
+  transform: scale(0.9);
+  transform-origin: top;
+
+  &.active {
+    ~ .RoundGauge__needle .RoundGauge__needleLine {
+      transform-origin: bottom;
+      animation: RoundGauge__needleAlertAnim
+        var(--round-gauge-needle-alert-animation) infinite;
+    }
+  }
 }
 
 .RoundGauge__alert.max {
@@ -62,22 +95,9 @@ $pi: 3.1416;
 @each $color-name, $color-value in $fg-map {
   .RoundGauge__alert--#{$color-name} {
     fill: $color-value;
-    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     animation: RoundGauge__alertAnim
-      1s
+      var(--round-gauge-alert-animation)
       cubic-bezier(0.34, 1.56, 0.64, 1)
       infinite;
-  }
-}
-
-@keyframes RoundGauge__alertAnim {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.1;
   }
 }

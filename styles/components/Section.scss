@@ -3,14 +3,14 @@
 @use "../colors";
 @use "../functions";
 
-$title-text-color: base.$color-fg !default;
-$background-color: base.$color-bg-section !default;
-$separator-color: colors.$primary !default;
+$title-text-color: 0 !default;
+$background-color: 0 !default;
+$separator-color: 0 !default;
 
 .Section {
   position: relative;
   margin-bottom: var(--space-m);
-  background-color: $background-color;
+  background-color: var(--section-background);
   box-sizing: border-box;
 
   &:last-child {
@@ -21,13 +21,14 @@ $separator-color: colors.$primary !default;
 .Section__title {
   position: relative;
   padding: var(--space-m);
-  border-bottom: var(--border-thickness-small) solid $separator-color;
+  border-bottom: var(--section-separator-thickness) solid
+    var(--section-separator-color);
 }
 
 .Section__titleText {
   font-size: base.em(14px);
   font-weight: bold;
-  color: $title-text-color;
+  color: var(--section-title-color);
 }
 
 .Section__buttons {

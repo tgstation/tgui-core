@@ -87,6 +87,26 @@
   --input-border-color-focus: var(--color-border-secondary);
   --input-border-radius: var(--border-radius-tiny);
   --input-transition: var(--transition-time-medium);
+  --input-font-family: var(--font-family);
+  --input-font-family-mono: var(--font-family-mono);
+
+  /* Knob */
+  --knob-color: hsl(from var(--color-base) h 5 20);
+  --knob-ring-color: var(--input-border-color);
+  --knob-popup-background: var(--tooltip-background);
+  --knob-popup-color: var(--tooltip-color);
+  --knob-popup-border-radius: var(--tooltip-border-radius);
+  --knob-popup-blur: var(--tooltip-blur);
+  --knob-inner-padding: var(--space-xs);
+
+  /* Menu Bar */
+  --menu-bar-background: var(--color-base);
+  --menu-bar-font-family: var(--font-family);
+  --menu-bar-transition: var(--transition-time-medium);
+
+  /* Modal */
+  --modal-background: var(--color-base);
+  --modal-padding: var(--space-xl);
 
   /* Notice Box */
   --notice-box-stripes: hsla(0, 0%, 0%, 0.1);
@@ -99,4 +119,38 @@
   --number-input-border-color-active: var(--input-border-color-focus);
   --number-input-border-radius: var(--input-border-radius);
   --number-input-transition: var(--input-transition);
+
+  /* Progress Bar */
+  --progress-bar-fill: var(--color-primary);
+  --progress-bar-background: transparent;
+  --progress-bar-border-radius: var(--border-radius-tiny);
+  --progress-bar-transition: var(--transition-time-slowest);
+
+  /* Round Gauge */
+  --round-gauge-ring-color: var(--input-border-color);
+  --round-gauge-transition: var(--transition-time-medium);
+  --round-gauge-alert-animation: var(--transition-time-slowest);
+  --round-gauge-needle-alert-animation: var(--transition-time-fast);
+  --round-gauge-needle-alert-rotation: 2.5deg;
+
+  /* Section - Why not? */
+  --section-title-color: var(--color-text);
+  --section-background: var(--color-section);
+  --section-separator-color: var(--color-primary);
+  --section-separator-thickness: var(--border-thickness-small);
+
+  /* Slider */
+  --slider-cursor-color: var(--color-text);
+  --slider-popup-background: var(--tooltip-background);
+  --slider-popup-color: var(--tooltip-color);
+  --slider-popup-border-radius: var(--tooltip-border-radius);
+  --slider-popup-blur: var(--tooltip-blur);
+
+  /* Tooltip */
+  --tooltip-color: var(--color-text);
+  --tooltip-background: hsl(from var(--color-base) h s calc(l - 10) / 0.85);
+  --tooltip-border-radius: var(--border-radius-tiny);
+  --tooltip-transition-time: var(--transition-time-medium);
+  --tooltip-transition-timing: ease-out;
+  --tooltip-blur: var(--blur-medium);
 }
