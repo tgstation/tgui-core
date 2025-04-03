@@ -46,4 +46,5 @@ $popup-text-color: hsl(0, 0%, 100%) !default;
   background-color: $popup-background-color;
   transform: translateX(50%);
   white-space: nowrap;
+  user-select: none;
 }

@@ -76,14 +76,13 @@ export function RoundGauge(props: Props) {
   const scaledRanges = ranges ? {} : { primary: [0, 1] };
 
   if (ranges) {
-    // biome-ignore lint/complexity/noForEach: This is fine
-    Object.keys(ranges).forEach((x) => {
-      const range = ranges[x];
-      scaledRanges[x] = [
+    for (const key in ranges) {
+      const range = ranges[key];
+      scaledRanges[key] = [
         scale(range[0], minValue, maxValue),
         scale(range[1], minValue, maxValue),
       ];
-    });
+    }
   }
 
   function shouldShowAlert() {

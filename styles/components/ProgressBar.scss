@@ -37,6 +37,7 @@ $bg-map: colors.$bg-map !default;
   line-height: base.em(17px);
   width: 100%;
   text-align: right;
+  user-select: none;
 }
 
 .ProgressBar--color--default {
