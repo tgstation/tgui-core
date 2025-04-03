@@ -22,7 +22,7 @@ export function Tooltip(props: Props) {
       hoverOpen
       placement={position}
     >
-      <div style={{ display: 'inline-block' }}>{children}</div>
+      <div className="Tooltip__inner">{children}</div>
     </Floating>
   );
 }

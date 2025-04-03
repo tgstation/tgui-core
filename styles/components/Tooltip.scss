@@ -16,3 +16,7 @@ $border-radius: base.$border-radius !default;
   text-align: left;
   transition: opacity 150ms ease-out;
 }
+
+.Tooltip__inner {
+  display: inline-block;
+}
