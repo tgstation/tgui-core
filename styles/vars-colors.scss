@@ -84,6 +84,12 @@
   --color-text-fixed-white: var(--color-white);
   --color-text-fixed-black: var(--color-black);
 
+  /* Link colors */
+  --color-hyperlink: hsl(220, 100%, 70%);
+  --color-hyperlink-visited: hsl(260, 100%, 70%);
+  --color-hyperlink-new: hsl(0, 100%, 70%);
+  --color-hyperlink-new-visited: hsl(15, 100%, 70%);
+
   /* Border */
   --color-border: hsla(0, 0%, 100%, 0.1);
   --color-border-dark: hsla(0, 0%, 0%, 0.33);
