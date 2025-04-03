@@ -12,17 +12,26 @@ import type { BoxProps } from './Box';
 type StyleProp = string | number | undefined;
 
 type Control = {
+  /** Tooltip-like node to display. */
   displayElement: ReactNode;
+  /** The value to display. */
   displayValue: number;
+  /** Whether the element is being dragged */
   dragging: boolean;
+  /** Whether the input is currently being edited */
   editing: boolean;
+  /** Attach this to the element you want to be draggable  */
   handleDragStart: MouseEventHandler<HTMLDivElement>;
+  /** The input element. */
   inputElement: ReactNode;
+  /** The value of the input. */
   value: number;
 };
 
 type Props = {
   children: (control: Control) => ReactNode;
+  /** The external state value. */
+  value: number;
 } & Partial<{
   /** Animates the value if it was changed externally. */
   animated: boolean;
@@ -56,8 +65,8 @@ type Props = {
 const DEFAULT_UPDATE_RATE = 400;
 
 /** Reduces screen offset to a single number based on the matrix provided. */
-function getScalarScreenOffset(e: MouseEvent, matrix: number[]) {
-  return e.screenX * matrix[0] + e.screenY * matrix[1];
+function getScalarScreenOffset(event: MouseEvent, matrix: number[]) {
+  return event.screenX * matrix[0] + event.screenY * matrix[1];
 }
 
 /**
@@ -70,6 +79,7 @@ export function DraggableControl(props: Props) {
   const {
     // Our props
     animated,
+    children,
     dragMatrix = [1, 0],
     format,
     maxValue = Number.POSITIVE_INFINITY,
@@ -78,47 +88,45 @@ export function DraggableControl(props: Props) {
     onDrag,
     step = 1,
     stepPixelSize = 1,
-    suppressFlicker = 0,
+    suppressFlicker = 50,
     unclamped,
     unit,
     updateRate = DEFAULT_UPDATE_RATE,
-    children,
     // Box props
     fontSize,
     height,
     lineHeight,
   } = props;
 
-  const [value, setValue] = useState(minValue);
-  const [dragging, setDragging] = useState(false);
+  const [ourValue, setOurValue] = useState(props.value);
   const [editing, setEditing] = useState(false);
-  const [internalValue, setInternalValue] = useState(0);
-  const [origin, setOrigin] = useState(0);
   const [suppressingFlicker, setSuppressingFlicker] = useState(false);
+
+  const dragging = useRef(false);
+  const internalValue = useRef(0);
+  const origin = useRef(0);
 
   const flickerTimer = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dragIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  /** Triggers on mouse up */
   function handleDragEnd(event: MouseEvent) {
     document.body.style['pointer-events'] = 'auto';
 
     if (timerRef.current) clearTimeout(timerRef.current);
     if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
 
-    setDragging(false);
+    dragging.current = false;
     setEditing(false);
-    setOrigin(0);
+    origin.current = 0;
     document.removeEventListener('mousemove', handleDragMove);
     document.removeEventListener('mouseup', handleDragEnd);
 
-    console.log('removed');
     if (dragging) {
       suppress();
-      onChange?.(event, value);
-      onDrag?.(event, value);
+      onChange?.(event, ourValue);
+      onDrag?.(event, ourValue);
       return;
     }
 
@@ -135,11 +143,13 @@ export function DraggableControl(props: Props) {
 
   /** Triggers on mouse move */
   function handleDragMove(event: MouseEvent) {
-    const offset = getScalarScreenOffset(event, dragMatrix) - origin;
+    if (!origin.current) return;
+    const position = getScalarScreenOffset(event, dragMatrix);
+    const offset = position - origin.current;
 
-    if (!dragging) {
+    if (!dragging.current) {
       if (Math.abs(offset) > 4) {
-        setDragging(true);
+        dragging.current = true;
       }
       return;
     }
@@ -148,20 +158,22 @@ export function DraggableControl(props: Props) {
 
     // Translate mouse movement to value
     // Give it some headroom (by increasing clamp range by 1 step)
-    const newValue = clamp(
-      internalValue + (offset * step) / stepPixelSize,
+    internalValue.current = clamp(
+      internalValue.current + (offset * step) / stepPixelSize,
       minValue - step,
       maxValue + step,
     );
 
-    setInternalValue(newValue);
-
     // Clamp the final value
-    setValue(
-      clamp(newValue - (newValue % step) + stepOffset, minValue, maxValue),
+    setOurValue(
+      clamp(
+        internalValue.current - (internalValue.current % step) + stepOffset,
+        minValue,
+        maxValue,
+      ),
     );
 
-    setOrigin(getScalarScreenOffset(event, dragMatrix));
+    origin.current = position;
   }
 
   /** Handed to the child component - onMouseDown  */
@@ -171,18 +183,15 @@ export function DraggableControl(props: Props) {
     const baseEvent = event.nativeEvent;
 
     document.body.style['pointer-events'] = 'none';
-    setOrigin(getScalarScreenOffset(baseEvent, dragMatrix));
-    setValue(value);
-    setInternalValue(value);
+    origin.current = getScalarScreenOffset(baseEvent, dragMatrix);
+    internalValue.current = props.value;
 
     timerRef.current = setTimeout(() => {
-      setDragging(true);
+      dragging.current = true;
     }, 250);
 
     dragIntervalRef.current = setInterval(() => {
-      if (dragging && onDrag) {
-        onDrag(baseEvent, value);
-      }
+      if (dragging) onDrag?.(baseEvent, props.value);
     }, updateRate);
 
     document.addEventListener('mousemove', handleDragMove);
@@ -216,8 +225,8 @@ export function DraggableControl(props: Props) {
     }
 
     setEditing(false);
-    setValue(ourValue);
-    setInternalValue(ourValue);
+    setOurValue(ourValue);
+    internalValue.current = ourValue;
     suppress();
     onChange?.(event, ourValue);
   }
@@ -247,10 +256,9 @@ export function DraggableControl(props: Props) {
     setEventValue(event.nativeEvent, event.currentTarget.value);
   }
 
-  const intermediateValue = value;
-  let displayValue = value;
+  let displayValue = props.value;
   if (dragging || suppressingFlicker) {
-    displayValue = intermediateValue;
+    displayValue = ourValue;
   }
 
   const displayElement: ReactNode = (
@@ -285,10 +293,10 @@ export function DraggableControl(props: Props) {
   return children({
     displayElement,
     displayValue,
-    dragging,
+    dragging: dragging.current,
     editing,
     handleDragStart,
     inputElement,
-    value,
+    value: ourValue,
   });
 }

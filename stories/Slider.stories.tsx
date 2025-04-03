@@ -25,7 +25,7 @@ export const Default: Story = {
           height: '100vh',
         }}
       >
-        <div style={{ width: '300px' }}>
+        <div style={{ width: '100px' }}>
           <Slider
             maxValue={100}
             minValue={0}
