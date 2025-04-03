@@ -42,4 +42,3 @@ export const Divider: Story = {
     </Stack>
   ),
 };
-

@@ -19,9 +19,12 @@
 :root {
   /* Background colors */
   --color-base: hsl(0, 0%, 12.5%);
-  --color-secondary: hsl(from var(--color-base) h s calc(l + 7.5));
+  --color-secondary: hsl(
+    from var(--color-base) h s calc(l + var(--secondary-lightness-adjustment))
+  );
   --color-section: hsla(0, 0%, 0%, 0.33);
   --base-gradient-spread: 2;
+  --secondary-lightness-adjustment: 9;
   --color-base-start: hsl(
     from var(--color-base) h s calc(l + var(--base-gradient-spread))
   );
@@ -30,7 +33,7 @@
   );
 
   /* Scrollbar */
-  --color-scrollbar-base: hsl(from var(--color-base) h s calc(l - 5.25));
+  --color-scrollbar-base: hsl(from var(--color-base) h s calc(l - 4.25));
   --color-scrollbar-thumb: hsl(
     from var(--color-scrollbar-base) h s calc(l + 13.25)
   );
