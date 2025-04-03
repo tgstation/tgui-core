@@ -75,7 +75,7 @@
   --color-good: hsl(95, 62.5%, 40%);
   --color-average: hsl(32.5, 90%, 50%);
   --color-bad: hsl(0, 72.5%, 50%);
-  --color-label: hsl(210, 17.5%, 57.5%);
+  --color-label: hsl(from var(--color-primary) h 17.5 57.5);
 
   /* Text colors */
   --color-text: var(--color-white);
