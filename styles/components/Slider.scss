@@ -37,6 +37,7 @@ $popup-text-color: 0 !default;
 }
 
 .Slider__popupValue {
+  user-select: none;
   white-space: nowrap;
   position: absolute;
   right: 0;
