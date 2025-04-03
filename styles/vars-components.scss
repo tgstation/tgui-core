@@ -27,6 +27,7 @@
   --blockquote-border: var(--border-thickness-small) solid;
 
   /* Button */
+  --button-color: var(--color-white);
   --button-color-transparent: var(--color-text-translucent);
   --button-background-default: var(--color-primary);
   --button-background-selected: var(--color-green);
@@ -80,7 +81,10 @@
   --tabs-container-background: var(--color-section);
 
   /* Input */
-  --input-background: hsl(from var(--color-base) h s 5);
+  --input-background-lightness: 5;
+  --input-background: hsl(
+    from var(--color-base) h s var(--input-background-lightness)
+  );
   --input-color: var(--color-text);
   --input-color-placeholder: var(--color-text-translucent);
   --input-border-color: var(--color-border-primary);

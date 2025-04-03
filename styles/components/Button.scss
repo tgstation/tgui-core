@@ -11,10 +11,10 @@ $color-danger: 0 !default;
 $color-transparent-text: 0 !default;
 $border-radius: 0 !default;
 
-@mixin button-color($color) {
+@mixin button-color($color, $text-color: var(--color-text-fixed-white)) {
   cursor: var(--cursor-pointer);
   background-color: hsl(from $color h s calc(l - var(--adjust-color)));
-  color: var(--color-text-fixed-white);
+  color: $text-color;
 
   &:not(.Button--disabled) {
     &:hover {
@@ -22,6 +22,7 @@ $border-radius: 0 !default;
         from $color h s
           calc(calc(l - var(--adjust-color)) + var(--adjust-hover))
       );
+      color: $text-color;
     }
 
     &:active {
@@ -29,6 +30,7 @@ $border-radius: 0 !default;
         from $color h s
           calc(calc(l - var(--adjust-color)) - var(--adjust-active))
       );
+      color: $text-color;
     }
   }
 }
@@ -147,12 +149,13 @@ $border-radius: 0 !default;
 
     &:active {
       background-color: var(--color-active);
+      color: var(--color-text);
     }
   }
 }
 
 .Button--color--default {
-  @include button-color(var(--button-background-default));
+  @include button-color(var(--button-background-default), var(--color-button));
 }
 
 .Button--color--caution {

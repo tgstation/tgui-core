@@ -19,12 +19,15 @@
 :root {
   /* Background colors */
   --color-base: hsl(0, 0%, 15%);
-  --color-secondary: hsl(
-    from var(--color-base) h s calc(l + var(--secondary-lightness-adjustment))
-  );
   --color-section: hsla(0, 0%, 0%, 0.33);
-  --base-gradient-spread: 2;
+  --color-secondary: hsl(
+    from var(--color-base) var(--secondary-hue) var(--secondary-saturation)
+      calc(l + var(--secondary-lightness-adjustment))
+  );
+  --secondary-hue: h;
+  --secondary-saturation: s;
   --secondary-lightness-adjustment: 7.5;
+  --base-gradient-spread: 2;
   --color-base-start: hsl(
     from var(--color-base) h s calc(l + var(--base-gradient-spread))
   );
@@ -33,10 +36,8 @@
   );
 
   /* Scrollbar */
-  --color-scrollbar-base: hsl(from var(--color-base) h s calc(l - 4.25));
-  --color-scrollbar-thumb: hsl(
-    from var(--color-scrollbar-base) h s calc(l + 13.25)
-  );
+  --color-scrollbar-base: var(--color-section);
+  --color-scrollbar-thumb: hsl(from var(--color-base) h s calc(l + 9.25));
 
   /* Base colors */
   --color-red: hsl(0, 70%, 50%);
@@ -60,9 +61,10 @@
   --color-light-gray: var(--color-light-grey);
 
   /* Action colors */
-  --color-hover: hsla(0, 0%, 50%, 0.25);
-  --color-active: hsla(0, 0%, 50%, 0.3);
-  --color-selected: hsla(0, 0%, 50%, 0.4);
+  --color-action: hsl(0, 0%, 50%);
+  --color-hover: hsl(from var(--color-action) h s l / 0.25);
+  --color-active: hsl(from var(--color-action) h s l / 0.3);
+  --color-selected: hsl(from var(--color-action) h s l / 0.4);
 
   /* Semantic colors */
   --primary-hue: 210;
@@ -85,6 +87,12 @@
   /* Border */
   --color-border: hsla(0, 0%, 100%, 0.1);
   --color-border-dark: hsla(0, 0%, 0%, 0.33);
-  --color-border-primary: hsl(from var(--color-primary) h 100 75 / 0.75);
+  --border-primary-saturation: 100;
+  --border-primary-lightness: 75;
+  --border-primary-alpha: 0.75;
+  --color-border-primary: hsl(
+    from var(--color-primary) h var(--border-primary-saturation)
+      var(--border-primary-lightness) / var(--border-primary-alpha)
+  );
   --color-border-secondary: hsl(from var(--color-border-primary) h s l / 1);
 }
