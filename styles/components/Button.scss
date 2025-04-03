@@ -72,6 +72,7 @@ $border-radius: 0 !default;
   i {
     min-width: 1.333em;
     text-align: center;
+    vertical-align: middle;
   }
 
   &:has(i) {
