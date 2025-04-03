@@ -6,15 +6,13 @@ $background-color: hsl(0, 0%, 0%) !default;
 $border-radius: base.$border-radius !default;
 
 .Tooltip {
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0.1em 0.1em 1.25em -0.1em hsla(0, 0%, 0%, 0.5);
+  color: $color;
+  max-width: base.em(250px);
   padding: 0.5em 0.75em;
   pointer-events: none;
   text-align: left;
   transition: opacity 150ms ease-out;
-  background-color: $background-color;
-  color: $color;
-  box-shadow: 0.1em 0.1em 1.25em -0.1em hsla(0, 0%, 0%, 0.5);
-  border-radius: $border-radius;
-  max-width: base.em(250px);
-  // Must be over everything
-  z-index: 999;
 }

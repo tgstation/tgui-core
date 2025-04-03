@@ -1,30 +1,8 @@
-import { type ReactNode, type RefObject, useRef } from 'react';
+import { type ReactNode, useRef } from 'react';
 import { classes } from '../common/react';
 import { Box, type BoxProps } from './Box';
+import { Floating } from './Floating';
 import { Icon } from './Icon';
-import { Popper } from './Popper';
-
-type MenuProps = {
-  children: any;
-  menuRef: RefObject<HTMLElement>;
-  onOutsideClick: () => void;
-  width: string;
-};
-
-function Menu(props: MenuProps) {
-  const { children, width } = props;
-
-  return (
-    <div
-      className="Menubar__menu"
-      style={{
-        width,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 type MenuBarDropdownProps = {
   disabled?: boolean;
@@ -52,35 +30,35 @@ function MenuBarButton(props: MenuBarDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={menuRef}>
-      <Box
-        className={classes([
-          'MenuBar__MenuBarButton',
-          'MenuBar__font',
-          'MenuBar__hover',
-          className,
-        ])}
-        {...rest}
-        onClick={disabled ? () => null : onClick}
-        onMouseOver={onMouseOver}
-      >
-        <span className="MenuBar__MenuBarButton-text">{display}</span>
-      </Box>
-      <Popper
-        onClickOutside={onOutsideClick}
-        placement="bottom-start"
-        content={
-          <Menu
-            width={openWidth}
-            menuRef={menuRef}
-            onOutsideClick={onOutsideClick}
-          >
-            {children}
-          </Menu>
-        }
-        isOpen={open}
-      />
-    </div>
+    <Floating
+      allowedOutsideClasses=".Menubar_inner"
+      content={
+        <div
+          className="Menubar__menu"
+          style={{
+            width: openWidth,
+          }}
+        >
+          {children}
+        </div>
+      }
+    >
+      <div ref={menuRef} className="Menubar_inner">
+        <Box
+          className={classes([
+            'MenuBar__MenuBarButton',
+            'MenuBar__font',
+            'MenuBar__hover',
+            className,
+          ])}
+          {...rest}
+          onClick={disabled ? () => null : onClick}
+          onMouseOver={onMouseOver}
+        >
+          <span className="MenuBar__MenuBarButton-text">{display}</span>
+        </Box>
+      </div>
+    </Floating>
   );
 }
 
