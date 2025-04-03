@@ -155,7 +155,7 @@ $border-radius: 0 !default;
 }
 
 .Button--color--default {
-  @include button-color(var(--button-background-default), var(--color-button));
+  @include button-color(var(--button-background-default), var(--button-color));
 }
 
 .Button--color--caution {
