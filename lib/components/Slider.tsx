@@ -42,7 +42,10 @@ type Props = {
   ranges: Record<string, [number, number]>;
   /** Screen distance mouse needs to travel to adjust value by one `step`. */
   step: number;
-  /** The step size in pixels. */
+  /**
+   * The sensitivity of the slider. Adjust this if it feels too slow/fast
+   * while dragging. Use higher for larger sliders. Default is 1.
+   */
   stepPixelSize: number;
   /**
    * A number in milliseconds, for which the input will hold off from updating
