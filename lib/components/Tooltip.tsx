@@ -19,7 +19,7 @@ export function Tooltip(props: Props) {
     <Floating
       childrenNoWrap
       content={content}
-      contentClasses="Tooltip__content"
+      contentClasses="Tooltip"
       hoverOpen
       placement={position}
     >
