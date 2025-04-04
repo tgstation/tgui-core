@@ -12,6 +12,8 @@ $separator-color: 0 !default;
   margin-bottom: var(--space-m);
   background-color: var(--section-background);
   box-sizing: border-box;
+  /* Make base transparent, cause it uses section background color */
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
 
   &:last-child {
     margin-bottom: 0;
