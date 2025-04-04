@@ -6,8 +6,8 @@
   }
 }
 
-.Stack--zebra > .Stack__item:nth-child(even) {
-  background-color: var(--color-section);
+.Stack--zebra > .Stack__item:nth-child(odd) {
+  background-color: var(--candystripe-odd);
 }
 
 .Stack--horizontal > .Stack__divider:not(.Stack__divider--hidden) {

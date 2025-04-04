@@ -39,6 +39,10 @@
   --color-scrollbar-base: var(--color-section);
   --color-scrollbar-thumb: hsl(from var(--color-base) h s calc(l + 9.25));
 
+  /* Candystripe */
+  --candystripe-odd: hsla(0, 0%, 0%, 0.25);
+  --candystripe-even: transparent;
+
   /* Base colors */
   --color-red: hsl(0, 70%, 50%);
   --color-orange: hsl(25, 90%, 50%);
