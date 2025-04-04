@@ -12,7 +12,20 @@ export default {
 type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
-  args: {
-    children: 'Tooltip',
+  render: () => {
+    return (
+      <div
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          height: '100vh',
+          justifyContent: 'center',
+        }}
+      >
+        <Tooltip content="Tooltip">
+          <div>Hover me</div>
+        </Tooltip>
+      </div>
+    );
   },
 };

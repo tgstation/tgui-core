@@ -1,4 +1,4 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import {
   type ChangeEvent,
   type MouseEvent,
@@ -67,7 +67,7 @@ type Props = Partial<{
   selected: BooleanLike;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
   tooltip: ReactNode;
-  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+  /** Position of the tooltip. Does not guarantee the position is respected. */
   tooltipPosition: Placement;
   /** Align content vertically using flex. Use lineHeight if the height is static. */
   verticalAlignContent: string;

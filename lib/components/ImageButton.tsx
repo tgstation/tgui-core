@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
@@ -78,7 +78,7 @@ type Props = Partial<{
   title: string;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
   tooltip: ReactNode;
-  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+  /** Position of the tooltip. Does not guarantee the position is respected. */
   tooltipPosition: Placement;
 }> &
   BoxProps;
@@ -209,7 +209,7 @@ export function ImageButton(props: Props) {
 
   if (tooltip) {
     buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+      <Tooltip content={tooltip} position={tooltipPosition}>
         {buttonContent}
       </Tooltip>
     );
