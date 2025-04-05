@@ -26,6 +26,7 @@
     font-size: base.em(12px);
     line-height: base.em(16px);
     height: base.em(22px);
+    border-radius: var(--button-border-radius);
   }
 
   &__selected-text {
