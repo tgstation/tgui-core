@@ -186,7 +186,7 @@ export function ImageButton(props: Props) {
           )}
         </div>
       ) : (
-        children && <span className={'ImageButton__content'}>{children}</span>
+        !!children && <span className="ImageButton__content">{children}</span>
       )}
     </div>
   );
