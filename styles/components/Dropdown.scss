@@ -22,7 +22,7 @@
     display: flex;
     overflow: hidden;
     flex: 1;
-    font-family: Verdana, sans-serif;
+    font-family: var(--font-family);
     font-size: base.em(12px);
     line-height: base.em(16px);
     height: base.em(22px);
@@ -95,7 +95,7 @@
       }
 
       &:not(.selected) {
-        cursor: pointer;
+        cursor: var(--cursor-pointer);
 
         &:hover {
           background-color: var(--dropdown-entry-background-hover);
