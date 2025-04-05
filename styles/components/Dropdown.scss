@@ -63,6 +63,7 @@
   &__menu {
     overflow-y: auto;
     scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar-thumb) transparent;
     max-height: base.em(200px);
     padding: var(--space-sm);
 
