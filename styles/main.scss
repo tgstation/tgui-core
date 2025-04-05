@@ -1,9 +1,12 @@
 @use "sass:meta";
-@use "base";
+
+// CSS Variables
+@use "./vars-colors";
+@use "./vars-values";
+@use "./vars-components";
 
 // Core styles
 @include meta.load-css("./reset.scss");
-@include meta.load-css("./css-variables.scss");
 
 // Components
 @include meta.load-css("./components/BlockQuote.scss");

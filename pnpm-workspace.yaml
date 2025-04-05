@@ -1,5 +1,5 @@
 onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@parcel/watcher'
-  - '@swc/core'
+  - "@biomejs/biome"
+  - "@parcel/watcher"
+  - "@swc/core"
   - esbuild

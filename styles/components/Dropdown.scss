@@ -1,14 +1,11 @@
-@use 'sass:color';
-
 @use "../base";
-@use "../colors";
 
 .Dropdown {
   display: flex;
   align-items: stretch;
-  gap: 0.25rem;
-  margin-right: base.em(2px);
-  margin-bottom: base.em(2px);
+  gap: var(--space-s);
+  margin-right: var(--space-xs);
+  margin-bottom: var(--space-xs);
 
   &:last-child {
     margin-right: 0;
@@ -17,21 +14,18 @@
 
   // Override Button styles
   .Button {
-    margin: 0 !important;
-    align-content: center !important;
+    margin: 0;
+    align-content: center;
   }
 
   &__control {
-    font-family: Verdana, sans-serif;
-    font-size: base.em(12px);
-    display: flex !important;
+    display: flex;
     overflow: hidden;
     flex: 1;
-
-    // Override Button styles
-    &.Button {
-      padding: 0 !important;
-    }
+    font-family: Verdana, sans-serif;
+    font-size: base.em(12px);
+    line-height: base.em(16px);
+    height: base.em(22px);
   }
 
   &__selected-text {
@@ -41,18 +35,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     height: 100%;
-    padding: 0.25em 0.5em;
-    border-right: base.em(1px) solid hsla(0, 0%, 0%, 0.33);
+    padding: var(--space-s) var(--space-m);
+    border-right: var(--border-thickness-tiny) solid var(--color-border-dark);
   }
 
   &__icon {
     display: inline-block;
     align-content: center;
+    text-align: center;
     height: 100%;
     width: base.em(22px);
-    transition: transform 0.2s;
-    // Override Button styles
-    margin: 0 !important;
+    transition: transform var(--dropdown-transition);
 
     &--arrow {
       &.open:not(.over),
@@ -71,15 +64,16 @@
     overflow-y: auto;
     scrollbar-width: thin;
     max-height: base.em(200px);
-    padding: 0.33em;
+    padding: var(--space-sm);
 
     &--wrapper {
       overflow: hidden;
-      background-color: rgba(color.adjust(base.$color-bg, $lightness: -5%), 0.85);
-      color: hsl(0, 0%, 100%);
-      border: base.em(1px) solid var(--border-color);
-      border-radius: base.em(6px);
-      backdrop-filter: blur(12px);
+      background-color: var(--dropdown-menu-background);
+      color: var(--dropdown-menu-color);
+      border: var(--dropdown-menu-border);
+      border-radius: var(--dropdown-menu-border-radius);
+      transition-duration: var(--dropdown-transition) !important;
+      backdrop-filter: var(--dropdown-menu-blur);
     }
 
     &--entry {
@@ -87,15 +81,15 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      font-family: Verdana, sans-serif;
+      font-family: var(--font-family);
       font-size: base.em(12px);
       line-height: base.em(16px);
-      padding: base.em(2px) base.em(6px);
-      border-radius: base.em(3px);
-      transition: background-color 0.1s;
+      padding: var(--space-xs) var(--space-m);
+      border-radius: var(--dropdown-entry-border-radius);
+      transition: background-color var(--dropdown-entry-transition);
 
       &.selected {
-        background-color: hsla(0, 0%, 100%, 0.2) !important;
+        background-color: var(--dropdown-entry-background-selected) !important;
         transition-duration: 0s;
       }
 
@@ -103,12 +97,12 @@
         cursor: pointer;
 
         &:hover {
-          background-color: hsla(0, 0%, 50%, 0.2);
+          background-color: var(--dropdown-entry-background-hover);
           transition-duration: 0s;
         }
 
         &:active {
-          background-color: hsla(0, 0%, 75%, 0.2);
+          background-color: var(--dropdown-entry-background-active);
           transition-duration: 0s;
         }
       }

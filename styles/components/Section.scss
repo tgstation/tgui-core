@@ -3,16 +3,17 @@
 @use "../colors";
 @use "../functions";
 
-$title-text-color: base.$color-fg !default;
-$background-color: base.$color-bg-section !default;
-$separator-color: colors.$primary !default;
+$title-text-color: 0 !default;
+$background-color: 0 !default;
+$separator-color: 0 !default;
 
 .Section {
   position: relative;
-  margin-bottom: 0.5em;
-  background-color: functions.fake-alpha($background-color, base.$color-bg);
-  background-color: $background-color;
+  margin-bottom: var(--space-m);
+  background-color: var(--section-background);
   box-sizing: border-box;
+  /* Make base transparent, cause it uses section background color */
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
 
   &:last-child {
     margin-bottom: 0;
@@ -21,21 +22,22 @@ $separator-color: colors.$primary !default;
 
 .Section__title {
   position: relative;
-  padding: 0.5em;
-  border-bottom: base.em(2px) solid $separator-color;
+  padding: var(--space-m);
+  border-bottom: var(--section-separator-thickness) solid
+    var(--section-separator-color);
 }
 
 .Section__titleText {
   font-size: base.em(14px);
   font-weight: bold;
-  color: $title-text-color;
+  color: var(--section-title-color);
 }
 
 .Section__buttons {
   position: absolute;
   display: inline-block;
-  right: 0.5em;
-  margin-top: base.em(-1px);
+  right: var(--space-m);
+  margin-top: calc(-1 * var(--space-xxs));
 }
 
 .Section__rest {
@@ -43,7 +45,7 @@ $separator-color: colors.$primary !default;
 }
 
 .Section__content {
-  padding: 0.66em 0.5em;
+  padding: var(--space-ml) var(--space-m);
 }
 
 .Section--fitted > .Section__rest > .Section__content {
@@ -66,23 +68,7 @@ $separator-color: colors.$primary !default;
 
 .Section--fill.Section--scrollable > .Section__rest > .Section__content {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.Section--fill.Section--iefix {
-  display: table !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  & > .Section__rest {
-    display: table-row !important;
-    height: 100% !important;
-  }
+  inset: 0;
 }
 
 .Section--scrollable {
@@ -118,12 +104,11 @@ $separator-color: colors.$primary !default;
 // Nested sections
 .Section .Section {
   background-color: transparent;
-  margin-left: -0.5em;
-  margin-right: -0.5em;
+  margin: 0 calc(-1 * var(--space-m)); // Compensate for padding: 0.5em;
 
   // Remove extra space above the first nested section
   &:first-child {
-    margin-top: -0.5em;
+    margin-top: calc(-1 * var(--space-m));
   }
 }
 

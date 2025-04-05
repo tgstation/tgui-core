@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps, useState } from 'react';
+import { COMPONENT_COLORS } from '../lib/common/constants';
 import { Button, Stack } from '../lib/components';
 
 type StoryProps = ComponentProps<typeof Button>;
@@ -32,6 +33,8 @@ export const WithIcon: Story = {
         </Button>
         <br />
         <Button {...args} /> Only Icon
+        <br />
+        <Button compact {...args} /> Compact
       </>
     );
   },
@@ -59,6 +62,22 @@ export const Ellipsis: Story = {
             </Stack.Item>
           ))}
         </Stack>
+      </>
+    );
+  },
+};
+
+export const Colors: Story = {
+  render: () => {
+    return (
+      <>
+        {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
+          (color) => (
+            <Button key={color} color={color}>
+              {color}
+            </Button>
+          ),
+        )}
       </>
     );
   },

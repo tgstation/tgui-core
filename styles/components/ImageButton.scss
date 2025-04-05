@@ -1,170 +1,127 @@
-/**
- * @file
- * @copyright 2024 Aylong (https://github.com/AyIong)
- * @license MIT
- */
-@use 'sass:color';
-
-@use "../base";
 @use "../colors";
-@use "../functions" as *;
 
-$color-default: colors.bg(base.$color-bg-section) !default;
-$color-disabled: hsl(0, 54.7%, 25.1%) !default;
-$color-selected: colors.bg(colors.$green) !default;
-$color-divider: hsla(0, 0%, 100%, 0.1) !default;
-$divider-thickness: base.em(2px) !default;
-$bg-map: colors.$bg-map !default;
+$bg-map: colors.$color-map !default;
 
-@mixin button-style(
-  $color,
-  $border-color: rgba(color.adjust($color, $lightness: 50%), 0.2),
-  $border-width: 1px 0 0 0,
-  $opacity: 0.2,
-  $hoverable: true,
-  $transition-duration: 0.2s
-) {
-  $luminance: luminance($color);
-  $text-color: if($luminance > 0.3, hsla(0, 0%, 0%, 1), hsla(0, 0%, 100%, 1));
+@mixin button-style($color) {
+  background-color: hsl(
+    from $color h s calc(l - var(--adjust-color) * 2) / 0.2
+  );
+  border: 1px solid hsl(from $color h s calc(l + var(--adjust-color) * 2) / 0.2);
 
-  background-color: rgba($color, $opacity);
-  color: $text-color;
-  border: solid $border-color;
-  border-width: $border-width;
-  transition-property: background-color, border-color, box-shadow;
-  transition-duration: $transition-duration;
-
-  @if $hoverable {
+  &:not(.ImageButton--disabled) {
     &:hover {
-      background-color: rgba(color.adjust($color, $lightness: 66%), $opacity);
+      background-color: hsl(
+        from $color h s calc(l - var(--adjust-color) + var(--adjust-hover)) /
+          0.2
+      );
     }
 
     &:active {
-      box-shadow: inset 0 0 0.5rem 1px rgba(255, 255, 255, 0.1);
+      box-shadow: inset var(--shadow-glow-small) hsl(from $color h s l / 0.5);
       transition-duration: 0s;
     }
+
+    /* Disable hover/active effects if hovered on buttons container */
+    &:hover,
+    &:active {
+      &:has(.ImageButton__buttons:hover),
+      &:has(.ImageButton__buttons:active) {
+        background-color: hsl(
+          from $color h s calc(l - var(--adjust-color) * 2) / 0.2
+        );
+        box-shadow: none;
+      }
+    }
+  }
+
+  /* Make non-fluid content opaque */
+  &:not(.ImageButton--fluid) .ImageButton__content {
+    background-color: hsl(from $color h s calc(l - var(--adjust-hover)));
+    border-top: var(--border-thickness-tiny) solid $color;
   }
 }
 
 @each $color-name, $color-value in $bg-map {
-  .ImageButton--color__#{$color-name} {
-    @include button-style($color-value, $border-width: 1px);
-  }
-
-  .ImageButton--contentColor__#{$color-name} {
-    @include button-style(
-      $color-value,
-      $border-color: color.adjust($color-value, $lightness: 25%),
-      $opacity: 1,
-      $hoverable: false
-    );
-  }
-
-  .ImageButton--buttonsContainerColor__#{$color-name} {
-    @include button-style(
-      $color-value,
-      $border-width: 1px 1px 1px 0,
-      $opacity: 0.33,
-      $hoverable: false,
-      $transition-duration: 0
-    );
+  .ImageButton__color--#{$color-name} {
+    @include button-style($color-value);
   }
 }
 
-.ImageButton--color__default {
-  @include button-style(color.adjust($color-default, $lightness: 85%), $border-width: 1px);
-}
-
-.ImageButton--disabled {
-  background-color: rgba($color-disabled, 0.25) !important;
-  border-color: rgba($color-disabled, 0.25) !important;
-  box-shadow: none !important;
-
-  &.container {
-    cursor: base.$cursor-disabled !important;
-  }
+.ImageButton__color--default {
+  @include button-style(hsl(from var(--color-base) h s 30));
 }
 
 .ImageButton--selected {
-  @include button-style(
-    $color-selected,
-    $border-color: rgba($color-selected, 0.25),
-    $border-width: 1px
-  );
+  @include button-style(var(--button-background-selected));
 }
 
-.ImageButton--contentColor__default {
-  @include button-style(
-    color.adjust($color-default, $lightness: 80%),
-    $border-color: color.adjust($color-default, $lightness: 100%),
-    $opacity: 1,
-    $hoverable: false
-  );
-}
+.ImageButton--disabled {
+  .ImageButton__container {
+    cursor: var(--cursor-disabled);
+    opacity: 0.5;
+  }
 
-.ImageButton--contentDisabled {
-  background-color: $color-disabled !important;
-  border-top: 1px solid color.adjust($color-disabled, $lightness: 25%) !important;
-}
+  &.ImageButton--fluid {
+    filter: contrast(75%);
 
-.ImageButton--contentSelected {
-  @include button-style(
-    $color-selected,
-    $border-color: color.adjust($color-selected, $lightness: 25%),
-    $opacity: 1,
-    $hoverable: false
-  );
-}
-
-.ImageButton--buttonsContainerColor__default {
-  @include button-style(
-    color.adjust($color-default, $lightness: 85%),
-    $border-width: 1px 1px 1px 0,
-    $hoverable: false,
-    $transition-duration: 0
-  );
+    .ImageButton__buttons {
+      filter: contrast(125%);
+    }
+  }
 }
 
 .ImageButton {
-  /* Better replace via inline-flex after Byond 516 will be stable */
-  display: inline-table;
+  overflow: hidden;
+  user-select: none;
   position: relative;
+  display: inline-flex;
   text-align: center;
   margin: 0.25em;
-  user-select: none;
-  -ms-user-select: none;
+  border-radius: var(--border-radius-medium);
+  transition-property: background-color, border-color, box-shadow;
+  transition-duration: var(--transition-time-medium);
+  border-width: 0;
 
-  .noAction {
-    pointer-events: none;
-  }
-
-  .container {
+  &__container {
+    cursor: var(--cursor-pointer);
     display: flex;
     flex-direction: column;
-    border-radius: 0.33em;
-    cursor: base.$cursor-hover;
+    transition: opacity var(--transition-time-medium);
+    border-color: inherit;
   }
 
-  .image {
+  &__image {
     position: relative;
     align-self: center;
     pointer-events: none;
     overflow: hidden;
     line-height: 0;
-    padding: 0.25em;
-    border-radius: 0.33em;
+    padding: var(--space-s);
+    border: 1px solid;
+    border-bottom: 0;
+    border-color: inherit;
+    border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
   }
 
-  .buttonsContainer {
+  &__content {
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.25em 0.33em;
+    z-index: 2;
+  }
+
+  &__buttons {
     display: flex;
     position: absolute;
     overflow: hidden;
-    left: 1px;
+    left: 0;
     bottom: 1.8em;
     max-width: 100%;
     z-index: 1;
 
-    &.buttonsAltContainer {
+    &--alt {
       overflow: visible;
       flex-direction: column;
       pointer-events: none;
@@ -172,120 +129,96 @@ $bg-map: colors.$bg-map !default;
       bottom: inherit !important;
       /** Text outline. Sort of. */
       text-shadow:
-        0px 0px 4px base.$color-bg,
-        0px 0px 4px base.$color-bg,
-        0px 0px 4px base.$color-bg,
-        0px 0px 4px base.$color-bg;
-    }
-
-    &.buttonsEmpty {
-      bottom: 1px;
+        0px 1px 2px var(--color-base),
+        -1px 0px 2px var(--color-base),
+        1px 0px 2px var(--color-base),
+        0px -1px 2px var(--color-base);
     }
 
     & > * {
       /* I know !important is bad, but here's no other way */
       margin: 0 !important;
-      padding: 0 0.2em !important;
+      padding: 0 !important;
       border-radius: 0 !important;
     }
-  }
-
-  .content {
-    -ms-user-select: none;
-    user-select: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding: 0.25em 0.33em;
-    margin: -1px;
-    border-radius: 0 0 0.33em 0.33em;
-    z-index: 2;
   }
 }
 
 .ImageButton--fluid {
   display: flex;
   flex-direction: row;
-  position: relative;
-  text-align: center;
   margin: 0 0 0.33em 0;
-  user-select: none;
-  -ms-user-select: none;
+  border-width: var(--border-thickness-tiny);
 
   &:last-child {
     margin-bottom: 0;
   }
 
-  .info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex: 1;
-  }
+  .ImageButton {
+    &__container {
+      flex-direction: row;
+      flex: 1;
+    }
 
-  .title {
-    font-weight: bold;
-    padding: 0.5em;
+    &__image {
+      padding: 0;
+      border: 0;
+    }
 
-    &.divider {
+    &__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      white-space: normal;
+      padding: 0;
       margin: 0 0.5em;
-      border-bottom: $divider-thickness solid $color-divider;
-    }
-  }
+      color: var(--color-text);
 
-  .contentFluid {
-    padding: 0.5em;
-    color: white;
-  }
+      &--title {
+        font-weight: bold;
+        padding: 0.5em;
+      }
 
-  .container {
-    flex-direction: row;
-    flex: 1;
+      &--divider {
+        border-bottom: var(--border-thickness-small) solid var(--color-border);
+      }
 
-    &.hasButtons {
-      border-radius: 0.33em 0 0 0.33em;
-      border-width: 1px 0 1px 1px;
-    }
-  }
-
-  .image {
-    padding: 0;
-  }
-
-  .buttonsContainer {
-    position: relative;
-    left: inherit;
-    bottom: inherit;
-    border-radius: 0 0.33em 0.33em 0;
-
-    &.buttonsEmpty {
-      bottom: inherit;
-    }
-
-    &.buttonsAltContainer {
-      overflow: hidden;
-      pointer-events: auto;
-      top: inherit;
-      text-shadow: none;
-
-      & > * {
-        border-top: 1px solid hsla(0, 0%, 100%, 0.075);
-
-        &:first-child {
-          border-top: 0;
-        }
+      &--text {
+        padding: 0.5em;
       }
     }
 
-    & > * {
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      white-space: pre-wrap;
-      line-height: base.em(14px);
-      height: 100%;
-      border-left: 1px solid hsla(0, 0%, 100%, 0.075);
+    &__buttons {
+      position: relative;
+      left: inherit;
+      bottom: inherit;
+      background-color: inherit;
+
+      &--alt {
+        pointer-events: all;
+        top: inherit;
+        text-shadow: none;
+
+        & > * {
+          border-top: 1px solid hsla(0, 0%, 100%, 0.075);
+
+          &:first-child {
+            border-top: 0;
+          }
+        }
+      }
+
+      & > * {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        white-space: pre-wrap;
+        line-height: 1.15em;
+        height: 100%;
+        border-left: var(--border-thickness-tiny) solid var(--color-border);
+      }
     }
   }
 }

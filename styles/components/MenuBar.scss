@@ -1,56 +1,52 @@
-@use "sass:color";
 @use "../base";
-
-$separator-color: base.$color-bg-section;
-$background-color: base.$color-bg !default;
-$dropdown-z-index: 5;
 
 .MenuBar {
   display: flex;
 }
 
 .MenuBar__font {
-  font-family: Verdana, sans-serif;
+  font-family: var(--menu-bar-font-family);
   font-size: base.em(12px);
   line-height: base.em(17px);
 }
 
 .MenuBar__hover {
   &:hover {
-    background-color: color.adjust($background-color, $lightness: 30%);
+    background-color: hsl(from var(--menu-bar-background) h s calc(l + 20));
     transition: background-color 0ms;
   }
 }
 
 .MenuBar__MenuBarButton {
-  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  padding: var(--space-s) var(--space-m);
 }
 
 .MenuBar__menu {
   position: absolute;
-  z-index: $dropdown-z-index;
-  background-color: $background-color;
-  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
-  box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.55);
+  background-color: var(--menu-bar-background);
+  padding: var(--space-sm);
+  box-shadow: 4px 6px 5px -2px hsla(0, 0%, 0%, 0.5);
+  z-index: 5;
 }
 
 .MenuBar__MenuItem {
-  z-index: $dropdown-z-index;
-  transition: background-color 100ms ease-out;
-  background-color: $background-color;
+  transition: background-color var(--menu-bar-transition) ease-out;
+  background-color: var(--menu-bar-background);
   white-space: nowrap;
-  padding: 0.3rem 2rem 0.3rem 3rem;
+  padding: var(--space-sm) var(--space-xl) var(--space-sm)
+    calc(var(--space-xxl) + 1rem);
 }
 
 .MenuBar__MenuItemToggle {
-  padding: 0.3rem 2rem 0.3rem 0;
+  padding: var(--space-sm) var(--space-xl) var(--space-sm) 0;
 }
 
 .MenuBar__MenuItemToggle__check {
   display: inline-block;
   vertical-align: middle;
-  min-width: 3rem;
-  padding-left: 0.3rem;
+  text-align: center;
+  min-width: 2.5rem;
+  padding-left: var(--space-sm);
 }
 
 .MenuBar__over {
@@ -66,6 +62,6 @@ $dropdown-z-index: 5;
 
 .MenuBar__Separator {
   display: block;
-  margin: 0.3rem 0.3rem 0.3rem 2.3rem;
-  border-top: 1px solid $separator-color;
+  margin: var(--space-sm);
+  border-top: var(--border-thickness-tiny) solid var(--color-border);
 }

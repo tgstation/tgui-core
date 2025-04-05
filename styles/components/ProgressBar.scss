@@ -1,35 +1,35 @@
 @use "../base";
 @use "../colors";
-@use "../functions" as *;
 
-$color-default-fill: colors.bg(colors.$primary) !default;
-$background-color: hsla(0, 0%, 0%, 0) !default;
-$border-radius: base.$border-radius !default;
-$bg-map: colors.$bg-map !default;
+$bg-map: colors.$color-map !default;
+$fg-map: colors.$color-map !default;
+$color-default-fill: 0 !default;
+$background-color: 0 !default;
+$border-radius: 0 !default;
 
 .ProgressBar {
   display: inline-block;
   position: relative;
   width: 100%;
-  padding: 0 0.5em;
-  border-width: base.em(1px) !important;
+  padding: 0 var(--space-m);
+  border-width: var(--border-thickness-tiny) !important;
   border-style: solid !important;
-  border-radius: $border-radius;
-  background-color: $background-color;
-  transition: border-color 900ms ease-out;
+  border-radius: var(--progress-bar-border-radius);
+  background-color: var(--progress-bar-background);
+  transition: border-color var(--progress-bar-transition) ease-out;
 }
 
 .ProgressBar__fill {
   position: absolute;
-  top: -0.5px;
-  left: 0px;
-  bottom: -0.5px;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .ProgressBar__fill--animated {
   transition:
-    background-color 900ms ease-out,
-    width 900ms ease-out;
+    background-color var(--progress-bar-transition) ease-out,
+    width var(--progress-bar-transition) ease-out;
 }
 
 .ProgressBar__content {
@@ -41,19 +41,26 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ProgressBar--color--default {
-  border: base.em(1px) solid $color-default-fill;
+  border: var(--border-thickness-tiny) solid
+    hsl(from var(--progress-bar-fill) h s calc(l - var(--adjust-color)));
 
   .ProgressBar__fill {
-    background-color: $color-default-fill;
+    background-color: hsl(
+      from var(--progress-bar-fill) h s calc(l - var(--adjust-color))
+    );
   }
 }
 
 @each $color-name, $color-value in $bg-map {
   .ProgressBar--color--#{$color-name} {
-    border-color: $color-value !important;
+    border-color: hsl(
+      from $color-value h s calc(l - var(--adjust-color))
+    ) !important;
 
     .ProgressBar__fill {
-      background-color: $color-value;
+      background-color: hsl(
+        from $color-value h s calc(l - var(--adjust-color))
+      );
     }
   }
 }

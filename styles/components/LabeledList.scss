@@ -2,14 +2,11 @@
 
 .LabeledList {
   display: table;
-  // IE8: Does not support calc
-  width: 100%;
   // Compensate for negative margin
   width: calc(100% + 1em);
   border-collapse: collapse;
   border-spacing: 0;
-  margin: -0.25em -0.5em;
-  margin-bottom: 0;
+  margin: calc(-1 * var(--space-s)) calc(-1 * var(--space-m)) 0;
   padding: 0;
 }
 
@@ -24,7 +21,7 @@
 .LabeledList__cell {
   display: table-cell;
   margin: 0;
-  padding: 0.25em 0.5em;
+  padding: var(--space-s) var(--space-m);
   border: 0;
   text-align: left;
 }
@@ -39,7 +36,7 @@
   width: 0.1%;
   white-space: nowrap;
   text-align: right;
-  padding-top: base.em(1px);
+  padding-top: var(--space-xxs);
   padding-bottom: 0;
 }
 
