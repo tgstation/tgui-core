@@ -22,10 +22,11 @@
     display: flex;
     overflow: hidden;
     flex: 1;
-    font-family: Verdana, sans-serif;
+    font-family: var(--font-family);
     font-size: base.em(12px);
     line-height: base.em(16px);
     height: base.em(22px);
+    border-radius: var(--button-border-radius);
   }
 
   &__selected-text {
@@ -63,6 +64,7 @@
   &__menu {
     overflow-y: auto;
     scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar-thumb) transparent;
     max-height: base.em(200px);
     padding: var(--space-sm);
 
@@ -72,7 +74,6 @@
       color: var(--dropdown-menu-color);
       border: var(--dropdown-menu-border);
       border-radius: var(--dropdown-menu-border-radius);
-      transition-duration: var(--dropdown-transition) !important;
       backdrop-filter: var(--dropdown-menu-blur);
     }
 
@@ -94,7 +95,7 @@
       }
 
       &:not(.selected) {
-        cursor: pointer;
+        cursor: var(--cursor-pointer);
 
         &:hover {
           background-color: var(--dropdown-entry-background-hover);
