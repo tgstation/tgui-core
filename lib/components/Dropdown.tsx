@@ -62,7 +62,7 @@ enum DIRECTION {
 
 const NONE = -1;
 
-function getOptionValue(option: DropdownOption) {
+function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
 }
 

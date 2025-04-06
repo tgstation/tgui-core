@@ -5,18 +5,13 @@ $background-color: 0 !default;
 $border-radius: 0 !default;
 
 .Tooltip {
-  pointer-events: none;
-  text-align: left;
-  padding: var(--space-m) var(--space-l);
-  max-width: base.em(250px);
+  backdrop-filter: var(--tooltip-blur);
   background-color: var(--tooltip-background);
-  color: var(--tooltip-color);
   border-radius: var(--tooltip-border-radius);
   box-shadow: 0.1em 0.1em 1.25em -0.1em hsla(0, 0%, 0%, 0.5);
-  transition-property: opacity;
-  transition-duration: var(--tooltip-transition-time);
-  transition-timing-function: var(--tooltip-transition-timing);
-  backdrop-filter: var(--tooltip-blur);
-  // Must be over everything
-  z-index: 999;
+  color: var(--tooltip-color);
+  max-width: base.em(250px);
+  padding: var(--space-m) var(--space-l);
+  pointer-events: none;
+  text-align: left;
 }

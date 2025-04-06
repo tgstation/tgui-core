@@ -201,7 +201,11 @@ export function Floating(props: Props) {
   if (childrenNoWrap && isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
-    floatingChildren = <span {...referenceProps}>{children}</span>;
+    floatingChildren = (
+      <div {...referenceProps} className="Floating__reference">
+        {children}
+      </div>
+    );
   }
 
   return (
