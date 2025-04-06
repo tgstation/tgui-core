@@ -17,13 +17,12 @@ export function Tooltip(props: Props) {
 
   return (
     <Floating
-      childrenNoWrap
       content={content}
       contentClasses="Tooltip"
       hoverOpen
       placement={position}
     >
-      <div className="Tooltip__inner">{children}</div>
+      {children}
     </Floating>
   );
 }

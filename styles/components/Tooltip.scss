@@ -14,9 +14,4 @@ $border-radius: 0 !default;
   padding: var(--space-m) var(--space-l);
   pointer-events: none;
   text-align: left;
-  transition-duration: var(--tooltip-transition-time);
-  transition-property: opacity;
-  transition-timing-function: var(--tooltip-transition-timing);
-  // // Must be over everything
-  // z-index: 999;
 }

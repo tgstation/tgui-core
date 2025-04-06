@@ -158,7 +158,5 @@
     from var(--color-base) h s var(--tooltip-background-lightness) / 0.85
   );
   --tooltip-border-radius: var(--border-radius-medium);
-  --tooltip-transition-time: var(--transition-time-medium);
-  --tooltip-transition-timing: ease-out;
   --tooltip-blur: var(--blur-medium);
 }
