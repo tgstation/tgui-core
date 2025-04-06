@@ -19,8 +19,12 @@ type OptionalProps = Partial<{
 type Props = RequiredProps & OptionalProps;
 /**
  * ## Popper
- *  Popper lets you position elements so that they don't go out of the bounds of the window.
+ * Popper lets you position elements so that they don't go out of the bounds of the window.
  * @url https://popper.js.org/react-popper/ for more information.
+ *
+ * @deprecated - Use
+ * [Floating](https://github.com/tgstation/tgui-core/tree/main/lib/components/Floating.tsx)
+ * instead.
  */
 export declare function Popper(props: PropsWithChildren<Props>): import("react/jsx-runtime").JSX.Element;
 export {};

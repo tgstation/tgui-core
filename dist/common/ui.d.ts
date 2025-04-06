@@ -46,6 +46,12 @@ export type StringStyleMap = {
     right: string | BooleanLike;
     /** Top margin. */
     top: string | BooleanLike;
+    /** Gap on all sides. */
+    g: string | BooleanLike;
+    /** Row gap. */
+    gr: string | BooleanLike;
+    /** Column gap. */
+    gc: string | BooleanLike;
     /** Overflow property. */
     overflow: string | BooleanLike;
     /** Overflow-X property. */

@@ -1,4 +1,4 @@
-import { Placement } from '@popperjs/core';
+import { Placement } from '@floating-ui/react';
 import { ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
@@ -27,7 +27,7 @@ type Props = Partial<{
     circular: boolean;
     /** Reduces the padding of the button */
     compact: boolean;
-    /** Disables and greys out the button */
+    /** Disables button and makes it semi-transparent */
     disabled: BooleanLike;
     /** Fill all available horizontal space */
     fluid: boolean;
@@ -51,7 +51,7 @@ type Props = Partial<{
     selected: BooleanLike;
     /** A fancy, boxy tooltip, which appears when hovering over the button */
     tooltip: ReactNode;
-    /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+    /** Position of the tooltip. Does not guarantee the position is respected. */
     tooltipPosition: Placement;
     /** Align content vertically using flex. Use lineHeight if the height is static. */
     verticalAlignContent: string;

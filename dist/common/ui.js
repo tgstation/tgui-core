@@ -1,11 +1,11 @@
-import { CSS_COLORS as u } from "./constants.js";
+import { CSS_COLORS as b } from "./constants.js";
 import { classes as y } from "./react.js";
 const f = (o) => {
   if (typeof o == "string")
     return o.endsWith("px") ? `${Number.parseFloat(o) / 12}rem` : o;
   if (typeof o == "number")
     return `${o}rem`;
-}, p = (o) => {
+}, e = (o) => {
   if (typeof o == "string")
     return f(o);
   if (typeof o == "number")
@@ -15,76 +15,80 @@ function w(o) {
   return !h(o);
 }
 function h(o) {
-  return typeof o == "string" && u.includes(o);
+  return typeof o == "string" && b.includes(o);
 }
-const c = (o) => (t, i) => {
-  (typeof i == "number" || typeof i == "string") && (t[o] = i);
-}, n = (o, t) => (i, e) => {
-  (typeof e == "number" || typeof e == "string") && (i[o] = t(e));
-}, l = (o, t) => (i, e) => {
-  e && (i[o] = t);
-}, s = (o, t, i) => (e, r) => {
-  if (typeof r == "number" || typeof r == "string")
-    for (let m = 0; m < i.length; m++)
-      e[o + i[m]] = t(r);
-}, a = (o) => (t, i) => {
-  w(i) && (t[o] = i);
+const c = (o) => (t, n) => {
+  (typeof n == "number" || typeof n == "string") && (t[o] = n);
+}, i = (o, t) => (n, r) => {
+  (typeof r == "number" || typeof r == "string") && (n[o] = t(r));
+}, l = (o, t) => (n, r) => {
+  r && (n[o] = t);
+}, g = (o, t, n) => (r, p) => {
+  if (typeof p == "number" || typeof p == "string")
+    for (let m = 0; m < n.length; m++)
+      r[o + n[m]] = t(p);
+}, a = (o) => (t, n) => {
+  w(n) && (t[o] = n);
 }, d = {
   align: c("textAlign"),
-  bottom: n("bottom", f),
+  bottom: i("bottom", f),
   fontFamily: c("fontFamily"),
-  fontSize: n("fontSize", f),
+  fontSize: i("fontSize", f),
   fontWeight: c("fontWeight"),
-  height: n("height", f),
-  left: n("left", f),
-  maxHeight: n("maxHeight", f),
-  maxWidth: n("maxWidth", f),
-  minHeight: n("minHeight", f),
-  minWidth: n("minWidth", f),
+  height: i("height", f),
+  left: i("left", f),
+  maxHeight: i("maxHeight", f),
+  maxWidth: i("maxWidth", f),
+  minHeight: i("minHeight", f),
+  minWidth: i("minWidth", f),
   opacity: c("opacity"),
   overflow: c("overflow"),
   overflowX: c("overflowX"),
   overflowY: c("overflowY"),
   position: c("position"),
-  right: n("right", f),
+  right: i("right", f),
   textAlign: c("textAlign"),
-  top: n("top", f),
+  top: i("top", f),
   verticalAlign: c("verticalAlign"),
-  width: n("width", f),
+  width: i("width", f),
   lineHeight: (o, t) => {
     typeof t == "number" ? o.lineHeight = t : typeof t == "string" && (o.lineHeight = f(t));
   },
   // Margin
-  m: s("margin", p, [
+  m: g("margin", e, [
     "Top",
     "Bottom",
     "Left",
     "Right"
   ]),
-  mb: n("marginBottom", p),
-  ml: n("marginLeft", p),
-  mr: n("marginRight", p),
-  mt: n("marginTop", p),
-  mx: s("margin", p, ["Left", "Right"]),
-  my: s("margin", p, ["Top", "Bottom"]),
+  mb: i("marginBottom", e),
+  ml: i("marginLeft", e),
+  mr: i("marginRight", e),
+  mt: i("marginTop", e),
+  mx: g("margin", e, ["Left", "Right"]),
+  my: g("margin", e, ["Top", "Bottom"]),
+  // Gap
+  g: i("gap", e),
+  gr: i("rowGap", e),
+  gc: i("columnGap", e),
   // Padding
-  p: s("padding", p, [
+  p: g("padding", e, [
     "Top",
     "Bottom",
     "Left",
     "Right"
   ]),
-  pb: n("paddingBottom", p),
-  pl: n("paddingLeft", p),
-  pr: n("paddingRight", p),
-  pt: n("paddingTop", p),
-  px: s("padding", p, ["Left", "Right"]),
-  py: s("padding", p, ["Top", "Bottom"]),
+  pb: i("paddingBottom", e),
+  pl: i("paddingLeft", e),
+  pr: i("paddingRight", e),
+  pt: i("paddingTop", e),
+  px: g("padding", e, ["Left", "Right"]),
+  py: g("padding", e, ["Top", "Bottom"]),
   // Color props
   color: a("color"),
   textColor: a("color"),
   backgroundColor: a("backgroundColor")
-}, b = {
+}, u = {
   bold: l("fontWeight", "bold"),
   fillPositionedParent: (o, t) => {
     t && (o.position = "absolute", o.top = 0, o.bottom = 0, o.left = 0, o.right = 0);
@@ -95,43 +99,43 @@ const c = (o) => (t, i) => {
   preserveWhitespace: l("whiteSpace", "pre-wrap")
 };
 function T(o) {
-  const t = {}, i = {};
-  for (const e in o) {
-    if (e === "style")
+  const t = {}, n = {};
+  for (const r in o) {
+    if (r === "style")
       continue;
-    const r = o[e], m = d[e] || b[e];
-    m ? m(i, r) : t[e] = r;
+    const p = o[r], m = d[r] || u[r];
+    m ? m(n, p) : t[r] = p;
   }
-  return t.style = { ...i, ...o.style }, t;
+  return t.style = { ...n, ...o.style }, t;
 }
 function S(o) {
-  const t = o.textColor || o.color, { backgroundColor: i } = o;
+  const t = o.textColor || o.color, { backgroundColor: n } = o;
   return y([
     h(t) && `color-${t}`,
-    h(i) && `color-bg-${i}`
+    h(n) && `color-bg-${n}`
   ]);
 }
 function P(o) {
   const t = {};
   if (!o) return t;
-  const i = o.split(" ");
-  for (const e of i) {
-    const [r, m] = e.split("-");
-    if (r)
-      if (r in d) {
+  const n = o.split(" ");
+  for (const r of n) {
+    const [p, m] = r.split("-");
+    if (p)
+      if (p in d) {
         if (m === "") continue;
-        const g = Number(m);
-        !Number.isNaN(g) && Number.isFinite(g) ? t[r] = g : t[r] = m;
-      } else r in b ? t[r] = !0 : console.warn(`Unknown prop ${r}`);
+        const s = Number(m);
+        !Number.isNaN(s) && Number.isFinite(s) ? t[p] = s : t[p] = m;
+      } else p in u ? t[p] = !0 : console.warn(`Unknown prop ${p}`);
   }
   return t;
 }
 export {
-  b as booleanStyleMap,
+  u as booleanStyleMap,
   S as computeBoxClassName,
   T as computeBoxProps,
   P as computeTwClass,
-  p as halfUnit,
+  e as halfUnit,
   d as stringStyleMap,
   f as unit
 };

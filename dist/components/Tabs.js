@@ -1,6 +1,6 @@
-import { jsx as a, jsxs as N } from "react/jsx-runtime";
-import { classes as f, canRender as d } from "../common/react.js";
-import { computeBoxClassName as h, computeBoxProps as p } from "../common/ui.js";
+import { jsxs as N, jsx as a } from "react/jsx-runtime";
+import { canRender as d, classes as f } from "../common/react.js";
+import { computeBoxProps as h, computeBoxClassName as p } from "../common/ui.js";
 import { Icon as v } from "./Icon.js";
 function T(e) {
   const { className: i, vertical: c, fill: o, fluid: s, children: r, ...l } = e;
@@ -13,9 +13,9 @@ function T(e) {
         o && "Tabs--fill",
         s && "Tabs--fluid",
         i,
-        h(l)
+        p(l)
       ]),
-      ...p(l),
+      ...h(l),
       children: r
     }
   );
@@ -45,10 +45,10 @@ function x(e) {
         `Tab--color--${o}`,
         c && "Tab--selected",
         i,
-        h(m)
+        p(m)
       ]),
       onClick: _,
-      ...p(m),
+      ...h(m),
       children: [
         d(l) && /* @__PURE__ */ a("div", { className: "Tab__left", children: l }) || !!s && /* @__PURE__ */ a("div", { className: "Tab__left", children: /* @__PURE__ */ a(v, { name: s, spin: r }) }),
         /* @__PURE__ */ a("div", { className: "Tab__text", children: u }),

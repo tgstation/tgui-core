@@ -1,47 +1,47 @@
 import { jsxs as m, jsx as e } from "react/jsx-runtime";
-import { scale as d, keyOfMatchingRange as M, clamp01 as k } from "../common/math.js";
+import { scale as d, keyOfMatchingRange as M, clamp01 as v } from "../common/math.js";
 import { classes as p } from "../common/react.js";
-import { computeBoxClassName as v, computeBoxProps as B } from "../common/ui.js";
-import { AnimatedNumber as $ } from "./AnimatedNumber.js";
-import { Box as j } from "./Box.js";
-function z(h) {
+import { computeBoxProps as k, computeBoxClassName as $ } from "../common/ui.js";
+import { AnimatedNumber as B } from "./AnimatedNumber.js";
+function b(_) {
   const {
     alertAfter: a,
     alertBefore: t,
-    className: _,
+    className: h,
     format: R,
     maxValue: c = 1,
-    minValue: i = 1,
+    minValue: u = 1,
     ranges: n,
     size: y = 1,
-    style: x,
+    style: G,
     value: r,
     ...g
-  } = h, G = d(r, i, c), f = k(G), l = n ? {} : { primary: [0, 1] };
-  n && Object.keys(n).forEach((o) => {
-    const s = n[o];
-    l[o] = [
-      d(s[0], i, c),
-      d(s[1], i, c)
-    ];
-  });
-  function N() {
+  } = _, N = d(r, u, c), f = v(N), s = n ? {} : { primary: [0, 1] };
+  if (n)
+    for (const o in n) {
+      const l = n[o];
+      s[o] = [
+        d(l[0], u, c),
+        d(l[1], u, c)
+      ];
+    }
+  function x() {
     return !!(a && t && r > a && r < t || a && r > a || t && r < t);
   }
-  const C = N() && M(f, l);
-  return /* @__PURE__ */ m(j, { inline: !0, children: [
+  const C = x() && M(f, s);
+  return /* @__PURE__ */ m("div", { className: "RoundGauge__wrapper", children: [
     /* @__PURE__ */ e(
       "div",
       {
         className: p([
           "RoundGauge",
-          _,
-          v(g)
+          h,
+          $(g)
         ]),
-        ...B({
+        ...k({
           style: {
             fontSize: `${y}em`,
-            ...x
+            ...G
           },
           ...g
         }),
@@ -57,24 +57,24 @@ function z(h) {
             }
           ),
           /* @__PURE__ */ e("g", { children: /* @__PURE__ */ e("circle", { className: "RoundGauge__ringTrack", cx: "50", cy: "50", r: "45" }) }),
-          /* @__PURE__ */ e("g", { children: Object.keys(l).map((o, s) => {
-            const u = l[o];
+          /* @__PURE__ */ e("g", { children: Object.keys(s).map((o, l) => {
+            const i = s[o];
             return /* @__PURE__ */ e(
               "circle",
               {
                 className: `RoundGauge__ringFill RoundGauge--color--${o}`,
                 style: {
                   strokeDashoffset: Math.max(
-                    (2 - (u[1] - u[0])) * Math.PI * 50,
+                    (2 - (i[1] - i[0])) * Math.PI * 50,
                     0
                   )
                 },
-                transform: `rotate(${180 + 180 * u[0]} 50 50)`,
+                transform: `rotate(${180 + 180 * i[0]} 50 50)`,
                 cx: "50",
                 cy: "50",
                 r: "45"
               },
-              s
+              l
             );
           }) }),
           /* @__PURE__ */ m(
@@ -106,9 +106,9 @@ function z(h) {
         ] })
       }
     ),
-    /* @__PURE__ */ e($, { value: r, format: R })
+    /* @__PURE__ */ e(B, { value: r, format: R })
   ] });
 }
 export {
-  z as RoundGauge
+  b as RoundGauge
 };

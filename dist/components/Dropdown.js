@@ -1,157 +1,160 @@
-import { jsx as l, jsxs as p, Fragment as F } from "react/jsx-runtime";
-import { useState as L, useRef as S, useEffect as V } from "react";
-import { classes as N } from "../common/react.js";
-import { unit as $ } from "../common/ui.js";
-import { Button as D } from "./Button.js";
-import { Icon as b } from "./Icon.js";
-import { Popper as q } from "./Popper.js";
-const z = -1;
-function h(u) {
-  return typeof u == "string" ? u : u.value;
+import { jsxs as f, jsx as r, Fragment as F } from "react/jsx-runtime";
+import { useState as P, useRef as S } from "react";
+import { KEY as g } from "../common/keys.js";
+import { classes as h } from "../common/react.js";
+import { unit as y } from "../common/ui.js";
+import { Button as b } from "./Button.js";
+import { Floating as V } from "./Floating.js";
+import { Icon as I } from "./Icon.js";
+const Y = -1;
+function p(d) {
+  return typeof d == "string" ? d : d.value;
 }
-function Y(u) {
+function Q(d) {
   const {
-    autoScroll: v = !0,
-    buttons: I,
-    className: O,
-    clipSelectedText: T = !0,
-    color: B = "default",
-    disabled: d,
-    displayText: E,
-    icon: x,
+    autoScroll: _ = !0,
+    buttons: C,
+    className: E,
+    color: O = "default",
+    disabled: a,
+    displayText: T,
+    icon: w,
     iconRotation: k,
-    iconSpin: j,
-    menuWidth: C = "15rem",
+    iconSpin: B,
+    menuWidth: K,
     noChevron: R,
-    onClick: a,
-    onSelected: o,
-    options: c = [],
-    over: y,
-    placeholder: K = "Select...",
+    onClick: i,
+    onSelected: t,
+    options: s = [],
+    over: D,
+    placeholder: W = "Select...",
     selected: m,
-    width: P = "15rem"
-  } = u, [r, f] = L(!1), W = y ? !r : r, w = S(null), i = c.findIndex((e) => h(e) === m) || 0;
-  function g(e) {
-    let s = e;
-    e < i ? s = e < 2 ? 0 : e - 2 : s = e > c.length - 3 ? c.length - 1 : e - 2;
-    const n = w.current, t = n == null ? void 0 : n.children[s];
-    n && t && (n.scrollTop = t.offsetTop);
+    width: j = 15
+  } = d, [u, A] = P(!1), x = S(null), l = s.findIndex((e) => p(e) === m) || 0;
+  function N(e) {
+    let n = e;
+    e < l ? n = e < 2 ? 0 : e - 2 : n = e > s.length - 3 ? s.length - 1 : e - 2;
+    const o = x.current, c = o == null ? void 0 : o.children[n];
+    o && c && (o.scrollTop = c.offsetTop);
   }
-  function _(e) {
-    if (c.length < 1 || d)
+  function v(e) {
+    if (s.length < 1 || a)
       return;
-    const s = 0, n = c.length - 1;
-    let t;
-    i < 0 ? t = e === "next" ? n : s : e === "next" ? t = i === n ? s : i + 1 : t = i === s ? n : i - 1, r && v && g(t), o == null || o(h(c[t]));
+    const n = 0, o = s.length - 1;
+    let c;
+    l < 0 ? c = e === "next" ? o : n : e === "next" ? c = l === o ? n : l + 1 : c = l === n ? o : l - 1, u && _ && N(c), t == null || t(p(s[c]));
   }
-  return V(() => {
-    var e;
-    r && (v && i !== z && g(i), (e = w.current) == null || e.focus());
-  }, [r]), /* @__PURE__ */ l(
-    q,
-    {
-      isOpen: r,
-      onClickOutside: () => f(!1),
-      placement: y ? "top-start" : "bottom-start",
-      content: /* @__PURE__ */ p(
-        "div",
-        {
-          className: "Layout Dropdown__menu",
-          style: { minWidth: C },
-          ref: w,
-          children: [
-            c.length === 0 && /* @__PURE__ */ l("div", { className: "Dropdown__menuentry", children: "No options" }),
-            c.map((e, s) => {
-              const n = h(e);
-              return /* @__PURE__ */ l(
-                "div",
-                {
-                  className: N([
-                    "Dropdown__menuentry",
-                    m === n && "selected"
-                  ]),
-                  onClick: () => {
-                    f(!1), o == null || o(n);
-                  },
-                  onKeyDown: (t) => {
-                    t.key === "Enter" && (f(!1), o == null || o(n));
-                  },
-                  children: typeof e == "string" ? e : e.displayText
-                },
-                s
-              );
-            })
-          ]
-        }
-      ),
-      children: /* @__PURE__ */ p("div", { className: "Dropdown", style: { width: $(P) }, children: [
-        /* @__PURE__ */ p(
+  return /* @__PURE__ */ f("div", { className: "Dropdown", children: [
+    /* @__PURE__ */ r(
+      V,
+      {
+        contentAutoWidth: !0,
+        closeAfterInteract: !0,
+        placement: D ? "top" : "bottom",
+        allowedOutsideClasses: ".Dropdown__button",
+        contentClasses: "Dropdown__menu--wrapper",
+        contentStyles: { maxWidth: y(K) },
+        disabled: a,
+        onOpenChange: A,
+        content: /* @__PURE__ */ r("div", { ref: x, className: "Dropdown__menu", children: s.length === 0 ? /* @__PURE__ */ r("div", { className: "Dropdown__menu--entry", children: "No options" }) : s.map((e) => {
+          const n = p(e);
+          return /* @__PURE__ */ r(
+            "div",
+            {
+              className: h([
+                "Dropdown__menu--entry",
+                m === n && "selected"
+              ]),
+              onClick: () => {
+                t == null || t(n);
+              },
+              onKeyDown: (o) => {
+                o.key === g.Enter && (t == null || t(n));
+              },
+              children: typeof e == "string" ? e : e.displayText
+            },
+            n
+          );
+        }) }),
+        onMounted: () => {
+          u && _ && l !== Y && N(l);
+        },
+        children: /* @__PURE__ */ f(
           "div",
           {
-            className: N([
+            className: h([
               "Dropdown__control",
-              "Button",
-              "Button--dropdown",
-              `Button--color--${B}`,
-              d && "Button--disabled",
-              O
+              `Button--color--${O}`,
+              a && "Button--disabled",
+              E
             ]),
+            style: { width: y(j) },
             onClick: (e) => {
-              d && !r || (f(!r), a == null || a(e));
+              a && !u || i == null || i(e);
             },
             onKeyDown: (e) => {
-              e.key === "Enter" && !d && (f(!r), a == null || a(e));
+              e.key === g.Enter && !a && (i == null || i(e));
             },
             children: [
-              x && /* @__PURE__ */ l(b, { mr: 1, name: x, rotation: k, spin: j }),
-              /* @__PURE__ */ l(
-                "span",
+              w && /* @__PURE__ */ r(
+                I,
                 {
-                  className: "Dropdown__selected-text",
-                  style: {
-                    overflow: T ? "hidden" : "visible"
-                  },
-                  children: E || m && h(m) || K
+                  className: "Dropdown__icon",
+                  name: w,
+                  rotation: k,
+                  spin: B
                 }
               ),
-              !R && /* @__PURE__ */ l("span", { className: "Dropdown__arrow-button", children: /* @__PURE__ */ l(b, { name: W ? "chevron-up" : "chevron-down" }) })
+              /* @__PURE__ */ r("span", { className: "Dropdown__selected-text", children: T || m && p(m) || W }),
+              !R && /* @__PURE__ */ r(
+                I,
+                {
+                  className: h([
+                    "Dropdown__icon",
+                    "Dropdown__icon--arrow",
+                    D && "over",
+                    u && "open"
+                  ]),
+                  name: "chevron-down"
+                }
+              )
             ]
           }
-        ),
-        I && /* @__PURE__ */ p(F, { children: [
-          /* @__PURE__ */ l(
-            D,
-            {
-              disabled: d,
-              height: 1.8,
-              icon: "chevron-left",
-              onClick: () => {
-                _(
-                  "previous"
-                  /* Previous */
-                );
-              }
-            }
-          ),
-          /* @__PURE__ */ l(
-            D,
-            {
-              disabled: d,
-              height: 1.8,
-              icon: "chevron-right",
-              onClick: () => {
-                _(
-                  "next"
-                  /* Next */
-                );
-              }
-            }
-          )
-        ] })
-      ] })
-    }
-  );
+        )
+      }
+    ),
+    C && /* @__PURE__ */ f(F, { children: [
+      /* @__PURE__ */ r(
+        b,
+        {
+          className: "Dropdown__button",
+          disabled: a,
+          icon: "chevron-left",
+          onClick: () => {
+            v(
+              "previous"
+              /* Previous */
+            );
+          }
+        }
+      ),
+      /* @__PURE__ */ r(
+        b,
+        {
+          className: "Dropdown__button",
+          disabled: a,
+          icon: "chevron-right",
+          onClick: () => {
+            v(
+              "next"
+              /* Next */
+            );
+          }
+        }
+      )
+    ] })
+  ] });
 }
 export {
-  Y as Dropdown
+  Q as Dropdown
 };

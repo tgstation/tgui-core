@@ -10,7 +10,10 @@ type Props = {
     bipolar: boolean;
     /** Color of the outer ring around the knob. */
     color: string | BooleanLike;
-    /** If set, this value will be used to set the fill percentage of the outer ring independently of the main value. */
+    /**
+     * If set, this value will be used to set the fill percentage of the outer
+     * ring independently of the main value.
+     */
     fillValue: number;
     /** Format value using this function before displaying it. */
     format: (value: number) => string;
@@ -20,18 +23,31 @@ type Props = {
     minValue: number;
     /** Adjust value by this amount when dragging the input. */
     onChange: (event: Event, value: number) => void;
-    /** An event, which fires about every 500ms when you drag the input up and down, on release and on manual editing. */
+    /**
+     * An event, which fires about every 500ms when you drag the input up and
+     * down, on release and on manual editing.
+     */
     onDrag: (event: Event, value: number) => void;
-    /** Applies a `color` to the outer ring around the knob based on whether the value lands in the range between `from` and `to`. */
+    /**
+     * Applies a `color` to the outer ring around the knob based on whether the
+     * value lands in the range between `from` and `to`.
+     */
     ranges: Record<string, [number, number]>;
-    /** Relative size of the knob. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
+    /**
+     * Relative size of the knob. `1` is normal size, `2` is two times bigger.
+     * Fractional numbers are supported.
+     */
     size: number;
     /** Adjust value by this amount when dragging the input. */
     step: number;
     /** Screen distance mouse needs to travel to adjust value by one `step`. */
     stepPixelSize: number;
-    /** A number in milliseconds, for which the input will hold off from updating while events propagate through the backend. Default is about 250ms, increase it if you still see flickering. */
-    suppressFlicker: boolean;
+    /**
+     * A number in milliseconds, for which the input will hold off from updating
+     * while events propagate through the backend. Default is about 250ms,
+     * increase it if you still see flickering.
+     */
+    suppressFlicker: number;
     /** Whether to clamp the value to the range. */
     unclamped: boolean;
     /** Unit to display to the right of value. */

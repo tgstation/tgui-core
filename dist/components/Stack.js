@@ -1,7 +1,7 @@
 import { jsx as i } from "react/jsx-runtime";
 import { classes as a } from "../common/react.js";
 import { computeBoxClassName as o } from "../common/ui.js";
-import { computeFlexClassName as k, computeFlexProps as v, computeFlexItemProps as m } from "./Flex.js";
+import { computeFlexProps as k, computeFlexClassName as v, computeFlexItemProps as m } from "./Flex.js";
 function n(r) {
   const { className: c, vertical: e, fill: t, reverse: s, zebra: l, ...d } = r, f = e ? "column" : "row", S = s ? "-reverse" : "";
   return /* @__PURE__ */ i(
@@ -14,9 +14,9 @@ function n(r) {
         l && "Stack--zebra",
         s && `Stack--reverse${e ? "--vertical" : ""}`,
         c,
-        k(r)
+        v(r)
       ]),
-      ...v({
+      ...k({
         direction: `${f}${S}`,
         ...d
       })

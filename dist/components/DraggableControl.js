@@ -1,182 +1,132 @@
-import { jsxs as T, Fragment as I, jsx as F } from "react/jsx-runtime";
-import { Component as x, createRef as y } from "react";
-import { clamp as c } from "../common/math.js";
-import { AnimatedNumber as M } from "./AnimatedNumber.js";
-const R = 400;
-function N(v, u) {
-  return v.screenX * u[0] + v.screenY * u[1];
+import { jsxs as W, Fragment as Z, jsx as P } from "react/jsx-runtime";
+import { useState as y, useRef as c, useEffect as C } from "react";
+import { KEY as Y } from "../common/keys.js";
+import { clamp as F } from "../common/math.js";
+import { AnimatedNumber as ee } from "./AnimatedNumber.js";
+const te = 400;
+function K(r, p) {
+  return r.screenX * p[0] + r.screenY * p[1];
 }
-class C extends x {
-  constructor(u) {
-    super(u), this.inputRef = y(), this.state = {
-      value: u.value,
-      dragging: !1,
-      editing: !1,
-      internalValue: null,
-      origin: null,
-      suppressingFlicker: !1
-    }, this.flickerTimer = null, this.suppressFlicker = () => {
-      const { suppressFlicker: e } = this.props;
-      e > 0 && (this.setState({
-        suppressingFlicker: !0
-      }), clearTimeout(this.flickerTimer), this.flickerTimer = setTimeout(() => {
-        this.setState({
-          suppressingFlicker: !1
-        });
-      }, e));
-    }, this.handleDragStart = (e) => {
-      const { value: i, dragMatrix: l } = this.props, { editing: s } = this.state;
-      s || (document.body.style["pointer-events"] = "none", this.ref = e.target, this.setState({
-        dragging: !1,
-        origin: N(e, l),
-        value: i,
-        internalValue: i
-      }), this.timer = setTimeout(() => {
-        this.setState({
-          dragging: !0
-        });
-      }, 250), this.dragInterval = setInterval(() => {
-        const { dragging: o, value: g } = this.state, { onDrag: r } = this.props;
-        o && r && r(e, g);
-      }, this.props.updateRate || R), document.addEventListener("mousemove", this.handleDragMove), document.addEventListener("mouseup", this.handleDragEnd));
-    }, this.handleDragMove = (e) => {
-      const { minValue: i, maxValue: l, step: s, stepPixelSize: o, dragMatrix: g } = this.props;
-      this.setState((r) => {
-        const a = { ...r }, p = N(e, g) - a.origin;
-        if (r.dragging) {
-          const h = Number.isFinite(i) ? i % s : 0;
-          a.internalValue = c(
-            a.internalValue + p * s / o,
-            i - s,
-            l + s
-          ), a.value = c(
-            a.internalValue - a.internalValue % s + h,
-            i,
-            l
-          ), a.origin = N(e, g);
-        } else Math.abs(p) > 4 && (a.dragging = !0);
-        return a;
-      });
-    }, this.handleDragEnd = (e) => {
-      const { onChange: i, onDrag: l } = this.props, { dragging: s, value: o, internalValue: g } = this.state;
-      if (document.body.style["pointer-events"] = "auto", clearTimeout(this.timer), clearInterval(this.dragInterval), this.setState({
-        dragging: !1,
-        editing: !s,
-        origin: null
-      }), document.removeEventListener("mousemove", this.handleDragMove), document.removeEventListener("mouseup", this.handleDragEnd), s)
-        this.suppressFlicker(), i && i(e, o), l && l(e, o);
-      else if (this.inputRef) {
-        const r = this.inputRef.current;
-        r.value = g, setTimeout(() => {
-          r.focus(), r.select();
-        }, 10);
-      }
-    };
+function se(r) {
+  const {
+    // Our props
+    animated: p,
+    children: M,
+    dragMatrix: V = [1, 0],
+    format: E,
+    maxValue: g = Number.POSITIVE_INFINITY,
+    minValue: l = Number.NEGATIVE_INFINITY,
+    onChange: s,
+    onDrag: a,
+    step: o = 1,
+    stepPixelSize: O = 1,
+    suppressFlicker: S = 50,
+    unclamped: j,
+    unit: h,
+    updateRate: w = te,
+    // Box props
+    fontSize: z,
+    height: B,
+    lineHeight: U
+  } = r, [G, T] = y(r.value), [v, f] = y(!1), [k, D] = y(!1), i = c(!1), n = c(0), m = c(0), R = c(null), N = c(null), I = c(null), b = c(null);
+  C(() => {
+    T(r.value);
+  }, [r.value]);
+  function _(e) {
+    if (document.body.style["pointer-events"] = "auto", b.current && clearTimeout(b.current), I.current && clearInterval(I.current), i.current = !1, f(!1), m.current = 0, document.removeEventListener("mousemove", x), document.removeEventListener("mouseup", _), L(), s == null || s(e, n.current), a == null || a(e, n.current), N.current) {
+      const t = N.current;
+      t.value = n.toString(), setTimeout(() => {
+        t.focus(), t.select();
+      }, 10);
+    }
   }
-  render() {
-    const {
-      dragging: u,
-      editing: e,
-      value: i,
-      suppressingFlicker: l
-    } = this.state, {
-      animated: s,
-      value: o,
-      unit: g,
-      minValue: r,
-      maxValue: a,
-      unclamped: p,
-      format: h,
-      onChange: m,
-      onDrag: f,
-      children: S,
-      // Input props
-      height: V,
-      lineHeight: D,
-      fontSize: b
-    } = this.props;
-    let d = o;
-    (u || l) && (d = i);
-    const k = /* @__PURE__ */ T(I, { children: [
-      s && !u && !l ? /* @__PURE__ */ F(M, { value: d, format: h }) : h ? h(d) : d,
-      g ? ` ${g}` : ""
-    ] }), E = /* @__PURE__ */ F(
-      "input",
-      {
-        ref: this.inputRef,
-        className: "NumberInput__input",
-        style: {
-          display: e ? void 0 : "none",
-          height: V,
-          lineHeight: D,
-          fontsize: b
-        },
-        onBlur: (n) => {
-          if (!e)
-            return;
-          let t;
-          if (p ? t = Number.parseFloat(n.target.value) : t = c(
-            Number.parseFloat(n.target.value),
-            r,
-            a
-          ), Number.isNaN(t)) {
-            this.setState({
-              editing: !1
-            });
-            return;
-          }
-          this.setState({
-            editing: !1,
-            value: t
-          }), this.suppressFlicker(), m && m(n, t), f && f(n, t);
-        },
-        onKeyDown: (n) => {
-          if (n.keyCode === 13) {
-            let t;
-            if (p ? t = Number.parseFloat(n.target.value) : t = c(
-              Number.parseFloat(n.target.value),
-              r,
-              a
-            ), Number.isNaN(t)) {
-              this.setState({
-                editing: !1
-              });
-              return;
-            }
-            this.setState({
-              editing: !1,
-              value: t
-            }), this.suppressFlicker(), m && m(n, t), f && f(n, t);
-            return;
-          }
-          if (n.keyCode === 27) {
-            this.setState({
-              editing: !1
-            });
-            return;
-          }
-        }
-      }
-    );
-    return S({
-      dragging: u,
-      editing: e,
-      value: o,
-      displayValue: d,
-      displayElement: k,
-      inputElement: E,
-      handleDragStart: this.handleDragStart
-    });
+  function x(e) {
+    if (!m.current) return;
+    const t = K(e, V), u = t - m.current;
+    if (!i.current) {
+      Math.abs(u) > 4 && (i.current = !0);
+      return;
+    }
+    const Q = Number.isFinite(l) ? l % o : 0;
+    n.current = F(
+      n.current + u * o / O,
+      l - o,
+      g + o
+    ), T(
+      F(
+        n.current - n.current % o + Q,
+        l,
+        g
+      )
+    ), m.current = t;
   }
+  function H(e) {
+    if (v) return;
+    const t = e.nativeEvent;
+    document.body.style["pointer-events"] = "none", m.current = K(t, V), n.current = r.value, b.current = setTimeout(() => {
+      i.current = !0;
+    }, 250), I.current = setInterval(() => {
+      i && (a == null || a(t, r.value));
+    }, w), document.addEventListener("mousemove", x), document.addEventListener("mouseup", _);
+  }
+  function X(e) {
+    if (e.key === Y.Enter) {
+      e.preventDefault(), e.stopPropagation(), A(e.nativeEvent, e.currentTarget.value);
+      return;
+    }
+    if (e.key === Y.Escape) {
+      f(!1);
+      return;
+    }
+  }
+  function A(e, t) {
+    let u = Number.parseFloat(t);
+    if (j || (u = F(u, l, g)), Number.isNaN(u)) {
+      f(!1);
+      return;
+    }
+    f(!1), T(u), n.current = u, L(), s == null || s(e, u);
+  }
+  function L() {
+    if (S <= 0) return;
+    const e = R.current;
+    if (e)
+      return D(!0), clearTimeout(e), R.current = setTimeout(() => {
+        D(!1);
+      }, S), () => clearTimeout(e);
+  }
+  function $(e) {
+    v && f(!1), A(e.nativeEvent, e.currentTarget.value);
+  }
+  let d = r.value;
+  (i.current || k) && (d = G);
+  const q = /* @__PURE__ */ W(Z, { children: [
+    p && !i.current && !k ? /* @__PURE__ */ P(ee, { value: d, format: E }) : E ? E(d) : d,
+    h ? ` ${h}` : ""
+  ] }), J = /* @__PURE__ */ P(
+    "input",
+    {
+      ref: N,
+      className: "NumberInput__input",
+      style: {
+        display: v ? void 0 : "none",
+        height: B,
+        lineHeight: U,
+        fontSize: z
+      },
+      onBlur: $,
+      onKeyDown: X
+    }
+  );
+  return M({
+    displayElement: q,
+    displayValue: d,
+    dragging: i.current,
+    editing: v,
+    handleDragStart: H,
+    inputElement: J
+  });
 }
-C.defaultProps = {
-  minValue: Number.NEGATIVE_INFINITY,
-  maxValue: Number.POSITIVE_INFINITY,
-  step: 1,
-  stepPixelSize: 1,
-  suppressFlicker: 50,
-  dragMatrix: [1, 0]
-};
 export {
-  C as DraggableControl
+  se as DraggableControl
 };

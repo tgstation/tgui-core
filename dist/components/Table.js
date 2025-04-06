@@ -1,6 +1,6 @@
 import { jsx as c } from "react/jsx-runtime";
 import { classes as r } from "../common/react.js";
-import { computeBoxClassName as t, computeBoxProps as n } from "../common/ui.js";
+import { computeBoxProps as t, computeBoxClassName as n } from "../common/ui.js";
 function m(e) {
   const { className: l, collapsing: a, children: s, ...o } = e;
   return /* @__PURE__ */ c(
@@ -10,9 +10,9 @@ function m(e) {
         "Table",
         a && "Table--collapsing",
         l,
-        t(o)
+        n(o)
       ]),
-      ...n(o),
+      ...t(o),
       children: /* @__PURE__ */ c("tbody", { children: s })
     }
   );
@@ -26,9 +26,9 @@ function b(e) {
         "Table__row",
         a && "Table__row--header",
         l,
-        t(e)
+        n(e)
       ]),
-      ...n(s)
+      ...t(s)
     }
   );
 }
@@ -42,10 +42,10 @@ function _(e) {
         a && "Table__cell--collapsing",
         o && "Table__cell--header",
         l,
-        t(e)
+        n(e)
       ]),
       colSpan: s,
-      ...n(i)
+      ...t(i)
     }
   );
 }

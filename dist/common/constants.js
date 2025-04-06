@@ -296,9 +296,26 @@ const g = (a) => {
       if (e[o].path === a)
         return e[o];
   }
+}, f = {
+  states: ["", "good", "average", "bad", "black", "white"],
+  spectrum: [
+    "red",
+    "orange",
+    "yellow",
+    "olive",
+    "green",
+    "teal",
+    "blue",
+    "violet",
+    "purple",
+    "pink",
+    "brown",
+    "grey"
+  ]
 };
 export {
   c as COLORS,
+  f as COMPONENT_COLORS,
   u as CSS_COLORS,
   d as RADIO_CHANNELS,
   m as UI_CLOSE,

@@ -9,7 +9,7 @@ type State = {
     fontSize: number;
 };
 export declare class FitText extends Component<Props, State> {
-    ref: RefObject<HTMLDivElement>;
+    ref: RefObject<HTMLDivElement | null>;
     state: State;
     constructor(props: Props);
     componentDidUpdate(prevProps: any): void;

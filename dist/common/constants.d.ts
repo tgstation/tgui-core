@@ -99,4 +99,8 @@ export declare function getGasLabel(gasId: string, fallbackValue?: string): stri
 export declare function getGasColor(gasId: string): string;
 export declare const getGasFromId: (gasId: string) => Gas | undefined;
 export declare const getGasFromPath: (gasPath: string) => Gas | undefined;
+export declare const COMPONENT_COLORS: {
+    readonly states: readonly ["", "good", "average", "bad", "black", "white"];
+    readonly spectrum: readonly ["red", "orange", "yellow", "olive", "green", "teal", "blue", "violet", "purple", "pink", "brown", "grey"];
+};
 export {};

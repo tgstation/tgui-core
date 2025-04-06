@@ -9,15 +9,15 @@ function d(o) {
       /* @__PURE__ */ t(e, { mr: 2, children: /* @__PURE__ */ t(
         r,
         {
-          mr: "-3px",
-          width: "26px",
-          lineHeight: "22px",
-          textAlign: "center",
           color: "transparent",
           icon: "window-close-o",
+          lineHeight: "22px",
+          mr: "-3px",
+          onClick: n,
+          textAlign: "center",
           tooltip: "Close",
           tooltipPosition: "bottom-start",
-          onClick: n
+          width: "26px"
         }
       ) })
     ] }),

@@ -1,4 +1,4 @@
-import { Placement } from '@popperjs/core';
+import { Placement } from '@floating-ui/react';
 import { ReactNode } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
@@ -66,14 +66,13 @@ type Props = Partial<{
     title: string;
     /** A fancy, boxy tooltip, which appears when hovering over the button */
     tooltip: ReactNode;
-    /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+    /** Position of the tooltip. Does not guarantee the position is respected. */
     tooltipPosition: Placement;
 }> & BoxProps;
 /**
  * Stylized button, with the ability to easily and simply insert any picture into it.
  * - Without image, will be default question icon.
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
- * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
  */
 export declare function ImageButton(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

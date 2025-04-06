@@ -1,78 +1,77 @@
 import { jsx as e, jsxs as o } from "react/jsx-runtime";
-import { keyOfMatchingRange as $, scale as t } from "../common/math.js";
-import { classes as j } from "../common/react.js";
-import { computeBoxClassName as E, computeBoxProps as T } from "../common/ui.js";
-import { DraggableControl as I } from "./DraggableControl.js";
-function H(c) {
+import { keyOfMatchingRange as S, scale as c } from "../common/math.js";
+import { classes as $ } from "../common/react.js";
+import { computeBoxProps as j, computeBoxClassName as E } from "../common/ui.js";
+import { DraggableControl as T } from "./DraggableControl.js";
+function G(m) {
   const {
     // Draggable props (passthrough)
-    animated: m,
-    format: d,
+    animated: d,
+    format: p,
     maxValue: a,
     minValue: l,
     onChange: u,
-    onDrag: p,
-    step: g,
-    stepPixelSize: _,
-    suppressFlicker: b,
-    unclamped: f,
-    unit: h,
-    value: v,
+    onDrag: g,
+    step: _,
+    stepPixelSize: b,
+    suppressFlicker: f,
+    unclamped: h,
+    unit: x,
+    value: r,
     // Own props
-    bipolar: r,
-    className: x,
-    color: K,
-    fillValue: s,
+    bipolar: s,
+    className: K,
+    color: v,
+    fillValue: n,
     ranges: N = {},
     size: y = 1,
     style: V,
-    ...n
-  } = c;
+    ...i
+  } = m;
   return /* @__PURE__ */ e(
-    I,
+    T,
     {
       dragMatrix: [0, -1],
-      animated: m,
-      format: d,
+      animated: d,
+      format: p,
       maxValue: a,
       minValue: l,
       onChange: u,
-      onDrag: p,
-      step: g,
-      stepPixelSize: _,
-      suppressFlicker: b,
-      unclamped: f,
-      unit: h,
-      value: v,
+      onDrag: g,
+      step: _,
+      stepPixelSize: b,
+      suppressFlicker: f,
+      unclamped: h,
+      unit: x,
+      value: r,
       children: (k) => {
         const {
           displayElement: D,
-          displayValue: i,
+          displayValue: t,
           dragging: M,
           handleDragStart: B,
-          inputElement: P,
-          value: C
-        } = k, F = t(
-          s ?? i,
+          inputElement: P
+        } = k, C = c(
+          n ?? t,
           l,
           a
-        ), w = t(i, l, a), z = K || $(s ?? C, N) || "default", S = Math.min((w - 0.5) * 270, 225);
+        ), F = c(t, l, a), w = v || S(n ?? r, N) || "default", z = Math.min((F - 0.5) * 270, 225);
         return /* @__PURE__ */ o(
           "div",
           {
-            className: j([
+            className: $([
               "Knob",
-              `Knob--color--${z}`,
-              r && "Knob--bipolar",
-              x,
-              E(n)
+              `Knob--color--${w}`,
+              s && "Knob--bipolar",
+              K,
+              E(i)
             ]),
-            ...T({
+            ...j({
               style: {
                 fontSize: `${y}em`,
                 ...V
               },
-              ...n
+              ...i
             }),
             onMouseDown: B,
             children: [
@@ -81,7 +80,7 @@ function H(c) {
                 {
                   className: "Knob__cursorBox",
                   style: {
-                    transform: `rotate(${S}deg)`
+                    transform: `rotate(${z}deg)`
                   },
                   children: /* @__PURE__ */ e("div", { className: "Knob__cursor" })
                 }
@@ -111,7 +110,7 @@ function H(c) {
                         className: "Knob__ringFill",
                         style: {
                           strokeDashoffset: Math.max(
-                            ((r ? 2.75 : 2) - F * 1.5) * Math.PI * 50,
+                            ((s ? 2.75 : 2) - C * 1.5) * Math.PI * 50,
                             0
                           )
                         },
@@ -132,5 +131,5 @@ function H(c) {
   );
 }
 export {
-  H as Knob
+  G as Knob
 };

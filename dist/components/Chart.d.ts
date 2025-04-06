@@ -1,4 +1,3 @@
-import { Component, RefObject } from 'react';
 import { BoxProps } from './Box';
 type Props = {
     data: number[][];
@@ -9,19 +8,8 @@ type Props = {
     strokeColor: string;
     strokeWidth: number;
 }> & BoxProps;
-type State = {
-    viewBox: [number, number];
-};
-declare class LineChart extends Component<Props> {
-    ref: RefObject<HTMLDivElement>;
-    state: State;
-    constructor(props: Props);
-    componentDidMount(): void;
-    componentWillUnmount(): void;
-    handleResize: () => void;
-    render(): import("react/jsx-runtime").JSX.Element;
+export declare function Chart(props: Props): import("react/jsx-runtime").JSX.Element;
+export declare namespace Chart {
+    var Line: typeof Chart;
 }
-export declare const Chart: {
-    Line: typeof LineChart;
-};
 export {};

@@ -1,143 +1,133 @@
-var x = Object.defineProperty;
-var O = (a, s, o) => s in a ? x(a, s, { enumerable: !0, configurable: !0, writable: !0, value: o }) : a[s] = o;
-var i = (a, s, o) => O(a, typeof s != "symbol" ? s + "" : s, o);
-import { jsxs as c, jsx as r } from "react/jsx-runtime";
-import { Component as Z } from "react";
-import { computeBoxProps as D } from "../common/ui.js";
-import { Button as w } from "./Button.js";
-import { ProgressBar as E } from "./ProgressBar.js";
-import { Stack as h } from "./Stack.js";
-const M = 0.5, v = 1.5, g = 0.1;
-class b extends Z {
-  constructor(o) {
-    super(o);
-    // This is really, REALLY cursed and basically overrides a built-in browser event via propagation rules
-    i(this, "doOffsetMouse", (o) => {
-      const { zoom: e } = this.state;
-      o.screenZoomX = o.screenX * e ** -1, o.screenZoomY = o.screenY * e ** -1;
-    });
-    i(this, "handleMouseDown", (o) => {
-      this.setState((e) => ({
-        mouseDown: !0,
-        lastLeft: o.clientX - e.left,
-        lastTop: o.clientY - e.top
-      }));
-    });
-    i(this, "onMouseUp", () => {
-      this.setState({
-        mouseDown: !1
-      });
-    });
-    i(this, "handleZoomIncrease", (o) => {
-      const { onZoomChange: e } = this.props, { zoom: n } = this.state, t = Math.min(n + g, v);
-      this.setState({
-        zoom: t
-      }), e && e(t);
-    });
-    i(this, "handleZoomDecrease", (o) => {
-      const { onZoomChange: e } = this.props, { zoom: n } = this.state, t = Math.max(n - g, M);
-      this.setState({
-        zoom: t
-      }), e && e(t);
-    });
-    i(this, "handleMouseMove", (o) => {
-      const { onBackgroundMoved: e, initialLeft: n = 0, initialTop: t = 0 } = this.props;
-      if (this.state.mouseDown) {
-        let l, m;
-        this.setState((d) => (l = o.clientX - d.lastLeft, m = o.clientY - d.lastTop, e && e(l + n, m + t), {
-          left: l,
-          top: m
-        }));
-      }
-    });
-    this.state = {
-      mouseDown: !1,
-      left: 0,
-      top: 0,
-      lastLeft: 0,
-      lastTop: 0,
-      zoom: 1
-    };
+import { jsxs as d, jsx as o } from "react/jsx-runtime";
+import { useState as i, useEffect as z } from "react";
+import { computeBoxProps as A } from "../common/ui.js";
+import { Button as O } from "./Button.js";
+import { ProgressBar as N } from "./ProgressBar.js";
+import { Stack as c } from "./Stack.js";
+const f = 0.5, p = 1.5, S = 0.1;
+function F(l) {
+  const {
+    backgroundImage: t,
+    children: r,
+    imageWidth: $,
+    initialLeft: h = 0,
+    initialTop: w = 0,
+    onBackgroundMoved: a,
+    onZoomChange: u,
+    ...M
+  } = l, [E, T] = i(0), [y, C] = i(0), [g, D] = i(0), [_, v] = i(!1), [x, P] = i(0), [n, V] = i(1);
+  function L(e) {
+    T(e.clientX - g), C(e.clientY - x), v(!0);
   }
-  componentDidMount() {
-    window.addEventListener("mouseup", this.onMouseUp), window.addEventListener("mousedown", this.doOffsetMouse), window.addEventListener("mousemove", this.doOffsetMouse), window.addEventListener("mouseup", this.doOffsetMouse);
+  function b(e) {
+    if (!_) return;
+    const m = e.clientX - E, s = e.clientY - y;
+    a == null || a(m + h, s + w), D(m), P(s);
   }
-  componentWillUnmount() {
-    window.removeEventListener("mouseup", this.onMouseUp), window.removeEventListener("mousedown", this.doOffsetMouse), window.removeEventListener("mousemove", this.doOffsetMouse), window.removeEventListener("mouseup", this.doOffsetMouse);
+  function k() {
+    v(!1);
   }
-  render() {
-    const {
-      children: o,
-      backgroundImage: e,
-      imageWidth: n,
-      initialLeft: t = 0,
-      initialTop: l = 0,
-      ...m
-    } = this.props, { left: d, top: L, zoom: u } = this.state, p = t + d, f = l + L;
-    return /* @__PURE__ */ c(
-      "div",
-      {
-        ...D({
-          ...m,
-          style: {
-            ...m.style,
-            overflow: "hidden",
-            position: "relative"
+  function X(e) {
+    if (e === "increase" && n >= p || e === "decrease" && n <= f) return;
+    const s = Math.round((n + (e === "increase" ? S : -0.1)) * 10) / 10;
+    V(s), u == null || u(s);
+  }
+  z(() => (window.addEventListener("mouseup", k), () => {
+    window.removeEventListener("mouseup", k);
+  }), []);
+  const I = h + g, Z = w + x;
+  return /* @__PURE__ */ d(
+    "div",
+    {
+      ...A({
+        ...M,
+        style: {
+          ...M.style,
+          height: "100%",
+          overflow: "hidden",
+          position: "relative",
+          width: "100%"
+        }
+      }),
+      children: [
+        /* @__PURE__ */ o(
+          "div",
+          {
+            onMouseDown: L,
+            onMouseMove: b,
+            style: {
+              backgroundImage: `url("${t}")`,
+              backgroundPosition: `${I}px ${Z}px`,
+              backgroundRepeat: "repeat",
+              backgroundSize: `${n * $}px`,
+              height: "100%",
+              inset: 0,
+              position: "absolute",
+              width: "100%"
+            }
           }
-        }),
+        ),
+        /* @__PURE__ */ o(
+          "div",
+          {
+            onMouseDown: L,
+            onMouseMove: b,
+            style: {
+              height: "100%",
+              inset: 0,
+              pointerEvents: "none",
+              position: "absolute",
+              transform: `translate(${I}px, ${Z}px) scale(${n})`,
+              transformOrigin: "top left",
+              width: "100%"
+            },
+            children: r
+          }
+        ),
+        /* @__PURE__ */ o(Y, { zoom: n, onZoomClick: X })
+      ]
+    }
+  );
+}
+function Y(l) {
+  const { zoom: t, onZoomClick: r } = l;
+  return /* @__PURE__ */ o("div", { style: { position: "absolute", top: 5, left: 5, right: 5 }, children: /* @__PURE__ */ d(c, { children: [
+    /* @__PURE__ */ o(c.Item, { children: /* @__PURE__ */ o(
+      O,
+      {
+        icon: "minus",
+        disabled: t <= f,
+        onClick: () => r(
+          "decrease"
+          /* Decrease */
+        )
+      }
+    ) }),
+    /* @__PURE__ */ o(c.Item, { grow: !0, children: /* @__PURE__ */ d(
+      N,
+      {
+        minValue: f,
+        value: t,
+        maxValue: p,
         children: [
-          /* @__PURE__ */ r(
-            "div",
-            {
-              onMouseDown: this.handleMouseDown,
-              onMouseMove: this.handleMouseMove,
-              style: {
-                position: "fixed",
-                height: "100%",
-                width: "100%",
-                backgroundImage: `url("${e}")`,
-                backgroundPosition: `${p}px ${f}px`,
-                backgroundRepeat: "repeat",
-                backgroundSize: `${u * n}px`
-              }
-            }
-          ),
-          /* @__PURE__ */ r(
-            "div",
-            {
-              onMouseDown: this.handleMouseDown,
-              onMouseMove: this.handleMouseMove,
-              style: {
-                position: "fixed",
-                transform: `translate(${p}px, ${f}px) scale(${u})`,
-                transformOrigin: "top left",
-                height: "100%",
-                width: "100%"
-              },
-              children: o
-            }
-          ),
-          /* @__PURE__ */ c(h, { position: "absolute", width: "100%", children: [
-            /* @__PURE__ */ r(h.Item, { children: /* @__PURE__ */ r(w, { icon: "minus", onClick: this.handleZoomDecrease }) }),
-            /* @__PURE__ */ r(h.Item, { grow: 1, children: /* @__PURE__ */ c(
-              E,
-              {
-                minValue: M,
-                value: u,
-                maxValue: v,
-                children: [
-                  u,
-                  "x"
-                ]
-              }
-            ) }),
-            /* @__PURE__ */ r(h.Item, { children: /* @__PURE__ */ r(w, { icon: "plus", onClick: this.handleZoomIncrease }) })
-          ] })
+          t,
+          "x"
         ]
       }
-    );
-  }
+    ) }),
+    /* @__PURE__ */ o(c.Item, { children: /* @__PURE__ */ o(
+      O,
+      {
+        icon: "plus",
+        disabled: t >= p,
+        onClick: () => r(
+          "increase"
+          /* Increase */
+        )
+      }
+    ) })
+  ] }) });
 }
 export {
-  b as InfinitePlane
+  F as InfinitePlane
 };

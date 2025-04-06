@@ -1,22 +1,22 @@
-import { jsx as i } from "react/jsx-runtime";
-import { KEY as n, isEscape as f } from "../common/keys.js";
-import { classes as l } from "../common/react.js";
-import { computeBoxClassName as p, computeBoxProps as d } from "../common/ui.js";
+import { jsx as s } from "react/jsx-runtime";
+import { KEY as l, isEscape as n } from "../common/keys.js";
+import { classes as f } from "../common/react.js";
+import { computeBoxProps as p, computeBoxClassName as d } from "../common/ui.js";
 import { Dimmer as u } from "./Dimmer.js";
-function N(s) {
-  const { className: t, children: a, onEnter: r, onEscape: m, ...e } = s;
+function K(i) {
+  const { className: a, children: t, onEnter: m, onEscape: r, ...e } = i;
   function c(o) {
-    o.key === n.Enter && (r == null || r(o)), f(o.key) && (m == null || m(o));
+    o.key === l.Enter && (m == null || m(o)), n(o.key) && (r == null || r(o));
   }
-  return /* @__PURE__ */ i(u, { onKeyDown: c, children: /* @__PURE__ */ i(
+  return /* @__PURE__ */ s(u, { className: "Modal__dimmer", onKeyDown: c, children: /* @__PURE__ */ s(
     "div",
     {
-      className: l(["Modal", t, p(e)]),
-      ...d(e),
-      children: a
+      className: f(["Modal", a, d(e)]),
+      ...p(e),
+      children: t
     }
   ) });
 }
 export {
-  N as Modal
+  K as Modal
 };

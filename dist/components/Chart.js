@@ -1,98 +1,80 @@
-var w = Object.defineProperty;
-var R = (t, o, e) => o in t ? w(t, o, { enumerable: !0, configurable: !0, writable: !0, value: e }) : t[o] = e;
-var p = (t, o, e) => R(t, typeof o != "symbol" ? o + "" : o, e);
-import { jsx as c, jsxs as g } from "react/jsx-runtime";
-import { Component as B, createRef as C } from "react";
-import { zip as u } from "../common/collections.js";
-import { Box as v } from "./Box.js";
-function $(t, o, e, n) {
-  if (t.length === 0)
+import { jsx as h, jsxs as g } from "react/jsx-runtime";
+import { useRef as y, useState as B, useEffect as R } from "react";
+import { zip as w } from "../common/collections.js";
+import { Box as $ } from "./Box.js";
+function C(n, l, o, i) {
+  if (n.length === 0)
     return [];
-  const f = u(...t), h = f.map((r) => Math.min(...r)), a = f.map((r) => Math.max(...r));
-  return e !== void 0 && (h[0] = e[0], a[0] = e[1]), n !== void 0 && (h[1] = n[0], a[1] = n[1]), t.map(
-    (r) => u(r, h, a, o).map(
-      ([l, i, d, m]) => (l - i) / (d - i) * m
+  const f = w(...n), c = f.map((r) => Math.min(...r)), t = f.map((r) => Math.max(...r));
+  return o !== void 0 && (c[0] = o[0], t[0] = o[1]), i !== void 0 && (c[1] = i[0], t[1] = i[1]), n.map(
+    (r) => w(r, c, t, l).map(
+      ([s, p, e, u]) => (s - p) / (e - p) * u
     )
   );
 }
-function L(t) {
-  let o = "";
-  for (let e = 0; e < t.length; e++) {
-    const n = t[e];
-    o += `${n[0]},${n[1]} `;
+function k(n) {
+  let l = "";
+  for (let o = 0; o < n.length; o++) {
+    const i = n[o];
+    l += `${i[0]},${i[1]} `;
   }
-  return o;
+  return l;
 }
-class b extends B {
-  constructor(e) {
-    super(e);
-    p(this, "ref");
-    p(this, "state");
-    p(this, "handleResize", () => {
-      const e = this.ref.current;
-      e && this.setState({
-        viewBox: [e.offsetWidth, e.offsetHeight]
-      });
-    });
-    this.ref = C(), this.state = {
-      // Initial guess
-      viewBox: [600, 200]
-    }, this.handleResize = this.handleResize.bind(this);
-  }
-  componentDidMount() {
-    window.addEventListener("resize", this.handleResize), this.handleResize();
-  }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
-  }
-  render() {
-    const {
-      data: e = [],
-      rangeX: n,
-      rangeY: f,
-      fillColor: h = "none",
-      strokeColor: a = "#ffffff",
-      strokeWidth: s = 2,
-      ...r
-    } = this.props, { viewBox: l } = this.state, i = $(e, l, n, f);
-    if (i.length > 0) {
-      const z = i[0], x = i[i.length - 1];
-      i.push([l[0] + s, x[1]]), i.push([l[0] + s, -s]), i.push([-s, -s]), i.push([-s, z[1]]);
-    }
-    const d = L(i), m = { ...r, className: "", ref: this.ref };
-    return /* @__PURE__ */ c(v, { position: "relative", ...r, children: /* @__PURE__ */ c(v, { ...m, children: /* @__PURE__ */ g(
-      "svg",
-      {
-        viewBox: `0 0 ${l[0]} ${l[1]}`,
-        preserveAspectRatio: "none",
-        style: {
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          overflow: "hidden"
-        },
-        children: [
-          /* @__PURE__ */ c("title", { children: "chart" }),
-          /* @__PURE__ */ c(
-            "polyline",
-            {
-              transform: `scale(1, -1) translate(0, -${l[1]})`,
-              fill: h,
-              stroke: a,
-              strokeWidth: s,
-              points: d
-            }
-          )
-        ]
-      }
-    ) }) });
-  }
-}
-const j = {
-  Line: b
+const x = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  overflow: "hidden"
 };
+function z(n) {
+  const {
+    data: l = [],
+    rangeX: o,
+    rangeY: i,
+    fillColor: f = "none",
+    strokeColor: c = "#ffffff",
+    strokeWidth: t = 2,
+    ...v
+  } = n, r = y(null), [s, p] = B([600, 200]), e = C(l, s, o, i);
+  if (e.length > 0) {
+    const m = e[0], a = e[e.length - 1];
+    e.push([s[0] + t, a[1]]), e.push([s[0] + t, -t]), e.push([-t, -t]), e.push([-t, m[1]]);
+  }
+  const u = k(e);
+  function d() {
+    const m = r.current;
+    if (!m)
+      return;
+    const a = m.getBoundingClientRect();
+    p([a.width, a.height]);
+  }
+  return R(() => (window.addEventListener("resize", d), d(), () => {
+    window.removeEventListener("resize", d);
+  }), []), /* @__PURE__ */ h($, { position: "relative", ...v, children: /* @__PURE__ */ h("div", { ref: r, style: x, children: /* @__PURE__ */ g(
+    "svg",
+    {
+      viewBox: `0 0 ${s[0]} ${s[1]}`,
+      preserveAspectRatio: "none",
+      style: x,
+      children: [
+        /* @__PURE__ */ h("title", { children: "chart" }),
+        /* @__PURE__ */ h(
+          "polyline",
+          {
+            transform: `scale(1, -1) translate(0, -${s[1]})`,
+            fill: f,
+            stroke: c,
+            strokeWidth: t,
+            points: u
+          }
+        )
+      ]
+    }
+  ) }) });
+}
+z.Line = z;
 export {
-  j as Chart
+  z as Chart
 };

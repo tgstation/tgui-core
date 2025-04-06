@@ -51,7 +51,7 @@ type State = {
  * to fine tune the value, or single click it to manually type a number.
  */
 export declare class NumberInput extends Component<Props, State> {
-    inputRef: RefObject<HTMLInputElement>;
+    inputRef: RefObject<HTMLInputElement | null>;
     dragTimeout: NodeJS.Timeout;
     dragInterval: NodeJS.Timeout;
     state: State;

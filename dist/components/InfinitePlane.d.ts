@@ -1,35 +1,38 @@
-import { Component, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { BoxProps } from './Box';
-export type InfinitePlaneProps = PropsWithChildren<{
-    onZoomChange?: (newZoomValue: number) => void;
-    onBackgroundMoved?: (newX: number, newY: number) => void;
-    initialLeft?: number;
-    initialTop?: number;
-    backgroundImage?: string;
+type Props = {
+    /** The width of the image to display. */
     imageWidth: number;
-} & BoxProps>;
-type InfinitePlaneState = {
-    mouseDown: boolean;
-    left: number;
-    top: number;
-    lastLeft: number;
-    lastTop: number;
-    zoom: number;
-};
-export type MouseEventExtension = {
-    screenZoomX: number;
-    screenZoomY: number;
-};
-export declare class InfinitePlane extends Component<InfinitePlaneProps, InfinitePlaneState> {
-    constructor(props: InfinitePlaneProps);
-    componentDidMount(): void;
-    componentWillUnmount(): void;
-    doOffsetMouse: (event: MouseEvent & MouseEventExtension) => void;
-    handleMouseDown: (event: React.MouseEvent<HTMLDivElement>) => void;
-    onMouseUp: () => void;
-    handleZoomIncrease: (_event: any) => void;
-    handleZoomDecrease: (_event: any) => void;
-    handleMouseMove: (event: React.MouseEvent<HTMLDivElement>) => void;
-    render(): import("react/jsx-runtime").JSX.Element;
-}
+} & Partial<{
+    /** The background image to display. */
+    backgroundImage: string;
+    /** The initial left position of the image. */
+    initialLeft: number;
+    /** The initial top position of the image. */
+    initialTop: number;
+    /** A callback function that is called when the background image is moved. */
+    onBackgroundMoved: (newX: number, newY: number) => void;
+    /** A callback function that is called when the zoom value changes. */
+    onZoomChange: (newZoomValue: number) => void;
+}> & BoxProps & PropsWithChildren;
+/**
+ * ## InfinitePlane
+ * Creates a scrolling infinite plane using a background image.
+ *
+ * @example
+ * ```tsx
+ * <InfinitePlane imageWidth={100} backgroundImage="https://example.com/image.png">
+ *   <Box position="absolute" top={0} left={0}>
+ *     Hello, world!
+ *   </Box>
+ *   <Box position="absolute" top={0} left={100}>
+ *     Hello, world!
+ *   </Box>
+ *   <Box position="absolute" top={0} left={200}>
+ *     Hello, world!
+ *   </Box>
+ * </InfinitePlane>
+ * ```
+ */
+export declare function InfinitePlane(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};
