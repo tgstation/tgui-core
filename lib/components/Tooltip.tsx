@@ -17,6 +17,7 @@ export function Tooltip(props: Props) {
 
   return (
     <Floating
+      childrenNoWrap
       content={content}
       contentClasses="Tooltip"
       hoverOpen
