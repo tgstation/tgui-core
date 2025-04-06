@@ -191,6 +191,7 @@ export const TextArea = forwardRef(
           </div>
         )}
         <textarea
+          autoComplete="off"
           className={classes([
             'TextArea__textarea',
             scrollbar && 'TextArea__textarea--scrollable',
@@ -207,6 +208,7 @@ export const TextArea = forwardRef(
           }}
           placeholder={placeholder}
           ref={textareaRef}
+          spellCheck={false}
           style={{
             color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
           }}
