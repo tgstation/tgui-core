@@ -117,7 +117,6 @@ export function Knob(props: Props) {
           dragging,
           handleDragStart,
           inputElement,
-          value,
         } = control;
         const scaledFillValue = scale(
           fillValue ?? displayValue,

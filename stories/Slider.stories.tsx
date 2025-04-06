@@ -19,7 +19,7 @@ function SliderPreview(props: PreviewProps) {
   const { color, ranges } = props;
 
   return (
-    <Stack.Item key={color}>
+    <Stack.Item key={color} mt={5}>
       <Stack fill g={0.33}>
         <Stack.Item>
           <Button

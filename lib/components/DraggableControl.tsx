@@ -1,6 +1,7 @@
 import {
   type MouseEventHandler,
   type ReactNode,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -24,8 +25,6 @@ type Control = {
   handleDragStart: MouseEventHandler<HTMLDivElement>;
   /** The input element. */
   inputElement: ReactNode;
-  /** The value of the input. */
-  value: number;
 };
 
 type Props = {
@@ -98,7 +97,7 @@ export function DraggableControl(props: Props) {
     lineHeight,
   } = props;
 
-  const [ourValue, setOurValue] = useState(props.value);
+  const [finalValue, setFinalValue] = useState(props.value);
   const [editing, setEditing] = useState(false);
   const [suppressingFlicker, setSuppressingFlicker] = useState(false);
 
@@ -111,6 +110,10 @@ export function DraggableControl(props: Props) {
   const dragIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
+    setFinalValue(props.value);
+  }, [props.value]);
+
   function handleDragEnd(event: MouseEvent) {
     document.body.style['pointer-events'] = 'auto';
 
@@ -120,15 +123,13 @@ export function DraggableControl(props: Props) {
     dragging.current = false;
     setEditing(false);
     origin.current = 0;
+
     document.removeEventListener('mousemove', handleDragMove);
     document.removeEventListener('mouseup', handleDragEnd);
 
-    if (dragging) {
-      suppress();
-      onChange?.(event, ourValue);
-      onDrag?.(event, ourValue);
-      return;
-    }
+    suppress();
+    onChange?.(event, internalValue.current);
+    onDrag?.(event, internalValue.current);
 
     if (inputRef.current) {
       const input = inputRef.current;
@@ -165,7 +166,7 @@ export function DraggableControl(props: Props) {
     );
 
     // Clamp the final value
-    setOurValue(
+    setFinalValue(
       clamp(
         internalValue.current - (internalValue.current % step) + stepOffset,
         minValue,
@@ -225,7 +226,7 @@ export function DraggableControl(props: Props) {
     }
 
     setEditing(false);
-    setOurValue(ourValue);
+    setFinalValue(ourValue);
     internalValue.current = ourValue;
     suppress();
     onChange?.(event, ourValue);
@@ -257,13 +258,13 @@ export function DraggableControl(props: Props) {
   }
 
   let displayValue = props.value;
-  if (dragging || suppressingFlicker) {
-    displayValue = ourValue;
+  if (dragging.current || suppressingFlicker) {
+    displayValue = finalValue;
   }
 
   const displayElement: ReactNode = (
     <>
-      {animated && !dragging && !suppressingFlicker ? (
+      {animated && !dragging.current && !suppressingFlicker ? (
         <AnimatedNumber value={displayValue} format={format} />
       ) : format ? (
         format(displayValue)
@@ -297,6 +298,5 @@ export function DraggableControl(props: Props) {
     editing,
     handleDragStart,
     inputElement,
-    value: ourValue,
   });
 }

@@ -115,7 +115,6 @@ export function Slider(props: Props) {
           dragging,
           handleDragStart,
           inputElement,
-          value,
         } = control;
 
         const hasFillValue = fillValue !== undefined && fillValue !== null;
