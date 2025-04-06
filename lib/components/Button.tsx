@@ -112,7 +112,8 @@ export function Button(props: Props) {
         selected && 'Button--selected',
         circular && 'Button--circular',
         compact && 'Button--compact',
-        iconPosition && `Button--iconPosition--${iconPosition}`,
+        !toDisplay && 'Button--empty',
+        iconPosition && `Button--icon-${iconPosition}`,
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
@@ -158,7 +159,6 @@ export function Button(props: Props) {
       >
         {icon && iconPosition !== 'right' && (
           <Icon
-            mr={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
@@ -173,7 +173,6 @@ export function Button(props: Props) {
         )}
         {icon && iconPosition === 'right' && (
           <Icon
-            ml={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}

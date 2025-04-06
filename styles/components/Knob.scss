@@ -1,24 +1,25 @@
 @use "../base";
 @use "../colors";
-@use "../functions" as *;
 
-$bg-map: colors.$bg-map !default;
-$fg-map: colors.$fg-map !default;
-$ring-color: hsl(212.2, 46.8%, 60.2%) !default;
-$knob-color: hsl(0, 0%, 20%) !default;
-$popup-background-color: hsl(0, 0%, 0%) !default;
-$popup-text-color: hsl(0, 0%, 100%) !default;
+$pi: 3.1416;
+$bg-map: colors.$color-map !default;
+$fg-map: colors.$color-map !default;
 
-$inner-padding: 0.1em;
+$ring-color: 0 !default;
+$knob-color: 0 !default;
+$popup-background-color: 0 !default;
+$popup-text-color: 0 !default;
+$inner-padding: 0;
 
 .Knob {
+  user-select: none;
+  cursor: var(--cursor-n-resize);
   position: relative;
   font-size: 1rem;
   width: 2.6em;
   height: 2.6em;
   margin: 0 auto;
   margin-bottom: -0.2em;
-  cursor: n-resize;
 
   // Adjusts a baseline in a way, that makes knob middle-aligned
   // when it flows with the text.
@@ -31,27 +32,21 @@ $inner-padding: 0.1em;
 
 .Knob__circle {
   position: absolute;
-  top: $inner-padding;
-  bottom: $inner-padding;
-  left: $inner-padding;
-  right: $inner-padding;
+  inset: var(--knob-inner-padding);
   margin: 0.3em;
-  background-color: $knob-color;
+  background-color: var(--knob-color);
   background-image: linear-gradient(
     to bottom,
-    hsla(0, 0%, 100%, 0.15) 0%,
-    hsla(0, 0%, 100%, 0) 100%
+    hsl(from var(--knob-color) h s calc(l + 15)) 0%,
+    var(--knob-color) 100%
   );
-  border-radius: 50%;
-  box-shadow: 0 0.05em 0.5em 0 hsla(0, 0%, 0%, 0.5);
+  border-radius: var(--border-radius-circular);
+  box-shadow: var(--shadow-glow-medium) hsl(from var(--knob-color) h s l / 0.25);
 }
 
 .Knob__cursorBox {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
 }
 
 .Knob__cursor {
@@ -60,41 +55,38 @@ $inner-padding: 0.1em;
   margin: 0 auto;
   width: 0.2em;
   height: 0.8em;
-  background-color: hsla(0, 0%, 100%, 0.9);
+  background-color: hsl(from var(--knob-color) h s 85);
 }
 
 .Knob__popupValue {
+  white-space: nowrap;
   position: absolute;
-  top: -2rem;
-  right: 50%;
+  top: 0;
+  left: 50%;
   font-size: 1rem;
   text-align: center;
-  padding: 0.25rem 0.5rem;
-  color: $popup-text-color;
-  background-color: $popup-background-color;
-  transform: translateX(50%);
-  white-space: nowrap;
+  padding: var(--space-s) var(--space-m);
+  background-color: var(--knob-popup-background);
+  color: var(--knob-popup-color);
+  border-radius: var(--knob-popup-border-radius);
+  transform: translateY(-100%) translateX(-50%);
+  backdrop-filter: var(--knob-popup-blur);
 }
 
 .Knob__ring {
+  overflow: visible;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: $inner-padding;
+  inset: 0;
+  padding: var(--knob-inner-padding);
 }
-
-$pi: 3.1416;
 
 .Knob__ringTrackPivot {
   transform: rotateZ(135deg);
 }
 
 .Knob__ringTrack {
-  // transform-origin: 50% 50%;
   fill: transparent;
-  stroke: hsla(0, 0%, 100%, 0.1);
+  stroke: hsl(from var(--knob-ring-color) h s l / 0.15);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 75 * $pi;
@@ -110,17 +102,21 @@ $pi: 3.1416;
 
 .Knob__ringFill {
   fill: transparent;
-  stroke: $ring-color;
+  stroke: var(--knob-ring-color);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 100 * $pi;
-  transition: stroke 50ms ease-out;
+  transition: stroke var(--transition-time-medium) ease-out;
 }
 
 @each $color-name, $color-value in $fg-map {
   .Knob--color--#{$color-name} {
     .Knob__ringFill {
       stroke: $color-value;
+    }
+
+    .Knob__ringTrack {
+      stroke: hsl(from $color-value h s l / 0.15);
     }
   }
 }

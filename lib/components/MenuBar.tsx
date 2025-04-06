@@ -34,7 +34,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
       allowedOutsideClasses=".Menubar_inner"
       content={
         <div
-          className="Menubar__menu"
+          className="MenuBar__menu"
           style={{
             width: openWidth,
           }}

@@ -195,8 +195,6 @@ export function Dropdown(props: Props) {
         <div
           className={classes([
             'Dropdown__control',
-            'Button',
-            'Button--dropdown',
             `Button--color--${color}`,
             disabled && 'Button--disabled',
             className,

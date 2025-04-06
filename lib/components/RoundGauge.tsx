@@ -3,7 +3,7 @@ import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { AnimatedNumber } from './AnimatedNumber';
-import { Box, type BoxProps } from './Box';
+import type { BoxProps } from './Box';
 
 type Props = {
   /** The current value of the metric. */
@@ -111,7 +111,7 @@ export function RoundGauge(props: Props) {
     shouldShowAlert() && keyOfMatchingRange(clampedValue, scaledRanges);
 
   return (
-    <Box inline>
+    <div className="RoundGauge__wrapper">
       <div
         className={classes([
           'RoundGauge',
@@ -180,6 +180,6 @@ export function RoundGauge(props: Props) {
         </svg>
       </div>
       <AnimatedNumber value={value} format={format} />
-    </Box>
+    </div>
   );
 }

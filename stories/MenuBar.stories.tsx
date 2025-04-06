@@ -64,6 +64,8 @@ export const Default: StoryObj<StoryProps> = {
             displayText="Save As"
             onClick={closeMenu}
           />
+          <MenuBar.Dropdown.Separator />
+          <MenuBar.Dropdown.MenuItem displayText="Exit" onClick={closeMenu} />
         </MenuBar.Dropdown>
         <MenuBar.Dropdown
           {...args}

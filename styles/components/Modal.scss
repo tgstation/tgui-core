@@ -1,14 +1,10 @@
-@use "../base";
-
-$background-color: base.$color-bg !default;
-
 .Modal {
-  background-color: $background-color;
-  padding: 1rem;
+  background-color: var(--modal-background);
+  padding: var(--modal-padding);
 
   &__dimmer .Dimmer__inner {
     // 1rem for window padding, 1rem like modal margin
-    max-width: calc(100vw - 2rem);
-    max-height: calc(100vh - 2rem);
+    max-width: calc(100vw - var(--space-xxl));
+    max-height: calc(100vh - var(--space-xxl));
   }
 }

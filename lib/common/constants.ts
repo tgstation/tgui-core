@@ -347,3 +347,21 @@ export const getGasFromPath = (gasPath: string): Gas | undefined => {
     }
   }
 };
+
+export const COMPONENT_COLORS = {
+  states: ['', 'good', 'average', 'bad', 'black', 'white'],
+  spectrum: [
+    'red',
+    'orange',
+    'yellow',
+    'olive',
+    'green',
+    'teal',
+    'blue',
+    'violet',
+    'purple',
+    'pink',
+    'brown',
+    'grey',
+  ],
+} as const;

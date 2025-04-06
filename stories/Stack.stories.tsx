@@ -30,3 +30,15 @@ export const Vertical: Story = {
     </Stack>
   ),
 };
+
+export const Divider: Story = {
+  render: () => (
+    <Stack vertical>
+      <Stack.Item>Item 1</Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>Item 2</Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>Item 3</Stack.Item>
+    </Stack>
+  ),
+};

@@ -1,22 +1,22 @@
 @use "../base";
-@use "../functions" as *;
 
-$color: hsl(0, 0%, 100%) !default;
-$background-color: hsl(0, 0%, 0%) !default;
-$border-radius: base.$border-radius !default;
+$color: 0 !default;
+$background-color: 0 !default;
+$border-radius: 0 !default;
 
 .Tooltip {
-  background-color: $background-color;
-  border-radius: $border-radius;
+  backdrop-filter: var(--tooltip-blur);
+  background-color: var(--tooltip-background);
+  border-radius: var(--tooltip-border-radius);
   box-shadow: 0.1em 0.1em 1.25em -0.1em hsla(0, 0%, 0%, 0.5);
-  color: $color;
+  color: var(--tooltip-color);
   max-width: base.em(250px);
-  padding: 0.5em 0.75em;
+  padding: var(--space-m) var(--space-l);
   pointer-events: none;
   text-align: left;
-  transition: opacity 150ms ease-out;
-}
-
-.Tooltip__inner {
-  display: inline-block;
+  transition-duration: var(--tooltip-transition-time);
+  transition-property: opacity;
+  transition-timing-function: var(--tooltip-transition-timing);
+  // // Must be over everything
+  // z-index: 999;
 }
