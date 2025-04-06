@@ -142,7 +142,6 @@ export function Dropdown(props: Props) {
   return (
     <div className="Dropdown">
       <Floating
-        childrenNoWrap
         contentAutoWidth
         closeAfterInteract
         placement={over ? 'top' : 'bottom'}

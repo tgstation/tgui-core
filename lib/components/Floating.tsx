@@ -34,12 +34,6 @@ type Props = {
    * @default 'bottom'
    */
   placement: Placement;
-  /**
-   * Passes ref directly to children, without wrapping it first.
-   * Works only with JSX elements wrapped in `React.forwardRef`
-   * or default HTML elements.
-   */
-  childrenNoWrap: boolean;
   /** Classes with will be applied to the content. */
   contentClasses: string;
   /** Inline styles with will be applied to the content. */
@@ -104,7 +98,6 @@ export function Floating(props: Props) {
     children,
     content,
     placement,
-    childrenNoWrap,
     contentClasses,
     contentStyles,
     contentAutoWidth,
@@ -198,7 +191,7 @@ export function Floating(props: Props) {
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
-  if (childrenNoWrap && isValidElement(children)) {
+  if (isValidElement(children)) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
     floatingChildren = <div {...referenceProps}>{children}</div>;
