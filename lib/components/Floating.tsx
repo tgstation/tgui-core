@@ -202,7 +202,7 @@ export function Floating(props: Props) {
     floatingChildren = cloneElement(children as ReactElement, referenceProps);
   } else {
     floatingChildren = (
-      <div {...referenceProps} className="Floating__reference">
+      <div {...referenceProps} ref={refs.setReference}>
         {children}
       </div>
     );
