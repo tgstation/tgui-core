@@ -175,7 +175,7 @@ export function ImageButton(props: Props) {
             <span
               className={classes([
                 'ImageButton__content--title',
-                children && 'ImageButton__content--divider',
+                !!children && 'ImageButton__content--divider',
               ])}
             >
               {title}

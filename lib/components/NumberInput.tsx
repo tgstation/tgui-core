@@ -67,7 +67,7 @@ type State = {
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
-  inputRef: RefObject<HTMLInputElement> = createRef();
+  inputRef: RefObject<HTMLInputElement | null> = createRef();
 
   // After this time has elapsed we are in drag mode so no editing when dragging ends
   dragTimeout: NodeJS.Timeout;
