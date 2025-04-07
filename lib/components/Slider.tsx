@@ -47,12 +47,6 @@ type Props = {
    * while dragging. Use higher for larger sliders. Default is 1.
    */
   stepPixelSize: number;
-  /**
-   * A number in milliseconds, for which the input will hold off from updating
-   * while events propagate through the backend. Default is about 250ms,
-   * increase it if you still see flickering.
-   */
-  suppressFlicker: number;
   /** Unit to display to the right of value. */
   unit: string;
 }> &
@@ -77,7 +71,6 @@ export function Slider(props: Props) {
     onDrag,
     step,
     stepPixelSize,
-    suppressFlicker,
     unit,
     value,
     // Own props
@@ -103,7 +96,6 @@ export function Slider(props: Props) {
         onDrag,
         step,
         stepPixelSize,
-        suppressFlicker,
         unit,
         value,
       }}

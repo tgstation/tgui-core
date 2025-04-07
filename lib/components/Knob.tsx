@@ -46,12 +46,6 @@ type Props = {
   step: number;
   /** Screen distance mouse needs to travel to adjust value by one `step`. */
   stepPixelSize: number;
-  /**
-   * A number in milliseconds, for which the input will hold off from updating
-   * while events propagate through the backend. Default is about 250ms,
-   * increase it if you still see flickering.
-   */
-  suppressFlicker: number;
   /** Whether to clamp the value to the range. */
   unclamped: boolean;
   /** Unit to display to the right of value. */
@@ -77,7 +71,6 @@ export function Knob(props: Props) {
     onDrag,
     step,
     stepPixelSize,
-    suppressFlicker,
     unclamped,
     unit,
     value,
@@ -104,7 +97,6 @@ export function Knob(props: Props) {
         onDrag,
         step,
         stepPixelSize,
-        suppressFlicker,
         unclamped,
         unit,
         value,

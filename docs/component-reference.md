@@ -589,9 +589,6 @@ Single click opens an input box to manually type in a number.
   to travel to adjust value by one `step`.
 - `format: value => value` - Format value using this function before
   displaying it.
-- `suppressFlicker: number` - A number in milliseconds, for which the input
-  will hold off from updating while events propagate through the backend.
-  Default is about 250ms, increase it if you still see flickering.
 - `onChange: (e, value) => void` - An event, which fires when you release
   the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
@@ -876,9 +873,6 @@ Single click opens an input box to manually type in a number.
   to travel to adjust value by one `step`.
 - `format: value => value` - Format value using this function before
   displaying it.
-- `suppressFlicker: number` - A number in milliseconds, for which the input
-  will hold off from updating while events propagate through the backend.
-  Default is about 250ms, increase it if you still see flickering.
 - `onChange: (e, value) => void` - An event, which fires when you release
   the input, or successfully enter a number.
 - `onDrag: (e, value) => void` - An event, which fires about every 500ms
