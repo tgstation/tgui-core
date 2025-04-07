@@ -20,7 +20,7 @@ type State = {
 };
 
 export class FitText extends Component<Props, State> {
-  ref: RefObject<HTMLDivElement | null> = createRef();
+  ref: RefObject<HTMLDivElement> = createRef();
   state: State = {
     fontSize: 0,
   };
