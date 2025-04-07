@@ -1,4 +1,4 @@
-import { CSSProperties, Component, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject } from 'react';
+import { CSSProperties, Component, FocusEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 import { BooleanLike } from '../common/react';
 import { BoxProps } from './Box';
 type Props = Required<{
@@ -51,7 +51,7 @@ type State = {
  * to fine tune the value, or single click it to manually type a number.
  */
 export declare class NumberInput extends Component<Props, State> {
-    inputRef: RefObject<HTMLInputElement | null>;
+    inputRef: import('react').RefObject<HTMLInputElement | null>;
     dragTimeout: NodeJS.Timeout;
     dragInterval: NodeJS.Timeout;
     state: State;

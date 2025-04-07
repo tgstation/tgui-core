@@ -37,8 +37,6 @@ type Props = {
     step: number;
     /** The step size in pixels. */
     stepPixelSize: number;
-    /** The number of milliseconds to suppress flickering. */
-    suppressFlicker: number;
     /** Whether to unclamp the value. */
     unclamped: boolean;
     /** The unit of the value. */
