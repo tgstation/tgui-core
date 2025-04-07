@@ -2212,7 +2212,7 @@ function _r(e) {
   let A;
   return Zt(r) ? A = Jt(r, I) : A = /* @__PURE__ */ ne("div", { ...I, children: r }), /* @__PURE__ */ mt(zt, { children: [
     A,
-    D && /* @__PURE__ */ ne(Sr, { children: /* @__PURE__ */ ne(
+    D && !!s && /* @__PURE__ */ ne(Sr, { children: /* @__PURE__ */ ne(
       "div",
       {
         ref: w.setFloating,
