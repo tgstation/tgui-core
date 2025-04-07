@@ -140,9 +140,3 @@ export const File: FileStory = {
   },
   render: (args) => <Button.File {...args} />,
 };
-
-export const WithTooltip: Story = {
-  render: () => {
-    return <Button tooltip="Tooltip">Hover!</Button>;
-  },
-};

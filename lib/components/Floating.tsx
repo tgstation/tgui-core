@@ -200,7 +200,7 @@ export function Floating(props: Props) {
   return (
     <>
       {floatingChildren}
-      {isMounted && (
+      {isMounted && !!content && (
         <FloatingPortal>
           <div
             ref={refs.setFloating}
