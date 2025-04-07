@@ -26,12 +26,14 @@ type Props = {
     displayText: ReactNode;
     /** Icon to display in dropdown button */
     icon: string;
+    /** Whether the icon should be displayed alone */
+    iconOnly: boolean;
     /** Angle of the icon */
     iconRotation: number;
     /** Whether or not the icon should spin */
     iconSpin: boolean;
-    /** Width of the dropdown menu. Default: 15rem */
-    menuWidth: number;
+    /** Width of the dropdown menu in box units. Default: 15 */
+    menuWidth: string | number;
     /** Whether or not the arrow on the right hand side of the dropdown button is visible */
     noChevron: boolean;
     /** Dropdown renders over instead of below */
