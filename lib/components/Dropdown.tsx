@@ -1,3 +1,4 @@
+import type { Placement } from '@floating-ui/react';
 import { type ReactNode, useRef, useState } from 'react';
 import { KEY } from '../common/keys';
 import { classes } from '../common/react';
@@ -35,12 +36,14 @@ type Props = {
   displayText: ReactNode;
   /** Icon to display in dropdown button */
   icon: string;
+  /** Whether the icon should be displayed alone */
+  iconOnly: boolean;
   /** Angle of the icon */
   iconRotation: number;
   /** Whether or not the icon should spin */
   iconSpin: boolean;
-  /** Width of the dropdown menu. Default: 15rem */
-  menuWidth: number;
+  /** Width of the dropdown menu in box units. Default: 15 */
+  menuWidth: string | number;
   /** Whether or not the arrow on the right hand side of the dropdown button is visible */
   noChevron: boolean;
   /** Dropdown renders over instead of below */
@@ -82,6 +85,7 @@ export function Dropdown(props: Props) {
     icon,
     iconRotation,
     iconSpin,
+    iconOnly,
     menuWidth,
     noChevron,
     onClick,
@@ -139,17 +143,22 @@ export function Dropdown(props: Props) {
     onSelected?.(getOptionValue(options[newIndex]));
   }
 
+  let placement: Placement = over ? 'top' : 'bottom';
+  if (iconOnly) {
+    placement = `${placement}-start` as Placement;
+  }
+
   return (
     <div className="Dropdown">
       <Floating
-        contentAutoWidth
-        closeAfterInteract
-        placement={over ? 'top' : 'bottom'}
         allowedOutsideClasses=".Dropdown__button"
+        closeAfterInteract
+        contentAutoWidth={!menuWidth}
         contentClasses="Dropdown__menu--wrapper"
-        contentStyles={{ maxWidth: unit(menuWidth) }}
+        contentStyles={{ width: menuWidth ? unit(menuWidth) : undefined }}
         disabled={disabled}
         onOpenChange={setOpen}
+        placement={placement}
         content={
           <div ref={innerRef} className="Dropdown__menu">
             {options.length === 0 ? (
@@ -196,6 +205,7 @@ export function Dropdown(props: Props) {
             'Dropdown__control',
             `Button--color--${color}`,
             disabled && 'Button--disabled',
+            iconOnly && 'Dropdown__control--icon-only',
             className,
           ])}
           style={{ width: unit(width) }}
@@ -219,21 +229,26 @@ export function Dropdown(props: Props) {
               spin={iconSpin}
             />
           )}
-          <span className="Dropdown__selected-text">
-            {displayText ||
-              (selected && getOptionValue(selected)) ||
-              placeholder}
-          </span>
-          {!noChevron && (
-            <Icon
-              className={classes([
-                'Dropdown__icon',
-                'Dropdown__icon--arrow',
-                over && 'over',
-                open && 'open',
-              ])}
-              name="chevron-down"
-            />
+          {!iconOnly && (
+            <>
+              <span className="Dropdown__selected-text">
+                {displayText ||
+                  (selected && getOptionValue(selected)) ||
+                  placeholder}
+              </span>
+
+              {!noChevron && (
+                <Icon
+                  className={classes([
+                    'Dropdown__icon',
+                    'Dropdown__icon--arrow',
+                    over && 'over',
+                    open && 'open',
+                  ])}
+                  name="chevron-down"
+                />
+              )}
+            </>
           )}
         </div>
       </Floating>

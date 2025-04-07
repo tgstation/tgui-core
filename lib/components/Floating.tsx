@@ -95,21 +95,21 @@ type Props = {
  */
 export function Floating(props: Props) {
   const {
-    children,
-    content,
-    placement,
-    contentClasses,
-    contentStyles,
-    contentAutoWidth,
-    contentOffset = 6,
-    disabled,
-    animationDuration,
-    hoverOpen,
-    hoverDelay,
     allowedOutsideClasses,
-    stopChildPropagation,
+    animationDuration,
+    children,
     closeAfterInteract,
+    content,
+    contentAutoWidth,
+    contentClasses,
+    contentOffset = 6,
+    contentStyles,
+    disabled,
+    hoverDelay,
+    hoverOpen,
     onMounted,
+    placement,
+    stopChildPropagation,
     onOpenChange,
   } = props;
 

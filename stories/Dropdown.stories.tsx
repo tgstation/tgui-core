@@ -82,6 +82,17 @@ function DropdownStories() {
           selected={selected}
         />
       </Showcase>
+
+      <Showcase title="Tiny">
+        <Dropdown
+          menuWidth={10}
+          icon="smile"
+          iconOnly
+          onSelected={setSelected}
+          options={defaultItems}
+          selected={selected}
+        />
+      </Showcase>
     </Stack>
   );
 }
