@@ -122,6 +122,11 @@ $border-radius: 0 !default;
     overflow: hidden;
     margin-right: calc(-1 * var(--space-s));
   }
+
+  // We don't need additional margin if button inside stack
+  .Stack__item & {
+    margin: 0;
+  }
 }
 
 @each $color-name, $color-value in $bg-map {
