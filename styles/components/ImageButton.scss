@@ -138,7 +138,7 @@ $bg-map: colors.$color-map !default;
     & > * {
       /* I know !important is bad, but here's no other way */
       margin: 0 !important;
-      padding: 0 !important;
+      padding: 0 0.2em !important;
       border-radius: 0 !important;
     }
   }

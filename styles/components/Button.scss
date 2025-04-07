@@ -71,6 +71,10 @@ $border-radius: 0 !default;
     align-self: stretch;
     align-items: center;
 
+    &--content {
+      flex: 1;
+    }
+
     &--ellipsis {
       display: flex; // Inline flex will broke ellipsis, don't change it.
       align-items: center;
@@ -79,7 +83,7 @@ $border-radius: 0 !default;
     &.Button__content--icon-right {
       flex-direction: row-reverse;
 
-      .Icon {
+      .Button--icon {
         margin-left: var(--space-s);
         margin-right: calc(-1 * var(--space-s));
       }
@@ -87,25 +91,21 @@ $border-radius: 0 !default;
 
     &--iconFixed {
       width: 100%;
-
-      .Button__content--content {
-        flex: 1;
-      }
     }
   }
 
-  .Icon {
+  &--icon {
     margin: 0 calc(-1 * var(--space-s));
     min-width: 1.333em;
     text-align: center;
   }
 
   &--hasContent {
-    .Icon {
+    .Button--icon {
       margin-right: var(--space-s);
     }
 
-    &.Button--compact .Icon {
+    &.Button--compact .Button--icon {
       margin-right: var(--space-xs);
     }
   }
@@ -114,7 +114,7 @@ $border-radius: 0 !default;
     padding: 0 var(--space-s);
     line-height: 1.333em;
 
-    .Icon {
+    .Button--icon {
       margin: 0 calc(-1 * var(--space-xs));
     }
   }

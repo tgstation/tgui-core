@@ -163,6 +163,7 @@ export function Button(props: Props) {
       >
         {!!icon && (
           <Icon
+            className="Button--icon"
             name={icon}
             color={iconColor}
             rotation={iconRotation}
