@@ -23,7 +23,7 @@ $color-stripes: 0 !default;
 }
 
 @mixin box-color($color) {
-  background-color: hsl(from $color h calc(s - 15) calc(l - 15));
+  background-color: oklch(from $color calc(l - 0.14) calc(c - 0.06) h);
   color: var(--color-text-fixed-white);
 }
 
@@ -33,6 +33,10 @@ $color-stripes: 0 !default;
       @if $color-name == $color {
         --color-text-fixed-white: var(--color-black);
       }
+    }
+
+    @if $color-name == "black" {
+      --notice-box-stripes: hsla(0, 0%, 100%, 0.1);
     }
 
     @include box-color($color-value);
