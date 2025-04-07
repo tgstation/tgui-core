@@ -59,6 +59,8 @@ type Props = Partial<{
   iconSize: number;
   /** Makes the icon spin */
   iconSpin: BooleanLike;
+  /** Fixes icon on the side */
+  iconFixed: boolean;
   /** Called when the button is blurred */
   onBlur: (e: any) => void;
   /** Called when element is clicked */
@@ -93,6 +95,7 @@ export function Button(props: Props) {
     iconRotation,
     iconSize,
     iconSpin,
+    iconFixed,
     onClick,
     selected,
     tooltip,
@@ -112,8 +115,7 @@ export function Button(props: Props) {
         selected && 'Button--selected',
         circular && 'Button--circular',
         compact && 'Button--compact',
-        !toDisplay && 'Button--empty',
-        iconPosition && `Button--icon-${iconPosition}`,
+        !!toDisplay && 'Button--hasContent',
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
@@ -155,9 +157,11 @@ export function Button(props: Props) {
         className={classes([
           'Button__content',
           ellipsis && 'Button__content--ellipsis',
+          iconFixed && 'Button__content--iconFixed',
+          !!iconPosition && `Button__content--icon-${iconPosition}`,
         ])}
       >
-        {icon && iconPosition !== 'right' && (
+        {!!icon && (
           <Icon
             name={icon}
             color={iconColor}
@@ -166,19 +170,15 @@ export function Button(props: Props) {
             spin={iconSpin}
           />
         )}
-        {!ellipsis ? (
-          toDisplay
-        ) : (
-          <span className="Button--ellipsis">{toDisplay}</span>
-        )}
-        {icon && iconPosition === 'right' && (
-          <Icon
-            name={icon}
-            color={iconColor}
-            rotation={iconRotation}
-            size={iconSize}
-            spin={iconSpin}
-          />
+        {!!toDisplay && (
+          <div
+            className={classes([
+              'Button__content--content', // 1000 IQ naming
+              ellipsis && 'Button--ellipsis',
+            ])}
+          >
+            {toDisplay}
+          </div>
         )}
       </div>
     </div>

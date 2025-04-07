@@ -29,12 +29,28 @@ export const WithIcon: Story = {
         <Button {...args}>Default</Button>
         <br />
         <Button {...args} iconPosition="right">
-          Icon Right
+          iconPosition="right"
+        </Button>
+        <br />
+        <Button {...args} width={15} iconFixed textAlign="center">
+          iconFixed
+        </Button>
+        <br />
+        <Button {...args}>
+          Multiline <br /> Left
+        </Button>
+        <br />
+        <Button {...args} iconPosition="right">
+          Multiline <br /> Right
+        </Button>
+        <br />
+        <Button compact {...args}>
+          Compact
         </Button>
         <br />
         <Button {...args} /> Only Icon
         <br />
-        <Button compact {...args} /> Compact
+        <Button compact {...args} /> Only Icon - Compact
       </>
     );
   },

@@ -40,8 +40,13 @@ $border-radius: 0 !default;
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  line-height: 1.667em;
-  padding: 0 var(--space-m);
+  line-height: 1.2em;
+  /**
+   * Non-standard. We subtract the old line-height from the new one,
+   * and divide it by 2, so that the height of the button remains the same,
+   * but multi-line buttons look normal.
+   */
+  padding: calc((1.667em - 1.2em) / 2) var(--space-m);
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
   outline: 0;
@@ -62,47 +67,55 @@ $border-radius: 0 !default;
   }
 
   &__content {
-    display: block;
+    display: inline-flex;
     align-self: stretch;
+    align-items: center;
 
     &--ellipsis {
       display: flex; // Inline flex will broke ellipsis, don't change it.
       align-items: center;
     }
+
+    &.Button__content--icon-right {
+      flex-direction: row-reverse;
+
+      .Icon {
+        margin-left: var(--space-s);
+        margin-right: calc(-1 * var(--space-s));
+      }
+    }
+
+    &--iconFixed {
+      width: 100%;
+
+      .Button__content--content {
+        flex: 1;
+      }
+    }
   }
 
-  i {
+  .Icon {
+    margin: 0 calc(-1 * var(--space-s));
     min-width: 1.333em;
     text-align: center;
   }
 
-  &:has(i) {
-    padding-left: 0;
-
-    i {
-      margin: 0 var(--space-s);
+  &--hasContent {
+    .Icon {
+      margin-right: var(--space-s);
     }
-  }
 
-  &--icon-right:has(i) {
-    padding-left: var(--space-m);
-    padding-right: var(--space-s);
-
-    i {
-      margin: 0 0 0 var(--space-s);
+    &.Button--compact .Icon {
+      margin-right: var(--space-xs);
     }
-  }
-
-  &--empty:has(i) {
-    padding: 0;
   }
 
   &--compact {
     padding: 0 var(--space-s);
     line-height: 1.333em;
 
-    &:has(i) i {
-      margin: 0 var(--space-xxs);
+    .Icon {
+      margin: 0 calc(-1 * var(--space-xs));
     }
   }
 
