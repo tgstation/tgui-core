@@ -4,7 +4,6 @@ import {
   type FocusEventHandler,
   type KeyboardEventHandler,
   type MouseEventHandler,
-  type RefObject,
   createRef,
 } from 'react';
 import { KEY, isEscape } from '../common/keys';
@@ -67,7 +66,7 @@ type State = {
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
-  inputRef: RefObject<HTMLInputElement> = createRef();
+  inputRef = createRef<HTMLInputElement>();
 
   // After this time has elapsed we are in drag mode so no editing when dragging ends
   dragTimeout: NodeJS.Timeout;
