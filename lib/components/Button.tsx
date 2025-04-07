@@ -103,6 +103,17 @@ export function Button(props: Props) {
 
   const toDisplay: ReactNode = content || children;
 
+  const buttonIcon = (
+    <Icon
+      className="Button--icon"
+      name={icon || ''}
+      color={iconColor}
+      rotation={iconRotation}
+      size={iconSize}
+      spin={iconSpin}
+    />
+  );
+
   let buttonContent = (
     <div
       className={classes([
@@ -157,29 +168,13 @@ export function Button(props: Props) {
           ellipsis && 'Button__content--ellipsis',
         ])}
       >
-        {icon && iconPosition !== 'right' && (
-          <Icon
-            name={icon}
-            color={iconColor}
-            rotation={iconRotation}
-            size={iconSize}
-            spin={iconSpin}
-          />
-        )}
+        {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
           toDisplay
         ) : (
           <span className="Button--ellipsis">{toDisplay}</span>
         )}
-        {icon && iconPosition === 'right' && (
-          <Icon
-            name={icon}
-            color={iconColor}
-            rotation={iconRotation}
-            size={iconSize}
-            spin={iconSpin}
-          />
-        )}
+        {icon && iconPosition === 'right' && buttonIcon}
       </div>
     </div>
   );

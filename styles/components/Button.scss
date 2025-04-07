@@ -71,29 +71,29 @@ $border-radius: 0 !default;
     }
   }
 
-  i {
+  .Button--icon {
     min-width: 1.333em;
     text-align: center;
   }
 
-  &:has(i) {
+  &:has(.Button--icon) {
     padding-left: 0;
 
-    i {
+    .Button--icon {
       margin: 0 var(--space-s);
     }
   }
 
-  &--icon-right:has(i) {
+  &--icon-right:has(.Button--icon) {
     padding-left: var(--space-m);
     padding-right: var(--space-s);
 
-    i {
+    .Button--icon {
       margin: 0 0 0 var(--space-s);
     }
   }
 
-  &--empty:has(i) {
+  &--empty:has(.Button--icon) {
     padding: 0;
   }
 
@@ -101,7 +101,7 @@ $border-radius: 0 !default;
     padding: 0 var(--space-s);
     line-height: 1.333em;
 
-    &:has(i) i {
+    &:has(.Button--icon) .Button--icon {
       margin: 0 var(--space-xxs);
     }
   }
