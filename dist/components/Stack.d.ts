@@ -67,7 +67,7 @@ export declare namespace Stack {
     var Divider: typeof StackDivider;
 }
 type StackItemProps = FlexItemProps & Partial<{
-    innerRef: RefObject<HTMLDivElement>;
+    innerRef: RefObject<HTMLDivElement | null>;
 }>;
 declare function StackItem(props: StackItemProps): import("react/jsx-runtime").JSX.Element;
 type StackDividerProps = FlexItemProps & Partial<{

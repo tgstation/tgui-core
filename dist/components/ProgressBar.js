@@ -1,9 +1,9 @@
-import { jsxs as B, jsx as i } from "react/jsx-runtime";
-import { CSS_COLORS as C } from "../common/constants.js";
-import { keyOfMatchingRange as P, toFixed as h, clamp01 as x, scale as _ } from "../common/math.js";
-import { classes as v } from "../common/react.js";
-import { computeBoxProps as y, computeBoxClassName as N } from "../common/ui.js";
-function j(n) {
+import { jsxs as C, jsx as i } from "react/jsx-runtime";
+import { CSS_COLORS as P } from "../common/constants.js";
+import { keyOfMatchingRange as h, toFixed as x, clamp01 as _, scale as v } from "../common/math.js";
+import { classes as y } from "../common/react.js";
+import { computeBoxProps as N, computeBoxClassName as S } from "../common/ui.js";
+function k(n) {
   const {
     className: m,
     value: o,
@@ -11,12 +11,13 @@ function j(n) {
     maxValue: f = 1,
     color: u,
     ranges: p = {},
+    empty: g,
     children: r,
     ...l
-  } = n, a = _(o, d, f), g = r !== void 0, s = u || P(o, p) || "default", e = y(l), t = ["ProgressBar", m, N(l)], c = {
-    width: `${x(a) * 100}%`
+  } = n, t = v(o, d, f), B = r !== void 0, s = u || h(o, p) || "default", e = N(l), a = ["ProgressBar", m, S(l)], c = {
+    width: `${_(t) * 100}%`
   };
-  return C.includes(s) || s === "default" ? t.push(`ProgressBar--color--${s}`) : (e.style = { ...e.style, borderColor: s }, c.backgroundColor = s), /* @__PURE__ */ B("div", { className: v(t), ...e, children: [
+  return P.includes(s) || s === "default" ? a.push(`ProgressBar--color--${s}`) : (e.style = { ...e.style, borderColor: s }, c.backgroundColor = s), /* @__PURE__ */ C("div", { className: y(a), ...e, children: [
     /* @__PURE__ */ i(
       "div",
       {
@@ -24,9 +25,9 @@ function j(n) {
         style: c
       }
     ),
-    /* @__PURE__ */ i("div", { className: "ProgressBar__content", children: g ? r : `${h(a * 100)}%` })
+    /* @__PURE__ */ i("div", { className: "ProgressBar__content", children: B ? r : !g && `${x(t * 100)}%` })
   ] });
 }
 export {
-  j as ProgressBar
+  k as ProgressBar
 };

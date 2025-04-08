@@ -1,79 +1,77 @@
-import { jsx as e, jsxs as o } from "react/jsx-runtime";
-import { keyOfMatchingRange as S, scale as c } from "../common/math.js";
-import { classes as $ } from "../common/react.js";
-import { computeBoxProps as j, computeBoxClassName as E } from "../common/ui.js";
-import { DraggableControl as T } from "./DraggableControl.js";
-function G(m) {
+import { jsx as e, jsxs as l } from "react/jsx-runtime";
+import { keyOfMatchingRange as F, scale as c } from "../common/math.js";
+import { classes as S } from "../common/react.js";
+import { computeBoxProps as $, computeBoxClassName as j } from "../common/ui.js";
+import { DraggableControl as E } from "./DraggableControl.js";
+function A(m) {
   const {
     // Draggable props (passthrough)
     animated: d,
-    format: p,
+    format: g,
     maxValue: a,
-    minValue: l,
-    onChange: u,
-    onDrag: g,
+    minValue: o,
+    onChange: p,
+    onDrag: u,
     step: _,
     stepPixelSize: b,
-    suppressFlicker: f,
-    unclamped: h,
-    unit: x,
+    unclamped: f,
+    unit: h,
     value: r,
     // Own props
-    bipolar: s,
-    className: K,
-    color: v,
-    fillValue: n,
-    ranges: N = {},
-    size: y = 1,
-    style: V,
-    ...i
+    bipolar: n,
+    className: x,
+    color: K,
+    fillValue: i,
+    ranges: v = {},
+    size: N = 1,
+    style: y,
+    ...s
   } = m;
   return /* @__PURE__ */ e(
-    T,
+    E,
     {
       dragMatrix: [0, -1],
       animated: d,
-      format: p,
+      format: g,
       maxValue: a,
-      minValue: l,
-      onChange: u,
-      onDrag: g,
+      minValue: o,
+      onChange: p,
+      onDrag: u,
       step: _,
       stepPixelSize: b,
-      suppressFlicker: f,
-      unclamped: h,
-      unit: x,
+      unclamped: f,
+      unit: h,
       value: r,
-      children: (k) => {
+      children: (V) => {
         const {
           displayElement: D,
           displayValue: t,
           dragging: M,
-          handleDragStart: B,
-          inputElement: P
-        } = k, C = c(
-          n ?? t,
-          l,
+          handleDragStart: k,
+          inputElement: B
+        } = V, P = c(
+          i ?? t,
+          o,
           a
-        ), F = c(t, l, a), w = v || S(n ?? r, N) || "default", z = Math.min((F - 0.5) * 270, 225);
-        return /* @__PURE__ */ o(
+        ), C = c(t, o, a), w = K || F(i ?? r, v) || "default", z = Math.min((C - 0.5) * 270, 225);
+        return /* @__PURE__ */ l(
           "div",
           {
-            className: $([
+            className: S([
               "Knob",
               `Knob--color--${w}`,
-              s && "Knob--bipolar",
-              K,
-              E(i)
+              n && "Knob--bipolar",
+              x,
+              j(s)
             ]),
-            ...j({
+            ...$({
               style: {
-                fontSize: `${y}em`,
-                ...V
+                fontSize: `${N}em`,
+                ...y
               },
-              ...i
+              ...s
             }),
-            onMouseDown: B,
+            onMouseDown: k,
             children: [
               /* @__PURE__ */ e("div", { className: "Knob__circle", children: /* @__PURE__ */ e(
                 "div",
@@ -86,7 +84,7 @@ function G(m) {
                 }
               ) }),
               M && /* @__PURE__ */ e("div", { className: "Knob__popupValue", children: D }),
-              /* @__PURE__ */ o(
+              /* @__PURE__ */ l(
                 "svg",
                 {
                   className: "Knob__ring Knob__ringTrackPivot",
@@ -97,7 +95,7 @@ function G(m) {
                   ]
                 }
               ),
-              /* @__PURE__ */ o(
+              /* @__PURE__ */ l(
                 "svg",
                 {
                   className: "Knob__ring Knob__ringFillPivot",
@@ -110,7 +108,7 @@ function G(m) {
                         className: "Knob__ringFill",
                         style: {
                           strokeDashoffset: Math.max(
-                            ((s ? 2.75 : 2) - C * 1.5) * Math.PI * 50,
+                            ((n ? 2.75 : 2) - P * 1.5) * Math.PI * 50,
                             0
                           )
                         },
@@ -122,7 +120,7 @@ function G(m) {
                   ]
                 }
               ),
-              P
+              B
             ]
           }
         );
@@ -131,5 +129,5 @@ function G(m) {
   );
 }
 export {
-  G as Knob
+  A as Knob
 };
