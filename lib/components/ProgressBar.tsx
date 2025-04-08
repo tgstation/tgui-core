@@ -45,7 +45,7 @@ type Props = {
    *
    */
   ranges: Record<string, [number, number]>;
-  /** Removes progress percentage text, has no sense if children are present */
+  /** Removes progress percentage text, makes no sense if children are present */
   empty: boolean;
 }> &
   BoxProps &
