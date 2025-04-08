@@ -1,4 +1,4 @@
-import type { RefObject } from 'react';
+import { type RefObject, useRef } from 'react';
 import { classes } from '../common/react';
 import { computeBoxClassName } from '../common/ui';
 import {
@@ -99,16 +99,18 @@ export function Stack(props: Props) {
 
 type StackItemProps = FlexItemProps &
   Partial<{
-    innerRef: RefObject<HTMLDivElement>;
+    innerRef: RefObject<HTMLDivElement | null>;
   }>;
 
 function StackItem(props: StackItemProps) {
   const { className, innerRef, ...rest } = props;
 
+  const ref = useRef<HTMLDivElement>(innerRef?.current ?? null);
+
   return (
     <div
       className={classes(['Stack__item', className, computeBoxClassName(rest)])}
-      ref={innerRef}
+      ref={ref}
       {...computeFlexItemProps(rest)}
     />
   );
