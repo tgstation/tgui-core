@@ -11,11 +11,12 @@ export default {
 
 type PreviewProps = {
   color?: string;
+  empty?: boolean;
 } & PropsWithChildren;
 
 function ProgressBarPreview(props: PreviewProps) {
   const [value, setValue] = useState(50);
-  const { color } = props;
+  const { color, empty } = props;
 
   return (
     <Stack.Item key={color} grow>
@@ -35,7 +36,12 @@ function ProgressBarPreview(props: PreviewProps) {
           />
         </Stack.Item>
         <Stack.Item grow>
-          <ProgressBar color={color} value={value} maxValue={100} />
+          <ProgressBar
+            empty={empty}
+            color={color}
+            value={value}
+            maxValue={100}
+          />
         </Stack.Item>
         <Stack.Item>
           <Button
@@ -61,6 +67,16 @@ export const Default = {
     return (
       <Stack vertical>
         <ProgressBarPreview />
+      </Stack>
+    );
+  },
+};
+
+export const Empty = {
+  render: () => {
+    return (
+      <Stack vertical>
+        <ProgressBarPreview empty />
       </Stack>
     );
   },
