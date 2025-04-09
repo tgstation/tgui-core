@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { KeyboardEvent, RefObject, SyntheticEvent } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
@@ -80,7 +80,6 @@ export function TextArea(props: Props) {
   } = props;
   const { className, fluid, nowrap, ...rest } = boxProps;
 
-  const textareaRef = useRef<HTMLTextAreaElement>(ref?.current ?? null);
   const [scrolledAmount, setScrolledAmount] = useState(0);
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
@@ -138,7 +137,7 @@ export function TextArea(props: Props) {
   /** Focuses the input on mount */
   useEffect(() => {
     if (autoFocus || autoSelect) {
-      const input = textareaRef.current;
+      const input = ref?.current;
       if (input) {
         setTimeout(() => {
           input.focus();
@@ -153,7 +152,7 @@ export function TextArea(props: Props) {
 
   /** Updates the initial value on props change */
   useEffect(() => {
-    const input = textareaRef.current;
+    const input = ref?.current;
 
     if (input) {
       const newValue = toInputValue(value);
@@ -200,12 +199,12 @@ export function TextArea(props: Props) {
         onChange={(event) => onInput?.(event, event.target.value)}
         onKeyDown={handleKeyDown}
         onScroll={() => {
-          if (displayedValue && textareaRef.current) {
-            setScrolledAmount(textareaRef.current.scrollTop);
+          if (displayedValue && ref?.current) {
+            setScrolledAmount(ref?.current.scrollTop);
           }
         }}
         placeholder={placeholder}
-        ref={textareaRef}
+        ref={ref}
         spellCheck={false}
         style={{
           color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
