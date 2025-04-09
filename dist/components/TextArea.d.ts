@@ -1,11 +1,6 @@
-import { SyntheticEvent } from 'react';
-/**
- * ## Textarea
- *
- * An input for larger amounts of text. Use this when you want inputs larger
- * than one row.
- */
-export declare const TextArea: import('react').ForwardRefExoticComponent<Partial<{
+import { RefObject, SyntheticEvent } from 'react';
+import { BoxProps } from './Box';
+type Props = Partial<{
     /** Automatically focus the textarea on mount */
     autoFocus: boolean;
     /** Selects all text on mount */
@@ -30,6 +25,8 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     onInput: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
     /** Dummy text inside the textarea when it's empty */
     placeholder: string;
+    /** Ref to the textarea element. */
+    ref: RefObject<HTMLTextAreaElement | null>;
     /** Whether the textarea is scrollable when it has more content than height */
     scrollbar: boolean;
     /** Clears the textarea when the enter key is pressed */
@@ -38,23 +35,12 @@ export declare const TextArea: import('react').ForwardRefExoticComponent<Partial
     userMarkup: Record<string, string>;
     /** The value of the textarea */
     value: string;
-}> & Partial<{
-    as: string;
-    children: import('react').ReactNode;
-    className: string | import('../common/react').BooleanLike;
-    id: string;
-    style: import('react').CSSProperties;
-    tw: string;
-} & import('../common/ui').BooleanStyleMap & import('../common/ui').StringStyleMap & {
-    onClick: import('react').MouseEventHandler<HTMLDivElement>;
-    onContextMenu: import('react').MouseEventHandler<HTMLDivElement>;
-    onDoubleClick: import('react').MouseEventHandler<HTMLDivElement>;
-    onKeyDown: import('react').KeyboardEventHandler<HTMLDivElement>;
-    onKeyUp: import('react').KeyboardEventHandler<HTMLDivElement>;
-    onMouseDown: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseLeave: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseMove: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseOver: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseUp: import('react').MouseEventHandler<HTMLDivElement>;
-    onScroll: import('react').UIEventHandler<HTMLDivElement>;
-}> & import('react').RefAttributes<HTMLTextAreaElement>>;
+}> & BoxProps;
+/**
+ * ## Textarea
+ *
+ * An input for larger amounts of text. Use this when you want inputs larger
+ * than one row.
+ */
+export declare function TextArea(props: Props): import("react/jsx-runtime").JSX.Element;
+export {};

@@ -1,4 +1,31 @@
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
+import { BoxProps } from './Box';
+type Props = Partial<{
+    /** Buttons to render aside the section title. */
+    buttons: ReactNode;
+    /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
+    container_id: string;
+    /** If true, fills all available vertical space. */
+    fill: boolean;
+    /** If true, removes all section padding. */
+    fitted: boolean;
+    /** If true, fills the area without forcing height to 100% */
+    flexGrow: boolean;
+    /** If true, removes the section top padding */
+    noTopPadding: boolean;
+    /** @member Callback function for the `scroll` event */
+    onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
+    /** Ref to the section element. */
+    ref: RefObject<HTMLDivElement | null>;
+    /** Shows or hides the scrollbar. */
+    scrollable: boolean;
+    /** Shows or hides the horizontal scrollbar. */
+    scrollableHorizontal: boolean;
+    /** If true, filly the area except for -3rem */
+    stretchContents: boolean;
+    /** Title of the section. */
+    title: ReactNode;
+}> & BoxProps;
 /**
  * ## Section
  * Section is a surface that displays content and actions on a single topic.
@@ -26,46 +53,5 @@ import { ReactNode } from 'react';
  * </Section>
  * ```
  */
-export declare const Section: import('react').ForwardRefExoticComponent<Partial<{
-    /** Buttons to render aside the section title. */
-    buttons: ReactNode;
-    /** id to assosiate with the parent div element used by this section, for uses with procs like getElementByID */
-    container_id: string;
-    /** If true, fills all available vertical space. */
-    fill: boolean;
-    /** If true, removes all section padding. */
-    fitted: boolean;
-    /** If true, fills the area without forcing height to 100% */
-    flexGrow: boolean;
-    /** If true, removes the section top padding */
-    noTopPadding: boolean;
-    /** @member Callback function for the `scroll` event */
-    onScroll: ((this: GlobalEventHandlers, ev: Event) => any) | null;
-    /** Shows or hides the scrollbar. */
-    scrollable: boolean;
-    /** Shows or hides the horizontal scrollbar. */
-    scrollableHorizontal: boolean;
-    /** If true, filly the area except for -3rem */
-    stretchContents: boolean;
-    /** Title of the section. */
-    title: ReactNode;
-}> & Partial<{
-    as: string;
-    children: ReactNode;
-    className: string | import('../common/react').BooleanLike;
-    id: string;
-    style: import('react').CSSProperties;
-    tw: string;
-} & import('../common/ui').BooleanStyleMap & import('../common/ui').StringStyleMap & {
-    onClick: import('react').MouseEventHandler<HTMLDivElement>;
-    onContextMenu: import('react').MouseEventHandler<HTMLDivElement>;
-    onDoubleClick: import('react').MouseEventHandler<HTMLDivElement>;
-    onKeyDown: import('react').KeyboardEventHandler<HTMLDivElement>;
-    onKeyUp: import('react').KeyboardEventHandler<HTMLDivElement>;
-    onMouseDown: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseLeave: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseMove: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseOver: import('react').MouseEventHandler<HTMLDivElement>;
-    onMouseUp: import('react').MouseEventHandler<HTMLDivElement>;
-    onScroll: import('react').UIEventHandler<HTMLDivElement>;
-}> & import('react').RefAttributes<HTMLDivElement>>;
+export declare function Section(props: Props): import("react/jsx-runtime").JSX.Element;
+export {};
