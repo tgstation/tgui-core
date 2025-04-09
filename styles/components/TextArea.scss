@@ -73,3 +73,10 @@ $border-radius: 0 !default;
   overflow-x: scroll;
   white-space: nowrap;
 }
+
+.TextArea__value-container {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
