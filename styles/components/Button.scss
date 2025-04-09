@@ -124,7 +124,7 @@ $border-radius: 0 !default;
   }
 
   // We don't need additional margin if button inside stack
-  .Stack__item & {
+  .Stack__item > & {
     margin: 0;
   }
 }
