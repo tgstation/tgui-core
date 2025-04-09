@@ -1,12 +1,5 @@
-import {
-  type RefObject,
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
-import type { KeyboardEvent, SyntheticEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { KeyboardEvent, RefObject, SyntheticEvent } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { Box, type BoxProps } from './Box';
@@ -37,6 +30,8 @@ type Props = Partial<{
   onInput: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
   /** Dummy text inside the textarea when it's empty */
   placeholder: string;
+  /** Ref to the textarea element. */
+  ref: RefObject<HTMLTextAreaElement | null>;
   /** Whether the textarea is scrollable when it has more content than height */
   scrollbar: boolean;
   /** Clears the textarea when the enter key is pressed */
@@ -63,97 +58,88 @@ function getMarkupString(
  * An input for larger amounts of text. Use this when you want inputs larger
  * than one row.
  */
-export const TextArea = forwardRef(
-  (props: Props, forwardedRef: RefObject<HTMLTextAreaElement>) => {
-    const {
-      autoFocus,
-      autoSelect,
-      displayedValue,
-      dontUseTabForIndent,
-      maxLength,
-      noborder,
-      onChange,
-      onEnter,
-      onEscape,
-      onInput,
-      placeholder,
-      scrollbar,
-      selfClear,
-      userMarkup,
-      value,
-      ...boxProps
-    } = props;
-    const { className, fluid, nowrap, ...rest } = boxProps;
+export function TextArea(props: Props) {
+  const {
+    autoFocus,
+    autoSelect,
+    displayedValue,
+    dontUseTabForIndent,
+    maxLength,
+    noborder,
+    onChange,
+    onEnter,
+    onEscape,
+    onInput,
+    placeholder,
+    ref,
+    scrollbar,
+    selfClear,
+    userMarkup,
+    value,
+    ...boxProps
+  } = props;
+  const { className, fluid, nowrap, ...rest } = boxProps;
 
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const [scrolledAmount, setScrolledAmount] = useState(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(ref?.current ?? null);
+  const [scrolledAmount, setScrolledAmount] = useState(0);
 
-    function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-      if (event.key === KEY.Enter) {
-        if (event.shiftKey) {
-          event.currentTarget.focus();
-          return;
-        }
-
-        onEnter?.(event, event.currentTarget.value);
-        if (selfClear) {
-          event.currentTarget.value = '';
-        }
-        event.currentTarget.blur();
+  function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === KEY.Enter) {
+      if (event.shiftKey) {
+        event.currentTarget.focus();
         return;
       }
 
-      if (isEscape(event.key)) {
-        onEscape?.(event);
-        if (selfClear) {
-          event.currentTarget.value = '';
-        } else {
-          event.currentTarget.value = toInputValue(value);
-          event.currentTarget.blur();
-        }
-
-        return;
+      onEnter?.(event, event.currentTarget.value);
+      if (selfClear) {
+        event.currentTarget.value = '';
       }
-
-      if (!dontUseTabForIndent && event.key === KEY.Tab) {
-        event.preventDefault();
-        const { value, selectionStart, selectionEnd } = event.currentTarget;
-        event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
-        event.currentTarget.selectionEnd = selectionStart + 1;
-      }
-
-      if (
-        userMarkup &&
-        (event.ctrlKey || event.metaKey) &&
-        userMarkup[event.key]
-      ) {
-        event.preventDefault();
-        const { value, selectionStart, selectionEnd } = event.currentTarget;
-        const markupString = userMarkup[event.key];
-        event.currentTarget.value = getMarkupString(
-          value,
-          markupString,
-          selectionStart,
-          selectionEnd,
-        );
-        event.currentTarget.selectionEnd =
-          selectionEnd + markupString.length * 2;
-      }
+      event.currentTarget.blur();
+      return;
     }
 
-    useImperativeHandle(
-      forwardedRef,
-      () => textareaRef.current as HTMLTextAreaElement,
-    );
+    if (isEscape(event.key)) {
+      onEscape?.(event);
+      if (selfClear) {
+        event.currentTarget.value = '';
+      } else {
+        event.currentTarget.value = toInputValue(value);
+        event.currentTarget.blur();
+      }
 
-    /** Focuses the input on mount */
-    useEffect(() => {
-      if (!autoFocus && !autoSelect) return;
+      return;
+    }
 
+    if (!dontUseTabForIndent && event.key === KEY.Tab) {
+      event.preventDefault();
+      const { value, selectionStart, selectionEnd } = event.currentTarget;
+      event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+      event.currentTarget.selectionEnd = selectionStart + 1;
+    }
+
+    if (
+      userMarkup &&
+      (event.ctrlKey || event.metaKey) &&
+      userMarkup[event.key]
+    ) {
+      event.preventDefault();
+      const { value, selectionStart, selectionEnd } = event.currentTarget;
+      const markupString = userMarkup[event.key];
+      event.currentTarget.value = getMarkupString(
+        value,
+        markupString,
+        selectionStart,
+        selectionEnd,
+      );
+      event.currentTarget.selectionEnd = selectionEnd + markupString.length * 2;
+    }
+  }
+
+  /** Focuses the input on mount */
+  useEffect(() => {
+    if (autoFocus || autoSelect) {
       const input = textareaRef.current;
-      if (!input) return;
-
-      if (autoFocus || autoSelect) {
+      if (input) {
         setTimeout(() => {
           input.focus();
 
@@ -162,75 +148,69 @@ export const TextArea = forwardRef(
           }
         }, 1);
       }
-    }, []);
+    }
+  }, []);
 
-    /** Updates the initial value on props change */
-    useEffect(() => {
-      const input = textareaRef.current;
-      if (!input) return;
+  /** Updates the initial value on props change */
+  useEffect(() => {
+    const input = textareaRef.current;
 
+    if (input) {
       const newValue = toInputValue(value);
-      if (input.value === newValue) return;
+      if (input.value !== newValue) {
+        input.value = newValue;
+      }
+    }
+  }, [value]);
 
-      input.value = newValue;
-    }, [value]);
-
-    return (
-      <Box
-        className={classes([
-          'TextArea',
-          fluid && 'TextArea--fluid',
-          noborder && 'TextArea--noborder',
-          className,
-        ])}
-        {...rest}
-      >
-        {!!displayedValue && (
+  return (
+    <Box
+      className={classes([
+        'TextArea',
+        fluid && 'TextArea--fluid',
+        noborder && 'TextArea--noborder',
+        className,
+      ])}
+      {...rest}
+    >
+      {!!displayedValue && (
+        <div className="TextArea__value-container">
           <div
+            className={classes([
+              'TextArea__textarea',
+              'TextArea__textarea_custom',
+            ])}
             style={{
-              height: '100%',
-              overflow: 'hidden',
-              position: 'absolute',
-              width: '100%',
+              transform: `translateY(-${scrolledAmount}px)`,
             }}
           >
-            <div
-              className={classes([
-                'TextArea__textarea',
-                'TextArea__textarea_custom',
-              ])}
-              style={{
-                transform: `translateY(-${scrolledAmount}px)`,
-              }}
-            >
-              {displayedValue}
-            </div>
+            {displayedValue}
           </div>
-        )}
-        <textarea
-          autoComplete="off"
-          className={classes([
-            'TextArea__textarea',
-            scrollbar && 'TextArea__textarea--scrollable',
-            nowrap && 'TextArea__nowrap',
-          ])}
-          maxLength={maxLength}
-          onBlur={(event) => onChange?.(event, event.target.value)}
-          onChange={(event) => onInput?.(event, event.target.value)}
-          onKeyDown={handleKeyDown}
-          onScroll={() => {
-            if (displayedValue && textareaRef.current) {
-              setScrolledAmount(textareaRef.current.scrollTop);
-            }
-          }}
-          placeholder={placeholder}
-          ref={textareaRef}
-          spellCheck={false}
-          style={{
-            color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
-          }}
-        />
-      </Box>
-    );
-  },
-);
+        </div>
+      )}
+      <textarea
+        autoComplete="off"
+        className={classes([
+          'TextArea__textarea',
+          scrollbar && 'TextArea__textarea--scrollable',
+          nowrap && 'TextArea__nowrap',
+        ])}
+        maxLength={maxLength}
+        onBlur={(event) => onChange?.(event, event.target.value)}
+        onChange={(event) => onInput?.(event, event.target.value)}
+        onKeyDown={handleKeyDown}
+        onScroll={() => {
+          if (displayedValue && textareaRef.current) {
+            setScrolledAmount(textareaRef.current.scrollTop);
+          }
+        }}
+        placeholder={placeholder}
+        ref={textareaRef}
+        spellCheck={false}
+        style={{
+          color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
+        }}
+      />
+    </Box>
+  );
+}

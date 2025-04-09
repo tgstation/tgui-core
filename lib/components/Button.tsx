@@ -307,9 +307,8 @@ function ButtonInput(props: InputProps) {
 
   useEffect(() => {
     const input = inputRef.current;
-    if (!input) return;
 
-    if (inInput) {
+    if (input && inInput) {
       input.value = currentValue || '';
       try {
         input.focus();
