@@ -78,20 +78,21 @@ export function Section(props: Props) {
     ...rest
   } = props;
 
-  const nodeRef = useRef<HTMLDivElement>(ref?.current ?? null);
-
   const hasTitle = canRender(title) || canRender(buttons);
+
+  const ourRef = useRef<HTMLDivElement>(null);
+  const nodeRef = ref ?? ourRef;
 
   useEffect(() => {
     // Don't use early returns here as we're in useEffect
-    if (nodeRef?.current) {
+    if (nodeRef.current) {
       if (scrollable || scrollableHorizontal) {
         addScrollableNode(nodeRef.current);
       }
     }
 
     return () => {
-      if (nodeRef?.current) {
+      if (nodeRef.current) {
         removeScrollableNode(nodeRef.current);
       }
     };
