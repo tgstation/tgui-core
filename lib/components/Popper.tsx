@@ -1,21 +1,21 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import {
-  type PropsWithChildren,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { usePopper } from 'react-popper';
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useDismiss,
+  useFloating,
+  useInteractions,
+} from '@floating-ui/react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
-type RequiredProps = {
+type Props = {
   /** The content to display in the popper */
   content: ReactNode;
   /** Whether the popper is open */
   isOpen: boolean;
-};
-
-type OptionalProps = Partial<{
+} & Partial<{
   /** Base z-index of the popper div
    * @default 5
    */
@@ -24,77 +24,51 @@ type OptionalProps = Partial<{
   onClickOutside: () => void;
   /** Where to place the popper relative to the reference element */
   placement: Placement;
-}>;
-
-type Props = RequiredProps & OptionalProps;
+}> &
+  PropsWithChildren;
 
 /**
  * ## Popper
  * Popper lets you position elements so that they don't go out of the bounds of the window.
- * @url https://popper.js.org/react-popper/ for more information.
  *
  * @deprecated - Use
  * [Floating](https://github.com/tgstation/tgui-core/tree/main/lib/components/Floating.tsx)
  * instead.
+ *
+ * This will serve as a wrapper for floating ui until replaced.
  */
-export function Popper(props: PropsWithChildren<Props>) {
-  const { children, content, isOpen, onClickOutside, placement } = props;
-
-  const [referenceElement, setReferenceElement] =
-    useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(
-    null,
-  );
-
-  // One would imagine we could just use useref here, but it's against react-popper documentation and causes a positioning bug
-  // We still need them to call focus and clickoutside events :(
-  const popperRef = useRef<HTMLDivElement | null>(null);
-  const parentRef = useRef<HTMLDivElement | null>(null);
-
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+export function Popper(props: Props) {
+  const {
+    baseZIndex = 5,
+    children,
+    content,
+    isOpen,
+    onClickOutside,
     placement,
+  } = props;
+
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    onOpenChange: onClickOutside,
+    middleware: [offset(5), flip(), shift()],
+    placement,
+    whileElementsMounted: autoUpdate,
   });
 
-  /** Close the popper when the user clicks outside */
-  function handleClickOutside(event: MouseEvent) {
-    if (
-      !popperRef.current?.contains(event.target as Node) &&
-      !parentRef.current?.contains(event.target as Node)
-    ) {
-      onClickOutside?.();
-    }
-  }
+  const dismiss = useDismiss(context);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
 
   return (
     <>
-      <div
-        ref={(node) => {
-          setReferenceElement(node);
-          parentRef.current = node;
-        }}
-      >
+      <div ref={refs.setReference} {...getReferenceProps()}>
         {children}
       </div>
       {isOpen && (
         <div
-          ref={(node) => {
-            setPopperElement(node);
-            popperRef.current = node;
-          }}
-          style={{ ...styles.popper, zIndex: props.baseZIndex ?? 5 }}
-          {...attributes.popper}
+          ref={refs.setFloating}
+          style={{ ...floatingStyles, zIndex: baseZIndex }}
+          {...getFloatingProps()}
         >
           {content}
         </div>
