@@ -156,10 +156,10 @@ export function Floating(props: Props) {
   const dismiss = useDismiss(context, {
     ancestorScroll: true,
     outsidePress: (event) =>
-      (allowedOutsideClasses &&
-        event.target instanceof Element &&
-        !event.target.closest(allowedOutsideClasses)) ||
-      false,
+      !allowedOutsideClasses
+        ? true
+        : event.target instanceof Element &&
+          !event.target.closest(allowedOutsideClasses),
   });
 
   const click = useClick(context, { enabled: !disabled });
