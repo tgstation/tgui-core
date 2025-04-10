@@ -1,5 +1,5 @@
-import { SyntheticEvent } from 'react';
-import { BoxProps } from './Box';
+import { type SyntheticEvent } from 'react';
+import { type BoxProps } from './Box';
 type ConditionalProps = {
     /**
      * Mark this if you want to debounce onInput.

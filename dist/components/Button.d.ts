@@ -1,7 +1,7 @@
-import { Placement } from '@floating-ui/react';
-import { ReactNode } from 'react';
-import { BooleanLike } from '../common/react';
-import { BoxProps } from './Box';
+import type { Placement } from '@floating-ui/react';
+import { type ReactNode } from 'react';
+import { type BooleanLike } from '../common/react';
+import { type BoxProps } from './Box';
 /**
  * Getting ellipses to work requires that you use:
  * 1. A string rather than a node

@@ -1,17 +1,1 @@
-import { jsx as t } from "react/jsx-runtime";
-import { classes as c } from "../common/react.js";
-import { computeBoxProps as s, computeBoxClassName as m } from "../common/ui.js";
-function d(r) {
-  const { content: l, children: a, className: e, ...o } = r;
-  return o.color = l ? null : "default", o.backgroundColor = r.color || "default", /* @__PURE__ */ t(
-    "div",
-    {
-      className: c(["ColorBox", e, m(o)]),
-      ...s(o),
-      children: l || ""
-    }
-  );
-}
-export {
-  d as ColorBox
-};
+import*as o from"react/jsx-runtime";import*as r from"../common/react.js";import*as m from"../common/ui.js";function s(s){let{content:e,children:l,className:t,...a}=s;return a.color=e?null:"default",a.backgroundColor=s.color||"default",(0,o.jsx)("div",{className:(0,r.classes)(["ColorBox",t,(0,m.computeBoxClassName)(a)]),...(0,m.computeBoxProps)(a),children:e||""})}export{s as ColorBox};

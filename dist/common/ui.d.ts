@@ -1,5 +1,5 @@
-import { BoxProps } from '../components/Box';
-import { BooleanLike } from './react';
+import type { BoxProps } from '../components/Box';
+import { type BooleanLike } from './react';
 type UnitMapper = (value: unknown) => string | undefined;
 /**
  * Coverts our rem-like spacing unit into a CSS unit.

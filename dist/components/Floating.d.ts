@@ -1,6 +1,6 @@
-import { Placement } from '@floating-ui/react';
-import { CSSProperties, ReactNode } from 'react';
-import { BooleanLike } from '../common/react';
+import { type Placement } from '@floating-ui/react';
+import { type CSSProperties, type ReactNode } from 'react';
+import { type BooleanLike } from '../common/react';
 type Props = {
     /** Interacting with this element will open the floating element. */
     children: ReactNode;

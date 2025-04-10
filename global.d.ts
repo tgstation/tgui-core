@@ -1,11 +1,3 @@
-/**
- * @file
- * @copyright 2021 Aleksej Komarov
- * @license MIT
- */
-
-// Webpack asset modules.
-// Should match extensions used in webpack config.
 declare module '*.png' {
   const content: string;
   export default content;
@@ -26,18 +18,8 @@ declare global {
   var ByondKeyDown: string;
 }
 
-namespace JSX {
-  interface IntrinsicElements {
-    blink: any;
-    marquee: any;
-  }
-}
-
-type TguiMessage = {
-  [key: string]: any;
-  payload?: any;
-  type: string;
-};
+declare const Byond: ByondType;
+declare const loadedMappings: Record<string, string>;
 
 type ByondType = {
   /**
@@ -169,19 +151,3 @@ type ByondType = {
    */
   winset(props: object): void;
 };
-
-/**
- * Object that provides access to Byond Skin API and is available in
- * any tgui application.
- */
-const Byond: ByondType = {} as ByondType;
-
-declare const loadedMappings: Record<string, string>;
-
-interface Window {
-  Byond: ByondType;
-  __augmentStack__: (store: Store) => StackAugmentor;
-  __store__: Store<unknown, AnyAction>;
-  msIDBTransaction: IDBTransaction;
-  msIndexedDB: IDBFactory;
-}

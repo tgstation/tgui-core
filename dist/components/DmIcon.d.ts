@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { BoxProps } from './Box';
+import type { ReactNode } from 'react';
+import type { BoxProps } from './Box';
 export declare enum Direction {
     NORTH = 1,
     SOUTH = 2,
@@ -30,5 +30,5 @@ type Props = {
  * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
  * A much faster alternative to base64 icons.
  */
-export declare function DmIcon(props: Props): string | number | bigint | boolean | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import('react').ReactPortal | import('react').ReactElement<unknown, string | import('react').JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | import("react/jsx-runtime").JSX.Element | null | undefined;
+export declare function DmIcon(props: Props): string | number | bigint | boolean | Iterable<ReactNode> | Promise<string | number | bigint | boolean | import("react").ReactPortal | import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | import("react/jsx-runtime").JSX.Element | null | undefined;
 export {};

@@ -13,5 +13,5 @@ export declare function zip<T extends unknown[][]>(...arr: T): Zip<T>;
  * @param b second string to compare
  * @returns -1 for a < b, 1 for a > b and 0 otherwise
  */
-export declare function stringCompare(a: string, b: string): 0 | 1 | -1;
+export declare function stringCompare(a: string, b: string): 1 | -1 | 0;
 export {};

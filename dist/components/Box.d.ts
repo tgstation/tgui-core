@@ -1,6 +1,6 @@
-import { CSSProperties, KeyboardEventHandler, MouseEventHandler, ReactNode, UIEventHandler } from 'react';
-import { BooleanLike } from '../common/react';
-import { BooleanStyleMap, StringStyleMap } from '../common/ui';
+import { type CSSProperties, type KeyboardEventHandler, type MouseEventHandler, type ReactNode, type UIEventHandler } from 'react';
+import type { BooleanLike } from '../common/react';
+import { type BooleanStyleMap, type StringStyleMap } from '../common/ui';
 type EventHandlers = {
     onClick: MouseEventHandler<HTMLDivElement>;
     onContextMenu: MouseEventHandler<HTMLDivElement>;
@@ -97,7 +97,7 @@ type DangerDoNotUse = {
  *
  * Default font size (`1rem`) is equal to `12px`.
  */
-export declare function Box(props: BoxProps & DangerDoNotUse): import('react').ReactElement<{
+export declare function Box(props: BoxProps & DangerDoNotUse): import("react").ReactElement<{
     className: string;
-}, string | import('react').JSXElementConstructor<any>>;
+}, string | import("react").JSXElementConstructor<any>>;
 export {};

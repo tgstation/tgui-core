@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
     "module": "ESNext",
@@ -24,10 +24,5 @@
       "tgui-core/*": ["dist/common/*.d.ts"]
     }
   },
-  "include": ["lib", "global.d.ts", "stories", ".storybook"],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+  "include": ["lib", "global.d.ts", "stories", ".storybook"]
 }

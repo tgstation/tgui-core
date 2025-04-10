@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { BoxProps } from './Box';
+import type { ReactNode } from 'react';
+import type { BoxProps } from './Box';
 type Props = {
     content?: ReactNode;
 } & BoxProps;

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 type DialogProps = {
     /** The content of the dialog. */
     children: ReactNode;

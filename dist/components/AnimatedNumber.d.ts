@@ -26,7 +26,7 @@ export declare class AnimatedNumber extends Component<Props> {
     /**
      * The inner `<span/>` being updated sixty times per second.
      */
-    ref: import('react').RefObject<HTMLSpanElement | null>;
+    ref: import("react").RefObject<HTMLSpanElement | null>;
     /**
      * The interval being used to update the inner span.
      */

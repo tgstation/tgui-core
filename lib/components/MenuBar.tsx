@@ -75,7 +75,7 @@ type MenuBarItemProps = {
   setOpenOnHover: (flag: boolean) => void;
 };
 
-function Dropdown(props: MenuBarItemProps) {
+function MenuDropdown(props: MenuBarItemProps) {
   const {
     entry,
     children,
@@ -116,7 +116,7 @@ function Dropdown(props: MenuBarItemProps) {
   );
 }
 
-MenuBar.Dropdown = Dropdown;
+MenuBar.Dropdown = MenuDropdown;
 
 function MenuItemToggle(props) {
   const { value, displayText, onClick, checked } = props;
@@ -138,7 +138,7 @@ function MenuItemToggle(props) {
   );
 }
 
-Dropdown.MenuItemToggle = MenuItemToggle;
+MenuDropdown.MenuItemToggle = MenuItemToggle;
 
 type MenuItemProps = Partial<{
   value: any;
@@ -162,13 +162,13 @@ function MenuItem(props: MenuItemProps) {
   );
 }
 
-Dropdown.MenuItem = MenuItem;
+MenuDropdown.MenuItem = MenuItem;
 
 function Separator() {
   return <div className="MenuBar__Separator" />;
 }
 
-Dropdown.Separator = Separator;
+MenuDropdown.Separator = Separator;
 
 type MenuBarProps = {
   children: ReactNode;

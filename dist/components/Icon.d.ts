@@ -1,5 +1,5 @@
-import { BooleanLike } from '../common/react';
-import { BoxProps } from './Box';
+import { type BooleanLike } from '../common/react';
+import type { BoxProps } from './Box';
 type Props = {
     /** Icon name. @see https://fontawesome.com/v6/search?o=r&m=free */
     name: string;

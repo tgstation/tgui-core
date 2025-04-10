@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import type { BoxProps } from './Box';
 type SampleByondParams = Partial<{
     /** Can be auto-generated. */
     id: string;

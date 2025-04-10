@@ -1,17 +1,1 @@
-import { jsx as n } from "react/jsx-runtime";
-import { useRef as c, useEffect as f } from "react";
-function m(r) {
-  const { children: o } = r, t = c(null);
-  return f(() => {
-    const u = setTimeout(() => {
-      var e;
-      (e = t.current) == null || e.focus();
-    }, 1);
-    return () => {
-      clearTimeout(u);
-    };
-  }, []), /* @__PURE__ */ n("div", { ref: t, tabIndex: -1, children: o });
-}
-export {
-  m as Autofocus
-};
+import*as e from"react/jsx-runtime";import*as t from"react";function r(r){let{children:u}=r,o=(0,t.useRef)(null);return(0,t.useEffect)(()=>{let e=setTimeout(()=>{o.current?.focus()},1);return()=>{clearTimeout(e)}},[]),(0,e.jsx)("div",{ref:o,tabIndex:-1,children:u})}export{r as Autofocus};

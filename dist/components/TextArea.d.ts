@@ -1,5 +1,5 @@
-import { RefObject, SyntheticEvent } from 'react';
-import { BoxProps } from './Box';
+import type { RefObject, SyntheticEvent } from 'react';
+import { type BoxProps } from './Box';
 type Props = Partial<{
     /** Automatically focus the textarea on mount */
     autoFocus: boolean;

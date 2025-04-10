@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import type { BoxProps } from './Box';
 type Props = Partial<{
     className: string;
     /** True is default, this fixes an ie thing */

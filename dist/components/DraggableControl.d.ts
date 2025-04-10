@@ -1,5 +1,5 @@
-import { MouseEventHandler, ReactNode } from 'react';
-import { BoxProps } from './Box';
+import { type MouseEventHandler, type ReactNode } from 'react';
+import type { BoxProps } from './Box';
 type Control = {
     /** Tooltip-like node to display. */
     displayElement: ReactNode;

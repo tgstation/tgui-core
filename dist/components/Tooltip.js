@@ -1,18 +1,1 @@
-import { jsx as r } from "react/jsx-runtime";
-import { Floating as i } from "./Floating.js";
-function l(o) {
-  const { content: t, children: n, position: e } = o;
-  return /* @__PURE__ */ r(
-    i,
-    {
-      hoverOpen: !0,
-      content: t,
-      contentClasses: "Tooltip",
-      placement: e,
-      children: n
-    }
-  );
-}
-export {
-  l as Tooltip
-};
+import*as t from"react/jsx-runtime";import*as o from"./Floating.js";function e(e){let{content:n,children:r,position:i}=e;return(0,t.jsx)(o.Floating,{hoverOpen:!0,content:n,contentClasses:"Tooltip",placement:i,children:r})}export{e as Tooltip};

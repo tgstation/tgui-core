@@ -1,5 +1,5 @@
-import { KeyboardEvent } from 'react';
-import { BoxProps } from './Box';
+import type { KeyboardEvent } from 'react';
+import type { BoxProps } from './Box';
 export type ModalProps = BoxProps & Partial<{
     /** Fires once the enter key is pressed */
     onEnter: (e: KeyboardEvent<HTMLInputElement>) => void;

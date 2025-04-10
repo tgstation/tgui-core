@@ -1,9 +1,1 @@
-const n = (...t) => (e, ...f) => {
-  let o = e;
-  for (const r of t)
-    Array.isArray(r) ? o = n(...r)(o, ...f) : r && (o = r(o, ...f));
-  return o;
-};
-export {
-  n as flow
-};
+let r=(...e)=>(t,...l)=>{let o=t;for(let t of e)Array.isArray(t)?o=r(...t)(o,...l):t&&(o=t(o,...l));return o};export{r as flow};
