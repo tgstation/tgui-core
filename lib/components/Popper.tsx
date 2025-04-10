@@ -34,14 +34,23 @@ type Props = {
  * @deprecated - Use
  * [Floating](https://github.com/tgstation/tgui-core/tree/main/lib/components/Floating.tsx)
  * instead.
+ *
+ * This will serve as a wrapper for floating ui until replaced.
  */
 export function Popper(props: Props) {
-  const { children, content, isOpen, onClickOutside, placement } = props;
+  const {
+    baseZIndex = 5,
+    children,
+    content,
+    isOpen,
+    onClickOutside,
+    placement,
+  } = props;
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: onClickOutside,
-    middleware: [offset(10), flip(), shift()],
+    middleware: [offset(5), flip(), shift()],
     placement,
     whileElementsMounted: autoUpdate,
   });
@@ -58,7 +67,7 @@ export function Popper(props: Props) {
       {isOpen && (
         <div
           ref={refs.setFloating}
-          style={floatingStyles}
+          style={{ ...floatingStyles, zIndex: baseZIndex }}
           {...getFloatingProps()}
         >
           {content}

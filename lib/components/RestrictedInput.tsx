@@ -6,6 +6,10 @@ type Props = {
   value: number;
 } & Partial<{
   allowFloats: boolean;
+  autoFocus: boolean;
+  autoSelect: boolean;
+  disabled: boolean;
+  fluid: boolean;
   maxValue: number | null;
   minValue: number | null;
   onBlur: (e: Event, value: number) => void;
