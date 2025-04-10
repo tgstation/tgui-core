@@ -3,11 +3,8 @@ import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.tsx'],
-
   addons: [
-    '@storybook/addon-onboarding',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     '@storybook/addon-console',
     {
       name: 'storybook-addon-sass-postcss',
@@ -26,7 +23,6 @@ const config: StorybookConfig = {
     // Customize the final Rsbuild config here
     return config;
   },
-
   docs: {},
   typescript: {
     reactDocgen: 'react-docgen-typescript',
