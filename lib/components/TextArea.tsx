@@ -207,7 +207,7 @@ export function TextArea(props: Props) {
           }
         }}
         placeholder={placeholder}
-        ref={ref}
+        ref={nodeRef}
         spellCheck={false}
         style={{
           color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
