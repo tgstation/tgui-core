@@ -1,5 +1,5 @@
-import { Placement } from '@popperjs/core';
-import { PropsWithChildren, ReactNode } from 'react';
+import type { Placement } from '@popperjs/core';
+import { type PropsWithChildren, type ReactNode } from 'react';
 type RequiredProps = {
     /** The content to display in the popper */
     content: ReactNode;

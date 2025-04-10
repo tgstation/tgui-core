@@ -1,5 +1,5 @@
-import { PropsWithChildren, ReactNode } from 'react';
-import { BooleanLike } from '../common/react';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { type BooleanLike } from '../common/react';
 export declare function LabeledList(props: PropsWithChildren): import("react/jsx-runtime").JSX.Element;
 type LabeledListItemProps = Partial<{
     /** Buttons to render aside the content. */

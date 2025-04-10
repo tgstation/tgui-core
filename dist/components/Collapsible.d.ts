@@ -1,5 +1,5 @@
-import { CSSProperties, ReactNode } from 'react';
-import { BoxProps } from './Box';
+import { type CSSProperties, type ReactNode } from 'react';
+import { type BoxProps } from './Box';
 type Props = Partial<{
     /** Buttons or other content to render inline with the button */
     buttons: ReactNode;

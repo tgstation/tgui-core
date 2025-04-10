@@ -1,8 +1,13 @@
-import { Placement } from '@floating-ui/react';
-import { ReactNode } from 'react';
-import { BooleanLike } from '../common/react';
-import { BoxProps } from './Box';
-import { Direction } from './DmIcon';
+/**
+ * @file
+ * @copyright 2024 Aylong (https://github.com/AyIong)
+ * @license MIT
+ */
+import type { Placement } from '@floating-ui/react';
+import type { ReactNode } from 'react';
+import { type BooleanLike } from '../common/react';
+import type { BoxProps } from './Box';
+import { type Direction } from './DmIcon';
 type Props = Partial<{
     /** Asset cache. Example: `asset={['assetname32x32', thing.key]}` */
     asset: string[];

@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react';
-import { BoxProps } from './Box';
+import type { CSSProperties } from 'react';
+import type { BoxProps } from './Box';
 type Props = {
     /** The current value of the metric. */
     value: number;

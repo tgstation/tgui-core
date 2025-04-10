@@ -1,4 +1,4 @@
-import { FlexProps } from './Flex';
+import { type FlexProps } from './Flex';
 /**
  *  ## LabeledControls
  * LabeledControls is a horizontal grid that is designed to hold various

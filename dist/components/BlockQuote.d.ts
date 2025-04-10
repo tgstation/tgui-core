@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import { type BoxProps } from './Box';
 /**
  * ## BlockQuote
  * Just a block quote, just like this example in markdown:

@@ -1,6 +1,1 @@
-function n(e) {
-  throw new Error(`Unhandled case: ${e}`);
-}
-export {
-  n as exhaustiveCheck
-};
+function e(e){throw Error(`Unhandled case: ${e}`)}export{e as exhaustiveCheck};

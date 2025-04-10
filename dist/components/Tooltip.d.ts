@@ -1,5 +1,5 @@
-import { Placement } from '@floating-ui/react';
-import { ReactNode } from 'react';
+import type { Placement } from '@floating-ui/react';
+import type { ReactNode } from 'react';
 type Props = {
     /** The content to display in the tooltip */
     content: ReactNode;

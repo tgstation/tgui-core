@@ -1,10 +1,1 @@
-import { jsx as r } from "react/jsx-runtime";
-import { classes as o } from "../common/react.js";
-import { Box as c } from "./Box.js";
-function l(m) {
-  const { className: e, children: s, ...i } = m;
-  return /* @__PURE__ */ r(c, { className: o(["Dimmer", e]), ...i, children: /* @__PURE__ */ r("div", { className: "Dimmer__inner", children: s }) });
-}
-export {
-  l as Dimmer
-};
+import*as r from"react/jsx-runtime";import*as m from"../common/react.js";import*as e from"./Box.js";function s(s){let{className:i,children:o,...a}=s;return(0,r.jsx)(e.Box,{className:(0,m.classes)(["Dimmer",i]),...a,children:(0,r.jsx)("div",{className:"Dimmer__inner",children:o})})}export{s as Dimmer};

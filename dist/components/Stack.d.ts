@@ -1,5 +1,5 @@
-import { RefObject } from 'react';
-import { FlexItemProps, FlexProps } from './Flex';
+import { type RefObject } from 'react';
+import { type FlexItemProps, type FlexProps } from './Flex';
 type Props = Partial<{
     /** Fills available space. */
     fill: boolean;

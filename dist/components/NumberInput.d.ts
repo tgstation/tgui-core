@@ -1,6 +1,6 @@
-import { CSSProperties, Component, FocusEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
-import { BooleanLike } from '../common/react';
-import { BoxProps } from './Box';
+import { type CSSProperties, Component, type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandler } from 'react';
+import { type BooleanLike } from '../common/react';
+import { type BoxProps } from './Box';
 type Props = Required<{
     /** Highest possible value. */
     maxValue: number;
@@ -51,7 +51,7 @@ type State = {
  * to fine tune the value, or single click it to manually type a number.
  */
 export declare class NumberInput extends Component<Props, State> {
-    inputRef: import('react').RefObject<HTMLInputElement | null>;
+    inputRef: import("react").RefObject<HTMLInputElement | null>;
     dragTimeout: NodeJS.Timeout;
     dragInterval: NodeJS.Timeout;
     state: State;

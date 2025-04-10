@@ -1,4 +1,4 @@
-import { KeyEvent } from '../common/events';
+import type { KeyEvent } from '../common/events';
 type Props = Partial<{
     onKey: (key: KeyEvent) => void;
     onKeyDown: (key: KeyEvent) => void;

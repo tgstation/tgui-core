@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import { type BoxProps } from './Box';
 type Props = ExclusiveProps & BoxProps;
 /** You MUST use only one or none */
 type NoticeType = 'info' | 'success' | 'warning' | 'danger';

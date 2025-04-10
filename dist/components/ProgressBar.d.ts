@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
-import { BoxProps } from './Box';
+import type { PropsWithChildren } from 'react';
+import type { BoxProps } from './Box';
 type Props = {
     /**
      * Current progress as a floating point number between `minValue` (default: 0) and `maxValue` (default: 1).

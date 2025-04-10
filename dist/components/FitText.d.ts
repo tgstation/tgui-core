@@ -1,4 +1,4 @@
-import { Component, HTMLAttributes, PropsWithChildren } from 'react';
+import { Component, type HTMLAttributes, type PropsWithChildren } from 'react';
 type Props = {
     acceptableDifference?: number;
     maxFontSize: number;
@@ -9,7 +9,7 @@ type State = {
     fontSize: number;
 };
 export declare class FitText extends Component<Props, State> {
-    ref: import('react').RefObject<HTMLDivElement | null>;
+    ref: import("react").RefObject<HTMLDivElement | null>;
     state: State;
     constructor(props: Props);
     componentDidUpdate(prevProps: any): void;

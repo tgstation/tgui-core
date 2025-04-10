@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import type { BoxProps } from './Box';
 type Props = Partial<{
     /** Collapses table to the smallest possible size. */
     collapsing: boolean;

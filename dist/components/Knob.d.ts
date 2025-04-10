@@ -1,5 +1,5 @@
-import { BooleanLike } from '../common/react';
-import { BoxProps } from './Box';
+import { type BooleanLike } from '../common/react';
+import type { BoxProps } from './Box';
 type Props = {
     /** Value itself, controls the position of the cursor. */
     value: number;

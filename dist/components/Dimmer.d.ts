@@ -1,4 +1,4 @@
-import { BoxProps } from './Box';
+import { type BoxProps } from './Box';
 /**
  * ## Dimmer
  * Dims surrounding area to emphasize content placed inside.

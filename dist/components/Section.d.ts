@@ -1,5 +1,5 @@
-import { ReactNode, RefObject } from 'react';
-import { BoxProps } from './Box';
+import { type ReactNode, type RefObject } from 'react';
+import type { BoxProps } from './Box';
 type Props = Partial<{
     /** Buttons to render aside the section title. */
     buttons: ReactNode;
