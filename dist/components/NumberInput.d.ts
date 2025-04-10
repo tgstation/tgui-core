@@ -1,4 +1,4 @@
-import { type CSSProperties, Component, type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandler } from 'react';
+import { Component, type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandler } from 'react';
 import { type BooleanLike } from '../common/react';
 import { type BoxProps } from './Box';
 type Props = Required<{
@@ -12,21 +12,13 @@ type Props = Required<{
     value: number | string;
 }> & Partial<{
     /** Animates the value if it was changed externally. */
-    animated: BooleanLike;
-    /** Custom class name. */
-    className: BoxProps['className'];
+    animated: boolean;
     /** Makes the input field uneditable & non draggable to prevent user changes */
-    disabled: BooleanLike;
-    /** Fill all available horizontal space. */
-    fluid: BooleanLike;
-    /** Input font size */
-    fontSize: CSSProperties['fontSize'];
+    disabled: boolean;
     /** Format value using this function before displaying it. */
     format: (value: number) => string;
-    /** Input height */
-    height: CSSProperties['height'];
-    /** Input line height */
-    lineHeight: CSSProperties['lineHeight'];
+    /** Adjusts the width to 100% of its parent container */
+    fluid: boolean;
     /** An event which fires when you release the input or successfully enter a number. */
     onChange: (value: number) => void;
     /** An event which fires about every 500ms when you drag the input up and down, on release and on manual editing. */
@@ -35,9 +27,7 @@ type Props = Required<{
     stepPixelSize: number;
     /** Unit to display to the right of value. */
     unit: string;
-    /** Width in Box units */
-    width: BoxProps['width'];
-}>;
+}> & BoxProps;
 type State = {
     currentValue: number;
     dragging: BooleanLike;
