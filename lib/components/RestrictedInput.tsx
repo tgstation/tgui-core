@@ -1,20 +1,12 @@
 import { clamp } from 'lib/common/math';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 type Props = {
-  /**
-   * The current value of the input.
-   *
-   * Use a useState only when you need to send the current value outside of an
-   * interaction with the input (say, a submit button press).
-   *
-   * Otherwise, this component can manage its own state just fine. It will
-   * rerender when the passed value changes.
-   */
+  /** The current value of the input. */
   value: number;
 } & Partial<{
   /** Restricted inputs round by default.  */
@@ -61,28 +53,38 @@ export function RestrictedInput(props: Props) {
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const [value, setValue] = useState(props.value);
+  const innerValue = useRef(props.value);
 
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    const eventValue = Number(event.target.value);
-    if (Number.isNaN(eventValue)) {
-      setValue(minValue);
-    } else {
-      const newValue = allowFloats ? eventValue : Math.round(eventValue);
-      setValue(newValue);
+  function updateValue(value: number) {
+    if (value === innerValue.current) return;
+
+    let newValue = value;
+    if (Number.isNaN(value)) {
+      newValue = minValue;
+    } else if (!allowFloats) {
+      newValue = Math.round(value);
     }
 
-    onChange?.(value);
+    newValue = clamp(newValue, minValue, maxValue);
+    innerValue.current = newValue;
+    if (inputRef.current) {
+      inputRef.current.value = newValue.toString();
+    }
+    onChange?.(newValue);
+  }
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    updateValue(Number(event.target.value));
   }
 
   function onKeyDownHandler(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      onEnter?.(value);
+      onEnter?.(innerValue.current);
       inputRef.current?.blur();
     } else if (isEscape(event.key)) {
       event.preventDefault();
-      onEscape?.(value);
+      onEscape?.(innerValue.current);
       inputRef.current?.blur();
     }
   }
@@ -97,11 +99,7 @@ export function RestrictedInput(props: Props) {
   }, []);
 
   useEffect(() => {
-    const clamped = clamp(props.value, minValue, maxValue);
-
-    if (clamped !== value) {
-      setValue(clamped);
-    }
+    updateValue(props.value);
   }, [props.value]);
 
   const boxProps = computeBoxProps(rest);
@@ -123,7 +121,7 @@ export function RestrictedInput(props: Props) {
       onKeyDown={onKeyDownHandler}
       ref={inputRef}
       type="number"
-      value={value}
+      value={innerValue.current}
     />
   );
 }

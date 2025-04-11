@@ -37,6 +37,7 @@ export const WithFloats: Story = {
         value={value}
         onChange={(value) => setValue(value)}
         width={8}
+        maxValue={3}
       />
     );
   },
@@ -50,7 +51,7 @@ export const Disabled: Story = {
 
 export const SendParentValue: Story = {
   render: () => {
-    const [parentValue, setParentValue] = useState(1);
+    const [parentValue, setParentValue] = useState(5);
 
     return (
       <>
@@ -60,7 +61,7 @@ export const SendParentValue: Story = {
           onChange={(value) => setParentValue(value)}
           width={8}
         />
-        <Button onClick={() => setParentValue(10000)}>Max</Button>
+        <Button onClick={() => setParentValue(103000)}>Max</Button>
       </>
     );
   },
