@@ -540,9 +540,6 @@ Renders children icons on top of each other in order to make your own icon.
 
 A basic text input, which allow users to enter text into a UI.
 
-> Input does not support custom font size and height due to the way
-> it's implemented in CSS. Eventually, this needs to be fixed.
-
 **Props:**
 
 - See inherited props: [Box](#box)
@@ -552,12 +549,11 @@ A basic text input, which allow users to enter text into a UI.
 - `fluid: boolean` - Fill all available horizontal space.
 - `selfClear: boolean` - Clear after hitting enter, as well as remain focused
   when this happens. Useful for things like chat inputs.
-- `onChange: (e, value) => void` - Fires when the user clicks out or presses enter.
+- `onChange: (e, value) => void` - Fires every time the input value changes.
 - `onEnter: (e, value) => void` - Fires when the user hits enter.
 - `onEscape: (e) => void` - Fires when the user hits escape.
-- `onInput: (e, value) => void` - Fires when the user types into the input.
-- `expensive: boolean` - Introduces a delay before updating the input. Useful for large filters,
-  where you don't want to update on every keystroke.
+- `expensive: boolean` - Introduces a delay before updating the input. Useful
+  for large filters, where you don't want to update on every keystroke.
 
 ### `Knob`
 

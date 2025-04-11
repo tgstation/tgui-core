@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from 'lib/components/Button';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
+import { Button } from '../lib/components/Button';
 import { RestrictedInput } from '../lib/components/RestrictedInput';
 
 type StoryProps = ComponentProps<typeof RestrictedInput>;
@@ -18,11 +18,7 @@ export const Default: Story = {
     const [value, setValue] = useState(1);
 
     return (
-      <RestrictedInput
-        value={value}
-        onChange={(value) => setValue(value)}
-        width={8}
-      />
+      <RestrictedInput value={value} onChange={(value) => setValue(value)} />
     );
   },
 };
@@ -50,7 +46,6 @@ export const WithFloats: Story = {
         allowFloats
         value={value}
         onChange={(value) => setValue(value)}
-        width={8}
         maxValue={3}
       />
     );
@@ -67,7 +62,6 @@ export const SendParentValue: Story = {
         <RestrictedInput
           value={parentValue}
           onChange={(value) => setParentValue(value)}
-          width={8}
         />
         <Button onClick={() => setParentValue(103000)}>Max</Button>
       </>
@@ -85,6 +79,31 @@ export const AutoSelect: Story = {
         value={value}
         onChange={(value) => setValue(value)}
       />
+    );
+  },
+};
+
+export const Negative: Story = {
+  render: () => {
+    const [value, setValue] = useState(1);
+
+    return (
+      <RestrictedInput
+        minValue={-5}
+        maxValue={5}
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
+    );
+  },
+};
+
+export const Invalid: Story = {
+  render: () => {
+    const [value, setValue] = useState(1);
+
+    return (
+      <RestrictedInput value={value} onChange={(value) => setValue(value)} />
     );
   },
 };
