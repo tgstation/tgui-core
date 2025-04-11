@@ -41,7 +41,7 @@ export const Expensive: Story = {
   args: {
     ...Default.args,
     expensive: true,
-    onInput: (_e, v) => console.log('New value: ', v),
+    onChange: (v) => console.log('New value: ', v),
     value: "I'm debounced!",
   },
 };
