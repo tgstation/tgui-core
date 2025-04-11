@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from 'lib/components/Button';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { RestrictedInput } from '../lib/components/RestrictedInput';
@@ -49,14 +50,18 @@ export const Disabled: Story = {
 
 export const SendParentValue: Story = {
   render: () => {
-    const value = 1;
+    const [parentValue, setParentValue] = useState(1);
 
     return (
-      <RestrictedInput
-        value={value}
-        onChange={(value) => console.log(value)}
-        width={8}
-      />
+      <>
+        <Button onClick={() => setParentValue(0)}>Min</Button>
+        <RestrictedInput
+          value={parentValue}
+          onChange={(value) => setParentValue(value)}
+          width={8}
+        />
+        <Button onClick={() => setParentValue(10000)}>Max</Button>
+      </>
     );
   },
 };

@@ -1,3 +1,4 @@
+import { clamp } from 'lib/common/math';
 import { useEffect, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
@@ -6,8 +7,13 @@ import type { BoxProps } from './Box';
 
 type Props = {
   /**
-   * The current value of the input. You don't necessarily need a useState for
-   * this, it manages its own state and will rerender when the passed value changes.
+   * The current value of the input.
+   *
+   * Use a useState only when you need to send the current value outside of an
+   * interaction with the input (say, a submit button press).
+   *
+   * Otherwise, this component can manage its own state just fine. It will
+   * rerender when the passed value changes.
    */
   value: number;
 } & Partial<{
@@ -89,6 +95,14 @@ export function RestrictedInput(props: Props) {
       }
     }
   }, []);
+
+  useEffect(() => {
+    const clamped = clamp(props.value, minValue, maxValue);
+
+    if (clamped !== value) {
+      setValue(clamped);
+    }
+  }, [props.value]);
 
   const boxProps = computeBoxProps(rest);
 
