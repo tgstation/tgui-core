@@ -4,15 +4,24 @@ $bg-map: colors.$color-map !default;
 
 @mixin button-style($color) {
   background-color: hsl(
-    from $color h s calc(l - var(--adjust-color) * 2) / 0.2
+    from $color h s calc(l - var(--adjust-color) * 2) /
+      var(--imagebutton-transparecy)
   );
-  border: 1px solid hsl(from $color h s calc(l + var(--adjust-color) * 2) / 0.2);
+  border: var(--border-thickness-tiny) solid
+    hsl(
+      from $color h s calc(l + var(--adjust-color)) /
+        var(--imagebutton-transparecy)
+    );
 
-  &:not(.ImageButton--disabled) {
+  &:not(.ImageButton--disabled, .ImageButton--noAction) {
+    .ImageButton__container {
+      cursor: var(--cursor-pointer);
+    }
+
     &:hover {
       background-color: hsl(
         from $color h s calc(l - var(--adjust-color) + var(--adjust-hover)) /
-          0.2
+          var(--imagebutton-transparecy)
       );
     }
 
@@ -27,7 +36,8 @@ $bg-map: colors.$color-map !default;
       &:has(.ImageButton__buttons:hover),
       &:has(.ImageButton__buttons:active) {
         background-color: hsl(
-          from $color h s calc(l - var(--adjust-color) * 2) / 0.2
+          from $color h s calc(l - var(--adjust-color) * 2) /
+            var(--imagebutton-transparecy)
         );
         box-shadow: none;
       }
@@ -49,6 +59,27 @@ $bg-map: colors.$color-map !default;
 
 .ImageButton__color--default {
   @include button-style(hsl(from var(--color-base) h s 30));
+}
+
+.ImageButton__color--primary {
+  @include button-style(hsl(from var(--color-primary) h s 30));
+}
+
+.ImageButton__color--transparent {
+  @include button-style(hsl(from var(--color-base) h s 30));
+
+  background-color: transparent;
+  border-color: transparent !important;
+
+  .ImageButton__content {
+    background-color: transparent !important;
+    color: var(--color-text-translucent);
+    border-color: transparent !important;
+  }
+
+  &:hover:not(.ImageButton--disabled) .ImageButton__content {
+    color: var(--color-text);
+  }
 }
 
 .ImageButton--selected {
@@ -83,7 +114,6 @@ $bg-map: colors.$color-map !default;
   border-width: 0;
 
   &__container {
-    cursor: var(--cursor-pointer);
     display: flex;
     flex-direction: column;
     transition: opacity var(--transition-time-medium);
@@ -97,8 +127,8 @@ $bg-map: colors.$color-map !default;
     overflow: hidden;
     line-height: 0;
     padding: var(--space-s);
-    border: 1px solid;
-    border-bottom: 0;
+    border: var(--border-thickness-tiny) solid;
+    border-bottom: none;
     border-color: inherit;
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
   }
@@ -116,7 +146,7 @@ $bg-map: colors.$color-map !default;
     display: flex;
     position: absolute;
     overflow: hidden;
-    left: 0;
+    left: var(--border-thickness-tiny);
     bottom: 1.8em;
     max-width: 100%;
     z-index: 1;
@@ -125,8 +155,8 @@ $bg-map: colors.$color-map !default;
       overflow: visible;
       flex-direction: column;
       pointer-events: none;
-      top: 1px;
-      bottom: inherit !important;
+      top: var(--border-thickness-tiny);
+      bottom: unset !important;
       /** Text outline. Sort of. */
       text-shadow:
         0px 1px 2px var(--color-base),
@@ -135,12 +165,31 @@ $bg-map: colors.$color-map !default;
         0px -1px 2px var(--color-base);
     }
 
+    &--empty {
+      bottom: 0;
+      left: 0;
+    }
+
     & > * {
       /* I know !important is bad, but here's no other way */
       margin: 0 !important;
       padding: 0 !important;
       border-radius: 0 !important;
     }
+  }
+
+  &--empty {
+    border-width: var(--border-thickness-tiny);
+
+    .ImageButton__image {
+      border: none;
+      border-radius: var(--border-radius-medium);
+    }
+  }
+
+  .Stack > &,
+  .Stack__item > & {
+    margin: 0;
   }
 }
 

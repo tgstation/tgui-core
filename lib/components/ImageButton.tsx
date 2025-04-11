@@ -149,7 +149,7 @@ export function ImageButton(props: Props) {
             icon={dmIcon}
             icon_state={dmIconState}
             fallback={
-              dmFallback || <Fallback icon="spinner" spin size={imageSize} />
+              dmFallback || <Fallback spin icon="spinner" size={imageSize} />
             }
             height={`${imageSize}px`}
             width={`${imageSize}px`}
@@ -206,6 +206,8 @@ export function ImageButton(props: Props) {
         fluid && 'ImageButton--fluid',
         selected && 'ImageButton--selected',
         disabled && 'ImageButton--disabled',
+        !children && 'ImageButton--empty',
+        !(onClick || onRightClick) && 'ImageButton--noAction',
         color && typeof color === 'string'
           ? `ImageButton__color--${color}`
           : 'ImageButton__color--default',
@@ -254,7 +256,7 @@ type FallbackProps = {
 }>;
 
 function Fallback(props: FallbackProps) {
-  const { icon, spin = false, size = 64 } = props;
+  const { icon, spin, size = 64 } = props;
 
   return (
     <Stack height={`${size}px`} width={`${size}px`}>
