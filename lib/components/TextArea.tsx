@@ -48,7 +48,6 @@ export function TextArea(props: Props) {
     onChange,
     onEnter,
     onEscape,
-    onScroll,
     placeholder,
     ref,
     selfClear,
@@ -129,10 +128,6 @@ export function TextArea(props: Props) {
     }
   }
 
-  function handleScroll(event: React.UIEvent<HTMLTextAreaElement>) {
-    onScroll?.(event);
-  }
-
   /** Focuses the input on mount */
   useEffect(() => {
     if (autoFocus || autoSelect) {
@@ -162,7 +157,6 @@ export function TextArea(props: Props) {
       maxLength={maxLength}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
-      onScroll={handleScroll}
       placeholder={placeholder}
       ref={textareaRef}
       spellCheck={false}
