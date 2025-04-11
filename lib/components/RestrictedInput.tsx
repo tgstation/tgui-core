@@ -2,8 +2,7 @@ import { clamp } from 'lib/common/math';
 import { useEffect, useRef } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
-import { computeBoxProps } from '../common/ui';
-import type { BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type Props = {
   /** The current value of the input. */
@@ -15,12 +14,12 @@ type Props = {
   autoFocus: boolean;
   /** Selects any text in the input on mount. Assumes `autoFocus`. */
   autoSelect: boolean;
-  /** Disable the input. */
-  disabled: boolean;
   /** Sets width to 100% of the parent. */
   fluid: boolean;
   /** Max value. 10,000 by default. */
   maxValue: number;
+  /** Mark this if you want to use a monospace font. */
+  monospace: boolean;
   /** Min value. 0 by default. */
   minValue: number;
   /** Called each time the value changes. */
@@ -42,10 +41,10 @@ export function RestrictedInput(props: Props) {
     autoFocus,
     autoSelect,
     className,
-    disabled,
     fluid,
     maxValue = 10000,
     minValue = 0,
+    monospace,
     onChange,
     onEnter,
     onEscape,
@@ -108,26 +107,27 @@ export function RestrictedInput(props: Props) {
     updateValue(props.value);
   }, [props.value]);
 
-  const boxProps = computeBoxProps(rest);
-
   return (
-    <input
-      {...boxProps}
+    <Box
       className={classes([
         'Input',
-        'RestrictedInput',
-        disabled && 'Input--disabled',
         fluid && 'Input--fluid',
+        monospace && 'Input--monospace',
         className,
       ])}
-      disabled={disabled}
-      max={maxValue}
-      min={minValue}
-      onChange={onChangeHandler}
-      onKeyDown={onKeyDownHandler}
-      ref={inputRef}
-      type="number"
-      value={innerValue.current}
-    />
+      {...rest}
+    >
+      <div className="Input__baseline">.</div>
+      <input
+        className={classes(['Input__input', 'RestrictedInput'])}
+        max={maxValue}
+        min={minValue}
+        onChange={onChangeHandler}
+        onKeyDown={onKeyDownHandler}
+        ref={inputRef}
+        type="number"
+        value={innerValue.current}
+      />
+    </Box>
   );
 }

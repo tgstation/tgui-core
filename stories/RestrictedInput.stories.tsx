@@ -27,6 +27,20 @@ export const Default: Story = {
   },
 };
 
+export const Fluid: Story = {
+  render: () => {
+    const [value, setValue] = useState(1);
+
+    return (
+      <RestrictedInput
+        fluid
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
+    );
+  },
+};
+
 export const WithFloats: Story = {
   render: () => {
     const [value, setValue] = useState(0.5);
@@ -40,12 +54,6 @@ export const WithFloats: Story = {
         maxValue={3}
       />
     );
-  },
-};
-
-export const Disabled: Story = {
-  render: () => {
-    return <RestrictedInput value={1} disabled />;
   },
 };
 
