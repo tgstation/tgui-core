@@ -1,11 +1,11 @@
-import { computeBoxProps } from 'lib/common/ui';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
+import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
-export type BaseInputProps = {
+export type BaseInputProps = Partial<{
   /** Automatically focuses the input on mount */
   autoFocus: boolean;
   /** Automatically selects the input value on focus */
@@ -18,15 +18,10 @@ export type BaseInputProps = {
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
-} & BoxProps;
+}> &
+  BoxProps;
 
-type Props = Partial<{
-  /**
-   * Whether to debounce the input.
-   * Do this if it's performing expensive ops on each input.
-   * It will only fire once every 250ms.
-   */
-  expensive: boolean;
+export type TextInputProps = Partial<{
   /** The maximum length of the input value */
   maxLength: number;
   /** Fires each time the input has been changed */
@@ -39,8 +34,6 @@ type Props = Partial<{
   placeholder: string;
   /** Clears the input value on enter */
   selfClear: boolean;
-  /** Auto-updates the input value on props change, ie, data from Byond */
-  updateOnPropsChange: boolean;
   /**
    * Generally, input can handle its own state value.
    *
@@ -66,19 +59,27 @@ type Props = Partial<{
 }> &
   BaseInputProps;
 
-type InputValue = string | number | undefined;
-
-export function toInputValue(value: InputValue): string {
-  return typeof value !== 'number' && typeof value !== 'string'
-    ? ''
-    : String(value);
-}
+type Props = Partial<{
+  /**
+   * Whether to debounce the input.
+   * Do this if it's performing expensive ops on each input.
+   * It will only fire once every 250ms.
+   */
+  expensive: boolean;
+  /** Ref of the input element */
+  ref: RefObject<HTMLInputElement | null>;
+  /** Auto-updates the input value on props change, ie, data from Byond */
+  updateOnPropsChange: boolean;
+}> &
+  BaseInputProps &
+  TextInputProps;
 
 // Prevent input parent change event from being called too often
 const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
 
 /**
  * ## Input
+ *
  * A basic text input which allow users to enter text into a UI.
  *
  * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/Input.tsx
@@ -97,12 +98,15 @@ export function Input(props: Props) {
     onEnter,
     onEscape,
     placeholder,
+    ref,
     selfClear,
     updateOnPropsChange,
     ...rest
   } = props;
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const ourRef = useRef<HTMLInputElement>(null);
+  const inputRef = ref ?? ourRef;
+
   const [innerValue, setInnerValue] = useState(props.value);
 
   const boxProps = useMemo(() => {
@@ -151,14 +155,18 @@ export function Input(props: Props) {
 
   /** Focuses the input on mount */
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
     if (autoFocus || autoSelect) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         inputRef.current?.focus();
         if (autoSelect) {
           inputRef.current?.select();
         }
       }, 1);
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   /** Updates the value on props change */
@@ -175,6 +183,7 @@ export function Input(props: Props) {
   return (
     <input
       {...boxProps}
+      autoComplete="off"
       className={clsx}
       disabled={disabled}
       maxLength={maxLength}
@@ -182,7 +191,9 @@ export function Input(props: Props) {
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={inputRef}
+      type="text"
       value={innerValue}
+      spellCheck={false}
     />
   );
 }

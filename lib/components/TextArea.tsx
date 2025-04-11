@@ -1,47 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
-import type { KeyboardEvent, RefObject, SyntheticEvent } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { RefObject } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
-import { Box, type BoxProps } from './Box';
-import { toInputValue } from './Input';
+import { computeBoxProps } from '../common/ui';
+import type { TextInputProps } from './Input';
 
 type Props = Partial<{
-  /** Automatically focus the textarea on mount */
-  autoFocus: boolean;
-  /** Selects all text on mount */
-  autoSelect: boolean;
-  /** The value to display in the textarea */
-  displayedValue: string;
   /** Don't use tab for indent */
   dontUseTabForIndent: boolean;
-  /** Sets width to 100% */
-  fluid: boolean;
-  /** Maximum length of the textarea */
-  maxLength: number;
-  /** Removes the border. */
-  noborder: boolean;
-  /** Fires when user is 'done typing': Clicked out, blur, enter key (but not shift+enter) */
-  onChange: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
-  /** Fires once the enter key is pressed */
-  onEnter: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
-  /** Fires once the escape key is pressed */
-  onEscape: (event: SyntheticEvent<HTMLTextAreaElement>) => void;
-  /** Fires on each key press / value change. Used for searching */
-  onInput: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
-  /** Dummy text inside the textarea when it's empty */
-  placeholder: string;
   /** Ref to the textarea element. */
   ref: RefObject<HTMLTextAreaElement | null>;
-  /** Whether the textarea is scrollable when it has more content than height */
-  scrollbar: boolean;
-  /** Clears the textarea when the enter key is pressed */
-  selfClear: boolean;
-  /** Provides a Record with key: markupChar entries which can be used for ctrl + key combinations to surround a selected text with the markup character */
+  /**
+   * Provides a Record with key: markupChar entries which can be used for
+   * ctrl + key combinations to surround a selected text with the markup
+   * character
+   */
   userMarkup: Record<string, string>;
-  /** The value of the textarea */
-  value: string;
 }> &
-  BoxProps;
+  TextInputProps;
 
 function getMarkupString(
   inputText: string,
@@ -57,162 +33,140 @@ function getMarkupString(
  *
  * An input for larger amounts of text. Use this when you want inputs larger
  * than one row.
+ *
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/TextArea.tsx
  */
 export function TextArea(props: Props) {
   const {
     autoFocus,
     autoSelect,
-    displayedValue,
+    disabled,
     dontUseTabForIndent,
+    fluid,
     maxLength,
-    noborder,
+    monospace,
     onChange,
     onEnter,
     onEscape,
-    onInput,
+    onScroll,
     placeholder,
     ref,
-    scrollbar,
     selfClear,
     userMarkup,
-    value,
-    ...boxProps
+    ...rest
   } = props;
-  const { className, fluid, nowrap, ...rest } = boxProps;
 
   const ourRef = useRef<HTMLTextAreaElement>(null);
-  const nodeRef = ref ?? ourRef;
+  const textareaRef = ref ?? ourRef;
 
-  const [scrolledAmount, setScrolledAmount] = useState(0);
+  const [innerValue, setInnerValue] = useState(props.value ?? '');
 
-  function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.key === KEY.Enter) {
-      if (event.shiftKey) {
-        event.currentTarget.focus();
-        return;
-      }
+  const boxProps = useMemo(() => {
+    return computeBoxProps(rest);
+  }, [rest]);
 
-      onEnter?.(event, event.currentTarget.value);
+  const clsx = useMemo(() => {
+    return classes([
+      'Input',
+      'TextArea',
+      fluid && 'Input--fluid',
+      monospace && 'Input--monospace',
+      disabled && 'Input--disabled',
+    ]);
+  }, [disabled, fluid, monospace]);
+
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    setInnerValue(event.currentTarget.value);
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    // Enter
+    if (event.key === KEY.Enter && !event.shiftKey) {
+      event.preventDefault();
+      onEnter?.(event.currentTarget.value);
       if (selfClear) {
-        event.currentTarget.value = '';
+        setInnerValue('');
       }
       event.currentTarget.blur();
       return;
     }
 
+    // Escape
     if (isEscape(event.key)) {
-      onEscape?.(event);
-      if (selfClear) {
-        event.currentTarget.value = '';
-      } else {
-        event.currentTarget.value = toInputValue(value);
-        event.currentTarget.blur();
-      }
-
+      onEscape?.(event.currentTarget.value);
+      event.currentTarget.blur();
       return;
     }
 
+    // Tab
     if (!dontUseTabForIndent && event.key === KEY.Tab) {
       event.preventDefault();
       const { value, selectionStart, selectionEnd } = event.currentTarget;
-      event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
+      setInnerValue(
+        `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`,
+      );
       event.currentTarget.selectionEnd = selectionStart + 1;
+      onChange?.(event.currentTarget.value);
+      return;
     }
 
+    // User markup
     if (
       userMarkup &&
       (event.ctrlKey || event.metaKey) &&
       userMarkup[event.key]
     ) {
       event.preventDefault();
-      const { value, selectionStart, selectionEnd } = event.currentTarget;
+
+      const { selectionStart, selectionEnd, value } = event.currentTarget;
       const markupString = userMarkup[event.key];
-      event.currentTarget.value = getMarkupString(
-        value,
-        markupString,
-        selectionStart,
-        selectionEnd,
+      setInnerValue(
+        getMarkupString(value, markupString, selectionStart, selectionEnd),
       );
       event.currentTarget.selectionEnd = selectionEnd + markupString.length * 2;
+      onChange?.(event.currentTarget.value);
+      return;
     }
+  }
+
+  function handleScroll(event: React.UIEvent<HTMLTextAreaElement>) {
+    onScroll?.(event);
   }
 
   /** Focuses the input on mount */
   useEffect(() => {
     if (autoFocus || autoSelect) {
-      const input = nodeRef.current;
-      if (input) {
-        setTimeout(() => {
-          input.focus();
-
-          if (autoSelect) {
-            input.select();
-          }
-        }, 1);
-      }
+      setTimeout(() => {
+        textareaRef.current?.focus();
+        if (autoSelect) {
+          textareaRef.current?.select();
+        }
+      }, 1);
     }
   }, []);
 
   /** Updates the initial value on props change */
   useEffect(() => {
-    const input = nodeRef.current;
-
-    if (input) {
-      const newValue = toInputValue(value);
-      if (input.value !== newValue) {
-        input.value = newValue;
+    if (document.activeElement === textareaRef.current) {
+      if (props.value !== innerValue) {
+        setInnerValue(props.value ?? '');
       }
     }
-  }, [value]);
+  }, [props.value]);
 
   return (
-    <Box
-      className={classes([
-        'TextArea',
-        fluid && 'TextArea--fluid',
-        noborder && 'TextArea--noborder',
-        className,
-      ])}
-      {...rest}
-    >
-      {!!displayedValue && (
-        <div className="TextArea__value-container">
-          <div
-            className={classes([
-              'TextArea__textarea',
-              'TextArea__textarea_custom',
-            ])}
-            style={{
-              transform: `translateY(-${scrolledAmount}px)`,
-            }}
-          >
-            {displayedValue}
-          </div>
-        </div>
-      )}
-      <textarea
-        autoComplete="off"
-        className={classes([
-          'TextArea__textarea',
-          scrollbar && 'TextArea__textarea--scrollable',
-          nowrap && 'TextArea__nowrap',
-        ])}
-        maxLength={maxLength}
-        onBlur={(event) => onChange?.(event, event.target.value)}
-        onChange={(event) => onInput?.(event, event.target.value)}
-        onKeyDown={handleKeyDown}
-        onScroll={() => {
-          if (displayedValue && nodeRef.current) {
-            setScrolledAmount(nodeRef.current.scrollTop);
-          }
-        }}
-        placeholder={placeholder}
-        ref={nodeRef}
-        spellCheck={false}
-        style={{
-          color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
-        }}
-      />
-    </Box>
+    <textarea
+      {...boxProps}
+      autoComplete="off"
+      className={clsx}
+      maxLength={maxLength}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      onScroll={handleScroll}
+      placeholder={placeholder}
+      ref={textareaRef}
+      spellCheck={false}
+      value={innerValue}
+    />
   );
 }

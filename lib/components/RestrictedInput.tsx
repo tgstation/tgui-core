@@ -45,6 +45,7 @@ type Props = Partial<{
 
 /**
  * ## RestrictedInput
+ *
  * Creates a numerical input which rejects improper keys.
  *
  * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
@@ -85,6 +86,7 @@ export function RestrictedInput(props: Props) {
     ]);
   }, [className, fluid, monospace]);
 
+  /** Clamps the value to min/max */
   function updateValue(value: number) {
     if (value === innerValue) return;
 
@@ -140,14 +142,17 @@ export function RestrictedInput(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (props.value !== innerValue) {
-      setInnerValue(props.value ?? minValue);
+    if (document.activeElement === inputRef.current) {
+      if (props.value !== innerValue) {
+        setInnerValue(props.value ?? minValue);
+      }
     }
   }, [props.value]);
 
   return (
     <input
       {...boxProps}
+      autoComplete="off"
       className={clsx}
       disabled={disabled}
       max={maxValue}
@@ -155,6 +160,7 @@ export function RestrictedInput(props: Props) {
       onChange={onChangeHandler}
       onKeyDown={onKeyDownHandler}
       ref={inputRef}
+      spellCheck={false}
       type="number"
       value={innerValue}
     />
