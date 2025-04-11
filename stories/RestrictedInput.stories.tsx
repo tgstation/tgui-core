@@ -66,3 +66,17 @@ export const SendParentValue: Story = {
     );
   },
 };
+
+export const AutoSelect: Story = {
+  render: () => {
+    const [value, setValue] = useState(1);
+
+    return (
+      <RestrictedInput
+        autoSelect
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
+    );
+  },
+};

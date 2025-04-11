@@ -90,12 +90,18 @@ export function RestrictedInput(props: Props) {
   }
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
     if (autoFocus || autoSelect) {
-      inputRef.current?.focus();
-      if (autoSelect) {
-        inputRef.current?.select();
-      }
+      timeout = setTimeout(() => {
+        inputRef.current?.focus();
+        if (autoSelect) {
+          inputRef.current?.select();
+        }
+      }, 1);
     }
+
+    return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
