@@ -16,12 +16,45 @@ export const Default: Story = {
   render: () => {
     const [value, setValue] = useState(1);
 
-    console.log(value);
+    return (
+      <RestrictedInput
+        value={value}
+        onChange={(value) => setValue(value)}
+        width={8}
+      />
+    );
+  },
+};
+
+export const WithFloats: Story = {
+  render: () => {
+    const [value, setValue] = useState(0.5);
+
+    return (
+      <RestrictedInput
+        allowFloats
+        value={value}
+        onChange={(value) => setValue(value)}
+        width={8}
+      />
+    );
+  },
+};
+
+export const Disabled: Story = {
+  render: () => {
+    return <RestrictedInput value={1} disabled />;
+  },
+};
+
+export const SendParentValue: Story = {
+  render: () => {
+    const value = 1;
 
     return (
       <RestrictedInput
         value={value}
-        onChange={(e, value) => setValue(value)}
+        onChange={(value) => console.log(value)}
         width={8}
       />
     );
