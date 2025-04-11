@@ -1,3 +1,4 @@
+import { debounce } from 'lib/common/timer';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { KEY, isEscape } from '../common/keys';
@@ -28,6 +29,9 @@ function getMarkupString(
   return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
 }
 
+// Prevent input parent change event from being called too often
+const textareaDebounce = debounce((onChange: () => void) => onChange(), 250);
+
 /**
  * ## Textarea
  *
@@ -42,6 +46,7 @@ export function TextArea(props: Props) {
     autoSelect,
     disabled,
     dontUseTabForIndent,
+    expensive,
     fluid,
     maxLength,
     monospace,
@@ -75,7 +80,15 @@ export function TextArea(props: Props) {
   }, [disabled, fluid, monospace]);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setInnerValue(event.currentTarget.value);
+    const value = event.currentTarget.value;
+    setInnerValue(value);
+
+    if (!onChange) return;
+    if (expensive) {
+      textareaDebounce(() => onChange(value));
+    } else {
+      onChange(value);
+    }
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {

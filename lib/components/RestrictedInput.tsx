@@ -1,5 +1,6 @@
 import { clamp } from 'lib/common/math';
 import { classes } from 'lib/common/react';
+import { debounce } from 'lib/common/timer';
 import { computeBoxProps } from 'lib/common/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
@@ -43,6 +44,9 @@ type Props = Partial<{
 }> &
   BaseInputProps;
 
+// Prevent input parent change event from being called too often
+const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
+
 /**
  * ## RestrictedInput
  *
@@ -57,6 +61,7 @@ export function RestrictedInput(props: Props) {
     autoSelect,
     className,
     disabled,
+    expensive,
     fluid,
     maxValue = 10000,
     minValue = 0,
@@ -98,8 +103,14 @@ export function RestrictedInput(props: Props) {
     }
 
     newValue = clamp(newValue, minValue, maxValue);
+
     setInnerValue(newValue);
-    onChange?.(newValue);
+    if (!onChange) return;
+    if (expensive) {
+      inputDebounce(() => onChange(newValue));
+    } else {
+      onChange(newValue);
+    }
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {

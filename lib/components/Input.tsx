@@ -14,6 +14,15 @@ export type BaseInputProps = Partial<{
   className: string;
   /** Disables the input. Outlined in gray */
   disabled: boolean;
+  /**
+   * Whether to debounce the onChange event.
+   *
+   * Do this if it's performing expensive ops on each input, like filtering or
+   * sending the value immediate to Byond (via act).
+   *
+   * It will only fire once every 250ms.
+   */
+  expensive: boolean;
   /** Fills the parent container */
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
@@ -37,7 +46,8 @@ export type TextInputProps = Partial<{
   /**
    * Generally, input can handle its own state value.
    *
-   * Use this if you want to hold the value in the parent for external manipulation.
+   * Use this if you want to hold the value in the parent for external
+   * manipulation.
    *
    * ```tsx
    * const [value, setValue] = useState('');
@@ -60,12 +70,6 @@ export type TextInputProps = Partial<{
   BaseInputProps;
 
 type Props = Partial<{
-  /**
-   * Whether to debounce the input.
-   * Do this if it's performing expensive ops on each input.
-   * It will only fire once every 250ms.
-   */
-  expensive: boolean;
   /** Ref of the input element */
   ref: RefObject<HTMLInputElement | null>;
   /** Auto-updates the input value on props change, ie, data from Byond */
@@ -124,15 +128,13 @@ export function Input(props: Props) {
   }, [className, fluid, monospace]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.currentTarget?.value;
-
+    const value = event.currentTarget.value;
+    setInnerValue(value);
     if (expensive) {
       inputDebounce(() => onChange?.(value));
     } else {
       onChange?.(value);
     }
-
-    setInnerValue(value);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
