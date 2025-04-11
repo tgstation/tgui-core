@@ -93,9 +93,11 @@
   --input-border-color: var(--color-border-primary);
   --input-border-color-focus: var(--color-border-secondary);
   --input-border-radius: var(--border-radius-tiny);
+  --input-border-disabled: var(--color-gray);
   --input-transition: var(--transition-time-medium);
   --input-font-family: var(--font-family);
   --input-font-family-mono: var(--font-family-mono);
+  --input-width: 9em;
 
   /* Knob */
   --knob-color: hsl(from var(--color-base) h 5 20);
@@ -133,6 +135,12 @@
   --progress-bar-background: transparent;
   --progress-bar-border-radius: var(--border-radius-tiny);
   --progress-bar-transition: var(--transition-time-slowest);
+
+  /* Restricted Input */
+  --restricted-input-border-color: var(--color-green);
+  --restricted-input-border-color-focus: hsl(
+    from var(--color-green) h s calc(l + 10)
+  );
 
   /* Round Gauge */
   --round-gauge-ring-color: var(--input-border-color);

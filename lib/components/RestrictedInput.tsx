@@ -1,39 +1,54 @@
 import { clamp } from 'lib/common/math';
-import { useEffect, useRef } from 'react';
+import { classes } from 'lib/common/react';
+import { computeBoxProps } from 'lib/common/ui';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
-import { classes } from '../common/react';
-import { Box, type BoxProps } from './Box';
+import type { BaseInputProps } from './Input';
 
-type Props = {
-  /** The current value of the input. */
-  value: number;
-} & Partial<{
+type Props = Partial<{
   /** Restricted inputs round by default.  */
   allowFloats: boolean;
-  /** Focuses on mount. */
-  autoFocus: boolean;
-  /** Selects any text in the input on mount. Assumes `autoFocus`. */
-  autoSelect: boolean;
-  /** Sets width to 100% of the parent. */
-  fluid: boolean;
   /** Max value. 10,000 by default. */
   maxValue: number;
-  /** Mark this if you want to use a monospace font. */
-  monospace: boolean;
   /** Min value. 0 by default. */
   minValue: number;
-  /** Called each time the value changes. */
+  /** Fires each time the input has been changed */
   onChange: (value: number) => void;
-  /** Called when the Enter key is pressed. Returns the current value. */
+  /** Fires once the enter key is pressed */
   onEnter: (value: number) => void;
-  /** Called when the Escape key is pressed. */
+  /** Fires once the escape key is pressed */
   onEscape: (value: number) => void;
+  /**
+   * Generally, input can handle its own state value.
+   *
+   * Use this if you want to hold the value in the parent for external manipulation.
+   *
+   * ```tsx
+   * const [value, setValue] = useState(1;
+   *
+   * return (
+   *  <>
+   *    <Button onClick={() => act('inputVal', {inputVal: value})}>
+   *      Submit
+   *    </Button>
+   *    <RestrictedInput value={value} onChange={setValue} />
+   *    <Button onClick={() => setValue(1)}>
+   *      Clear
+   *    </Button>
+   *  </>
+   * )
+   * ```
+   */
+  value: number;
 }> &
-  BoxProps;
+  BaseInputProps;
 
 /**
  * ## RestrictedInput
+ *
  * Creates a numerical input which rejects improper keys.
+ *
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
  */
 export function RestrictedInput(props: Props) {
   const {
@@ -41,6 +56,7 @@ export function RestrictedInput(props: Props) {
     autoFocus,
     autoSelect,
     className,
+    disabled,
     fluid,
     maxValue = 10000,
     minValue = 0,
@@ -52,10 +68,27 @@ export function RestrictedInput(props: Props) {
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const innerValue = useRef(props.value);
+  const [innerValue, setInnerValue] = useState(props.value ?? minValue);
 
+  const boxProps = useMemo(() => {
+    return computeBoxProps(rest);
+  }, [rest]);
+
+  // We meet again
+  const clsx = useMemo(() => {
+    return classes([
+      'Input',
+      'RestrictedInput',
+      disabled && 'Input--disabled',
+      fluid && 'Input--fluid',
+      monospace && 'Input--monospace',
+      className,
+    ]);
+  }, [className, fluid, monospace]);
+
+  /** Clamps the value to min/max */
   function updateValue(value: number) {
-    if (value === innerValue.current) return;
+    if (value === innerValue) return;
 
     let newValue = value;
     if (Number.isNaN(value)) {
@@ -65,10 +98,7 @@ export function RestrictedInput(props: Props) {
     }
 
     newValue = clamp(newValue, minValue, maxValue);
-    innerValue.current = newValue;
-    if (inputRef.current) {
-      inputRef.current.value = newValue.toString();
-    }
+    setInnerValue(newValue);
     onChange?.(newValue);
   }
 
@@ -79,12 +109,20 @@ export function RestrictedInput(props: Props) {
   function onKeyDownHandler(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      onEnter?.(innerValue.current);
+      onEnter?.(innerValue);
       inputRef.current?.blur();
-    } else if (isEscape(event.key)) {
+      return;
+    }
+    if (isEscape(event.key)) {
       event.preventDefault();
-      onEscape?.(innerValue.current);
+      onEscape?.(innerValue);
       inputRef.current?.blur();
+      return;
+    }
+    if (event.key === KEY.Minus) {
+      event.preventDefault();
+      updateValue(innerValue * -1);
+      return;
     }
   }
 
@@ -104,30 +142,27 @@ export function RestrictedInput(props: Props) {
   }, []);
 
   useEffect(() => {
-    updateValue(props.value);
+    if (document.activeElement === inputRef.current) {
+      if (props.value !== innerValue) {
+        setInnerValue(props.value ?? minValue);
+      }
+    }
   }, [props.value]);
 
   return (
-    <Box
-      className={classes([
-        'Input',
-        fluid && 'Input--fluid',
-        monospace && 'Input--monospace',
-        className,
-      ])}
-      {...rest}
-    >
-      <div className="Input__baseline">.</div>
-      <input
-        className={classes(['Input__input', 'RestrictedInput'])}
-        max={maxValue}
-        min={minValue}
-        onChange={onChangeHandler}
-        onKeyDown={onKeyDownHandler}
-        ref={inputRef}
-        type="number"
-        value={innerValue.current}
-      />
-    </Box>
+    <input
+      {...boxProps}
+      autoComplete="off"
+      className={clsx}
+      disabled={disabled}
+      max={maxValue}
+      min={minValue}
+      onChange={onChangeHandler}
+      onKeyDown={onKeyDownHandler}
+      ref={inputRef}
+      spellCheck={false}
+      type="number"
+      value={innerValue}
+    />
   );
 }

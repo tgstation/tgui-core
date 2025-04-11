@@ -1,85 +1,88 @@
-import {
-  type KeyboardEvent,
-  type SyntheticEvent,
-  useEffect,
-  useRef,
-} from 'react';
+import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
-import { Box, type BoxProps } from './Box';
+import { computeBoxProps } from '../common/ui';
+import type { BoxProps } from './Box';
 
-type ConditionalProps =
-  | {
-      /**
-       * Mark this if you want to debounce onInput.
-       *
-       * This is useful for expensive filters, large lists etc.
-       *
-       * Requires `onInput` to be set.
-       */
-      expensive?: boolean;
-      /**
-       * Fires on each key press / value change. Used for searching.
-       *
-       * If it's a large list, consider using `expensive` prop.
-       */
-      onInput: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
-    }
-  | {
-      /** This prop requires onInput to be set */
-      expensive?: never;
-      onInput?: never;
-    };
-
-type OptionalProps = Partial<{
+export type BaseInputProps = Partial<{
   /** Automatically focuses the input on mount */
   autoFocus: boolean;
   /** Automatically selects the input value on focus */
   autoSelect: boolean;
-  /** The class name of the input */
+  /** Custom css classes */
   className: string;
-  /** Disables the input */
+  /** Disables the input. Outlined in gray */
   disabled: boolean;
-  /** Mark this if you want the input to be as wide as possible */
+  /** Fills the parent container */
   fluid: boolean;
-  /** The maximum length of the input value */
-  maxLength: number;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
-  /** Fires when user is 'done typing': Clicked out, blur, enter key */
-  onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+}> &
+  BoxProps;
+
+export type TextInputProps = Partial<{
+  /** The maximum length of the input value */
+  maxLength: number;
+  /** Fires each time the input has been changed */
+  onChange: (value: string) => void;
   /** Fires once the enter key is pressed */
-  onEnter: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+  onEnter: (value: string) => void;
   /** Fires once the escape key is pressed */
-  onEscape: (event: SyntheticEvent<HTMLInputElement>) => void;
+  onEscape: (value: string) => void;
   /** The placeholder text when everything is cleared */
   placeholder: string;
   /** Clears the input value on enter */
   selfClear: boolean;
+  /**
+   * Generally, input can handle its own state value.
+   *
+   * Use this if you want to hold the value in the parent for external manipulation.
+   *
+   * ```tsx
+   * const [value, setValue] = useState('');
+   *
+   * return (
+   *  <>
+   *    <Button onClick={() => act('inputVal', {inputVal: value})}>
+   *      Submit
+   *    </Button>
+   *    <Input value={value} onChange={setValue} />
+   *    <Button onClick={() => setValue('')}>
+   *      Clear
+   *    </Button>
+   *  </>
+   * )
+   * ```
+   */
+  value: string;
+}> &
+  BaseInputProps;
+
+type Props = Partial<{
+  /**
+   * Whether to debounce the input.
+   * Do this if it's performing expensive ops on each input.
+   * It will only fire once every 250ms.
+   */
+  expensive: boolean;
+  /** Ref of the input element */
+  ref: RefObject<HTMLInputElement | null>;
   /** Auto-updates the input value on props change, ie, data from Byond */
   updateOnPropsChange: boolean;
-  /** The state variable of the input. */
-  value: string | number;
-}>;
+}> &
+  BaseInputProps &
+  TextInputProps;
 
-type Props = OptionalProps & ConditionalProps & Omit<BoxProps, 'children'>;
-
-type InputValue = string | number | undefined;
-
-export function toInputValue(value: InputValue): string {
-  return typeof value !== 'number' && typeof value !== 'string'
-    ? ''
-    : String(value);
-}
-
-const inputDebounce = debounce((onInput: () => void) => onInput(), 250);
+// Prevent input parent change event from being called too often
+const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
 
 /**
- * ### Input
+ * ## Input
+ *
  * A basic text input which allow users to enter text into a UI.
- * > Input does not support custom font size and height due to the way
- * > it's implemented in CSS. Eventually, this needs to be fixed.
+ *
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/Input.tsx
  */
 export function Input(props: Props) {
   const {
@@ -94,115 +97,103 @@ export function Input(props: Props) {
     onChange,
     onEnter,
     onEscape,
-    onInput,
     placeholder,
+    ref,
     selfClear,
     updateOnPropsChange,
-    value,
     ...rest
   } = props;
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const ourRef = useRef<HTMLInputElement>(null);
+  const inputRef = ref ?? ourRef;
 
-  function handleInput(event: SyntheticEvent<HTMLInputElement>) {
-    if (!onInput) return;
+  const [innerValue, setInnerValue] = useState(props.value);
 
+  const boxProps = useMemo(() => {
+    return computeBoxProps(rest);
+  }, [rest]);
+
+  const clsx = useMemo(() => {
+    return classes([
+      'Input',
+      disabled && 'Input--disabled',
+      fluid && 'Input--fluid',
+      monospace && 'Input--monospace',
+      className,
+    ]);
+  }, [className, fluid, monospace]);
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget?.value;
 
     if (expensive) {
-      inputDebounce(() => onInput(event, value));
+      inputDebounce(() => onChange?.(value));
     } else {
-      onInput(event, value);
+      onChange?.(value);
     }
+
+    setInnerValue(value);
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === KEY.Enter) {
-      onEnter?.(event, event.currentTarget.value);
+      event.preventDefault();
+      onEnter?.(event.currentTarget.value);
       if (selfClear) {
-        event.currentTarget.value = '';
-      } else {
-        event.currentTarget.blur();
-        onChange?.(event, event.currentTarget.value);
+        setInnerValue('');
       }
-
+      event.currentTarget.blur();
       return;
     }
 
     if (isEscape(event.key)) {
-      onEscape?.(event);
-
-      event.currentTarget.value = toInputValue(value);
+      event.preventDefault();
+      onEscape?.(event.currentTarget.value);
       event.currentTarget.blur();
     }
   }
 
-  function setValue(newValue: InputValue) {
-    const input = inputRef.current;
-    if (!input) return;
-
-    const changed = toInputValue(newValue);
-    if (input.value === changed) return;
-
-    input.value = changed;
-  }
-
   /** Focuses the input on mount */
   useEffect(() => {
-    const input = inputRef.current;
+    let timer: NodeJS.Timeout;
 
-    if (input) {
-      setValue(value);
-
-      const hasFocusOrSelect = autoFocus || autoSelect;
-      const isActive = document.activeElement === input;
-
-      if (hasFocusOrSelect && !isActive) {
-        setTimeout(() => {
-          input.focus();
-
-          if (autoSelect) {
-            input.select();
-          }
-        }, 1);
-      }
+    if (autoFocus || autoSelect) {
+      timer = setTimeout(() => {
+        inputRef.current?.focus();
+        if (autoSelect) {
+          inputRef.current?.select();
+        }
+      }, 1);
     }
+
+    return () => clearTimeout(timer);
   }, []);
 
   /** Updates the value on props change */
   useEffect(() => {
-    if (updateOnPropsChange) {
-      const input = inputRef.current;
-      if (input) {
-        const isActive = document.activeElement === input;
-        if (!isActive) {
-          setValue(value);
+    if (updateOnPropsChange && inputRef.current) {
+      if (document.activeElement !== inputRef.current) {
+        if (props.value !== innerValue) {
+          setInnerValue(props.value ?? '');
         }
       }
     }
-  }, [value]);
+  }, [props.value]);
 
   return (
-    <Box
-      className={classes([
-        'Input',
-        fluid && 'Input--fluid',
-        monospace && 'Input--monospace',
-        className,
-      ])}
-      {...rest}
-    >
-      <div className="Input__baseline">.</div>
-      <input
-        className="Input__input"
-        disabled={disabled}
-        maxLength={maxLength}
-        onBlur={(event) => onChange?.(event, event.target.value)}
-        onChange={handleInput}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        ref={inputRef}
-      />
-    </Box>
+    <input
+      {...boxProps}
+      autoComplete="off"
+      className={clsx}
+      disabled={disabled}
+      maxLength={maxLength}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      placeholder={placeholder}
+      ref={inputRef}
+      type="text"
+      value={innerValue}
+      spellCheck={false}
+    />
   );
 }

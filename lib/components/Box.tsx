@@ -26,7 +26,7 @@ type EventHandlers = {
   onMouseMove: MouseEventHandler<HTMLDivElement>;
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   onMouseUp: MouseEventHandler<HTMLDivElement>;
-  onScroll: UIEventHandler<HTMLDivElement>;
+  onScroll: UIEventHandler<HTMLDivElement | HTMLTextAreaElement>;
 };
 
 type InternalProps = {
