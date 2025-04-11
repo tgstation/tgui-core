@@ -3,30 +3,32 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
+import type { BoxProps } from './Box';
 
-type Props = {
-  /** The state variable of the input. */
-  value: string | number;
-} & Partial<{
+export type BaseInputProps = {
   /** Automatically focuses the input on mount */
   autoFocus: boolean;
   /** Automatically selects the input value on focus */
   autoSelect: boolean;
   /** Custom css classes */
   className: string;
-  /** Disables the input */
+  /** Disables the input. Outlined in gray */
   disabled: boolean;
-  /**
-   * Whether to debounce the input.
-   * Do this if it's performing expensive ops on each input
-   */
-  expensive: boolean;
-  /** Mark this if you want the input to be as wide as possible */
+  /** Fills the parent container */
   fluid: boolean;
-  /** The maximum length of the input value */
-  maxLength: number;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+} & BoxProps;
+
+type Props = Partial<{
+  /**
+   * Whether to debounce the input.
+   * Do this if it's performing expensive ops on each input.
+   * It will only fire once every 250ms.
+   */
+  expensive: boolean;
+  /** The maximum length of the input value */
+  maxLength: number;
   /** Fires each time the input has been changed */
   onChange: (value: string) => void;
   /** Fires once the enter key is pressed */
@@ -39,7 +41,30 @@ type Props = {
   selfClear: boolean;
   /** Auto-updates the input value on props change, ie, data from Byond */
   updateOnPropsChange: boolean;
-}>;
+  /**
+   * Generally, input can handle its own state value.
+   *
+   * Use this if you want to hold the value in the parent for external manipulation.
+   *
+   * ```tsx
+   * const [value, setValue] = useState('');
+   *
+   * return (
+   *  <>
+   *    <Button onClick={() => act('inputVal', {inputVal: value})}>
+   *      Submit
+   *    </Button>
+   *    <Input value={value} onChange={setValue} />
+   *    <Button onClick={() => setValue('')}>
+   *      Clear
+   *    </Button>
+   *  </>
+   * )
+   * ```
+   */
+  value: string;
+}> &
+  BaseInputProps;
 
 type InputValue = string | number | undefined;
 
@@ -55,6 +80,8 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
 /**
  * ## Input
  * A basic text input which allow users to enter text into a UI.
+ *
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/Input.tsx
  */
 export function Input(props: Props) {
   const {
@@ -139,7 +166,7 @@ export function Input(props: Props) {
     if (updateOnPropsChange && inputRef.current) {
       if (document.activeElement !== inputRef.current) {
         if (props.value !== innerValue) {
-          setInnerValue(props.value);
+          setInnerValue(props.value ?? '');
         }
       }
     }
