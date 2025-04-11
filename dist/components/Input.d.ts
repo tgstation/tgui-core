@@ -1,63 +1,73 @@
-import { type SyntheticEvent } from 'react';
-import { type BoxProps } from './Box';
-type ConditionalProps = {
-    /**
-     * Mark this if you want to debounce onInput.
-     *
-     * This is useful for expensive filters, large lists etc.
-     *
-     * Requires `onInput` to be set.
-     */
-    expensive?: boolean;
-    /**
-     * Fires on each key press / value change. Used for searching.
-     *
-     * If it's a large list, consider using `expensive` prop.
-     */
-    onInput: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
-} | {
-    /** This prop requires onInput to be set */
-    expensive?: never;
-    onInput?: never;
-};
-type OptionalProps = Partial<{
+import { type RefObject } from 'react';
+import type { BoxProps } from './Box';
+export type BaseInputProps = Partial<{
     /** Automatically focuses the input on mount */
     autoFocus: boolean;
     /** Automatically selects the input value on focus */
     autoSelect: boolean;
-    /** The class name of the input */
+    /** Custom css classes */
     className: string;
-    /** Disables the input */
+    /** Disables the input. Outlined in gray */
     disabled: boolean;
-    /** Mark this if you want the input to be as wide as possible */
+    /** Fills the parent container */
     fluid: boolean;
-    /** The maximum length of the input value */
-    maxLength: number;
     /** Mark this if you want to use a monospace font */
     monospace: boolean;
-    /** Fires when user is 'done typing': Clicked out, blur, enter key */
-    onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+}> & BoxProps;
+export type TextInputProps = Partial<{
+    /** The maximum length of the input value */
+    maxLength: number;
+    /** Fires each time the input has been changed */
+    onChange: (value: string) => void;
     /** Fires once the enter key is pressed */
-    onEnter: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+    onEnter: (value: string) => void;
     /** Fires once the escape key is pressed */
-    onEscape: (event: SyntheticEvent<HTMLInputElement>) => void;
+    onEscape: (value: string) => void;
     /** The placeholder text when everything is cleared */
     placeholder: string;
     /** Clears the input value on enter */
     selfClear: boolean;
+    /**
+     * Generally, input can handle its own state value.
+     *
+     * Use this if you want to hold the value in the parent for external manipulation.
+     *
+     * ```tsx
+     * const [value, setValue] = useState('');
+     *
+     * return (
+     *  <>
+     *    <Button onClick={() => act('inputVal', {inputVal: value})}>
+     *      Submit
+     *    </Button>
+     *    <Input value={value} onChange={setValue} />
+     *    <Button onClick={() => setValue('')}>
+     *      Clear
+     *    </Button>
+     *  </>
+     * )
+     * ```
+     */
+    value: string;
+}> & BaseInputProps;
+type Props = Partial<{
+    /**
+     * Whether to debounce the input.
+     * Do this if it's performing expensive ops on each input.
+     * It will only fire once every 250ms.
+     */
+    expensive: boolean;
+    /** Ref of the input element */
+    ref: RefObject<HTMLInputElement | null>;
     /** Auto-updates the input value on props change, ie, data from Byond */
     updateOnPropsChange: boolean;
-    /** The state variable of the input. */
-    value: string | number;
-}>;
-type Props = OptionalProps & ConditionalProps & Omit<BoxProps, 'children'>;
-type InputValue = string | number | undefined;
-export declare function toInputValue(value: InputValue): string;
+}> & BaseInputProps & TextInputProps;
 /**
- * ### Input
+ * ## Input
+ *
  * A basic text input which allow users to enter text into a UI.
- * > Input does not support custom font size and height due to the way
- * > it's implemented in CSS. Eventually, this needs to be fixed.
+ *
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/Input.tsx
  */
 export declare function Input(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};

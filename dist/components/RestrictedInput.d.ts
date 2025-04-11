@@ -1,29 +1,46 @@
-import type { BoxProps } from './Box';
-type Props = {
-    value: number;
-} & Partial<{
+import type { BaseInputProps } from './Input';
+type Props = Partial<{
+    /** Restricted inputs round by default.  */
     allowFloats: boolean;
-    autoFocus: boolean;
-    autoSelect: boolean;
-    disabled: boolean;
-    fluid: boolean;
-    maxValue: number | null;
-    minValue: number | null;
-    onBlur: (e: Event, value: number) => void;
-    onChange: (e: Event, value: number) => void;
-    onEnter: (e: Event, value: number) => void;
-}> & BoxProps;
+    /** Max value. 10,000 by default. */
+    maxValue: number;
+    /** Min value. 0 by default. */
+    minValue: number;
+    /** Fires each time the input has been changed */
+    onChange: (value: number) => void;
+    /** Fires once the enter key is pressed */
+    onEnter: (value: number) => void;
+    /** Fires once the escape key is pressed */
+    onEscape: (value: number) => void;
+    /**
+     * Generally, input can handle its own state value.
+     *
+     * Use this if you want to hold the value in the parent for external manipulation.
+     *
+     * ```tsx
+     * const [value, setValue] = useState(1;
+     *
+     * return (
+     *  <>
+     *    <Button onClick={() => act('inputVal', {inputVal: value})}>
+     *      Submit
+     *    </Button>
+     *    <RestrictedInput value={value} onChange={setValue} />
+     *    <Button onClick={() => setValue(1)}>
+     *      Clear
+     *    </Button>
+     *  </>
+     * )
+     * ```
+     */
+    value: number;
+}> & BaseInputProps;
 /**
  * ## RestrictedInput
- * Creates an input which rejects improper keys.
  *
- * @deprecated Use `NumberInput` instead.
+ * Creates a numerical input which rejects improper keys.
  *
- * This will server as a wrapper for NumberInput until removal. This decision was
- * made because it's poor UX. Users should be allowed to type in whatever they
- * want, but have the UI notify them it's invalid after it's entered.
- *
- * It also gives a false sense of security. It's just an annoying input.
+ * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
  */
 export declare function RestrictedInput(props: Props): import("react/jsx-runtime").JSX.Element;
 export {};
