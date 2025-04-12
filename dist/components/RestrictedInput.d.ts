@@ -12,6 +12,8 @@ type Props = Partial<{
     onEnter: (value: number) => void;
     /** Fires once the escape key is pressed */
     onEscape: (value: number) => void;
+    /** Fires on input validation change */
+    onValidationChange: (isValid: boolean) => void;
     /**
      * Generally, input can handle its own state value.
      *
@@ -39,6 +41,8 @@ type Props = Partial<{
  * ## RestrictedInput
  *
  * Creates a numerical input which rejects improper keys.
+ *
+ *  Has a special event for changes in validation states - `onValidationChange`.
  *
  * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
  */
