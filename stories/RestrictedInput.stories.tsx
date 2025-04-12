@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Stack } from 'lib/components/Stack';
 import type { ComponentProps } from 'react';
 import { useState } from 'react';
 import { Button } from '../lib/components/Button';
@@ -100,7 +101,19 @@ export const Invalid: Story = {
     const [value, setValue] = useState(1);
 
     return (
-      <RestrictedInput value={value} onChange={(value) => setValue(value)} />
+      <Stack vertical>
+        <Stack.Item>
+          <Button onClick={() => setValue(103000)}>Set Out of range</Button>
+        </Stack.Item>
+        <Stack.Item>
+          <RestrictedInput
+            value={value}
+            onChange={(value) => setValue(value)}
+            maxValue={5}
+            minValue={-5}
+          />
+        </Stack.Item>
+      </Stack>
     );
   },
 };

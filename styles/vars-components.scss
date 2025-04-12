@@ -141,6 +141,7 @@
   --restricted-input-border-color-focus: hsl(
     from var(--color-good) h s calc(l + 10)
   );
+  --restricted-input-border-color-invalid: var(--color-bad);
 
   /* Round Gauge */
   --round-gauge-ring-color: var(--input-border-color);

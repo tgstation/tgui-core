@@ -1,4 +1,3 @@
-import { clamp } from 'lib/common/math';
 import { classes } from 'lib/common/react';
 import { debounce } from 'lib/common/timer';
 import { computeBoxProps } from 'lib/common/ui';
@@ -19,6 +18,8 @@ type Props = Partial<{
   onEnter: (value: number) => void;
   /** Fires once the escape key is pressed */
   onEscape: (value: number) => void;
+  /** Fires on input validation change */
+  onValidationChange: (isValid: boolean) => void;
   /**
    * Generally, input can handle its own state value.
    *
@@ -52,6 +53,8 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  *
  * Creates a numerical input which rejects improper keys.
  *
+ * Returns the value and a boolean indicating if the value is valid.
+ *
  * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
  */
 export function RestrictedInput(props: Props) {
@@ -69,11 +72,13 @@ export function RestrictedInput(props: Props) {
     onChange,
     onEnter,
     onEscape,
+    onValidationChange,
     ...rest
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [innerValue, setInnerValue] = useState(props.value ?? minValue);
+  const [isValid, setIsValid] = useState(true);
 
   const boxProps = useMemo(() => {
     return computeBoxProps(rest);
@@ -88,33 +93,20 @@ export function RestrictedInput(props: Props) {
       fluid && 'Input--fluid',
       monospace && 'Input--monospace',
       className,
+      !isValid && 'RestrictedInput--invalid',
     ]);
-  }, [className, fluid, monospace]);
+  }, [className, disabled, fluid, isValid, monospace]);
 
-  /** Clamps the value to min/max */
-  function updateValue(value: number) {
-    if (value === innerValue) return;
-
-    let newValue = value;
-    if (Number.isNaN(value)) {
-      newValue = minValue;
-    } else if (!allowFloats) {
-      newValue = Math.round(value);
-    }
-
-    newValue = clamp(newValue, minValue, maxValue);
-
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(event.target.value);
     setInnerValue(newValue);
+
     if (!onChange) return;
     if (expensive) {
       inputDebounce(() => onChange(newValue));
     } else {
       onChange(newValue);
     }
-  }
-
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    updateValue(Number(event.target.value));
   }
 
   function onKeyDownHandler(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -132,7 +124,8 @@ export function RestrictedInput(props: Props) {
     }
     if (event.key === KEY.Minus) {
       event.preventDefault();
-      updateValue(innerValue * -1);
+      setInnerValue(innerValue * -1);
+
       return;
     }
   }
@@ -153,9 +146,21 @@ export function RestrictedInput(props: Props) {
     return () => clearTimeout(timeout);
   }, []);
 
+  /** Check validity on input change */
+  useEffect(() => {
+    if (inputRef.current) {
+      const formValid = inputRef.current.validity.valid;
+      if (isValid !== formValid) {
+        setIsValid(formValid);
+        onValidationChange?.(formValid);
+      }
+    }
+  }, [innerValue]);
+
   /** Updates the value on props change */
   useEffect(() => {
     if (
+      inputRef.current &&
       document.activeElement !== inputRef.current &&
       props.value !== innerValue
     ) {
@@ -175,6 +180,9 @@ export function RestrictedInput(props: Props) {
       onKeyDown={onKeyDownHandler}
       ref={inputRef}
       spellCheck={false}
+      style={{
+        color: isValid ? 'inherit' : 'red',
+      }}
       type="number"
       value={innerValue}
     />
