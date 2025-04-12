@@ -59,10 +59,7 @@ export const SendParentValue: Story = {
     return (
       <>
         <Button onClick={() => setParentValue(0)}>Min</Button>
-        <RestrictedInput
-          value={parentValue}
-          onChange={(value) => setParentValue(value)}
-        />
+        <RestrictedInput value={parentValue} onChange={setParentValue} />
         <Button onClick={() => setParentValue(103000)}>Max</Button>
       </>
     );

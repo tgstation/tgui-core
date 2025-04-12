@@ -72,8 +72,6 @@ export type TextInputProps = Partial<{
 type Props = Partial<{
   /** Ref of the input element */
   ref: RefObject<HTMLInputElement | null>;
-  /** Auto-updates the input value on props change, ie, data from Byond */
-  updateOnPropsChange: boolean;
 }> &
   BaseInputProps &
   TextInputProps;
@@ -104,7 +102,6 @@ export function Input(props: Props) {
     placeholder,
     ref,
     selfClear,
-    updateOnPropsChange,
     ...rest
   } = props;
 
@@ -173,12 +170,11 @@ export function Input(props: Props) {
 
   /** Updates the value on props change */
   useEffect(() => {
-    if (updateOnPropsChange && inputRef.current) {
-      if (document.activeElement !== inputRef.current) {
-        if (props.value !== innerValue) {
-          setInnerValue(props.value ?? '');
-        }
-      }
+    if (
+      document.activeElement !== inputRef.current &&
+      props.value !== innerValue
+    ) {
+      setInnerValue(props.value ?? '');
     }
   }, [props.value]);
 

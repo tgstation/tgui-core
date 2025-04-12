@@ -137,6 +137,7 @@ export function RestrictedInput(props: Props) {
     }
   }
 
+  /** Focuses the input on mount */
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
@@ -152,11 +153,13 @@ export function RestrictedInput(props: Props) {
     return () => clearTimeout(timeout);
   }, []);
 
+  /** Updates the value on props change */
   useEffect(() => {
-    if (document.activeElement === inputRef.current) {
-      if (props.value !== innerValue) {
-        setInnerValue(props.value ?? minValue);
-      }
+    if (
+      document.activeElement !== inputRef.current &&
+      props.value !== innerValue
+    ) {
+      setInnerValue(props.value ?? minValue);
     }
   }, [props.value]);
 

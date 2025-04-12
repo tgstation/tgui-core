@@ -155,10 +155,11 @@ export function TextArea(props: Props) {
 
   /** Updates the initial value on props change */
   useEffect(() => {
-    if (document.activeElement === textareaRef.current) {
-      if (props.value !== innerValue) {
-        setInnerValue(props.value ?? '');
-      }
+    if (
+      document.activeElement !== textareaRef.current &&
+      props.value !== innerValue
+    ) {
+      setInnerValue(props.value ?? '');
     }
   }, [props.value]);
 

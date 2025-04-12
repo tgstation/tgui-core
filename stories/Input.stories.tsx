@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentProps } from 'react';
+import { useState } from 'react';
+import { Button } from '../lib/components/Button';
 import { Input } from '../lib/components/Input';
+import { Stack } from '../lib/components/Stack';
 
 type StoryProps = ComponentProps<typeof Input>;
 
@@ -54,9 +57,18 @@ export const Fluid: Story = {
 };
 
 export const UpdateOnExternalChange: Story = {
-  args: {
-    ...Default.args,
-    updateOnPropsChange: true,
-    value: 'Change my value',
+  render: () => {
+    const [value, setValue] = useState('Change my value');
+
+    return (
+      <Stack vertical g={2}>
+        <Stack.Item>
+          <Button onClick={() => setValue('Set to this')}>Set to this</Button>
+        </Stack.Item>
+        <Stack.Item>
+          <Input value={value} onChange={setValue} />
+        </Stack.Item>
+      </Stack>
+    );
   },
 };
