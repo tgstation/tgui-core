@@ -15,23 +15,40 @@ type Props = Partial<{
     /** Fires on input validation change */
     onValidationChange: (isValid: boolean) => void;
     /**
-     * Generally, input can handle its own state value.
+     * Generally, input can handle its own state value. You might not NEED this.
      *
-     * Use this if you want to hold the value in the parent for external manipulation.
+     * Use this if you want to hold the value in the parent for external
+     * manipulation. For instance:
      *
+     * ### Clearing the input
      * ```tsx
-     * const [value, setValue] = useState(1;
+     * const [value, setValue] = useState(1);
      *
      * return (
      *  <>
      *    <Button onClick={() => act('inputVal', {inputVal: value})}>
      *      Submit
      *    </Button>
-     *    <RestrictedInput value={value} onChange={setValue} />
+     *    <RestrictedInput
+     *      value={value}
+     *      onChange={setValue} />
      *    <Button onClick={() => setValue(1)}>
      *      Clear
      *    </Button>
      *  </>
+     * )
+     * ```
+     *
+     * ### Updating the value from the backend
+     * ```tsx
+     * const { data } = useBackend<Data>();
+     * const { valveSetting } = data;
+     *
+     * return (
+     *  <RestrictedInput
+     *    value={valveSetting}
+     *    onEnter={(value) => act('submit', { valveSetting: value })}
+     *  />
      * )
      * ```
      */
