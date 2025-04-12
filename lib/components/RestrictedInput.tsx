@@ -53,7 +53,7 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  *
  * Creates a numerical input which rejects improper keys.
  *
- * Returns the value and a boolean indicating if the value is valid.
+ *  Has a special event for changes in validation states - `onValidationChange`.
  *
  * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
  */
