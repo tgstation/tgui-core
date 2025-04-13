@@ -50,7 +50,7 @@ type Props = Partial<{
   color: string;
   /** Makes button disabled and dark red if true. Also disables onClick. */
   disabled: BooleanLike;
-  /** Optional. Adds a "stub" when loading DmIcon. */
+  /** Optional. Replaces default "stub" when loading DmIcon. */
   dmFallback: ReactNode;
   /** Parameter `icon` of component `DmIcon`. */
   dmIcon: string | null;
@@ -63,6 +63,8 @@ type Props = Partial<{
    * Allows the use of `title`
    */
   fluid: boolean;
+  /** Replaces default "question" icon when image missing. */
+  fallbackIcon: string;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
   imageSize: number;
   /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image)}` */
@@ -102,6 +104,7 @@ export function ImageButton(props: Props) {
     dmIcon,
     dmIconState,
     fluid,
+    fallbackIcon,
     imageSize = 64,
     imageSrc,
     onClick,
@@ -164,7 +167,7 @@ export function ImageButton(props: Props) {
             }}
           />
         ) : (
-          <Fallback icon="question" size={imageSize} />
+          <Fallback icon={fallbackIcon || 'question'} size={imageSize} />
         )}
       </div>
       {/** End of image container */}
