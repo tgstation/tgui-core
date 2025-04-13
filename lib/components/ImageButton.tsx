@@ -12,7 +12,6 @@ import type { BoxProps } from './Box';
 import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
-import { Stack } from './Stack';
 import { Tooltip } from './Tooltip';
 
 type Props = Partial<{
@@ -259,15 +258,13 @@ function Fallback(props: FallbackProps) {
   const { icon, spin, size = 64 } = props;
 
   return (
-    <Stack height={`${size}px`} width={`${size}px`}>
-      <Stack.Item grow textAlign="center" align="center">
-        <Icon
-          spin={spin}
-          name={icon}
-          color="gray"
-          style={{ fontSize: `calc(${size}px * 0.75)` }}
-        />
-      </Stack.Item>
-    </Stack>
+    <Icon
+      className="ImageButton__image--fallback"
+      height={`${size}px`}
+      width={`${size}px`}
+      spin={spin}
+      name={icon}
+      style={{ fontSize: `${size}px` }}
+    />
   );
 }
