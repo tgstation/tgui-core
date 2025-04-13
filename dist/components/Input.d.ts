@@ -37,11 +37,12 @@ export type TextInputProps = Partial<{
     /** Clears the input value on enter */
     selfClear: boolean;
     /**
-     * Generally, input can handle its own state value.
+     * Generally, input can handle its own state value. You might not NEED this.
      *
      * Use this if you want to hold the value in the parent for external
-     * manipulation.
+     * manipulation. For instance:
      *
+     * ### Clearing the input
      * ```tsx
      * const [value, setValue] = useState('');
      *
@@ -50,11 +51,26 @@ export type TextInputProps = Partial<{
      *    <Button onClick={() => act('inputVal', {inputVal: value})}>
      *      Submit
      *    </Button>
-     *    <Input value={value} onChange={setValue} />
+     *    <Input
+     *      value={value}
+     *      onChange={setValue} />
      *    <Button onClick={() => setValue('')}>
      *      Clear
      *    </Button>
      *  </>
+     * )
+     * ```
+     *
+     * ### Updating the value from the backend
+     * ```tsx
+     * const { data } = useBackend<Data>();
+     * const { valveSetting } = data;
+     *
+     * return (
+     *  <Input
+     *    value={valveSetting}
+     *    onEnter={(value) => act('submit', { valveSetting: value })}
+     *  />
      * )
      * ```
      */
