@@ -74,8 +74,11 @@
   --primary-hue: 210;
   --primary-saturation: 37.5%;
   --primary-lightness: 45%;
-  /* prettier-ignore */
-  --color-primary: hsl(var(--primary-hue), var(--primary-saturation), var(--primary-lightness));
+  --color-primary: hsl(
+    var(--primary-hue),
+    var(--primary-saturation),
+    var(--primary-lightness)
+  );
   --color-good: hsl(95, 62.5%, 40%);
   --color-average: hsl(32.5, 90%, 50%);
   --color-bad: hsl(0, 72.5%, 50%);

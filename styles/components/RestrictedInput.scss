@@ -1,0 +1,19 @@
+.RestrictedInput {
+  border-color: var(--restricted-input-border-color);
+  text-align: right;
+  &:focus-within {
+    border-color: var(--restricted-input-border-color-focus);
+  }
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.RestrictedInput--invalid {
+  border-color: var(--restricted-input-border-color-invalid);
+  &:focus-within {
+    border-color: var(--restricted-input-border-color-invalid);
+  }
+}

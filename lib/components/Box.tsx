@@ -5,6 +5,7 @@ import {
   type ReactNode,
   type UIEventHandler,
   createElement,
+  useMemo,
 } from 'react';
 import type { BooleanLike } from '../common/react';
 import {
@@ -124,14 +125,19 @@ type DangerDoNotUse = {
 export function Box(props: BoxProps & DangerDoNotUse) {
   const { as = 'div', className, children, tw, ...rest } = props;
 
-  const computedClassName = className
-    ? `${className} ${computeBoxClassName(rest)}`
-    : computeBoxClassName(rest);
+  const computedClassName = useMemo(() => {
+    if (className) {
+      return `${className} ${computeBoxClassName(rest)}`;
+    }
+    return computeBoxClassName(rest);
+  }, [className, rest]);
 
-  const computedProps = computeBoxProps({
-    ...rest,
-    ...computeTwClass(tw),
-  });
+  const computedProps = useMemo(() => {
+    return computeBoxProps({
+      ...rest,
+      ...computeTwClass(tw),
+    });
+  }, [rest, tw]);
 
   return createElement(
     as,

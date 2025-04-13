@@ -1,7 +1,7 @@
 import { classes } from 'lib/common/react';
 import { debounce } from 'lib/common/timer';
-import { computeBoxProps } from 'lib/common/ui';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { computeBoxClassName, computeBoxProps } from 'lib/common/ui';
+import { useEffect, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import type { BaseInputProps } from './Input';
 
@@ -90,29 +90,13 @@ export function RestrictedInput(props: Props) {
     onEnter,
     onEscape,
     onValidationChange,
+    value,
     ...rest
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const [innerValue, setInnerValue] = useState(props.value ?? minValue);
+  const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
-
-  const boxProps = useMemo(() => {
-    return computeBoxProps(rest);
-  }, [rest]);
-
-  // We meet again
-  const clsx = useMemo(() => {
-    return classes([
-      'Input',
-      'RestrictedInput',
-      disabled && 'Input--disabled',
-      fluid && 'Input--fluid',
-      monospace && 'Input--monospace',
-      className,
-      !isValid && 'RestrictedInput--invalid',
-    ]);
-  }, [className, disabled, fluid, isValid, monospace]);
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = Number(event.target.value);
@@ -179,11 +163,23 @@ export function RestrictedInput(props: Props) {
     if (
       inputRef.current &&
       document.activeElement !== inputRef.current &&
-      props.value !== innerValue
+      value !== innerValue
     ) {
-      setInnerValue(props.value ?? minValue);
+      setInnerValue(value ?? minValue);
     }
-  }, [props.value]);
+  }, [value]);
+
+  const boxProps = computeBoxProps(rest);
+  const clsx = classes([
+    'Input',
+    'RestrictedInput',
+    disabled && 'Input--disabled',
+    fluid && 'Input--fluid',
+    monospace && 'Input--monospace',
+    computeBoxClassName(rest),
+    className,
+    !isValid && 'RestrictedInput--invalid',
+  ]);
 
   return (
     <input

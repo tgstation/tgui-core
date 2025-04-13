@@ -1,9 +1,9 @@
 import { debounce } from 'lib/common/timer';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
-import { computeBoxProps } from '../common/ui';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { TextInputProps } from './Input';
 
 type Props = Partial<{
@@ -44,6 +44,7 @@ export function TextArea(props: Props) {
   const {
     autoFocus,
     autoSelect,
+    className,
     disabled,
     dontUseTabForIndent,
     expensive,
@@ -57,27 +58,14 @@ export function TextArea(props: Props) {
     ref,
     selfClear,
     userMarkup,
+    value,
     ...rest
   } = props;
 
   const ourRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = ref ?? ourRef;
 
-  const [innerValue, setInnerValue] = useState(props.value ?? '');
-
-  const boxProps = useMemo(() => {
-    return computeBoxProps(rest);
-  }, [rest]);
-
-  const clsx = useMemo(() => {
-    return classes([
-      'Input',
-      'TextArea',
-      fluid && 'Input--fluid',
-      monospace && 'Input--monospace',
-      disabled && 'Input--disabled',
-    ]);
-  }, [disabled, fluid, monospace]);
+  const [innerValue, setInnerValue] = useState(value ?? '');
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = event.currentTarget.value;
@@ -156,12 +144,24 @@ export function TextArea(props: Props) {
   /** Updates the initial value on props change */
   useEffect(() => {
     if (
+      textareaRef.current &&
       document.activeElement !== textareaRef.current &&
-      props.value !== innerValue
+      value !== innerValue
     ) {
-      setInnerValue(props.value ?? '');
+      setInnerValue(value ?? '');
     }
-  }, [props.value]);
+  }, [value]);
+
+  const boxProps = computeBoxProps(rest);
+  const clsx = classes([
+    'Input',
+    'TextArea',
+    fluid && 'Input--fluid',
+    monospace && 'Input--monospace',
+    disabled && 'Input--disabled',
+    computeBoxClassName(rest),
+    className,
+  ]);
 
   return (
     <textarea

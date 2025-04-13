@@ -1,8 +1,8 @@
-import { type RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 import { KEY, isEscape } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
-import { computeBoxProps } from '../common/ui';
+import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 export type BaseInputProps = Partial<{
@@ -44,11 +44,12 @@ export type TextInputProps = Partial<{
   /** Clears the input value on enter */
   selfClear: boolean;
   /**
-   * Generally, input can handle its own state value.
+   * Generally, input can handle its own state value. You might not NEED this.
    *
    * Use this if you want to hold the value in the parent for external
-   * manipulation.
+   * manipulation. For instance:
    *
+   * ### Clearing the input
    * ```tsx
    * const [value, setValue] = useState('');
    *
@@ -57,11 +58,26 @@ export type TextInputProps = Partial<{
    *    <Button onClick={() => act('inputVal', {inputVal: value})}>
    *      Submit
    *    </Button>
-   *    <Input value={value} onChange={setValue} />
+   *    <Input
+   *      value={value}
+   *      onChange={setValue} />
    *    <Button onClick={() => setValue('')}>
    *      Clear
    *    </Button>
    *  </>
+   * )
+   * ```
+   *
+   * ### Updating the value from the backend
+   * ```tsx
+   * const { data } = useBackend<Data>();
+   * const { valveSetting } = data;
+   *
+   * return (
+   *  <Input
+   *    value={valveSetting}
+   *    onEnter={(value) => act('submit', { valveSetting: value })}
+   *  />
    * )
    * ```
    */
@@ -102,27 +118,14 @@ export function Input(props: Props) {
     placeholder,
     ref,
     selfClear,
+    value,
     ...rest
   } = props;
 
   const ourRef = useRef<HTMLInputElement>(null);
   const inputRef = ref ?? ourRef;
 
-  const [innerValue, setInnerValue] = useState(props.value);
-
-  const boxProps = useMemo(() => {
-    return computeBoxProps(rest);
-  }, [rest]);
-
-  const clsx = useMemo(() => {
-    return classes([
-      'Input',
-      disabled && 'Input--disabled',
-      fluid && 'Input--fluid',
-      monospace && 'Input--monospace',
-      className,
-    ]);
-  }, [className, fluid, monospace]);
+  const [innerValue, setInnerValue] = useState(value);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
@@ -171,12 +174,23 @@ export function Input(props: Props) {
   /** Updates the value on props change */
   useEffect(() => {
     if (
+      inputRef.current &&
       document.activeElement !== inputRef.current &&
-      props.value !== innerValue
+      value !== innerValue
     ) {
-      setInnerValue(props.value ?? '');
+      setInnerValue(value ?? '');
     }
-  }, [props.value]);
+  }, [value]);
+
+  const boxProps = computeBoxProps(rest);
+  const clsx = classes([
+    'Input',
+    disabled && 'Input--disabled',
+    fluid && 'Input--fluid',
+    monospace && 'Input--monospace',
+    computeBoxClassName(rest),
+    className,
+  ]);
 
   return (
     <input
@@ -189,9 +203,9 @@ export function Input(props: Props) {
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={inputRef}
+      spellCheck={false}
       type="text"
       value={innerValue}
-      spellCheck={false}
     />
   );
 }
