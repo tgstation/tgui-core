@@ -131,6 +131,18 @@ $bg-map: colors.$color-map !default;
     border-bottom: none;
     border-color: inherit;
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+
+    &--fallback {
+      text-align: center;
+      align-content: center;
+      color: var(--color-text-translucent);
+
+      &:before {
+        display: table;
+        width: 100%;
+        zoom: 0.75;
+      }
+    }
   }
 
   &__content {
