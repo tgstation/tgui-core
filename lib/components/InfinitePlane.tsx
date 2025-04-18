@@ -154,7 +154,6 @@ export function InfinitePlane(props: Props) {
         style={{
           height: '100%',
           inset: 0,
-          pointerEvents: 'none',
           position: 'absolute',
           transform: `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
           transformOrigin: 'top left',
