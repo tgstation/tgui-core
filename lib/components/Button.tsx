@@ -298,6 +298,10 @@ function ButtonInput(props: InputProps) {
   const ourRef = createRef<HTMLInputElement>();
   const inputRef = ref ?? ourRef;
 
+  function handleBlur() {
+    setEditing(false);
+  }
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = event.currentTarget.value;
     setInnerValue(newValue);
@@ -306,17 +310,14 @@ function ButtonInput(props: InputProps) {
   function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      event.currentTarget.blur();
       onEnter?.(event.currentTarget.value);
-      setEditing(false);
+      event.currentTarget.blur();
       return;
     }
 
     if (isEscape(event.key)) {
       event.preventDefault();
       event.currentTarget.blur();
-      setInnerValue(value);
-      setEditing(false);
       return;
     }
   }
@@ -332,7 +333,7 @@ function ButtonInput(props: InputProps) {
     if (!editing && value !== innerValue) {
       setInnerValue(value);
     }
-  }, [value]);
+  }, [editing, value]);
 
   return (
     <Box
@@ -351,6 +352,7 @@ function ButtonInput(props: InputProps) {
         className="NumberInput__input"
         disabled={!!disabled}
         maxLength={maxLength}
+        onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={handleKeydown}
         placeholder={placeholder}
