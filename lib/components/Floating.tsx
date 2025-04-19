@@ -124,22 +124,17 @@ export function Floating(props: Props) {
       if (onMounted !== undefined) {
         onMounted();
       }
-      return autoUpdate(reference, floating, update);
+      return autoUpdate(reference, floating, update, {
+        elementResize: false,
+        ancestorResize: false,
+        ancestorScroll: false,
+      });
     },
     placement: placement || 'bottom',
     transform: false, // More expensive but allows to use transform for animations
     middleware: [
       offset(contentOffset),
-      flip({
-        padding: 6,
-        fallbackPlacements: [
-          'bottom-start',
-          'bottom-end',
-          'top',
-          'top-start',
-          'top-end',
-        ],
-      }),
+      flip({ padding: 6 }),
       contentAutoWidth &&
         size({
           apply({ rects, elements }) {
