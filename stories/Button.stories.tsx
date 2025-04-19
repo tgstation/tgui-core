@@ -125,10 +125,11 @@ export const Confirm: ConfirmStory = {
 type InputStory = StoryObj<ComponentProps<typeof Button.Input>>;
 
 export const Input: InputStory = {
-  args: {
-    children: 'Click me',
+  render: () => {
+    const [startValue, setStartValue] = useState('Click me');
+
+    return <Button.Input onEnter={setStartValue} value={startValue} />;
   },
-  render: (args) => <Button.Input {...args} />,
 };
 
 type FileStory = StoryObj<ComponentProps<typeof Button.File>>;
