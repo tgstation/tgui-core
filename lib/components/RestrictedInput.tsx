@@ -98,14 +98,14 @@ export function RestrictedInput(props: Props) {
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
 
-function tryOnChange(newValue:number) {
-  if (!onChange) return;
-  if (expensive) {
-    inputDebounce(() => onChange(newValue));
-  } else {
-    onChange(newValue);
+  function tryOnChange(newValue:number) {
+    if (!onChange) return;
+    if (expensive) {
+      inputDebounce(() => onChange(newValue));
+    } else {
+      onChange(newValue);
+    }
   }
-}
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
     const newValue = Number(event.target.value);
