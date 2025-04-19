@@ -98,16 +98,19 @@ export function RestrictedInput(props: Props) {
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
 
-  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    const newValue = Number(event.target.value);
-    setInnerValue(newValue);
-
+  function tryOnChange(newValue: number) {
     if (!onChange) return;
     if (expensive) {
       inputDebounce(() => onChange(newValue));
     } else {
       onChange(newValue);
     }
+  }
+
+  function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(event.target.value);
+    setInnerValue(newValue);
+    tryOnChange(newValue);
   }
 
   function onKeyDownHandler(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -126,7 +129,7 @@ export function RestrictedInput(props: Props) {
     if (event.key === KEY.Minus) {
       event.preventDefault();
       setInnerValue(innerValue * -1);
-
+      tryOnChange(innerValue);
       return;
     }
   }
