@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/react';
-import { type ReactNode } from 'react';
+import { type ReactNode, type RefObject } from 'react';
 import { type BooleanLike } from '../common/react';
 import { type BoxProps } from './Box';
 /**
@@ -68,11 +68,18 @@ type ConfirmProps = Partial<{
 }> & Props;
 declare function ButtonConfirm(props: ConfirmProps): import("react/jsx-runtime").JSX.Element;
 type InputProps = Partial<{
-    currentValue: string;
-    defaultValue: string;
+    /** Use the value prop. This is done to be uniform with other inputs. */
+    children: never;
+    /** Max length of the input */
     maxLength: number;
-    onCommit: (e: any, value: string) => void;
+    /** Action on enter key press */
+    onEnter: (value: string) => void;
+    /** Text to display when the input is empty */
     placeholder: string;
+    /** Reference to the inner input */
+    ref: RefObject<HTMLInputElement | null>;
+    /** The value of the input */
+    value: string;
 }> & Props;
 declare function ButtonInput(props: InputProps): import("react/jsx-runtime").JSX.Element;
 type FileProps = {
