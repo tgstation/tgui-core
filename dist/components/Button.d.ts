@@ -68,14 +68,14 @@ type ConfirmProps = Partial<{
 }> & Props;
 declare function ButtonConfirm(props: ConfirmProps): import("react/jsx-runtime").JSX.Element;
 type InputProps = Partial<{
+    /** Text to display on the button exclusively. If left blank, displays the value */
+    buttonText: string;
     /** Use the value prop. This is done to be uniform with other inputs. */
     children: never;
     /** Max length of the input */
     maxLength: number;
     /** Action on enter key press */
     onEnter: (value: string) => void;
-    /** Text to display when the input is empty */
-    placeholder: string;
     /** Reference to the inner input */
     ref: RefObject<HTMLInputElement | null>;
     /** The value of the input */
