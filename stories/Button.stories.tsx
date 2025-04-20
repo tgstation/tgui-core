@@ -132,12 +132,12 @@ export const Input: InputStory = {
     return (
       <Stack vertical width={10} g={5}>
         <Stack.Item>
-          <Button.Input onEnter={setStartValue} value={startValue} />
+          <Button.Input onCommit={setStartValue} value={startValue} />
         </Stack.Item>
         <Stack.Item>
           {otherValue}{' '}
           <Button.Input
-            onEnter={setOtherValue}
+            onCommit={setOtherValue}
             value={otherValue}
             buttonText="buttonText doesn't change"
           />

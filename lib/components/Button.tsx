@@ -266,8 +266,8 @@ type InputProps = Partial<{
   children: never;
   /** Max length of the input */
   maxLength: number;
-  /** Action on enter key press */
-  onEnter: (value: string) => void;
+  /** Action on outside click or enter key */
+  onCommit: (value: string) => void;
   /** Reference to the inner input */
   ref: RefObject<HTMLInputElement | null>;
   /** The value of the input */
@@ -286,19 +286,24 @@ function ButtonInput(props: InputProps) {
     iconRotation,
     iconSpin,
     maxLength,
-    onEnter,
+    onCommit,
     ref,
-    value,
+    value = '',
     ...rest
   } = props;
 
   const [innerValue, setInnerValue] = useState(value);
   const [editing, setEditing] = useState(false);
+  const escaping = useRef(false);
 
   const ourRef = createRef<HTMLInputElement>();
   const inputRef = ref ?? ourRef;
 
   function handleBlur() {
+    if (!escaping.current && value !== innerValue) {
+      onCommit?.(innerValue);
+      escaping.current = false;
+    }
     setEditing(false);
   }
 
@@ -310,13 +315,13 @@ function ButtonInput(props: InputProps) {
   function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      onEnter?.(event.currentTarget.value);
       event.currentTarget.blur();
       return;
     }
 
     if (isEscape(event.key)) {
       event.preventDefault();
+      escaping.current = true;
       event.currentTarget.blur();
       return;
     }
