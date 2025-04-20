@@ -74,8 +74,8 @@ type InputProps = Partial<{
     children: never;
     /** Max length of the input */
     maxLength: number;
-    /** Action on enter key press */
-    onEnter: (value: string) => void;
+    /** Action on outside click or enter key */
+    onCommit: (value: string) => void;
     /** Reference to the inner input */
     ref: RefObject<HTMLInputElement | null>;
     /** The value of the input */
