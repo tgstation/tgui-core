@@ -260,14 +260,14 @@ function ButtonConfirm(props: ConfirmProps) {
 }
 
 type InputProps = Partial<{
+  /** Text to display on the button exclusively. If left blank, displays the value */
+  buttonText: string;
   /** Use the value prop. This is done to be uniform with other inputs. */
   children: never;
   /** Max length of the input */
   maxLength: number;
   /** Action on enter key press */
   onEnter: (value: string) => void;
-  /** Text to display when the input is empty */
-  placeholder: string;
   /** Reference to the inner input */
   ref: RefObject<HTMLInputElement | null>;
   /** The value of the input */
@@ -277,6 +277,7 @@ type InputProps = Partial<{
 
 function ButtonInput(props: InputProps) {
   const {
+    buttonText,
     children,
     color = 'default',
     disabled,
@@ -286,7 +287,6 @@ function ButtonInput(props: InputProps) {
     iconSpin,
     maxLength,
     onEnter,
-    placeholder,
     ref,
     value,
     ...rest
@@ -347,7 +347,7 @@ function ButtonInput(props: InputProps) {
       {...rest}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
-      {innerValue}
+      {buttonText ?? innerValue}
       <input
         className="NumberInput__input"
         disabled={!!disabled}
@@ -355,7 +355,6 @@ function ButtonInput(props: InputProps) {
         onBlur={handleBlur}
         onChange={handleChange}
         onKeyDown={handleKeydown}
-        placeholder={placeholder}
         ref={inputRef}
         spellCheck="false"
         style={{

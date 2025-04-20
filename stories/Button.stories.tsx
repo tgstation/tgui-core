@@ -127,8 +127,23 @@ type InputStory = StoryObj<ComponentProps<typeof Button.Input>>;
 export const Input: InputStory = {
   render: () => {
     const [startValue, setStartValue] = useState('Click me');
+    const [otherValue, setOtherValue] = useState('External value');
 
-    return <Button.Input onEnter={setStartValue} value={startValue} />;
+    return (
+      <Stack vertical width={10} g={5}>
+        <Stack.Item>
+          <Button.Input onEnter={setStartValue} value={startValue} />
+        </Stack.Item>
+        <Stack.Item>
+          {otherValue}{' '}
+          <Button.Input
+            onEnter={setOtherValue}
+            value={otherValue}
+            buttonText="buttonText doesn't change"
+          />
+        </Stack.Item>
+      </Stack>
+    );
   },
 };
 
