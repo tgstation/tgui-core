@@ -3,6 +3,7 @@ import {
   type ChangeEvent,
   type MouseEvent,
   type ReactNode,
+  type RefObject,
   createRef,
   useEffect,
   useRef,
@@ -259,11 +260,18 @@ function ButtonConfirm(props: ConfirmProps) {
 }
 
 type InputProps = Partial<{
-  currentValue: string;
-  defaultValue: string;
+  /** Use the value prop. This is done to be uniform with other inputs. */
+  children: never;
+  /** Max length of the input */
   maxLength: number;
-  onCommit: (e: any, value: string) => void;
+  /** Action on enter key press */
+  onEnter: (value: string) => void;
+  /** Text to display when the input is empty */
   placeholder: string;
+  /** Reference to the inner input */
+  ref: RefObject<HTMLInputElement | null>;
+  /** The value of the input */
+  value: string;
 }> &
   Props;
 
@@ -271,55 +279,63 @@ function ButtonInput(props: InputProps) {
   const {
     children,
     color = 'default',
-    content,
-    currentValue,
-    defaultValue,
     disabled,
     fluid,
     icon,
     iconRotation,
     iconSpin,
     maxLength,
-    onCommit = () => null,
+    onEnter,
     placeholder,
-    tooltip,
-    tooltipPosition,
+    ref,
+    value,
     ...rest
   } = props;
-  const [inInput, setInInput] = useState(false);
-  const inputRef = createRef<HTMLInputElement>();
 
-  const toDisplay = content || children;
+  const [innerValue, setInnerValue] = useState(value);
+  const [editing, setEditing] = useState(false);
 
-  function commitResult(e) {
-    const input = inputRef.current;
-    if (!input) return;
+  const ourRef = createRef<HTMLInputElement>();
+  const inputRef = ref ?? ourRef;
 
-    const hasValue = input.value !== '';
-    if (hasValue) {
-      onCommit(e, input.value);
-    } else {
-      if (defaultValue) {
-        onCommit(e, defaultValue);
-      }
+  function handleBlur() {
+    setEditing(false);
+  }
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.value;
+    setInnerValue(newValue);
+  }
+
+  function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === KEY.Enter) {
+      event.preventDefault();
+      onEnter?.(event.currentTarget.value);
+      event.currentTarget.blur();
+      return;
+    }
+
+    if (isEscape(event.key)) {
+      event.preventDefault();
+      event.currentTarget.blur();
+      return;
     }
   }
 
   useEffect(() => {
-    const input = inputRef.current;
-
-    if (input && inInput) {
-      input.value = currentValue || '';
-      try {
-        input.focus();
-        input.select();
-      } catch {
-        // Ignore errors
-      }
+    if (editing) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
     }
-  }, [inInput, currentValue]);
+  }, [editing]);
 
-  let buttonContent = (
+  useEffect(() => {
+    if (!editing && value !== innerValue) {
+      setInnerValue(value);
+    }
+  }, [editing, value]);
+
+  return (
     <Box
       className={classes([
         'Button',
@@ -327,49 +343,30 @@ function ButtonInput(props: InputProps) {
         disabled && 'Button--disabled',
         `Button--color--${color}`,
       ])}
+      onClick={() => setEditing(true)}
       {...rest}
-      onClick={() => setInInput(true)}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
-      <div>{toDisplay}</div>
+      {innerValue}
       <input
-        disabled={!!disabled}
-        ref={inputRef}
         className="NumberInput__input"
+        disabled={!!disabled}
+        maxLength={maxLength}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onKeyDown={handleKeydown}
+        placeholder={placeholder}
+        ref={inputRef}
+        spellCheck="false"
         style={{
-          display: !inInput ? 'none' : '',
+          display: !editing ? 'none' : '',
           textAlign: 'left',
         }}
-        onBlur={(event) => {
-          if (!inInput) {
-            return;
-          }
-          setInInput(false);
-          commitResult(event);
-        }}
-        onKeyDown={(event) => {
-          if (event.key === KEY.Enter) {
-            setInInput(false);
-            commitResult(event);
-            return;
-          }
-          if (isEscape(event.key)) {
-            setInInput(false);
-          }
-        }}
+        type="text"
+        value={innerValue}
       />
     </Box>
   );
-
-  if (tooltip) {
-    buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
-        {buttonContent}
-      </Tooltip>
-    );
-  }
-
-  return buttonContent;
 }
 
 type FileProps = {
