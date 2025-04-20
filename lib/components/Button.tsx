@@ -323,9 +323,9 @@ function ButtonInput(props: InputProps) {
   }
 
   useEffect(() => {
-    if (editing && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
+    if (editing) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
     }
   }, [editing]);
 
@@ -347,7 +347,7 @@ function ButtonInput(props: InputProps) {
       {...rest}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
-      {value}
+      {innerValue}
       <input
         className="NumberInput__input"
         disabled={!!disabled}
