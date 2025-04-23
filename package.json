@@ -1,6 +1,6 @@
 {
   "name": "tgui-core",
-  "version": "3.1.2",
+  "version": "3.1.3",
   "description": "TGUI core component library",
   "keywords": ["TGUI", "library", "typescript"],
   "files": ["dist", "styles"],
