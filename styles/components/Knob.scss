@@ -66,7 +66,7 @@ $inner-padding: 0;
   font-size: 1rem;
   text-align: center;
   padding: var(--space-s) var(--space-m);
-  background-color: hsl(from var(--knob-popup-background) h s l / 0.33);
+  background-color: var(--knob-popup-background);
   color: var(--knob-popup-color);
   border-radius: var(--knob-popup-border-radius);
   transform: translateY(-100%) translateX(-50%);
@@ -117,10 +117,6 @@ $inner-padding: 0;
 
     .Knob__ringTrack {
       stroke: hsl(from $color-value h s l / 0.15);
-    }
-
-    ~ .Knob__popupValue {
-      background-color: hsl(from $color-value h s l / 0.33);
     }
   }
 }
