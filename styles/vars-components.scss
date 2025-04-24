@@ -102,7 +102,7 @@
   /* Knob */
   --knob-color: hsl(from var(--color-base) h 5 20);
   --knob-ring-color: var(--input-border-color);
-  --knob-popup-background: var(--tooltip-background);
+  --knob-popup-background: var(--color-primary);
   --knob-popup-color: var(--tooltip-color);
   --knob-popup-border-radius: var(--tooltip-border-radius);
   --knob-popup-blur: var(--tooltip-blur);

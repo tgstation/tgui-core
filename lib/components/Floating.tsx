@@ -72,6 +72,8 @@ type Props = {
    * - Classes must be sent like this: `".class1, .class2"`
    */
   allowedOutsideClasses: string;
+  /** Do not wrap content in FloatingPortal, thus preventing it from moving into the body */
+  preventPortal: true;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
   /** Close the content after interaction with it. */
@@ -113,6 +115,7 @@ export function Floating(props: Props) {
     handleOpen,
     onMounted,
     placement,
+    preventPortal,
     stopChildPropagation,
     onOpenChange,
   } = props;
@@ -199,27 +202,33 @@ export function Floating(props: Props) {
     floatingChildren = <div {...referenceProps}>{children}</div>;
   }
 
+  const floatingContent = (
+    <div
+      ref={refs.setFloating}
+      className={classes([
+        'Floating',
+        !animationDuration && 'Floating--animated',
+        contentClasses,
+      ])}
+      data-position={context.placement}
+      data-transition={status}
+      style={{ ...floatingStyles, ...contentStyles }}
+      {...floatingProps}
+    >
+      {content}
+    </div>
+  );
+
   return (
     <>
       {floatingChildren}
-      {isMounted && !!content && (
-        <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            className={classes([
-              'Floating',
-              !animationDuration && 'Floating--animated',
-              contentClasses,
-            ])}
-            data-position={context.placement}
-            data-transition={status}
-            style={{ ...floatingStyles, ...contentStyles }}
-            {...floatingProps}
-          >
-            {content}
-          </div>
-        </FloatingPortal>
-      )}
+      {isMounted &&
+        !!content &&
+        (preventPortal ? (
+          floatingContent
+        ) : (
+          <FloatingPortal>{floatingContent}</FloatingPortal>
+        ))}
     </>
   );
 }

@@ -127,6 +127,7 @@ export function Knob(props: Props) {
 
         return (
           <Floating
+            preventPortal
             handleOpen={dragging}
             contentClasses="Knob__popupValue"
             content={displayElement}
