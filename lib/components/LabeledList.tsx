@@ -56,6 +56,8 @@ type LabeledListItemProps = Partial<{
    * - `bottom`
    */
   verticalAlign: string;
+  /** Preserves line-breaks and spacing in Labeled.Item text. */
+  preserveWhitespace: boolean;
 }>;
 
 function LabeledListItem(props: LabeledListItemProps) {
@@ -70,6 +72,7 @@ function LabeledListItem(props: LabeledListItemProps) {
     content,
     children,
     verticalAlign = 'baseline',
+    preserveWhitespace,
     tooltip,
   } = props;
 
@@ -104,6 +107,7 @@ function LabeledListItem(props: LabeledListItemProps) {
         !labelWrap && 'LabeledList__label--nowrap',
       ])}
       verticalAlign={verticalAlign}
+      preserveWhitespace={preserveWhitespace}
     >
       {innerLabel}
     </Box>
