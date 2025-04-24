@@ -182,6 +182,7 @@ export function Floating(props: Props) {
   });
 
   const floatingProps = getFloatingProps({
+    ref: refs.setFloating,
     onClick: () => {
       if (closeAfterInteract) {
         context.onOpenChange(false);
@@ -205,14 +206,13 @@ export function Floating(props: Props) {
 
   const floatingContent = (
     <div
-      ref={refs.setFloating}
       className={classes([
         'Floating',
         !animationDuration && 'Floating--animated',
         contentClasses,
       ])}
-      data-position={context.placement}
       data-transition={status}
+      data-position={context.placement}
       style={{ ...floatingStyles, ...contentStyles }}
       {...floatingProps}
     >
