@@ -1,3 +1,4 @@
+import type { Placement } from '@floating-ui/react';
 import type { PropsWithChildren, ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { unit } from '../common/ui';
@@ -47,6 +48,8 @@ type LabeledListItemProps = Partial<{
   textAlign: string;
   /** Tooltip text. */
   tooltip: string;
+  /** Tooltip position. See Tooltip for valid values. */
+  tooltipPosition: Placement;
   /**
    * Align both the label and the content vertically.
    *
@@ -74,6 +77,7 @@ function LabeledListItem(props: LabeledListItemProps) {
     verticalAlign = 'baseline',
     preserveWhitespace,
     tooltip,
+    tooltipPosition,
   } = props;
 
   let innerLabel: ReactNode;
@@ -84,7 +88,7 @@ function LabeledListItem(props: LabeledListItemProps) {
 
   if (tooltip !== undefined) {
     innerLabel = (
-      <Tooltip content={tooltip}>
+      <Tooltip content={tooltip} position={tooltipPosition}>
         <Box
           as="span"
           style={{

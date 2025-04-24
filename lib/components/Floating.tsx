@@ -134,6 +134,7 @@ export function Floating(props: Props) {
       return autoUpdate(reference, floating, update, {
         ancestorResize: false,
         ancestorScroll: false,
+        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
       });
     },
     placement: placement || 'bottom',
