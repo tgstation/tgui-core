@@ -18,6 +18,7 @@ import {
   type ReactNode,
   cloneElement,
   isValidElement,
+  useEffect,
   useState,
 } from 'react';
 import { type BooleanLike, classes } from '../common/react';
@@ -54,6 +55,8 @@ type Props = {
    * @default 200
    */
   animationDuration: number;
+  /** Direct content open state control. */
+  handleOpen: boolean;
   /** Content will open when you hover over children. */
   hoverOpen: boolean;
   /**
@@ -107,6 +110,7 @@ export function Floating(props: Props) {
     disabled,
     hoverDelay,
     hoverOpen,
+    handleOpen,
     onMounted,
     placement,
     stopChildPropagation,
@@ -125,7 +129,6 @@ export function Floating(props: Props) {
         onMounted();
       }
       return autoUpdate(reference, floating, update, {
-        elementResize: false,
         ancestorResize: false,
         ancestorScroll: false,
       });
@@ -162,12 +165,10 @@ export function Floating(props: Props) {
     enabled: !disabled,
     restMs: hoverDelay || 200,
   });
-  const openMethod = hoverOpen ? hover : click;
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    dismiss,
-    openMethod,
-  ]);
+  const openHandled = handleOpen !== undefined;
+  const interactions = openHandled ? [] : [dismiss, hoverOpen ? hover : click];
+  const { getReferenceProps, getFloatingProps } = useInteractions(interactions);
 
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
@@ -183,6 +184,12 @@ export function Floating(props: Props) {
       }
     },
   });
+
+  useEffect(() => {
+    if (openHandled) {
+      context.onOpenChange(handleOpen);
+    }
+  }, [handleOpen]);
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
