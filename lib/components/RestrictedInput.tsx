@@ -128,8 +128,9 @@ export function RestrictedInput(props: Props) {
     }
     if (event.key === KEY.Minus) {
       event.preventDefault();
-      setInnerValue(innerValue * -1);
-      tryOnChange(innerValue);
+      const newValue = innerValue * -1;
+      setInnerValue(newValue);
+      tryOnChange(newValue);
       return;
     }
   }
