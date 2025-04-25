@@ -53,6 +53,12 @@ $bg-map: colors.$color-map !default;
 
 @each $color-name, $color-value in $bg-map {
   .ImageButton__color--#{$color-name} {
+    @each $color in colors.$low-contrast-color-map {
+      @if $color-name == $color {
+        --color-text-fixed-white: var(--color-black);
+      }
+    }
+
     @include button-style($color-value);
   }
 }
