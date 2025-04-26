@@ -83,3 +83,10 @@ export function isSafeNumber(value: number): boolean {
     typeof value === 'number' && Number.isFinite(value) && !Number.isNaN(value)
   );
 }
+
+/**
+ * Converts a value in radians to degrees.
+ */
+export const rad2deg = (rad) => {
+  return rad * (180 / Math.PI);
+};
