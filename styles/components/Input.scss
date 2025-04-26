@@ -1,10 +1,11 @@
 .Input {
+  font-size: 1rem;
   background-color: var(--input-background);
   border-radius: var(--input-border-radius);
   border: var(--border-thickness-tiny) solid var(--input-border-color);
   color: var(--input-color);
   font-family: var(--input-font-family);
-  padding: var(--space-xxs) var(--space-sm);
+  padding: var(--space-xxs) var(--space-m);
   width: var(--input-width);
   &:focus {
     outline: none;
