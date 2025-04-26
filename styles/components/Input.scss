@@ -5,7 +5,7 @@
   border: var(--border-thickness-tiny) solid var(--input-border-color);
   color: var(--input-color);
   font-family: var(--input-font-family);
-  padding: var(--space-xxs) var(--space-m);
+  padding: var(--space-xxs) var(--space-sm);
   width: var(--input-width);
   &:focus {
     outline: none;
