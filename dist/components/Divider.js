@@ -1,1 +1,0 @@
-import*as i from"react/jsx-runtime";import*as r from"../common/react.js";function e(e){let{hidden:t,vertical:o}=e;return(0,i.jsx)("div",{className:(0,r.classes)(["Divider",t&&"Divider--hidden",o?"Divider--vertical":"Divider--horizontal"])})}export{e as Divider};

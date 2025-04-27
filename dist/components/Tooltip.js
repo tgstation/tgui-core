@@ -1,1 +1,0 @@
-import*as t from"react/jsx-runtime";import*as o from"./Floating.js";function e(e){let{content:n,children:r,position:i}=e;return(0,t.jsx)(o.Floating,{hoverOpen:!0,content:n,contentClasses:"Tooltip",placement:i,children:r})}export{e as Tooltip};

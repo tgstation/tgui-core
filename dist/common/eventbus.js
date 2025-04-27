@@ -1,1 +1,0 @@
-class s{listeners={};constructor(s){this.listeners=s}dispatch(s){this.listeners[s.type]?.(s.payload)}}export{s as EventBus};

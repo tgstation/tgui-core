@@ -1,1 +1,0 @@
-function e(e){throw Error(`Unhandled case: ${e}`)}export{e as exhaustiveCheck};

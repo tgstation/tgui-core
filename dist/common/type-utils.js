@@ -1,1 +1,0 @@
-function e(e){let t={};for(let n in e)if(Array.isArray(e[n])){let r=e[n];if(e[n].length>0){t[n]=r[0];continue}t[n]="emptyarray"}else if("object"==typeof e[n]&&null!==e[n])t[n]="object (inspect) || Record<string, any>";else if("number"==typeof e[n]){let r=Number(e[n]);if(1===r||0===r){t[n]=`${r}, BooleanLike?`;continue}t[n]=e[n]}return t}export{e as getShallowTypes};

@@ -1,1 +1,0 @@
-let r=(...e)=>(t,...l)=>{let o=t;for(let t of e)Array.isArray(t)?o=r(...t)(o,...l):t&&(o=t(o,...l));return o};export{r as flow};

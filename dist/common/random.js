@@ -1,1 +1,0 @@
-import*as r from"./math.js";function n(r,n){return Math.random()*(n-r)+r}function o(r,n){let o=Math.ceil(r);return Math.floor(Math.random()*(Math.floor(n)-o)+o)}function t(r){return r[Math.floor(Math.random()*r.length)]}function a(n){return Math.random()<=(0,r.clamp)(n,0,100)/100}export{o as randomInteger,n as randomNumber,t as randomPick,a as randomProb};
