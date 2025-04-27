@@ -16,6 +16,18 @@ export const Default: Story = {
   args: {
     children: 'Click me',
   },
+
+  render: (args) => {
+    return (
+      <>
+        <Button {...args} />
+        <Button {...args} color="transparent" />
+        <br />
+        <Button {...args} disabled />
+        <Button {...args} disabled color="transparent" />
+      </>
+    );
+  },
 };
 
 export const WithIcon: Story = {

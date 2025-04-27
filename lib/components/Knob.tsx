@@ -1,8 +1,10 @@
+import type { Placement } from '@floating-ui/react';
 import { keyOfMatchingRange, scale } from '../common/math';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
+import { Floating } from './Floating';
 
 type Props = {
   /** Value itself, controls the position of the cursor. */
@@ -50,6 +52,8 @@ type Props = {
   unclamped: boolean;
   /** Unit to display to the right of value. */
   unit: string;
+  /** Value popup placement, like on tooltips. */
+  popupPosition: Placement;
 }> &
   BoxProps;
 
@@ -76,6 +80,7 @@ export function Knob(props: Props) {
     value,
     // Own props
     bipolar,
+    popupPosition,
     className,
     color,
     fillValue,
@@ -121,65 +126,70 @@ export function Knob(props: Props) {
         const rotation = Math.min((scaledDisplayValue - 0.5) * 270, 225);
 
         return (
-          <div
-            className={classes([
-              'Knob',
-              `Knob--color--${effectiveColor}`,
-              bipolar && 'Knob--bipolar',
-              className,
-              computeBoxClassName(rest),
-            ])}
-            {...computeBoxProps({
-              style: {
-                fontSize: `${size}em`,
-                ...style,
-              },
-              ...rest,
-            })}
-            onMouseDown={handleDragStart}
+          <Floating
+            preventPortal
+            handleOpen={dragging}
+            contentClasses="Knob__popupValue"
+            content={displayElement}
+            placement={popupPosition || 'top'}
           >
-            <div className="Knob__circle">
-              <div
-                className="Knob__cursorBox"
-                style={{
-                  transform: `rotate(${rotation}deg)`,
-                }}
-              >
-                <div className="Knob__cursor" />
+            <div
+              className={classes([
+                'Knob',
+                `Knob--color--${effectiveColor}`,
+                bipolar && 'Knob--bipolar',
+                className,
+                computeBoxClassName(rest),
+              ])}
+              {...computeBoxProps({
+                style: {
+                  fontSize: `${size}em`,
+                  ...style,
+                },
+                ...rest,
+              })}
+              onMouseDown={handleDragStart}
+            >
+              <div className="Knob__circle">
+                <div
+                  className="Knob__cursorBox"
+                  style={{
+                    transform: `rotate(${rotation}deg)`,
+                  }}
+                >
+                  <div className="Knob__cursor" />
+                </div>
               </div>
+              <svg
+                className="Knob__ring Knob__ringTrackPivot"
+                viewBox="0 0 100 100"
+              >
+                <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
+                <title>track</title>
+              </svg>
+              <svg
+                className="Knob__ring Knob__ringFillPivot"
+                viewBox="0 0 100 100"
+              >
+                <title>fill</title>
+                <circle
+                  className="Knob__ringFill"
+                  style={{
+                    strokeDashoffset: Math.max(
+                      ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
+                        Math.PI *
+                        50,
+                      0,
+                    ),
+                  }}
+                  cx="50"
+                  cy="50"
+                  r="50"
+                />
+              </svg>
+              {inputElement}
             </div>
-            {dragging && (
-              <div className="Knob__popupValue">{displayElement}</div>
-            )}
-            <svg
-              className="Knob__ring Knob__ringTrackPivot"
-              viewBox="0 0 100 100"
-            >
-              <circle className="Knob__ringTrack" cx="50" cy="50" r="50" />
-              <title>track</title>
-            </svg>
-            <svg
-              className="Knob__ring Knob__ringFillPivot"
-              viewBox="0 0 100 100"
-            >
-              <title>fill</title>
-              <circle
-                className="Knob__ringFill"
-                style={{
-                  strokeDashoffset: Math.max(
-                    ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
-                      Math.PI *
-                      50,
-                    0,
-                  ),
-                }}
-                cx="50"
-                cy="50"
-                r="50"
-              />
-            </svg>
-            {inputElement}
-          </div>
+          </Floating>
         );
       }}
     </DraggableControl>

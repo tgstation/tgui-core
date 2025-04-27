@@ -148,13 +148,18 @@ $border-radius: 0 !default;
   &:not(.Button--disabled) {
     &:hover {
       background-color: var(--color-hover);
-      color: var(--color-text);
+      color: hsl(from var(--button-color-transparent) h s l / 1);
     }
 
     &:active {
       background-color: var(--color-active);
-      color: var(--color-text);
+      color: hsl(from var(--button-color-transparent) h s l / 1);
     }
+  }
+
+  &.Button--disabled {
+    --button-color-transparent: var(--color-text-translucent-light);
+    background-color: hsl(from var(--color-bad) h s l / 0.33) !important;
   }
 }
 

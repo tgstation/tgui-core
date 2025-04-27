@@ -4,6 +4,7 @@ import {
   autoUpdate,
   flip,
   offset,
+  shift,
   size,
   useClick,
   useDismiss,
@@ -18,6 +19,7 @@ import {
   type ReactNode,
   cloneElement,
   isValidElement,
+  useEffect,
   useState,
 } from 'react';
 import { type BooleanLike, classes } from '../common/react';
@@ -54,6 +56,8 @@ type Props = {
    * @default 200
    */
   animationDuration: number;
+  /** Direct content open state control. */
+  handleOpen: boolean;
   /** Content will open when you hover over children. */
   hoverOpen: boolean;
   /**
@@ -69,6 +73,8 @@ type Props = {
    * - Classes must be sent like this: `".class1, .class2"`
    */
   allowedOutsideClasses: string;
+  /** Do not wrap content in FloatingPortal, thus preventing it from moving into the body */
+  preventPortal: true;
   /** Stops event propagation on children. */
   stopChildPropagation: boolean;
   /** Close the content after interaction with it. */
@@ -107,8 +113,10 @@ export function Floating(props: Props) {
     disabled,
     hoverDelay,
     hoverOpen,
+    handleOpen,
     onMounted,
     placement,
+    preventPortal,
     stopChildPropagation,
     onOpenChange,
   } = props;
@@ -125,9 +133,9 @@ export function Floating(props: Props) {
         onMounted();
       }
       return autoUpdate(reference, floating, update, {
-        elementResize: false,
         ancestorResize: false,
         ancestorScroll: false,
+        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
       });
     },
     placement: placement || 'bottom',
@@ -135,6 +143,7 @@ export function Floating(props: Props) {
     middleware: [
       offset(contentOffset),
       flip({ padding: 6 }),
+      shift(),
       contentAutoWidth &&
         size({
           apply({ rects, elements }) {
@@ -162,12 +171,10 @@ export function Floating(props: Props) {
     enabled: !disabled,
     restMs: hoverDelay || 200,
   });
-  const openMethod = hoverOpen ? hover : click;
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    dismiss,
-    openMethod,
-  ]);
+  const openHandled = handleOpen !== undefined;
+  const interactions = openHandled ? [] : [dismiss, hoverOpen ? hover : click];
+  const { getReferenceProps, getFloatingProps } = useInteractions(interactions);
 
   const referenceProps = getReferenceProps({
     ref: refs.setReference,
@@ -177,12 +184,19 @@ export function Floating(props: Props) {
   });
 
   const floatingProps = getFloatingProps({
+    ref: refs.setFloating,
     onClick: () => {
       if (closeAfterInteract) {
         context.onOpenChange(false);
       }
     },
   });
+
+  useEffect(() => {
+    if (openHandled) {
+      context.onOpenChange(handleOpen);
+    }
+  }, [handleOpen]);
 
   // Generate our children which will be used as reference
   let floatingChildren: ReactElement;
@@ -192,27 +206,32 @@ export function Floating(props: Props) {
     floatingChildren = <div {...referenceProps}>{children}</div>;
   }
 
+  const floatingContent = (
+    <div
+      className={classes([
+        'Floating',
+        !animationDuration && 'Floating--animated',
+        contentClasses,
+      ])}
+      data-transition={status}
+      data-position={context.placement}
+      style={{ ...floatingStyles, ...contentStyles }}
+      {...floatingProps}
+    >
+      {content}
+    </div>
+  );
+
   return (
     <>
       {floatingChildren}
-      {isMounted && !!content && (
-        <FloatingPortal>
-          <div
-            ref={refs.setFloating}
-            className={classes([
-              'Floating',
-              !animationDuration && 'Floating--animated',
-              contentClasses,
-            ])}
-            data-position={context.placement}
-            data-transition={status}
-            style={{ ...floatingStyles, ...contentStyles }}
-            {...floatingProps}
-          >
-            {content}
-          </div>
-        </FloatingPortal>
-      )}
+      {isMounted &&
+        !!content &&
+        (preventPortal ? (
+          floatingContent
+        ) : (
+          <FloatingPortal>{floatingContent}</FloatingPortal>
+        ))}
     </>
   );
 }
