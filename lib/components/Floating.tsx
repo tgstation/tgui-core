@@ -4,6 +4,7 @@ import {
   autoUpdate,
   flip,
   offset,
+  shift,
   size,
   useClick,
   useDismiss,
@@ -142,6 +143,7 @@ export function Floating(props: Props) {
     middleware: [
       offset(contentOffset),
       flip({ padding: 6 }),
+      shift(),
       contentAutoWidth &&
         size({
           apply({ rects, elements }) {
