@@ -87,6 +87,6 @@ export function isSafeNumber(value: number): boolean {
 /**
  * Converts a value in radians to degrees.
  */
-export function rad2deg(rad) {
+export function rad2deg(rad: number): number {
   return rad * (180 / Math.PI);
 }
