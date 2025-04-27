@@ -1,1 +1,0 @@
-function r(...n){return Array(Math.max(...n.map(r=>r.length))).fill(void 0).map((r,t)=>n.map(r=>r[t]))}function n(r,n){return r<n?-1:+(r>n)}export{n as stringCompare,r as zip};

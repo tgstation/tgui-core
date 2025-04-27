@@ -1,1 +1,0 @@
-import*as o from"react/jsx-runtime";import*as r from"../common/react.js";import*as s from"./Box.js";function t(t){let{className:e,...m}=t;return(0,o.jsx)(s.Box,{className:(0,r.classes)(["BlockQuote",e]),...m})}export{t as BlockQuote};

@@ -1,1 +1,0 @@
-import*as e from"react";import*as o from"../common/ui.js";function m(m){let{as:s="div",className:t,children:a,tw:r,...c}=m,u=(0,e.useMemo)(()=>t?`${t} ${(0,o.computeBoxClassName)(c)}`:(0,o.computeBoxClassName)(c),[t,c]),p=(0,e.useMemo)(()=>(0,o.computeBoxProps)({...c,...(0,o.computeTwClass)(r)}),[c,r]);return(0,e.createElement)(s,{...p,className:u},a)}export{m as Box};

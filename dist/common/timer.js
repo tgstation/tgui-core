@@ -1,1 +1,0 @@
-function e(t,n,o=!1){let u;return(...e)=>{let i=o&&!u;clearTimeout(u),u=setTimeout(function(){u=null,o||t(...e)},n),i&&t(...e)}}function t(e,t){let n,o;return function u(...i){let r=Date.now();o&&clearTimeout(o),!n||r-n>=t?(e(...i),n=r):o=setTimeout(()=>u(...i),t-(r-(n??0)))}}function n(e){return new Promise(t=>setTimeout(t,e))}export{e as debounce,n as sleep,t as throttle};

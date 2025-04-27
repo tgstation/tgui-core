@@ -1,1 +1,0 @@
-function e(t,c,n=1e3){return fetch(t,c).catch(()=>new Promise(r=>{setTimeout(()=>{e(t,c,n).then(r)},n)}))}export{e as fetchRetry};

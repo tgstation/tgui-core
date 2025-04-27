@@ -1,1 +1,0 @@
-import*as e from"react/jsx-runtime";import*as t from"react";function r(r){let{children:u}=r,o=(0,t.useRef)(null);return(0,t.useEffect)(()=>{let e=setTimeout(()=>{o.current?.focus()},1);return()=>{clearTimeout(e)}},[]),(0,e.jsx)("div",{ref:o,tabIndex:-1,children:u})}export{r as Autofocus};
