@@ -51,6 +51,7 @@ export function TextArea(props: Props) {
     fluid,
     maxLength,
     monospace,
+    onBlur,
     onChange,
     onEnter,
     onEscape,
@@ -66,6 +67,10 @@ export function TextArea(props: Props) {
   const textareaRef = ref ?? ourRef;
 
   const [innerValue, setInnerValue] = useState(value ?? '');
+
+  function handleBlur(_event: React.FocusEvent<HTMLTextAreaElement>) {
+    onBlur?.(innerValue);
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = event.currentTarget.value;
@@ -169,6 +174,7 @@ export function TextArea(props: Props) {
       autoComplete="off"
       className={clsx}
       maxLength={maxLength}
+      onBlur={handleBlur}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
