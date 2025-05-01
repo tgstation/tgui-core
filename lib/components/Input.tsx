@@ -33,6 +33,8 @@ export type BaseInputProps = Partial<{
 export type TextInputProps = Partial<{
   /** The maximum length of the input value */
   maxLength: number;
+  /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
+  onBlur: (value: string) => void;
   /** Fires each time the input has been changed */
   onChange: (value: string) => void;
   /** Fires once the enter key is pressed */
@@ -112,6 +114,7 @@ export function Input(props: Props) {
     fluid,
     maxLength,
     monospace,
+    onBlur,
     onChange,
     onEnter,
     onEscape,
@@ -125,7 +128,11 @@ export function Input(props: Props) {
   const ourRef = useRef<HTMLInputElement>(null);
   const inputRef = ref ?? ourRef;
 
-  const [innerValue, setInnerValue] = useState(value);
+  const [innerValue, setInnerValue] = useState(value ?? '');
+
+  function handleBlur(_event: React.FocusEvent<HTMLInputElement>) {
+    onBlur?.(innerValue);
+  }
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
@@ -199,6 +206,7 @@ export function Input(props: Props) {
       className={clsx}
       disabled={disabled}
       maxLength={maxLength}
+      onBlur={handleBlur}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}

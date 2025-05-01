@@ -549,9 +549,11 @@ A basic text input, which allow users to enter text into a UI.
 - `fluid: boolean` - Fill all available horizontal space.
 - `selfClear: boolean` - Clear after hitting enter, as well as remain focused
   when this happens. Useful for things like chat inputs.
-- `onChange: (e, value) => void` - Fires every time the input value changes.
-- `onEnter: (e, value) => void` - Fires when the user hits enter.
-- `onEscape: (e) => void` - Fires when the user hits escape.
+- `onBlur: (value) => void` - Fires each time focus leaves the input, including
+  if Esc or Enter are pressed.
+- `onChange: (value) => void` - Fires every time the input value changes.
+- `onEnter: (value) => void` - Fires when the user hits enter.
+- `onEscape: (value) => void` - Fires when the user hits escape.
 - `expensive: boolean` - Introduces a delay before updating the input. Useful
   for large filters, where you don't want to update on every keystroke.
 

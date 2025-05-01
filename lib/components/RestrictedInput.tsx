@@ -12,6 +12,8 @@ type Props = Partial<{
   maxValue: number;
   /** Min value. 0 by default. */
   minValue: number;
+  /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
+  onBlur: (value: number) => void;
   /** Fires each time the input has been changed */
   onChange: (value: number) => void;
   /** Fires once the enter key is pressed */
@@ -86,6 +88,7 @@ export function RestrictedInput(props: Props) {
     maxValue = 10000,
     minValue = 0,
     monospace,
+    onBlur,
     onChange,
     onEnter,
     onEscape,
@@ -105,6 +108,10 @@ export function RestrictedInput(props: Props) {
     } else {
       onChange(newValue);
     }
+  }
+
+  function onBlurHandler(_event: React.FocusEvent<HTMLInputElement>) {
+    onBlur?.(innerValue);
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
@@ -193,6 +200,7 @@ export function RestrictedInput(props: Props) {
       disabled={disabled}
       max={maxValue}
       min={minValue}
+      onBlur={onBlurHandler}
       onChange={onChangeHandler}
       onKeyDown={onKeyDownHandler}
       ref={inputRef}
