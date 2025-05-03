@@ -122,7 +122,9 @@ type DangerDoNotUse = {
  *
  * Default font size (`1rem`) is equal to `12px`.
  */
-export function Box<TElement = HTMLDivElement>(props: BoxProps<TElement> & DangerDoNotUse) {
+export function Box<TElement = HTMLDivElement>(
+  props: BoxProps<TElement> & DangerDoNotUse,
+) {
   const { as = 'div', className, children, tw, ...rest } = props;
 
   const computedClassName = useMemo(() => {
