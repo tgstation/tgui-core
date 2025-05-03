@@ -92,6 +92,7 @@ export function RestrictedInput(props: Props) {
     onChange,
     onEnter,
     onEscape,
+    onKeyDown,
     onValidationChange,
     value,
     ...rest
@@ -121,6 +122,8 @@ export function RestrictedInput(props: Props) {
   }
 
   function onKeyDownHandler(event: React.KeyboardEvent<HTMLInputElement>) {
+    onKeyDown?.(event);
+
     if (event.key === KEY.Enter) {
       event.preventDefault();
       onEnter?.(innerValue);
@@ -187,7 +190,7 @@ export function RestrictedInput(props: Props) {
     disabled && 'Input--disabled',
     fluid && 'Input--fluid',
     monospace && 'Input--monospace',
-    computeBoxClassName(rest),
+    computeBoxClassName<HTMLInputElement>(rest),
     className,
     !isValid && 'RestrictedInput--invalid',
   ]);

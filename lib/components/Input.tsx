@@ -5,7 +5,7 @@ import { debounce } from '../common/timer';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
-export type BaseInputProps = Partial<{
+export type BaseInputProps<TElement = HTMLInputElement> = Partial<{
   /** Automatically focuses the input on mount */
   autoFocus: boolean;
   /** Automatically selects the input value on focus */
@@ -28,9 +28,9 @@ export type BaseInputProps = Partial<{
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
 }> &
-  BoxProps;
+  BoxProps<TElement>;
 
-export type TextInputProps = Partial<{
+export type TextInputProps<TElement = HTMLInputElement> = Partial<{
   /** The maximum length of the input value */
   maxLength: number;
   /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
@@ -85,7 +85,7 @@ export type TextInputProps = Partial<{
    */
   value: string;
 }> &
-  BaseInputProps;
+  BaseInputProps<TElement>;
 
 type Props = Partial<{
   /** Ref of the input element */
@@ -118,6 +118,7 @@ export function Input(props: Props) {
     onChange,
     onEnter,
     onEscape,
+    onKeyDown,
     placeholder,
     ref,
     selfClear,
@@ -145,6 +146,8 @@ export function Input(props: Props) {
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    onKeyDown?.(event);
+
     if (event.key === KEY.Enter) {
       event.preventDefault();
       onEnter?.(event.currentTarget.value);
@@ -195,7 +198,7 @@ export function Input(props: Props) {
     disabled && 'Input--disabled',
     fluid && 'Input--fluid',
     monospace && 'Input--monospace',
-    computeBoxClassName(rest),
+    computeBoxClassName<HTMLInputElement>(rest),
     className,
   ]);
 

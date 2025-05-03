@@ -18,7 +18,7 @@ type Props = Partial<{
    */
   userMarkup: Record<string, string>;
 }> &
-  TextInputProps;
+  TextInputProps<HTMLTextAreaElement>;
 
 function getMarkupString(
   inputText: string,
@@ -55,6 +55,7 @@ export function TextArea(props: Props) {
     onChange,
     onEnter,
     onEscape,
+    onKeyDown,
     placeholder,
     ref,
     selfClear,
@@ -85,6 +86,8 @@ export function TextArea(props: Props) {
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    onKeyDown?.(event);
+
     // Enter
     if (event.key === KEY.Enter && !event.shiftKey) {
       event.preventDefault();
@@ -164,7 +167,7 @@ export function TextArea(props: Props) {
     fluid && 'Input--fluid',
     monospace && 'Input--monospace',
     disabled && 'Input--disabled',
-    computeBoxClassName(rest),
+    computeBoxClassName<HTMLTextAreaElement>(rest),
     className,
   ]);
 
