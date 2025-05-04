@@ -321,7 +321,9 @@ export function computeBoxProps(props): Record<string, any> {
   return computedProps;
 }
 
-export function computeBoxClassName(props: BoxProps): string {
+export function computeBoxClassName<TElement = HTMLDivElement>(
+  props: BoxProps<TElement>,
+): string {
   const color = props.textColor || props.color;
   const { backgroundColor } = props;
 

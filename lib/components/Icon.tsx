@@ -67,7 +67,11 @@ function IconStack(props: BoxProps) {
   const { className, children, ...rest } = props;
   return (
     <span
-      className={classes(['IconStack', className, computeBoxClassName(rest)])}
+      className={classes([
+        'IconStack',
+        className,
+        computeBoxClassName<HTMLSpanElement>(rest),
+      ])}
       {...computeBoxProps(rest)}
     >
       {children}

@@ -16,18 +16,18 @@ import {
   computeTwClass,
 } from '../common/ui';
 
-type EventHandlers = {
-  onClick: MouseEventHandler<HTMLDivElement>;
-  onContextMenu: MouseEventHandler<HTMLDivElement>;
-  onDoubleClick: MouseEventHandler<HTMLDivElement>;
-  onKeyDown: KeyboardEventHandler<HTMLDivElement>;
-  onKeyUp: KeyboardEventHandler<HTMLDivElement>;
-  onMouseDown: MouseEventHandler<HTMLDivElement>;
-  onMouseLeave: MouseEventHandler<HTMLDivElement>;
-  onMouseMove: MouseEventHandler<HTMLDivElement>;
-  onMouseOver: MouseEventHandler<HTMLDivElement>;
-  onMouseUp: MouseEventHandler<HTMLDivElement>;
-  onScroll: UIEventHandler<HTMLDivElement | HTMLTextAreaElement>;
+type EventHandlers<TElement = HTMLDivElement> = {
+  onClick: MouseEventHandler<TElement>;
+  onContextMenu: MouseEventHandler<TElement>;
+  onDoubleClick: MouseEventHandler<TElement>;
+  onKeyDown: KeyboardEventHandler<TElement>;
+  onKeyUp: KeyboardEventHandler<TElement>;
+  onMouseDown: MouseEventHandler<TElement>;
+  onMouseLeave: MouseEventHandler<TElement>;
+  onMouseMove: MouseEventHandler<TElement>;
+  onMouseOver: MouseEventHandler<TElement>;
+  onMouseUp: MouseEventHandler<TElement>;
+  onScroll: UIEventHandler<TElement>;
 };
 
 type InternalProps = {
@@ -69,8 +69,8 @@ type InternalProps = {
 // You may wonder why we don't just use ComponentProps<typeof Box> here.
 // This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
 // While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
-export type BoxProps = Partial<
-  InternalProps & BooleanStyleMap & StringStyleMap & EventHandlers
+export type BoxProps<TElement = HTMLDivElement> = Partial<
+  InternalProps & BooleanStyleMap & StringStyleMap & EventHandlers<TElement>
 >;
 
 // Don't you dare put this elsewhere
@@ -122,14 +122,16 @@ type DangerDoNotUse = {
  *
  * Default font size (`1rem`) is equal to `12px`.
  */
-export function Box(props: BoxProps & DangerDoNotUse) {
+export function Box<TElement = HTMLDivElement>(
+  props: BoxProps<TElement> & DangerDoNotUse,
+) {
   const { as = 'div', className, children, tw, ...rest } = props;
 
   const computedClassName = useMemo(() => {
     if (className) {
-      return `${className} ${computeBoxClassName(rest)}`;
+      return `${className} ${computeBoxClassName<TElement>(rest)}`;
     }
-    return computeBoxClassName(rest);
+    return computeBoxClassName<TElement>(rest);
   }, [className, rest]);
 
   const computedProps = useMemo(() => {

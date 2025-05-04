@@ -117,3 +117,10 @@ export const Invalid: Story = {
     );
   },
 };
+
+export const OnKeyDown: Story = {
+  args: {
+    ...Default.args,
+    onKeyDown: (e) => console.log('onKeyDown', e.key, e),
+  },
+};
