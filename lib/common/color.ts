@@ -61,7 +61,9 @@ export class Color {
         Number.parseInt(hex.slice(7, 9), 16) / 256,
       );
     } else {
-      throw new Error('Invalid hex color format. Expected #RRGGBB or #RRGGBBAA.');
+      throw new Error(
+        'Invalid hex color format. Expected #RRGGBB or #RRGGBBAA.',
+      );
     }
   }
 
