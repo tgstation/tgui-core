@@ -53,18 +53,16 @@ export class Color {
         Number.parseInt(hex.slice(3, 5), 16),
         Number.parseInt(hex.slice(5, 7), 16),
       );
-    } else if (hex.length === 9) {
+    }
+    if (hex.length === 9) {
       return new Color(
         Number.parseInt(hex.slice(1, 3), 16),
         Number.parseInt(hex.slice(3, 5), 16),
         Number.parseInt(hex.slice(5, 7), 16),
         Number.parseInt(hex.slice(7, 9), 16) / 256,
       );
-    } else {
-      throw new Error(
-        'Invalid hex color format. Expected #RRGGBB or #RRGGBBAA.',
-      );
     }
+    throw new Error('Invalid hex color format. Expected #RRGGBB or #RRGGBBAA.');
   }
 
   /**
