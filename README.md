@@ -74,3 +74,9 @@ This project uses [pnpm](https://pnpm.io/installation) for its package manager.
 
 To set up the repository:
 `pnpm install`
+
+To test your changes using [Storybook](https://storybook.js.org/docs) run:
+`pnpm run storybook`
+
+To run unit tests run
+`pnpm test`
