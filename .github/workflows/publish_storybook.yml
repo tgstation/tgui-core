@@ -28,15 +28,13 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: retrieve_pages_url
     # Job steps
     steps:
       # Manual Checkout
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       # Install pnpm
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -47,13 +45,18 @@ jobs:
           node-version: 22
           cache: "pnpm"
           cache-dependency-path: "./pnpm-lock.yaml"
-      #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        id: build-publish
+      # Install dependencies
+      - run: pnpm install
+      # Build
+      - id: build
         env:
           PAGES_URL: ${{ needs.retrieve_pages_url.outputs.pages_url }}
+        run: pnpm build-storybook
+      # Upload
+      - uses: actions/upload-pages-artifact@v3
         with:
-          install_command: pnpm install
-          build_command: pnpm build-storybook
-          path: storybook-static # default: dist/storybook
-          checkout: false # default: true
+          path: "storybook-static"
+      # Deploy
+      - id: deploy
+        name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
