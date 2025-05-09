@@ -2,8 +2,15 @@
   "name": "tgui-core",
   "version": "3.1.5",
   "description": "TGUI core component library",
-  "keywords": ["TGUI", "library", "typescript"],
-  "files": ["dist", "styles"],
+  "keywords": [
+    "TGUI",
+    "library",
+    "typescript"
+  ],
+  "files": [
+    "dist",
+    "styles"
+  ],
   "exports": {
     "./components": {
       "import": "./dist/components/index.js",
@@ -37,7 +44,8 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@floating-ui/react": "^0.27.6"
+    "@floating-ui/react": "^0.27.6",
+    "@nozbe/microfuzz": "^1.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
