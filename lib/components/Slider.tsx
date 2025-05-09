@@ -139,8 +139,8 @@ export function Slider(props: Props) {
                 hasFillValue && 'ProgressBar__fill--animated',
               ])}
               style={{
-                width: `${clamp01(scaledFillValue) * 100}%`,
                 opacity: 0.4,
+                width: `${clamp01(scaledFillValue) * 100}%`,
               }}
             />
             <div

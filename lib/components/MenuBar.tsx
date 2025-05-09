@@ -43,7 +43,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
         </div>
       }
     >
-      <div ref={menuRef} className="Menubar_inner">
+      <div className="Menubar_inner" ref={menuRef}>
         <Box
           className={classes([
             'MenuBar__MenuBarButton',
@@ -91,25 +91,25 @@ function MenuDropdown(props: MenuBarItemProps) {
 
   return (
     <MenuBarButton
-      openWidth={openWidth}
-      display={display}
-      disabled={disabled}
-      open={openMenuBar === entry}
       className={className}
+      disabled={disabled}
+      display={display}
       onClick={() => {
         const open = openMenuBar === entry ? null : entry;
         setOpenMenuBar(open);
         setOpenOnHover(!openOnHover);
-      }}
-      onOutsideClick={() => {
-        setOpenMenuBar(null);
-        setOpenOnHover(false);
       }}
       onMouseOver={() => {
         if (openOnHover) {
           setOpenMenuBar(entry);
         }
       }}
+      onOutsideClick={() => {
+        setOpenMenuBar(null);
+        setOpenOnHover(false);
+      }}
+      open={openMenuBar === entry}
+      openWidth={openWidth}
     >
       {children}
     </MenuBarButton>
@@ -131,7 +131,7 @@ function MenuItemToggle(props) {
       onClick={() => onClick(value)}
     >
       <div className="MenuBar__MenuItemToggle__check">
-        <Icon size={1.3} name={checked ? 'check' : ''} />
+        <Icon name={checked ? 'check' : ''} size={1.3} />
       </div>
       {displayText}
     </Box>

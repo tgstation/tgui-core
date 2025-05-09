@@ -162,7 +162,7 @@ export function InfinitePlane(props: Props) {
       >
         {children}
       </div>
-      <ZoomControls zoom={zoom} onZoomClick={handleZoom} />
+      <ZoomControls onZoomClick={handleZoom} zoom={zoom} />
     </div>
   );
 }
@@ -176,28 +176,28 @@ function ZoomControls(props: ZoomProps) {
   const { zoom, onZoomClick } = props;
 
   return (
-    <div style={{ position: 'absolute', top: 5, left: 5, right: 5 }}>
+    <div style={{ left: 5, position: 'absolute', right: 5, top: 5 }}>
       <Stack>
         <Stack.Item>
           <Button
-            icon="minus"
             disabled={zoom <= ZOOM_MIN_VAL}
+            icon="minus"
             onClick={() => onZoomClick(ZoomDirection.Decrease)}
           />
         </Stack.Item>
         <Stack.Item grow>
           <ProgressBar
+            maxValue={ZOOM_MAX_VAL}
             minValue={ZOOM_MIN_VAL}
             value={zoom}
-            maxValue={ZOOM_MAX_VAL}
           >
             {zoom}x
           </ProgressBar>
         </Stack.Item>
         <Stack.Item>
           <Button
-            icon="plus"
             disabled={zoom >= ZOOM_MAX_VAL}
+            icon="plus"
             onClick={() => onZoomClick(ZoomDirection.Increase)}
           />
         </Stack.Item>

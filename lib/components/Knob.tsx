@@ -127,11 +127,11 @@ export function Knob(props: Props) {
 
         return (
           <Floating
-            preventPortal
-            handleOpen={dragging}
-            contentClasses="Knob__popupValue"
             content={displayElement}
+            contentClasses="Knob__popupValue"
+            handleOpen={dragging}
             placement={popupPosition || 'top'}
+            preventPortal
           >
             <div
               className={classes([
@@ -174,6 +174,9 @@ export function Knob(props: Props) {
                 <title>fill</title>
                 <circle
                   className="Knob__ringFill"
+                  cx="50"
+                  cy="50"
+                  r="50"
                   style={{
                     strokeDashoffset: Math.max(
                       ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
@@ -182,9 +185,6 @@ export function Knob(props: Props) {
                       0,
                     ),
                   }}
-                  cx="50"
-                  cy="50"
-                  r="50"
                 />
               </svg>
               {inputElement}

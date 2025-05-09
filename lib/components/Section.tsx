@@ -100,7 +100,6 @@ export function Section(props: Props) {
 
   return (
     <div
-      id={container_id}
       className={classes([
         'Section',
         fill && 'Section--fill',
@@ -111,6 +110,7 @@ export function Section(props: Props) {
         className,
         computeBoxClassName(rest),
       ])}
+      id={container_id}
       {...computeBoxProps(rest)}
     >
       {hasTitle && (

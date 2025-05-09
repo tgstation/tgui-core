@@ -20,17 +20,17 @@ export const Default: Story = {
     const [tab, setTab] = useState('');
 
     return (
-      <Stack fill wrap vertical={!vertical} height={40}>
+      <Stack fill height={40} vertical={!vertical} wrap>
         <Stack.Item>
           <Tabs fill vertical={vertical}>
             {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
               (color) => (
                 <Tabs.Tab
-                  key={color}
                   color={color}
-                  textAlign="center"
-                  selected={selectAll || tab === color}
+                  key={color}
                   onClick={() => setTab(color)}
+                  selected={selectAll || tab === color}
+                  textAlign="center"
                 >
                   {color || 'Default'}
                 </Tabs.Tab>
@@ -40,8 +40,6 @@ export const Default: Story = {
         </Stack.Item>
         <Stack.Item grow>
           <Section
-            fill
-            title={`Vertical Tabs - Tab ${tab}`}
             buttons={
               <>
                 <Button.Checkbox
@@ -58,6 +56,8 @@ export const Default: Story = {
                 </Button.Checkbox>
               </>
             }
+            fill
+            title={`Vertical Tabs - Tab ${tab}`}
           >
             Selected tab: {tab}
           </Section>

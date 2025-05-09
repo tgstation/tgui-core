@@ -24,7 +24,7 @@ export const Default: Story = {
         <Button {...args} color="transparent" />
         <br />
         <Button {...args} disabled />
-        <Button {...args} disabled color="transparent" />
+        <Button {...args} color="transparent" disabled />
       </>
     );
   },
@@ -54,15 +54,15 @@ export const WithIcon: Story = {
 
 export const Ellipsis: Story = {
   args: {
+    children: 'Very long content. Very long content. Very long content.',
     ellipsis: true,
     icon: 'envelope',
-    children: 'Very long content. Very long content. Very long content.',
   },
 
   render: (args) => {
     return (
       <>
-        <Button {...args} width={10} icon={null} />
+        <Button {...args} icon={null} width={10} />
         <Button {...args} width={10} />
         <Button {...args} ellipsis={false} width={10} />
         <Stack fill>
@@ -85,7 +85,7 @@ export const Colors: Story = {
       <>
         {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
           (color) => (
-            <Button key={color} color={color}>
+            <Button color={color} key={color}>
               {color}
             </Button>
           ),
@@ -99,8 +99,8 @@ type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
 export const Checkbox: CheckboxStory = {
   args: {
-    children: 'Click me',
     checked: false,
+    children: 'Click me',
     color: 'default',
   },
   render: (args) => {
@@ -142,16 +142,16 @@ export const Input: InputStory = {
     const [otherValue, setOtherValue] = useState('External value');
 
     return (
-      <Stack vertical width={10} g={5}>
+      <Stack g={5} vertical width={10}>
         <Stack.Item>
           <Button.Input onCommit={setStartValue} value={startValue} />
         </Stack.Item>
         <Stack.Item>
           {otherValue}{' '}
           <Button.Input
+            buttonText="buttonText doesn't change"
             onCommit={setOtherValue}
             value={otherValue}
-            buttonText="buttonText doesn't change"
           />
         </Stack.Item>
       </Stack>
@@ -163,8 +163,8 @@ type FileStory = StoryObj<ComponentProps<typeof Button.File>>;
 
 export const File: FileStory = {
   args: {
-    children: 'Click me',
     accept: 'image/*',
+    children: 'Click me',
   },
   render: (args) => <Button.File {...args} />,
 };

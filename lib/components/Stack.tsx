@@ -2,11 +2,11 @@ import { type RefObject, useRef } from 'react';
 import { classes } from '../common/react';
 import { computeBoxClassName } from '../common/ui';
 import {
-  type FlexItemProps,
-  type FlexProps,
   computeFlexClassName,
   computeFlexItemProps,
   computeFlexProps,
+  type FlexItemProps,
+  type FlexProps,
 } from './Flex';
 
 type Props = Partial<{

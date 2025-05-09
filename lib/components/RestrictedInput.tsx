@@ -2,7 +2,7 @@ import { classes } from 'lib/common/react';
 import { debounce } from 'lib/common/timer';
 import { computeBoxClassName, computeBoxProps } from 'lib/common/ui';
 import { useEffect, useRef, useState } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import type { BaseInputProps } from './Input';
 
 type Props = Partial<{

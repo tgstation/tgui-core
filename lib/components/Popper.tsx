@@ -48,9 +48,9 @@ export function Popper(props: Props) {
   } = props;
 
   const { refs, floatingStyles, context } = useFloating({
-    open: isOpen,
-    onOpenChange: onClickOutside,
     middleware: [offset(5), flip(), shift()],
+    onOpenChange: onClickOutside,
+    open: isOpen,
     placement,
     whileElementsMounted: autoUpdate,
   });

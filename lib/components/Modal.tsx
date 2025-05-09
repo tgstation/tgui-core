@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from 'react';
 
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';

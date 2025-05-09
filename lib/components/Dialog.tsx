@@ -31,7 +31,7 @@ export function Dialog(props: DialogProps) {
 
   return (
     <div className="Dialog">
-      <Box className="Dialog__content" width={width || '370px'} height={height}>
+      <Box className="Dialog__content" height={height} width={width || '370px'}>
         <div className="Dialog__header">
           <div className="Dialog__title">{title}</div>
           <Box mr={2}>
@@ -63,8 +63,8 @@ function DialogButton(props: DialogButtonProps) {
   const { onClick, children } = props;
   return (
     <Button
-      onClick={onClick}
       className="Dialog__button"
+      onClick={onClick}
       verticalAlignContent="middle"
     >
       {children}

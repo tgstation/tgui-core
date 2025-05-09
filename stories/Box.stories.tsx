@@ -14,7 +14,7 @@ type Story = StoryObj<StoryProps>;
 export const Default: Story = {
   render: () => (
     <Box>
-      <Box style={{ border: 'thin solid red' }} px={5} py={5}>
+      <Box px={5} py={5} style={{ border: 'thin solid red' }}>
         Item 1
       </Box>
       <Box style={{ border: 'thin solid blue' }}>Item 2</Box>
