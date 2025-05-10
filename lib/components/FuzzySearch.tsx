@@ -29,9 +29,9 @@ export function useFuzzySearch<T>({
   const fuzzySearch = useCallback(
     createFuzzySearch(searchArray, {
       getText: (item: T) => [getSearchString(item)],
-      strategy: matchStrategy
+      strategy: matchStrategy,
     }),
-    [searchArray, getSearchString]
+    [searchArray, getSearchString],
   );
 
   const handleSearch = (value: string) => {
@@ -49,6 +49,6 @@ export function useFuzzySearch<T>({
   return {
     query,
     setQuery: handleSearch,
-    results
+    results,
   };
 }
