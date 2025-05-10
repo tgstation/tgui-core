@@ -32,7 +32,7 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: beta
+          version: 2.0.0-beta.2
 
       - name: Run Biome
         run: biome ci .
