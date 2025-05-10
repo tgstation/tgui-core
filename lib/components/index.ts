@@ -17,6 +17,7 @@ export { Dropdown } from './Dropdown';
 export { FitText } from './FitText';
 export { Flex } from './Flex';
 export { Floating } from './Floating';
+export { useFuzzySearch } from './FuzzySearch';
 export { Icon } from './Icon';
 export { Image } from './Image';
 export { ImageButton } from './ImageButton';
