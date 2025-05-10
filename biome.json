@@ -1,55 +1,52 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "vcs": {
-    "enabled": false,
-    "clientKind": "git",
-    "useIgnoreFile": true
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.2/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    },
+    "enabled": true
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["node_modules", "dist", "stories/assets"]
+    "includes": ["**", "!**/node_modules", "!**/dist", "!**/stories/assets"]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
-  },
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnusedImports": "warn",
-        "noUnusedVariables": "warn",
-        "useExhaustiveDependencies": "off"
-      },
-      "style": {
-        "noNonNullAssertion": "warn",
-        "useSelfClosingElements": {
-          "level": "warn",
-          "fix": "safe"
-        },
-        "noUnusedTemplateLiteral": {
-          "level": "warn",
-          "fix": "safe"
-        }
-      },
-      "suspicious": {
-        "noExplicitAny": "off",
-        "noArrayIndexKey": "warn"
-      }
-    }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single"
     }
   },
-  "css": {
-    "formatter": {
-      "quoteStyle": "double"
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "useKeyWithClickEvents": "off"
+      },
+      "correctness": {
+        "noUnusedImports": "warn",
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "off"
+      },
+      "recommended": true,
+      "suspicious": {
+        "noArrayIndexKey": "warn",
+        "noExplicitAny": "off"
+      }
     }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": false,
+    "useIgnoreFile": true
   }
 }

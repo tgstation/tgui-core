@@ -6,22 +6,22 @@ import { withConsole } from '@storybook/addon-console';
 import '../styles/main.scss';
 
 const preview: Preview = {
+  decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
   parameters: {
+    backgrounds: {
+      default: 'Section',
+      values: [{ name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
-    backgrounds: {
-      default: 'Section',
-      values: [{ name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }],
-    },
     docs: {
       theme: previewTheme,
     },
   },
-  decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
   tags: ['autodocs'],
 };
 

@@ -146,7 +146,10 @@ export function RoundGauge(props: Props) {
               return (
                 <circle
                   className={`RoundGauge__ringFill RoundGauge--color--${x}`}
+                  cx="50"
+                  cy="50"
                   key={i}
+                  r="45"
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
@@ -154,9 +157,6 @@ export function RoundGauge(props: Props) {
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}
-                  cx="50"
-                  cy="50"
-                  r="45"
                 />
               );
             })}
@@ -179,7 +179,7 @@ export function RoundGauge(props: Props) {
           <title>alert</title>
         </svg>
       </div>
-      <AnimatedNumber value={value} format={format} />
+      <AnimatedNumber format={format} value={value} />
     </div>
   );
 }

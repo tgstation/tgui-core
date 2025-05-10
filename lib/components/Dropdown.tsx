@@ -153,14 +153,8 @@ export function Dropdown(props: Props) {
       <Floating
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
-        contentAutoWidth={!menuWidth}
-        contentClasses="Dropdown__menu--wrapper"
-        contentStyles={{ width: menuWidth ? unit(menuWidth) : undefined }}
-        disabled={disabled}
-        onOpenChange={setOpen}
-        placement={placement}
         content={
-          <div ref={innerRef} className="Dropdown__menu">
+          <div className="Dropdown__menu" ref={innerRef}>
             {options.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
@@ -189,6 +183,10 @@ export function Dropdown(props: Props) {
             )}
           </div>
         }
+        contentAutoWidth={!menuWidth}
+        contentClasses="Dropdown__menu--wrapper"
+        contentStyles={{ width: menuWidth ? unit(menuWidth) : undefined }}
+        disabled={disabled}
         onMounted={() => {
           if (open && autoScroll && selectedIndex !== NONE) {
             /**
@@ -199,6 +197,8 @@ export function Dropdown(props: Props) {
             scrollToElement(selectedIndex);
           }
         }}
+        onOpenChange={setOpen}
+        placement={placement}
       >
         <div
           className={classes([
@@ -208,7 +208,6 @@ export function Dropdown(props: Props) {
             iconOnly && 'Dropdown__control--icon-only',
             className,
           ])}
-          style={{ width: unit(width) }}
           onClick={(event) => {
             if (disabled && !open) {
               return;
@@ -220,6 +219,7 @@ export function Dropdown(props: Props) {
               onClick?.(event);
             }
           }}
+          style={{ width: unit(width) }}
         >
           {icon && (
             <Icon

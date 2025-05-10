@@ -24,7 +24,7 @@ export const Colors: Story = {
       <>
         {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
           (color) => (
-            <NoticeBox key={color} color={color}>
+            <NoticeBox color={color} key={color}>
               {color || 'default'}
             </NoticeBox>
           ),

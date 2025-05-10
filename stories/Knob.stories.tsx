@@ -29,26 +29,26 @@ function KnobPreview(props: PreviewProps) {
         <LabeledControls>
           <LabeledControls.Item label="Min">
             <Button
-              fontSize={2.5}
               color={'transparent'}
+              fontSize={2.5}
               icon="angles-left"
               onClick={() => setValue(0)}
             />
           </LabeledControls.Item>
           <LabeledControls.Item label={color || 'Default'}>
             <Knob
-              size={2.5}
               color={color}
-              minValue={0}
-              value={value}
               maxValue={100}
+              minValue={0}
               onChange={(_, v) => setValue(v)}
+              size={2.5}
+              value={value}
             />
           </LabeledControls.Item>
           <LabeledControls.Item label="Max">
             <Button
-              fontSize={2.5}
               color={'transparent'}
+              fontSize={2.5}
               icon="angles-right"
               onClick={() => setValue(100)}
             />
@@ -72,10 +72,10 @@ export const Default = {
 export const Colors = {
   render: () => {
     return (
-      <Stack fill wrap g={1} justify="center">
+      <Stack fill g={1} justify="center" wrap>
         {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
           (color) => (
-            <KnobPreview key={color} color={color} />
+            <KnobPreview color={color} key={color} />
           ),
         )}
       </Stack>

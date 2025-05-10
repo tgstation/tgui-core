@@ -21,10 +21,10 @@ export function LabeledControls(props: FlexProps) {
 
   return (
     <Flex
-      mx={-0.5}
-      wrap={wrap}
       align="stretch"
       justify="space-between"
+      mx={-0.5}
+      wrap={wrap}
       {...rest}
     >
       {children}
@@ -42,11 +42,11 @@ function LabeledControlsItem(props: ItemProps) {
   return (
     <Flex.Item mx={mx}>
       <Flex
-        height="100%"
-        direction="column"
         align="center"
-        textAlign="center"
+        direction="column"
+        height="100%"
         justify="space-between"
+        textAlign="center"
         {...rest}
       >
         <Flex.Item />

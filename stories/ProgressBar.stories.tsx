@@ -19,7 +19,7 @@ function ProgressBarPreview(props: PreviewProps) {
   const { color, empty } = props;
 
   return (
-    <Stack.Item key={color} grow>
+    <Stack.Item grow key={color}>
       <Stack fill g={0.33}>
         <Stack.Item>
           <Button
@@ -37,10 +37,10 @@ function ProgressBarPreview(props: PreviewProps) {
         </Stack.Item>
         <Stack.Item grow>
           <ProgressBar
-            empty={empty}
             color={color}
-            value={value}
+            empty={empty}
             maxValue={100}
+            value={value}
           />
         </Stack.Item>
         <Stack.Item>
@@ -88,7 +88,7 @@ export const Colors = {
       <Stack vertical>
         {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
           (color) => (
-            <ProgressBarPreview key={color} color={color} />
+            <ProgressBarPreview color={color} key={color} />
           ),
         )}
       </Stack>

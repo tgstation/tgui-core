@@ -11,15 +11,15 @@ export default defineConfig({
       format: 'esm',
     },
   ],
+  output: {
+    legalComments: 'none',
+    minify: true,
+  },
+  plugins: [pluginReact()],
   source: {
     entry: {
       index: './lib/**',
     },
     tsconfigPath: './tsconfig.build.json',
   },
-  output: {
-    legalComments: 'none',
-    minify: true,
-  },
-  plugins: [pluginReact()],
 });

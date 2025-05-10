@@ -1,7 +1,7 @@
 import { debounce } from 'lib/common/timer';
-import { useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { useEffect, useRef, useState } from 'react';
+import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { TextInputProps } from './Input';

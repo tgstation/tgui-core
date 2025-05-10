@@ -42,8 +42,8 @@ export function Collapsible(props: Props) {
       <div className="Table">
         <div className="Table__cell">
           <Button
-            fluid
             color={color}
+            fluid
             icon={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
             onClick={() => setOpen(!open)}
             {...rest}

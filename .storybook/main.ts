@@ -2,7 +2,6 @@ import sass from 'sass';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 const config: StorybookConfig = {
-  stories: ['../stories/**/*.stories.tsx'],
   addons: [
     '@storybook/addon-essentials',
     '@storybook/addon-console',
@@ -15,6 +14,7 @@ const config: StorybookConfig = {
       },
     },
   ],
+  docs: {},
   framework: {
     name: 'storybook-react-rsbuild',
     options: {},
@@ -27,7 +27,7 @@ const config: StorybookConfig = {
     }
     return config;
   },
-  docs: {},
+  stories: ['../stories/**/*.stories.tsx'],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },

@@ -104,14 +104,14 @@ function LabeledListItem(props: LabeledListItemProps) {
   const labelChild = (
     <Box
       as="td"
-      color={labelColor}
       className={classes([
         'LabeledList__cell',
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
         !labelWrap && 'LabeledList__label--nowrap',
       ])}
-      verticalAlign={verticalAlign}
+      color={labelColor}
       preserveWhitespace={preserveWhitespace}
+      verticalAlign={verticalAlign}
     >
       {innerLabel}
     </Box>
@@ -122,11 +122,11 @@ function LabeledListItem(props: LabeledListItemProps) {
       {labelChild}
       <Box
         as="td"
-        color={color}
-        textAlign={textAlign}
         className="LabeledList__cell"
+        color={color}
         // @ts-ignore
         colSpan={buttons ? undefined : 2}
+        textAlign={textAlign}
         verticalAlign={verticalAlign}
       >
         {content}
@@ -152,8 +152,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
       <td
         colSpan={3}
         style={{
-          paddingTop: padding,
           paddingBottom: padding,
+          paddingTop: padding,
         }}
       >
         <Divider />

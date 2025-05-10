@@ -165,12 +165,12 @@ const TRANSLATE_REGEX = /&(nbsp|amp|quot|lt|gt|apos|trade|copy);/g;
 const TRANSLATIONS = {
   amp: '&',
   apos: "'",
+  cops: '©',
   gt: '>',
   lt: '<',
   nbsp: ' ',
   quot: '"',
   trade: '™',
-  cops: '©',
 } as const;
 
 /**

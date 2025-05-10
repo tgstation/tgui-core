@@ -7,12 +7,6 @@ type StoryProps = ComponentProps<typeof MenuBar.Dropdown>;
 
 export default {
   component: MenuBar.Dropdown,
-  subcomponents: {
-    Menubar: MenuBar,
-    'MenuBar.Dropdown.MenuItem': MenuBar.Dropdown.MenuItem,
-    'MenuBar.Dropdown.MenuItemToggle': MenuBar.Dropdown.MenuItemToggle,
-  },
-  title: 'Components/MenuBar.Dropdown',
   decorators: (Story) => (
     <Stack direction="column">
       <Stack.Item>
@@ -23,6 +17,12 @@ export default {
       </Stack.Item>
     </Stack>
   ),
+  subcomponents: {
+    'MenuBar.Dropdown.MenuItem': MenuBar.Dropdown.MenuItem,
+    'MenuBar.Dropdown.MenuItemToggle': MenuBar.Dropdown.MenuItemToggle,
+    Menubar: MenuBar,
+  },
+  title: 'Components/MenuBar.Dropdown',
 } satisfies Meta<StoryProps>;
 
 export const Default: StoryObj<StoryProps> = {
@@ -37,8 +37,8 @@ export const Default: StoryObj<StoryProps> = {
 
     const menuBarProps = {
       openMenuBar: openMenuBar,
-      setOpenMenuBar: setOpenMenuBar,
       openOnHover: openOnHover,
+      setOpenMenuBar: setOpenMenuBar,
       setOpenOnHover: setOpenOnHover,
     };
 
@@ -52,8 +52,8 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          entry="file"
           display="File"
+          entry="file"
         >
           <MenuBar.Dropdown.MenuItem
             displayText="Open File"
@@ -70,16 +70,16 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          entry="settings"
           display="Settings"
+          entry="settings"
         >
           <MenuBar.Dropdown.MenuItem
             displayText="User Settings"
             onClick={closeMenu}
           />
           <MenuBar.Dropdown.MenuItemToggle
-            displayText="Save on file edit"
             checked={checkbox}
+            displayText="Save on file edit"
             onClick={() => {
               setCheckbox(!checkbox);
             }}
@@ -88,8 +88,8 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          entry="help"
           display="Help"
+          entry="help"
         >
           <MenuBar.Dropdown.MenuItem
             displayText="More Info"

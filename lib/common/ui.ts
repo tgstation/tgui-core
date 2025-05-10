@@ -196,26 +196,19 @@ export type StringStyleMap = {
 // String / number props
 export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   align: mapRawPropTo('textAlign'),
+  backgroundColor: mapColorPropTo('backgroundColor'),
   bottom: mapUnitPropTo('bottom', unit),
+  // Color props
+  color: mapColorPropTo('color'),
   fontFamily: mapRawPropTo('fontFamily'),
   fontSize: mapUnitPropTo('fontSize', unit),
   fontWeight: mapRawPropTo('fontWeight'),
+  // Gap
+  g: mapUnitPropTo('gap', halfUnit),
+  gc: mapUnitPropTo('columnGap', halfUnit),
+  gr: mapUnitPropTo('rowGap', halfUnit),
   height: mapUnitPropTo('height', unit),
   left: mapUnitPropTo('left', unit),
-  maxHeight: mapUnitPropTo('maxHeight', unit),
-  maxWidth: mapUnitPropTo('maxWidth', unit),
-  minHeight: mapUnitPropTo('minHeight', unit),
-  minWidth: mapUnitPropTo('minWidth', unit),
-  opacity: mapRawPropTo('opacity'),
-  overflow: mapRawPropTo('overflow'),
-  overflowX: mapRawPropTo('overflowX'),
-  overflowY: mapRawPropTo('overflowY'),
-  position: mapRawPropTo('position'),
-  right: mapUnitPropTo('right', unit),
-  textAlign: mapRawPropTo('textAlign'),
-  top: mapUnitPropTo('top', unit),
-  verticalAlign: mapRawPropTo('verticalAlign'),
-  width: mapUnitPropTo('width', unit),
 
   lineHeight: (style, value) => {
     if (typeof value === 'number') {
@@ -231,16 +224,20 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
     'Left',
     'Right',
   ]),
+  maxHeight: mapUnitPropTo('maxHeight', unit),
+  maxWidth: mapUnitPropTo('maxWidth', unit),
   mb: mapUnitPropTo('marginBottom', halfUnit),
+  minHeight: mapUnitPropTo('minHeight', unit),
+  minWidth: mapUnitPropTo('minWidth', unit),
   ml: mapUnitPropTo('marginLeft', halfUnit),
   mr: mapUnitPropTo('marginRight', halfUnit),
   mt: mapUnitPropTo('marginTop', halfUnit),
   mx: mapDirectionalUnitPropTo('margin', halfUnit, ['Left', 'Right']),
   my: mapDirectionalUnitPropTo('margin', halfUnit, ['Top', 'Bottom']),
-  // Gap
-  g: mapUnitPropTo('gap', halfUnit),
-  gr: mapUnitPropTo('rowGap', halfUnit),
-  gc: mapUnitPropTo('columnGap', halfUnit),
+  opacity: mapRawPropTo('opacity'),
+  overflow: mapRawPropTo('overflow'),
+  overflowX: mapRawPropTo('overflowX'),
+  overflowY: mapRawPropTo('overflowY'),
   // Padding
   p: mapDirectionalUnitPropTo('padding', halfUnit, [
     'Top',
@@ -250,14 +247,17 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   ]),
   pb: mapUnitPropTo('paddingBottom', halfUnit),
   pl: mapUnitPropTo('paddingLeft', halfUnit),
+  position: mapRawPropTo('position'),
   pr: mapUnitPropTo('paddingRight', halfUnit),
   pt: mapUnitPropTo('paddingTop', halfUnit),
   px: mapDirectionalUnitPropTo('padding', halfUnit, ['Left', 'Right']),
   py: mapDirectionalUnitPropTo('padding', halfUnit, ['Top', 'Bottom']),
-  // Color props
-  color: mapColorPropTo('color'),
+  right: mapUnitPropTo('right', unit),
+  textAlign: mapRawPropTo('textAlign'),
   textColor: mapColorPropTo('color'),
-  backgroundColor: mapColorPropTo('backgroundColor'),
+  top: mapUnitPropTo('top', unit),
+  verticalAlign: mapRawPropTo('verticalAlign'),
+  width: mapUnitPropTo('width', unit),
 };
 
 export type BooleanStyleMap = {

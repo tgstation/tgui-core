@@ -28,40 +28,40 @@ function RoundGaugePreview(props: PreviewProps) {
         <LabeledControls>
           <LabeledControls.Item label="Min">
             <Button
-              fontSize={1.5}
               color={'transparent'}
+              fontSize={1.5}
               icon="angles-left"
               onClick={() => setValue(0)}
             />
           </LabeledControls.Item>
           <LabeledControls.Item label="-10">
             <Button
-              fontSize={1.5}
               color={'transparent'}
+              fontSize={1.5}
               icon="angle-left"
               onClick={() => setValue(value - 10)}
             />
           </LabeledControls.Item>
           <RoundGauge
-            size={2.5}
-            ranges={ranges || { primary: [0, 100] }}
             alertAfter={75}
-            minValue={0}
-            value={value}
             maxValue={100}
+            minValue={0}
+            ranges={ranges || { primary: [0, 100] }}
+            size={2.5}
+            value={value}
           />
           <LabeledControls.Item label="+10">
             <Button
-              fontSize={1.5}
               color={'transparent'}
+              fontSize={1.5}
               icon="angle-right"
               onClick={() => setValue(value + 10)}
             />
           </LabeledControls.Item>
           <LabeledControls.Item label="Max">
             <Button
-              fontSize={1.5}
               color={'transparent'}
+              fontSize={1.5}
               icon="angles-right"
               onClick={() => setValue(100)}
             />
@@ -87,7 +87,7 @@ export const WithRanges = {
     return (
       <Stack fill justify="center">
         <RoundGaugePreview
-          ranges={{ good: [0, 50], average: [50, 75], bad: [75, 100] }}
+          ranges={{ average: [50, 75], bad: [75, 100], good: [0, 50] }}
         />
       </Stack>
     );
