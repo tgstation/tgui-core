@@ -32,12 +32,12 @@ function SliderPreview(props: PreviewProps) {
           <Slider
             animated
             color={color}
-            value={value}
             fillValue={value}
-            minValue={0}
             maxValue={100}
-            ranges={ranges || { default: [0, 100] }}
+            minValue={0}
             onDrag={(_, v) => setValue(v)}
+            ranges={ranges || { default: [0, 100] }}
+            value={value}
           />
         </Stack.Item>
         <Stack.Item>
@@ -65,10 +65,10 @@ export const Default = {
 export const Colors = {
   render: () => {
     return (
-      <Stack wrap justify="center">
+      <Stack justify="center" wrap>
         {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
           (color) => (
-            <SliderPreview key={color} color={color} />
+            <SliderPreview color={color} key={color} />
           ),
         )}
       </Stack>
@@ -81,7 +81,7 @@ export const Ranges = {
     return (
       <Stack justify="center">
         <SliderPreview
-          ranges={{ good: [0, 50], average: [50, 75], bad: [75, 100] }}
+          ranges={{ average: [50, 75], bad: [75, 100], good: [0, 50] }}
         />
       </Stack>
     );

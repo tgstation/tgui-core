@@ -32,6 +32,7 @@ type Props = {
 
 /**
  * ## DmIcon
+ *
  * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
  * A much faster alternative to base64 icons.
  */

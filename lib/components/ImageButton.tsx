@@ -85,9 +85,13 @@ type Props = Partial<{
   BoxProps;
 
 /**
+ * ## ImageButton
+ *
  * Stylized button, with the ability to easily and simply insert any picture into it.
  * - Without image, will be default question icon.
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
  */
 export function ImageButton(props: Props) {
   const {
@@ -119,14 +123,8 @@ export function ImageButton(props: Props) {
   let buttonContent = (
     <div
       className={'ImageButton__container'}
-      tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
-          onClick(event);
-        }
-      }}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' && !disabled && onClick) {
           onClick(event);
         }
       }}
@@ -136,35 +134,41 @@ export function ImageButton(props: Props) {
           onRightClick(event);
         }
       }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' && !disabled && onClick) {
+          onClick(event);
+        }
+      }}
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
+      tabIndex={!disabled ? 0 : undefined}
     >
       {/** There is too many ternaty operators, why we can't just use unified image type? */}
       <div className="ImageButton__image">
         {base64 || imageSrc ? (
           <Image
-            src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
+            src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             width={`${imageSize}px`}
           />
         ) : dmIcon && dmIconState ? (
           <DmIcon
-            icon={dmIcon}
-            icon_state={dmIconState}
             fallback={
-              dmFallback || <Fallback spin icon="spinner" size={imageSize} />
+              dmFallback || <Fallback icon="spinner" size={imageSize} spin />
             }
             height={`${imageSize}px`}
+            icon={dmIcon}
+            icon_state={dmIconState}
             width={`${imageSize}px`}
           />
         ) : asset ? (
           <Image
             className={classes(asset || [])}
             height={`${imageSize}px`}
-            width={`${imageSize}px`}
             style={{
               transform: `scale(${imageSize / assetSize})`,
               transformOrigin: 'top left',
             }}
+            width={`${imageSize}px`}
           />
         ) : (
           <Fallback icon={fallbackIcon || 'question'} size={imageSize} />
@@ -239,8 +243,8 @@ export function ImageButton(props: Props) {
             !children && 'ImageButton__buttons--empty',
           ])}
           style={{
-            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
             maxWidth: !fluid ? `calc(${imageSize}px +  0.5em)` : 'auto',
+            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
           }}
         >
           {buttonsAlt}
@@ -264,10 +268,10 @@ function Fallback(props: FallbackProps) {
     <Icon
       className="ImageButton__image--fallback"
       height={`${size}px`}
-      width={`${size}px`}
-      spin={spin}
       name={icon}
+      spin={spin}
       style={{ fontSize: `${size}px` }}
+      width={`${size}px`}
     />
   );
 }

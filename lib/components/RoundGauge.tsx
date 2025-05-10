@@ -32,10 +32,12 @@ type Props = {
 
 /**
  * ## RoundGauge
+ *
  * The RoundGauge component provides a visual representation of a single metric, as well as being capable of showing
  * informational or cautionary boundaries related to that metric.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <RoundGauge
  *  size={1.75}
@@ -55,6 +57,7 @@ type Props = {
  * The alert on the gauge is optional, and will only be shown if the `alertAfter` prop is defined. When defined, the alert
  * will begin to flash the respective color upon which the needle currently rests, as defined in the `ranges` prop.
  *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-roundgauge--docs)
  */
 export function RoundGauge(props: Props) {
   const {
@@ -146,7 +149,10 @@ export function RoundGauge(props: Props) {
               return (
                 <circle
                   className={`RoundGauge__ringFill RoundGauge--color--${x}`}
+                  cx="50"
+                  cy="50"
                   key={i}
+                  r="45"
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
@@ -154,9 +160,6 @@ export function RoundGauge(props: Props) {
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}
-                  cx="50"
-                  cy="50"
-                  r="45"
                 />
               );
             })}
@@ -179,7 +182,7 @@ export function RoundGauge(props: Props) {
           <title>alert</title>
         </svg>
       </div>
-      <AnimatedNumber value={value} format={format} />
+      <AnimatedNumber format={format} value={value} />
     </div>
   );
 }

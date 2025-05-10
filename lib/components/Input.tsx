@@ -1,5 +1,5 @@
 import { type RefObject, useEffect, useRef, useState } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { debounce } from '../common/timer';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
@@ -102,7 +102,7 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  *
  * A basic text input which allow users to enter text into a UI.
  *
- * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/Input.tsx
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-input--docs)
  */
 export function Input(props: Props) {
   const {

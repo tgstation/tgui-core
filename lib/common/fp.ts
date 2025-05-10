@@ -5,7 +5,8 @@ type Func = (...args: any[]) => any;
  * functions, where each successive invocation is supplied the return
  * value of the previous.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * const add2 = (x) => x + 2;
  * const multiplyBy3 = (x) => x * 3;

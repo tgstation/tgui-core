@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { clamp } from '../common/math';
 import { AnimatedNumber } from './AnimatedNumber';
 import type { BoxProps } from './Box';
@@ -238,7 +238,7 @@ export function DraggableControl(props: Props) {
   const displayElement: ReactNode = (
     <>
       {animated && !dragging.current ? (
-        <AnimatedNumber value={displayValue} format={format} />
+        <AnimatedNumber format={format} value={displayValue} />
       ) : format ? (
         format(displayValue)
       ) : (
@@ -251,16 +251,16 @@ export function DraggableControl(props: Props) {
 
   const inputElement: ReactNode = (
     <input
-      ref={inputRef}
       className="NumberInput__input"
-      style={{
-        display: !editing ? 'none' : undefined,
-        height: height as StyleProp,
-        lineHeight: lineHeight as StyleProp,
-        fontSize: fontSize as StyleProp,
-      }}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
+      ref={inputRef}
+      style={{
+        display: !editing ? 'none' : undefined,
+        fontSize: fontSize as StyleProp,
+        height: height as StyleProp,
+        lineHeight: lineHeight as StyleProp,
+      }}
     />
   );
 

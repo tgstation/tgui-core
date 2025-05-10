@@ -19,7 +19,7 @@ export const Default: Story = {
     const [value, setValue] = useState(1);
 
     return (
-      <RestrictedInput value={value} onChange={(value) => setValue(value)} />
+      <RestrictedInput onChange={(value) => setValue(value)} value={value} />
     );
   },
 };
@@ -31,8 +31,8 @@ export const Fluid: Story = {
     return (
       <RestrictedInput
         fluid
-        value={value}
         onChange={(value) => setValue(value)}
+        value={value}
       />
     );
   },
@@ -45,9 +45,9 @@ export const WithFloats: Story = {
     return (
       <RestrictedInput
         allowFloats
-        value={value}
-        onChange={(value) => setValue(value)}
         maxValue={3}
+        onChange={(value) => setValue(value)}
+        value={value}
       />
     );
   },
@@ -60,7 +60,7 @@ export const SendParentValue: Story = {
     return (
       <>
         <Button onClick={() => setParentValue(0)}>Min</Button>
-        <RestrictedInput value={parentValue} onChange={setParentValue} />
+        <RestrictedInput onChange={setParentValue} value={parentValue} />
         <Button onClick={() => setParentValue(103000)}>Max</Button>
       </>
     );
@@ -74,8 +74,8 @@ export const AutoSelect: Story = {
     return (
       <RestrictedInput
         autoSelect
-        value={value}
         onChange={(value) => setValue(value)}
+        value={value}
       />
     );
   },
@@ -87,10 +87,10 @@ export const Negative: Story = {
 
     return (
       <RestrictedInput
-        minValue={-5}
         maxValue={5}
-        value={value}
+        minValue={-5}
         onChange={(value) => setValue(value)}
+        value={value}
       />
     );
   },
@@ -107,10 +107,10 @@ export const Invalid: Story = {
         </Stack.Item>
         <Stack.Item>
           <RestrictedInput
-            value={value}
-            onChange={(value) => setValue(value)}
             maxValue={5}
             minValue={-5}
+            onChange={(value) => setValue(value)}
+            value={value}
           />
         </Stack.Item>
       </Stack>

@@ -1,7 +1,7 @@
 import { debounce } from 'lib/common/timer';
-import { useEffect, useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { useEffect, useRef, useState } from 'react';
+import { isEscape, KEY } from '../common/keys';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { TextInputProps } from './Input';
@@ -38,7 +38,7 @@ const textareaDebounce = debounce((onChange: () => void) => onChange(), 250);
  * An input for larger amounts of text. Use this when you want inputs larger
  * than one row.
  *
- * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/TextArea.tsx
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-textarea--docs)
  */
 export function TextArea(props: Props) {
   const {

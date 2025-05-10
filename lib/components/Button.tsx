@@ -1,15 +1,15 @@
 import type { Placement } from '@floating-ui/react';
 import {
   type ChangeEvent,
+  createRef,
   type MouseEvent,
   type ReactNode,
   type RefObject,
-  createRef,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { Box, type BoxProps } from './Box';
@@ -107,8 +107,8 @@ export function Button(props: Props) {
   const buttonIcon = (
     <Icon
       className="Button--icon"
-      name={icon || ''}
       color={iconColor}
+      name={icon || ''}
       rotation={iconRotation}
       size={iconSize}
       spin={iconSpin}
@@ -136,7 +136,6 @@ export function Button(props: Props) {
         className,
         computeBoxClassName(rest),
       ])}
-      tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
           onClick(event);
@@ -161,6 +160,7 @@ export function Button(props: Props) {
           event.preventDefault();
         }
       }}
+      tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
       <div
@@ -248,8 +248,8 @@ function ButtonConfirm(props: ConfirmProps) {
 
   return (
     <Button
-      icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
+      icon={clickedOnce ? confirmIcon : icon}
       onBlur={handleBlur}
       onClick={handleClick}
       {...rest}
@@ -409,12 +409,12 @@ function ButtonFile(props: FileProps) {
     <>
       <Button onClick={() => inputRef.current?.click()} {...rest} />
       <input
-        hidden
-        type="file"
-        ref={inputRef}
         accept={accept}
+        hidden
         multiple={multiple}
         onChange={handleChange}
+        ref={inputRef}
+        type="file"
       />
     </>
   );
@@ -422,7 +422,10 @@ function ButtonFile(props: FileProps) {
 
 /**
  * ## Button
+ *
  * Buttons allow users to take actions, and make choices, with a single click.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-button--docs)
  */
 export namespace Button {
   /**

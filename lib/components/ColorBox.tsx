@@ -9,11 +9,14 @@ type Props = {
 
 /**
  * ## ColorBox
+ *
  * Displays a 1-character wide colored square. Can be used as a status indicator,
  * or for visually representing a color.
  *
  * If you want to set a background color on an element, use a plain
  * [Box](https://github.com/tgstation/tgui-core/tree/main/lib/components/Box.tsx) instead.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-colorbox--docs)
  */
 export function ColorBox(props: Props) {
   const { content, children, className, ...rest } = props;

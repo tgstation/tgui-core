@@ -61,12 +61,12 @@ export const UpdateOnExternalChange: Story = {
     const [value, setValue] = useState('Change my value');
 
     return (
-      <Stack vertical g={2}>
+      <Stack g={2} vertical>
         <Stack.Item>
           <Button onClick={() => setValue('Set to this')}>Set to this</Button>
         </Stack.Item>
         <Stack.Item>
-          <Input value={value} onChange={setValue} />
+          <Input onChange={setValue} value={value} />
         </Stack.Item>
       </Stack>
     );

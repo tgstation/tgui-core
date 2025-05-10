@@ -38,8 +38,11 @@ const EPSILON = 10e-4;
 
 /**
  * ## AnimatedNumber
+ *
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-animatednumber--docs)
  */
 export class AnimatedNumber extends Component<Props> {
   /**

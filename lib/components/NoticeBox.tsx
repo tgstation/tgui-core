@@ -31,7 +31,10 @@ type ExclusiveProps =
 
 /**
  * ## NoticeBox
+ *
  * A notice box which warns you about something very important.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-noticebox--docs)
  */
 export function NoticeBox(props: Props) {
   const { className, color, info, success, warning, danger, ...rest } = props;

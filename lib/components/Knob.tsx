@@ -59,10 +59,13 @@ type Props = {
 
 /**
  * ## Knob
+ *
  * A radial control which allows dialing in precise values by dragging it
  * up and down.
  *
  * Single click opens an input box to manually type in a number.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-knob--docs)
  */
 export function Knob(props: Props) {
   const {
@@ -127,11 +130,11 @@ export function Knob(props: Props) {
 
         return (
           <Floating
-            preventPortal
-            handleOpen={dragging}
-            contentClasses="Knob__popupValue"
             content={displayElement}
+            contentClasses="Knob__popupValue"
+            handleOpen={dragging}
             placement={popupPosition || 'top'}
+            preventPortal
           >
             <div
               className={classes([
@@ -174,6 +177,9 @@ export function Knob(props: Props) {
                 <title>fill</title>
                 <circle
                   className="Knob__ringFill"
+                  cx="50"
+                  cy="50"
+                  r="50"
                   style={{
                     strokeDashoffset: Math.max(
                       ((bipolar ? 2.75 : 2.0) - scaledFillValue * 1.5) *
@@ -182,9 +188,6 @@ export function Knob(props: Props) {
                       0,
                     ),
                   }}
-                  cx="50"
-                  cy="50"
-                  r="50"
                 />
               </svg>
               {inputElement}

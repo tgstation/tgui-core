@@ -1,9 +1,9 @@
 import {
-  FloatingPortal,
-  type Placement,
   autoUpdate,
+  FloatingPortal,
   flip,
   offset,
+  type Placement,
   shift,
   size,
   useClick,
@@ -15,10 +15,10 @@ import {
 } from '@floating-ui/react';
 import {
   type CSSProperties,
-  type ReactElement,
-  type ReactNode,
   cloneElement,
   isValidElement,
+  type ReactElement,
+  type ReactNode,
   useEffect,
   useState,
 } from 'react';
@@ -96,6 +96,7 @@ type Props = {
 
 /**
  * ## Floating
+ *
  *  Floating lets you position elements so that they don't go out of the bounds of the window.
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
@@ -123,23 +124,6 @@ export function Floating(props: Props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
-    open: isOpen,
-    onOpenChange(isOpen) {
-      setIsOpen(isOpen);
-      onOpenChange?.(isOpen);
-    },
-    whileElementsMounted: (reference, floating, update) => {
-      if (onMounted !== undefined) {
-        onMounted();
-      }
-      return autoUpdate(reference, floating, update, {
-        ancestorResize: false,
-        ancestorScroll: false,
-        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
-      });
-    },
-    placement: placement || 'bottom',
-    transform: false, // More expensive but allows to use transform for animations
     middleware: [
       offset(contentOffset),
       flip({ padding: 6 }),
@@ -151,6 +135,23 @@ export function Floating(props: Props) {
           },
         }),
     ],
+    onOpenChange(isOpen) {
+      setIsOpen(isOpen);
+      onOpenChange?.(isOpen);
+    },
+    open: isOpen,
+    placement: placement || 'bottom',
+    transform: false, // More expensive but allows to use transform for animations
+    whileElementsMounted: (reference, floating, update) => {
+      if (onMounted !== undefined) {
+        onMounted();
+      }
+      return autoUpdate(reference, floating, update, {
+        ancestorResize: false,
+        ancestorScroll: false,
+        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
+      });
+    },
   });
 
   const { isMounted, status } = useTransitionStatus(context, {
@@ -184,12 +185,12 @@ export function Floating(props: Props) {
   });
 
   const floatingProps = getFloatingProps({
-    ref: refs.setFloating,
     onClick: () => {
       if (closeAfterInteract) {
         context.onOpenChange(false);
       }
     },
+    ref: refs.setFloating,
   });
 
   useEffect(() => {
@@ -213,8 +214,8 @@ export function Floating(props: Props) {
         !animationDuration && 'Floating--animated',
         contentClasses,
       ])}
-      data-transition={status}
       data-position={context.placement}
+      data-transition={status}
       style={{ ...floatingStyles, ...contentStyles }}
       {...floatingProps}
     >

@@ -104,14 +104,14 @@ function LabeledListItem(props: LabeledListItemProps) {
   const labelChild = (
     <Box
       as="td"
-      color={labelColor}
       className={classes([
         'LabeledList__cell',
         // Kinda flipped because we want nowrap as default. Cleaner CSS this way though.
         !labelWrap && 'LabeledList__label--nowrap',
       ])}
-      verticalAlign={verticalAlign}
+      color={labelColor}
       preserveWhitespace={preserveWhitespace}
+      verticalAlign={verticalAlign}
     >
       {innerLabel}
     </Box>
@@ -122,11 +122,11 @@ function LabeledListItem(props: LabeledListItemProps) {
       {labelChild}
       <Box
         as="td"
-        color={color}
-        textAlign={textAlign}
         className="LabeledList__cell"
+        color={color}
         // @ts-ignore
         colSpan={buttons ? undefined : 2}
+        textAlign={textAlign}
         verticalAlign={verticalAlign}
       >
         {content}
@@ -152,8 +152,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
       <td
         colSpan={3}
         style={{
-          paddingTop: padding,
           paddingBottom: padding,
+          paddingTop: padding,
         }}
       >
         <Divider />
@@ -164,13 +164,15 @@ function LabeledListDivider(props: LabeledListDividerProps) {
 
 /**
  * ## LabeledList
+ *
  * LabeledList is a continuous, vertical list of text and other content, where
  * every item is labeled.
  *
  * It works just like a two column table, where first column is labels, and
  * second column is content.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <LabeledList>
  *   <LabeledList.Item label="Item">Content</LabeledList.Item>
@@ -180,7 +182,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  * If you want to have a button on the right side of an item (for example,
  * to perform some sort of action), there is a way to do that:
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <LabeledList>
  *   <LabeledList.Item label="Item" buttons={<Button>Click me!</Button>}>
@@ -188,6 +191,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  *   </LabeledList.Item>
  * </LabeledList>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledlist--docs)
  */
 export namespace LabeledList {
   /**

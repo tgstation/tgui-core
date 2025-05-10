@@ -132,7 +132,6 @@ function focusNearestTrackedParent(node: HTMLElement | null) {
       node.focus();
       return;
     }
-    // biome-ignore lint/style/noParameterAssign: This is fine
     node = node.parentElement;
   }
 }

@@ -20,9 +20,12 @@ type Props = Partial<{
 
 /**
  * ## Collapsible
+ *
  * Displays contents when open, acts as a fluid button when closed.
  *
  * Click to toggle, closed by default.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-collapsible--docs)
  */
 export function Collapsible(props: Props) {
   const {
@@ -42,8 +45,8 @@ export function Collapsible(props: Props) {
       <div className="Table">
         <div className="Table__cell">
           <Button
-            fluid
             color={color}
+            fluid
             icon={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
             onClick={() => setOpen(!open)}
             {...rest}

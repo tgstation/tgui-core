@@ -1,45 +1,10 @@
 {
-  "name": "tgui-core",
-  "version": "3.1.5",
-  "description": "TGUI core component library",
-  "keywords": ["TGUI", "library", "typescript"],
-  "files": ["dist", "styles"],
-  "exports": {
-    "./components": {
-      "import": "./dist/components/index.js",
-      "require": "./dist/components/index.cjs"
-    },
-    "./styles": {
-      "sass": "./styles/main.scss",
-      "default": "./styles/main.scss"
-    },
-    "./styles/components/*": {
-      "sass": "./styles/components/*"
-    },
-    "./*": {
-      "import": "./dist/common/*.js",
-      "require": "./dist/common/*.cjs"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tgstation/tgui-core.git"
-  },
-  "scripts": {
-    "build": "rslib build",
-    "lint": "biome check lib",
-    "lint:fix": "prettier . --write && biome check . --fix",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "test": "node --experimental-strip-types --experimental-test-coverage --test ./tests/*.test.ts"
-  },
   "author": "jlsnow301",
-  "license": "MIT",
-  "type": "module",
   "dependencies": {
     "@floating-ui/react": "^0.27.6",
     "@nozbe/microfuzz": "^1.0.0"
   },
+  "description": "TGUI core component library",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@rsbuild/core": "^1.3.5",
@@ -60,9 +25,51 @@
     "storybook-react-rsbuild": "^1.0.1",
     "typescript": "^5.8.3"
   },
+  "exports": {
+    "./*": {
+      "import": "./dist/common/*.js",
+      "require": "./dist/common/*.cjs"
+    },
+    "./components": {
+      "import": "./dist/components/index.js",
+      "require": "./dist/components/index.cjs"
+    },
+    "./styles": {
+      "sass": "./styles/main.scss",
+      "default": "./styles/main.scss"
+    },
+    "./styles/components/*": {
+      "sass": "./styles/components/*"
+    }
+  },
+  "files": [
+    "dist",
+    "styles"
+  ],
+  "keywords": [
+    "TGUI",
+    "library",
+    "typescript"
+  ],
+  "license": "MIT",
+  "name": "tgui-core",
+  "packageManager": "pnpm@10.7.0",
   "peerDependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
-  "packageManager": "pnpm@10.7.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tgstation/tgui-core.git"
+  },
+  "scripts": {
+    "build": "rslib build",
+    "build-storybook": "storybook build",
+    "lint": "biome check lib",
+    "lint:fix": "prettier . --write && biome check . --fix",
+    "storybook": "storybook dev -p 6006",
+    "test": "node --experimental-strip-types --experimental-test-coverage --test ./tests/*.test.ts"
+  },
+  "type": "module",
+  "version": "3.1.5"
 }

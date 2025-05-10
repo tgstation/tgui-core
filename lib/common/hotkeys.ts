@@ -1,4 +1,4 @@
-import { type KeyEvent, globalEvents } from './events';
+import { globalEvents, type KeyEvent } from './events';
 import * as keycodes from './keycodes';
 
 // BYOND macros, in `key: command` format.

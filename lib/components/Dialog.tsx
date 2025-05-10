@@ -17,21 +17,25 @@ type DialogProps = {
 
 /**
  * ## Dialog
+ *
  * A themed dialog for user interaction.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Dialog title="Dialog Title" onClose={() => {}}>
  *   <div>Dialog Content</div>
  * </Dialog>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-dialog--docs)
  */
 export function Dialog(props: DialogProps) {
   const { title, onClose, children, width, height } = props;
 
   return (
     <div className="Dialog">
-      <Box className="Dialog__content" width={width || '370px'} height={height}>
+      <Box className="Dialog__content" height={height} width={width || '370px'}>
         <div className="Dialog__header">
           <div className="Dialog__title">{title}</div>
           <Box mr={2}>
@@ -63,8 +67,8 @@ function DialogButton(props: DialogButtonProps) {
   const { onClick, children } = props;
   return (
     <Button
-      onClick={onClick}
       className="Dialog__button"
+      onClick={onClick}
       verticalAlignContent="middle"
     >
       {children}

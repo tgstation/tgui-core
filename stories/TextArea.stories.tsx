@@ -19,8 +19,8 @@ export const Default: Story = {
 
 export const AutoSelect: Story = {
   args: {
-    value: 'Hello, world!',
     autoSelect: true,
+    value: 'Hello, world!',
   },
 };
 

@@ -1,11 +1,11 @@
 import {
   Component,
+  createRef,
   type FocusEventHandler,
   type KeyboardEventHandler,
   type MouseEventHandler,
-  createRef,
 } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { clamp, round } from '../common/math';
 import { type BooleanLike, classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';
@@ -51,8 +51,11 @@ type State = {
 
 /**
  * ## NumberInput
+ *
  * A fancy, interactive number input, which you can either drag up and down
  * to fine tune the value, or single click it to manually type a number.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-numberinput--docs)
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
@@ -66,11 +69,11 @@ export class NumberInput extends Component<Props, State> {
 
   // default values for the number input state
   state: State = {
-    editing: false,
-    dragging: false,
     currentValue: 0,
-    previousValue: 0,
+    dragging: false,
+    editing: false,
     origin: 0,
+    previousValue: 0,
   };
 
   componentDidMount(): void {
@@ -92,9 +95,9 @@ export class NumberInput extends Component<Props, State> {
 
     const parsedValue = Number.parseFloat(value.toString());
     this.setState({
+      currentValue: parsedValue,
       dragging: false,
       origin: event.screenY,
-      currentValue: parsedValue,
       previousValue: parsedValue,
     });
 
@@ -209,8 +212,8 @@ export class NumberInput extends Component<Props, State> {
     }
 
     this.setState({
-      editing: false,
       currentValue: targetValue,
+      editing: false,
       previousValue: targetValue,
     });
     if (previousValue !== targetValue) {
@@ -240,8 +243,8 @@ export class NumberInput extends Component<Props, State> {
       }
 
       this.setState({
-        editing: false,
         currentValue: targetValue,
+        editing: false,
         previousValue: targetValue,
       });
       if (previousValue !== targetValue) {
@@ -281,7 +284,7 @@ export class NumberInput extends Component<Props, State> {
     const contentElement = (
       <div className="NumberInput__content">
         {animated && !dragging ? (
-          <AnimatedNumber value={displayValue} format={format} />
+          <AnimatedNumber format={format} value={displayValue} />
         ) : format ? (
           format(displayValue)
         ) : (
@@ -299,10 +302,10 @@ export class NumberInput extends Component<Props, State> {
           fluid && 'NumberInput--fluid',
           className,
         ])}
-        minWidth={width}
-        minHeight={height}
-        lineHeight={lineHeight}
         fontSize={fontSize}
+        lineHeight={lineHeight}
+        minHeight={height}
+        minWidth={width}
         onMouseDown={this.handleDragStart}
       >
         <div className="NumberInput__barContainer">
@@ -319,16 +322,16 @@ export class NumberInput extends Component<Props, State> {
         </div>
         {contentElement}
         <input
-          ref={this.inputRef}
           className="NumberInput__input"
-          style={{
-            display: !editing ? 'none' : 'inline',
-            height: height as string | number,
-            lineHeight: lineHeight as string | number,
-            fontSize: fontSize as string | number,
-          }}
           onBlur={this.handleBlur}
           onKeyDown={this.handleKeyDown}
+          ref={this.inputRef}
+          style={{
+            display: !editing ? 'none' : 'inline',
+            fontSize: fontSize as string | number,
+            height: height as string | number,
+            lineHeight: lineHeight as string | number,
+          }}
         />
       </Box>
     );

@@ -18,6 +18,7 @@ const maxAttempts = 5;
 
 /**
  * ## Image
+ *
  * A wrapper for the `<img>` element.
  *
  * By default, it will attempt to fix broken images by fetching them again.

@@ -90,12 +90,14 @@ function getBoundingBox(element: HTMLDivElement): BoundingBox {
 
 /**
  * ## ByondUi
+ *
  * Displays a BYOND UI element on top of the browser, and leverages browser's
  * layout engine to position it just like any other HTML element. It is
  * especially useful if you want to display a secondary game map in your
  * interface.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <ByondUi
  *   params={{
@@ -106,7 +108,8 @@ function getBoundingBox(element: HTMLDivElement): BoundingBox {
  *   }} />
  * ```
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <ByondUi
  *   params={{
