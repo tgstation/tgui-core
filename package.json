@@ -1,7 +1,7 @@
 {
   "author": "jlsnow301",
   "dependencies": {
-    "@floating-ui/react": "^0.27.6",
+    "@floating-ui/react": "^0.27.8",
     "@nozbe/microfuzz": "^1.0.0"
   },
   "description": "TGUI core component library",
