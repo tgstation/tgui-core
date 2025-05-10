@@ -1,7 +1,7 @@
-import { useFuzzySearch } from '../lib/components/FuzzySearch';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Box } from '../lib/components/Box';
+import { useFuzzySearch } from '../lib/components/FuzzySearch';
 import { Input } from '../lib/components/Input';
+import { Box } from '../lib/components/Box';
 
 const items = [
   "Cherries - Bing, Canned",
