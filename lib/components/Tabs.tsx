@@ -102,12 +102,14 @@ function TabItem(props: TabProps) {
 }
 
 /**
- *  ## Tabs
+ * ## Tabs
+ *
  * Tabs make it easy to explore and switch between different views.
  *
  * Here is an example of how you would construct a simple tabbed view:
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Tabs>
  *   <Tabs.Tab
@@ -131,10 +133,11 @@ function TabItem(props: TabProps) {
  * a lot of flexibility in regards to how you can layout your tabs.
  *
  * Tabs also support a vertical configuration. This is usually paired with
- * [Stack](https://github.com/tgstation/tgui-core/tree/main/lib/components/Stack.tsx)
+ * - [View documentation on tgui core]([Stack](https://tgstation.github.io/tgui-core/?path=/docs/components-stack--docs))
  * to render tab content to the right.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Stack>
  *   <Stack.Item>
@@ -148,16 +151,19 @@ function TabItem(props: TabProps) {
  *
  * If you need to combine a tab section with other elements, or if you want to
  * add scrollable functionality to tabs, pair them with the
- * [Section](https://github.com/tgstation/tgui-core/tree/main/lib/components/Section.tsx)
+ * - [View documentation on tgui core]([Section](https://tgstation.github.io/tgui-core/?path=/docs/components-section--docs))
  * component:
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Section fill fitted scrollable width="128px">
  *   <Tabs vertical>...</Tabs>
  *   ... other things ...
  * </Section>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-tabs--docs)
  */
 export namespace Tabs {
   /**

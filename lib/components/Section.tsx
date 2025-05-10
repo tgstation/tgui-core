@@ -34,6 +34,7 @@ type Props = Partial<{
 
 /**
  * ## Section
+ *
  * Section is a surface that displays content and actions on a single topic.
  *
  * They should be easy to scan for relevant and actionable information.
@@ -46,6 +47,8 @@ type Props = Partial<{
  *
  * Section can also be titled to clearly define its purpose.
  *
+ * Example:
+ *
  * ```tsx
  * <Section title="Cargo">Here you can order supply crates.</Section>
  * ```
@@ -53,11 +56,15 @@ type Props = Partial<{
  * If you want to have a button on the right side of an section title
  * (for example, to perform some sort of action), there is a way to do that:
  *
+ * Example:
+ *
  * ```tsx
  * <Section title="Cargo" buttons={<Button>Send shuttle</Button>}>
  *   Here you can order supply crates.
  * </Section>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-section--docs)
  */
 export function Section(props: Props) {
   const {

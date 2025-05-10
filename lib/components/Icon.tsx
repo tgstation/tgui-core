@@ -81,20 +81,27 @@ function IconStack(props: BoxProps) {
 
 /**
  * ## Icon
+ *
  * Renders one of the FontAwesome icons of your choice.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Icon name="plus" />
  * ```
- * @url https://fontawesome.com/v6/search?o=r&m=free
+ *
+ * Icons: https://fontawesome.com/v6/search?o=r&m=free
+ *
+ * - [View documentation on tgui core](http://localhost:6006/?path=/docs/components-icon--docs)
  */
 export namespace Icon {
   /**
    * ## Icon.Stack
    * Renders children icons on top of each other in order to make your own icon.
    *
-   * @example
+   * Example:
+ *
+
    * ```tsx
    * <Icon.Stack>
    *   <Icon name="pen" />

@@ -55,10 +55,13 @@ type Props = {
 
 /**
  * ## Slider
- * A horizontal, [ProgressBar](https://github.com/tgstation/tgui-core/tree/main/lib/components/Progressbar.tsx)-like
+ *
+ * - [View documentation on tgui core](A horizontal, [ProgressBar](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs))-like
  * control which allows dialing * in precise values by dragging it left and right.
  *
  * Single click opens an input box to manually type in a number.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-slider--docs)
  */
 export function Slider(props: Props) {
   const {

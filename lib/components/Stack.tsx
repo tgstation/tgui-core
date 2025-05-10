@@ -23,8 +23,9 @@ type Props = Partial<{
 
 /**
  * ## Stack
+ *
  * A higher-level component that is based on
- * [Flex](https://github.com/tgstation/tgui-core/tree/main/lib/components/Flex.tsx).
+ * - [View documentation on tgui core]([Flex](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs)).
  *
  * The main difference from `Flex`, is that this component automatically adds
  * spacing between all stack items, reducing the boilerplate that you have to write!
@@ -33,7 +34,8 @@ type Props = Partial<{
  *
  * Stacks can be vertical by adding a `vertical` property.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Stack vertical>
  *   <Stack.Item grow>Button description</Stack.Item>
@@ -47,7 +49,8 @@ type Props = Partial<{
  * Stacks can be used for high level window layout.
  * Make sure to use the `fill` property.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Window>
  *   <Window.Content>
@@ -71,6 +74,8 @@ type Props = Partial<{
  *   </Window.Content>
  * </Window>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-stack--docs)
  */
 export function Stack(props: Props) {
   const { className, vertical, fill, reverse, zebra, ...rest } = props;

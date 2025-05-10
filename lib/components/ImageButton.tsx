@@ -85,9 +85,13 @@ type Props = Partial<{
   BoxProps;
 
 /**
+ * ## ImageButton
+ *
  * Stylized button, with the ability to easily and simply insert any picture into it.
  * - Without image, will be default question icon.
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
  */
 export function ImageButton(props: Props) {
   const {

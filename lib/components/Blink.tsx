@@ -20,6 +20,13 @@ type State = {
 const DEFAULT_BLINKING_INTERVAL = 1000;
 const DEFAULT_BLINKING_TIME = 1000;
 
+/**
+ * ## Blink
+ *
+ * A component that blinks its children at a specified interval.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-blink--docs)
+ */
 export class Blink extends Component<Props, State> {
   interval: NodeJS.Timeout;
   timer: NodeJS.Timeout;

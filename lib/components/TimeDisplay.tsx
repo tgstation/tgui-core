@@ -12,6 +12,13 @@ type TimeDisplayProps = {
   format: (value: number) => string;
 }>;
 
+/**
+ * ## TimeDisplay
+ *
+ * A simple component to format and display time values.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-timedisplay--docs)
+ */
 export function TimeDisplay(props: TimeDisplayProps) {
   const {
     value: initialValue = 0,

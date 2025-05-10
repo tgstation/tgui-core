@@ -40,9 +40,11 @@ const ZOOM_INCREMENT = 0.1;
 
 /**
  * ## InfinitePlane
+ *
  * Creates a scrolling infinite plane using a background image.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <InfinitePlane imageWidth={100} backgroundImage="https://example.com/image.png">
  *   <Box position="absolute" top={0} left={0}>
@@ -56,6 +58,8 @@ const ZOOM_INCREMENT = 0.1;
  *   </Box>
  * </InfinitePlane>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-infiniteplane--docs)
  */
 export function InfinitePlane(props: Props) {
   const {

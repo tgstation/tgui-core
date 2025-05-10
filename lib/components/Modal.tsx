@@ -16,10 +16,13 @@ export type ModalProps = BoxProps &
 
 /**
  * ## Modal
- * A modal window. Uses a [Dimmer](https://github.com/tgstation/tgui-core/tree/main/lib/components/Dimmer.tsx)
+ *
+ * - [View documentation on tgui core](A modal window. Uses a [Dimmer](https://tgstation.github.io/tgui-core/?path=/docs/components-dimmer--docs))
  * under the hood, and dynamically adjusts its own size to fit the content you're trying to display.
  *
  * Must be a direct child of a layout component (e.g. `Window`).
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-modal--docs)
  */
 export function Modal(props: ModalProps) {
   const { className, children, onEnter, onEscape, ...rest } = props;

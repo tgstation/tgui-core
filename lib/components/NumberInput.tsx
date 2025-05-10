@@ -51,8 +51,11 @@ type State = {
 
 /**
  * ## NumberInput
+ *
  * A fancy, interactive number input, which you can either drag up and down
  * to fine tune the value, or single click it to manually type a number.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-numberinput--docs)
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
