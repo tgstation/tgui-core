@@ -39,7 +39,6 @@ const EPSILON = 10e-4;
 /**
  * ## AnimatedNumber
  *
- *
  * An animated number label. Shows a number, formatted with an optionally
  * provided function, and animates it towards its target value.
  *
