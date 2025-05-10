@@ -17,14 +17,18 @@ type DialogProps = {
 
 /**
  * ## Dialog
+ *
  * A themed dialog for user interaction.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Dialog title="Dialog Title" onClose={() => {}}>
  *   <div>Dialog Content</div>
  * </Dialog>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-dialog--docs)
  */
 export function Dialog(props: DialogProps) {
   const { title, onClose, children, width, height } = props;

@@ -29,6 +29,7 @@ type Props = {
 
 /**
  * ## Popper
+ *
  * Popper lets you position elements so that they don't go out of the bounds of the window.
  *
  * @deprecated - Use
@@ -36,6 +37,8 @@ type Props = {
  * instead.
  *
  * This will serve as a wrapper for floating ui until replaced.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-popper--docs)
  */
 export function Popper(props: Props) {
   const {

@@ -1,6 +1,7 @@
 /**
  * Helps visualize highly complex ui data on the fly.
- * @example
+ * Example:
+ *
  * ```tsx
  * const { data } = useBackend<CargoData>();
  * logger.log(getShallowTypes(data));

@@ -164,13 +164,15 @@ function LabeledListDivider(props: LabeledListDividerProps) {
 
 /**
  * ## LabeledList
+ *
  * LabeledList is a continuous, vertical list of text and other content, where
  * every item is labeled.
  *
  * It works just like a two column table, where first column is labels, and
  * second column is content.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <LabeledList>
  *   <LabeledList.Item label="Item">Content</LabeledList.Item>
@@ -180,7 +182,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  * If you want to have a button on the right side of an item (for example,
  * to perform some sort of action), there is a way to do that:
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <LabeledList>
  *   <LabeledList.Item label="Item" buttons={<Button>Click me!</Button>}>
@@ -188,6 +191,8 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  *   </LabeledList.Item>
  * </LabeledList>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledlist--docs)
  */
 export namespace LabeledList {
   /**

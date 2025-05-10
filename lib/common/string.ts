@@ -1,7 +1,8 @@
 /**
  * Creates a search terms matcher. Returns true if given string matches the search text.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * type Thing = { id: string; name: string };
  *
@@ -41,7 +42,8 @@ export const VOWELS = ['a', 'e', 'i', 'o', 'u'];
  *
  * @param override - A custom string to be appended instead for plurals. Useful for words that don't follow the standard rules.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * pluralize('Dog', 1) // Dog
  * pluralize('Dog', 2) // Dogs
@@ -73,7 +75,8 @@ export function pluralize(str: string, n: number, override?: string) {
 /**
  * Capitalizes a word and lowercases the rest.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * capitalize('heLLo') // Hello
  * ```
@@ -86,7 +89,8 @@ export function capitalize(str: string): string {
  * Similar to capitalize, this takes a string and replaces all first letters
  * of any words.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * capitalizeAll('heLLo woRLd') // 'HeLLo WoRLd'
  * ```
@@ -98,7 +102,8 @@ export function capitalizeAll(str: string): string {
 /**
  * Capitalizes only the first letter of the str, leaving others untouched.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * capitalizeFirst('heLLo woRLd') // 'HeLLo woRLd'
  * ```
@@ -136,7 +141,8 @@ const WORDS_LOWER = [
 /**
  * Converts a string to title case.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * toTitleCase('a tale of two cities') // 'A Tale of Two Cities'
  * ```
@@ -176,7 +182,8 @@ const TRANSLATIONS = {
 /**
  * Decodes HTML entities and removes unnecessary HTML tags.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * decodeHtmlEntities('&amp;') // returns '&'
  * decodeHtmlEntities('&lt;') // returns '<'

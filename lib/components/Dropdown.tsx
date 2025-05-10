@@ -71,8 +71,11 @@ function getOptionValue(option: DropdownOption): string | number {
 
 /**
  * ## Dropdown
+ *
  * A simple dropdown box component. Lets the user select from a list of options
  * and displays selected entry.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-dropdown--docs)
  */
 export function Dropdown(props: Props) {
   const {

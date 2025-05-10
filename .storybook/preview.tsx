@@ -4,6 +4,13 @@ import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
 import { withConsole } from '@storybook/addon-console';
 import '../styles/main.scss';
+import {
+  Controls,
+  Description,
+  Primary,
+  Stories,
+  Subtitle,
+} from '@storybook/blocks';
 
 const preview: Preview = {
   decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
@@ -20,6 +27,16 @@ const preview: Preview = {
     },
     docs: {
       theme: previewTheme,
+      toc: true,
+      page: () => (
+        <>
+          <Subtitle />
+          <Description />
+          <Primary />
+          <Controls />
+          <Stories />
+        </>
+      ),
     },
   },
   tags: ['autodocs'],

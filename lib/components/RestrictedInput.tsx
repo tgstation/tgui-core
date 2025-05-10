@@ -72,9 +72,9 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  *
  * Creates a numerical input which rejects improper keys.
  *
- *  Has a special event for changes in validation states - `onValidationChange`.
+ * Has a special event for changes in validation states - `onValidationChange`.
  *
- * @see https://github.com/tgstation/tgui-core/blob/main/lib/components/RestrictedInput.tsx
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-restrictedinput--docs)
  */
 export function RestrictedInput(props: Props) {
   const {

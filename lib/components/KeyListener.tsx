@@ -10,8 +10,11 @@ type Props = Partial<{
 
 /**
  * ## KeyListener
+ *
  * A component that listens for keyboard events and calls the provided
  * callbacks.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-keylistener--docs)
  */
 export function KeyListener(props: Props) {
   useEffect(() => {

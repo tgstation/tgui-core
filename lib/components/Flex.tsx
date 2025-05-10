@@ -83,6 +83,7 @@ export function computeFlexProps(props: FlexProps) {
 
 /**
  * ## Flex
+ *
  * Quickly manage the layout, alignment, and sizing of grid columns, navigation,
  * components, and more with a full suite of responsive flexbox utilities.
  *
@@ -95,7 +96,8 @@ export function computeFlexProps(props: FlexProps) {
  * One of the most basic usage of flex, is to align certain elements
  * to the left, and certain elements to the right:
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Flex>
  *   <Flex.Item grow>Button description</Flex.Item>
@@ -112,6 +114,8 @@ export function computeFlexProps(props: FlexProps) {
  * @deprecated - Use
  * [Stack](https://github.com/tgstation/tgui-core/tree/main/lib/components/Stack.tsx)
  * where possible.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs)
  */
 export function Flex(props) {
   const { className, ...rest } = props;

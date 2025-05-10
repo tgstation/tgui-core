@@ -422,7 +422,10 @@ function ButtonFile(props: FileProps) {
 
 /**
  * ## Button
+ *
  * Buttons allow users to take actions, and make choices, with a single click.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-button--docs)
  */
 export namespace Button {
   /**
