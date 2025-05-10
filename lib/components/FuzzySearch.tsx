@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
 import createFuzzySearch from '@nozbe/microfuzz';
+import { useState, useCallback } from 'react';
 
 interface UseFuzzySearchProps<T> {
   /** An input array to match */
