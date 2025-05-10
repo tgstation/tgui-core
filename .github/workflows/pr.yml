@@ -35,7 +35,7 @@ jobs:
           version: latest
 
       - name: Run Biome
-        run: biome ci --config-path=biome.ci.json .
+        run: biome ci . --config-path=biome.ci.json
 
       - name: Run tests
         run: pnpm test
