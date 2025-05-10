@@ -1003,7 +1003,7 @@ const items: string[] = [
   'Laundry - Bag Cloth',
   'Red Pepper Paste',
   'Kaffir Lime Leaves',
-  'Goat - Leg'
+  'Goat - Leg',
 ];
 
 const meta: Meta = {
@@ -1011,16 +1011,21 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: 'A simple hook prooviding fuzzy searching - approximate rather than exact pattern matching.'
+        component:
+          'A simple hook prooviding fuzzy searching - approximate rather than exact pattern matching.',
       },
-    }
-  }
+    },
+  },
 };
 export default meta;
 
 type Story = StoryObj;
 
-const FuzzySearchStory = ({ matchStrategy }: { matchStrategy: 'off' | 'smart' | 'aggressive' }) => {
+const FuzzySearchStory = ({
+  matchStrategy,
+}: {
+  matchStrategy: 'off' | 'smart' | 'aggressive';
+}) => {
   const { query, setQuery, results } = useFuzzySearch({
     searchArray: items,
     matchStrategy,
@@ -1029,15 +1034,9 @@ const FuzzySearchStory = ({ matchStrategy }: { matchStrategy: 'off' | 'smart' | 
 
   return (
     <Box>
-      <Input
-        value={query}
-        onChange={setQuery}
-        placeholder='Begin writing...'
-      />
+      <Input value={query} onChange={setQuery} placeholder="Begin writing..." />
       <Box mt={2}>
-        {results.length === 0 && query !== '' && (
-          <div>No entries</div>
-        )}
+        {results.length === 0 && query !== '' && <div>No entries</div>}
         {results.map((item) => (
           <Box key={item}>{item}</Box>
         ))}
@@ -1047,13 +1046,13 @@ const FuzzySearchStory = ({ matchStrategy }: { matchStrategy: 'off' | 'smart' | 
 };
 
 export const SimpleSearch: Story = {
-  render: () => <FuzzySearchStory matchStrategy='off' />,
+  render: () => <FuzzySearchStory matchStrategy="off" />,
 };
 
 export const FuzzySearch: Story = {
-  render: () => <FuzzySearchStory matchStrategy='smart' />,
+  render: () => <FuzzySearchStory matchStrategy="smart" />,
 };
 
 export const AgressiveSearch: Story = {
-  render: () => <FuzzySearchStory matchStrategy='aggressive' />,
+  render: () => <FuzzySearchStory matchStrategy="aggressive" />,
 };
