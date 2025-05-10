@@ -32,10 +32,10 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: latest
+          version: beta
 
       - name: Run Biome
-        run: biome ci . --config-path=biome.ci.json
+        run: biome ci .
 
       - name: Run tests
         run: pnpm test
