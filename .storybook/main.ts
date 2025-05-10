@@ -21,6 +21,10 @@ const config: StorybookConfig = {
   },
   rsbuildFinal: (config) => {
     // Customize the final Rsbuild config here
+    if (process.env.PAGES_URL !== undefined) {
+      config.output ??= {};
+      config.output.assetPrefix = process.env.PAGES_URL;
+    }
     return config;
   },
   docs: {},
