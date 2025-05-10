@@ -56,7 +56,8 @@ type Props = {
 /**
  * ## Slider
  *
- * - [View documentation on tgui core](A horizontal, [ProgressBar](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs))-like
+ * A horizontal,
+ * [ProgressBar](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs)-like
  * control which allows dialing * in precise values by dragging it left and right.
  *
  * Single click opens an input box to manually type in a number.

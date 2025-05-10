@@ -25,7 +25,7 @@ type Props = Partial<{
  * ## Stack
  *
  * A higher-level component that is based on
- * - [View documentation on tgui core]([Flex](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs)).
+ * [Flex](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs).
  *
  * The main difference from `Flex`, is that this component automatically adds
  * spacing between all stack items, reducing the boilerplate that you have to write!

@@ -133,7 +133,7 @@ function TabItem(props: TabProps) {
  * a lot of flexibility in regards to how you can layout your tabs.
  *
  * Tabs also support a vertical configuration. This is usually paired with
- * - [View documentation on tgui core]([Stack](https://tgstation.github.io/tgui-core/?path=/docs/components-stack--docs))
+ * [Stack](https://tgstation.github.io/tgui-core/?path=/docs/components-stack--docs)
  * to render tab content to the right.
  *
  * Example:
@@ -151,7 +151,7 @@ function TabItem(props: TabProps) {
  *
  * If you need to combine a tab section with other elements, or if you want to
  * add scrollable functionality to tabs, pair them with the
- * - [View documentation on tgui core]([Section](https://tgstation.github.io/tgui-core/?path=/docs/components-section--docs))
+ * [Section](https://tgstation.github.io/tgui-core/?path=/docs/components-section--docs)
  * component:
  *
  * Example:

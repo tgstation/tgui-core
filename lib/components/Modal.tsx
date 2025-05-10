@@ -17,8 +17,10 @@ export type ModalProps = BoxProps &
 /**
  * ## Modal
  *
- * - [View documentation on tgui core](A modal window. Uses a [Dimmer](https://tgstation.github.io/tgui-core/?path=/docs/components-dimmer--docs))
- * under the hood, and dynamically adjusts its own size to fit the content you're trying to display.
+ * A modal window. Uses a
+ * [Dimmer](https://tgstation.github.io/tgui-core/?path=/docs/components-dimmer--docs)
+ * under the hood, and dynamically adjusts its own size to fit the content
+ * you're trying to display.
  *
  * Must be a direct child of a layout component (e.g. `Window`).
  *
