@@ -43,7 +43,7 @@ export function useFuzzySearch<T>({
     }
 
     const searchResults = fuzzySearch(value);
-    setResults(searchResults.map(result => result.item));
+    setResults(searchResults.map((result) => result.item));
   };
 
   return {
