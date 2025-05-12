@@ -11,6 +11,9 @@ importers:
       '@floating-ui/react':
         specifier: ^0.27.8
         version: 0.27.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@nozbe/microfuzz':
+        specifier: ^1.0.0
+        version: 1.0.0
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -499,6 +502,9 @@ packages:
 
   '@module-federation/webpack-bundler-runtime@0.13.1':
     resolution: {integrity: sha512-QSuSIGa09S8mthbB1L6xERqrz+AzPlHR6D7RwAzssAc+IHf40U6NiTLPzUqp9mmKDhC5Tm0EISU0ZHNeJpnpBQ==}
+
+  '@nozbe/microfuzz@1.0.0':
+    resolution: {integrity: sha512-XKIg/guk+s1tkPTkHch9hfGOWgsKojT7BqSQddXTppOfVr3SWQhhTCqbgQaPTbppf9gc2kFeG0gpBZZ612UXHA==}
 
   '@parcel/watcher-android-arm64@2.5.0':
     resolution: {integrity: sha512-qlX4eS28bUcQCdribHkg/herLe+0A9RyYC+mm2PXpncit8z5b3nSqGVzMNR3CmtAOgRutiZ02eIJJgP/b1iEFQ==}
@@ -2846,6 +2852,8 @@ snapshots:
     dependencies:
       '@module-federation/runtime': 0.13.1
       '@module-federation/sdk': 0.13.1
+
+  '@nozbe/microfuzz@1.0.0': {}
 
   '@parcel/watcher-android-arm64@2.5.0':
     optional: true
