@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useFuzzySearch } from '../lib/common/fuzzysearch';
 import { Box } from '../lib/components/Box';
-import { useFuzzySearch } from '../lib/components/FuzzySearch';
 import { Input } from '../lib/components/Input';
 
 const items: string[] = [

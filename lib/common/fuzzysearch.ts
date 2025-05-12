@@ -7,7 +7,7 @@ interface UseFuzzySearchProps<T> {
   /**
    * The matching strategy to use. `off` - don't use fuzzy search.
    * `smart` - ignore low density matches. `agressive` - accept
-   * any match avaliable.
+   * any match avaliable. Defaults to 'smart' if not set.
    */
   matchStrategy?: 'off' | 'smart' | 'aggressive';
   /** The input string to match */
@@ -34,7 +34,7 @@ export function useFuzzySearch<T>({
     [searchArray, getSearchString],
   );
 
-  const handleSearch = (value: string) => {
+  function handleSearch(value: string) {
     setQuery(value);
 
     if (value.trim() === '') {
@@ -44,7 +44,7 @@ export function useFuzzySearch<T>({
 
     const searchResults = fuzzySearch(value);
     setResults(searchResults.map((result) => result.item));
-  };
+  }
 
   return {
     query,
