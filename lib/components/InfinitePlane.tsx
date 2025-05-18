@@ -1,6 +1,7 @@
 import {
   type MouseEvent,
   type PropsWithChildren,
+  type WheelEvent,
   useEffect,
   useState,
 } from 'react';
@@ -20,6 +21,8 @@ type Props = {
   initialLeft: number;
   /** The initial top position of the image. */
   initialTop: number;
+  /** Padding applied to the right of the zoom controls */
+  zoomPadding: number;
   /** A callback function that is called when the background image is moved. */
   onBackgroundMoved: (newX: number, newY: number) => void;
   /** A callback function that is called when the zoom value changes. */
@@ -62,6 +65,7 @@ export function InfinitePlane(props: Props) {
     backgroundImage,
     children,
     imageWidth,
+    zoomPadding = 0,
     initialLeft = 0,
     initialTop = 0,
     onBackgroundMoved,
@@ -96,6 +100,15 @@ export function InfinitePlane(props: Props) {
 
   function onMouseUp() {
     setMouseDown(false);
+  }
+
+  function handleWheelScroll(event: WheelEvent<HTMLDivElement>) {
+    if (event.deltaY === 0) return;
+
+    event.preventDefault();
+    handleZoom(
+      event.deltaY > 0 ? ZoomDirection.Increase : ZoomDirection.Decrease,
+    );
   }
 
   function handleZoom(direction: ZoomDirection) {
@@ -137,6 +150,7 @@ export function InfinitePlane(props: Props) {
       <div
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
+        onWheel={handleWheelScroll}
         style={{
           backgroundImage: `url("${backgroundImage}")`,
           backgroundPosition: `${finalLeft}px ${finalTop}px`,
@@ -163,21 +177,26 @@ export function InfinitePlane(props: Props) {
       >
         {children}
       </div>
-      <ZoomControls zoom={zoom} onZoomClick={handleZoom} />
+      <ZoomControls
+        zoom={zoom}
+        padding={zoomPadding}
+        onZoomClick={handleZoom}
+      />
     </div>
   );
 }
 
 type ZoomProps = {
   zoom: number;
+  padding: number;
   onZoomClick: (direction: ZoomDirection) => void;
 };
 
 function ZoomControls(props: ZoomProps) {
-  const { zoom, onZoomClick } = props;
+  const { zoom, padding, onZoomClick } = props;
 
   return (
-    <div style={{ position: 'absolute', top: 5, left: 5, right: 5 }}>
+    <div style={{ position: 'absolute', top: 5, left: 5, right: 5 + padding }}>
       <Stack>
         <Stack.Item>
           <Button
