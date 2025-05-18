@@ -1,9 +1,9 @@
 import {
   type MouseEvent,
   type PropsWithChildren,
-  type WheelEvent,
   useEffect,
   useState,
+  type WheelEvent,
 } from 'react';
 import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
@@ -180,7 +180,11 @@ export function InfinitePlane(props: Props) {
       >
         {children}
       </div>
-      <ZoomControls padding={zoomPadding} onZoomClick={handleZoom} zoom={zoom} />
+      <ZoomControls
+        padding={zoomPadding}
+        onZoomClick={handleZoom}
+        zoom={zoom}
+      />
     </div>
   );
 }
