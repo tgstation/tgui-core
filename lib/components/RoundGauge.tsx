@@ -3,7 +3,7 @@ import { clamp01, keyOfMatchingRange, scale } from '../common/math';
 import { classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { AnimatedNumber } from './AnimatedNumber';
-import { Box, type BoxProps } from './Box';
+import type { BoxProps } from './Box';
 
 type Props = {
   /** The current value of the metric. */
@@ -32,10 +32,12 @@ type Props = {
 
 /**
  * ## RoundGauge
+ *
  * The RoundGauge component provides a visual representation of a single metric, as well as being capable of showing
  * informational or cautionary boundaries related to that metric.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <RoundGauge
  *  size={1.75}
@@ -55,6 +57,7 @@ type Props = {
  * The alert on the gauge is optional, and will only be shown if the `alertAfter` prop is defined. When defined, the alert
  * will begin to flash the respective color upon which the needle currently rests, as defined in the `ranges` prop.
  *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-roundgauge--docs)
  */
 export function RoundGauge(props: Props) {
   const {
@@ -76,14 +79,13 @@ export function RoundGauge(props: Props) {
   const scaledRanges = ranges ? {} : { primary: [0, 1] };
 
   if (ranges) {
-    // biome-ignore lint/complexity/noForEach: This is fine
-    Object.keys(ranges).forEach((x) => {
-      const range = ranges[x];
-      scaledRanges[x] = [
+    for (const key in ranges) {
+      const range = ranges[key];
+      scaledRanges[key] = [
         scale(range[0], minValue, maxValue),
         scale(range[1], minValue, maxValue),
       ];
-    });
+    }
   }
 
   function shouldShowAlert() {
@@ -112,7 +114,7 @@ export function RoundGauge(props: Props) {
     shouldShowAlert() && keyOfMatchingRange(clampedValue, scaledRanges);
 
   return (
-    <Box inline>
+    <div className="RoundGauge__wrapper">
       <div
         className={classes([
           'RoundGauge',
@@ -147,7 +149,10 @@ export function RoundGauge(props: Props) {
               return (
                 <circle
                   className={`RoundGauge__ringFill RoundGauge--color--${x}`}
+                  cx="50"
+                  cy="50"
                   key={i}
+                  r="45"
                   style={{
                     strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
@@ -155,9 +160,6 @@ export function RoundGauge(props: Props) {
                     ),
                   }}
                   transform={`rotate(${180 + 180 * col_ranges[0]} 50 50)`}
-                  cx="50"
-                  cy="50"
-                  r="45"
                 />
               );
             })}
@@ -180,7 +182,7 @@ export function RoundGauge(props: Props) {
           <title>alert</title>
         </svg>
       </div>
-      <AnimatedNumber value={value} format={format} />
-    </Box>
+      <AnimatedNumber format={format} value={value} />
+    </div>
   );
 }

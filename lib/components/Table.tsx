@@ -17,7 +17,7 @@ export function Table(props: Props) {
         'Table',
         collapsing && 'Table--collapsing',
         className,
-        computeBoxClassName(rest),
+        computeBoxClassName<HTMLTableElement>(rest),
       ])}
       {...computeBoxProps(rest)}
     >
@@ -41,7 +41,7 @@ function TableRow(props: RowProps) {
         'Table__row',
         header && 'Table__row--header',
         className,
-        computeBoxClassName(props),
+        computeBoxClassName<HTMLTableRowElement>(props),
       ])}
       {...computeBoxProps(rest)}
     />
@@ -71,7 +71,7 @@ function TableCell(props: CellProps) {
         collapsing && 'Table__cell--collapsing',
         header && 'Table__cell--header',
         className,
-        computeBoxClassName(props),
+        computeBoxClassName<HTMLTableCellElement>(props),
       ])}
       colSpan={colSpan}
       {...computeBoxProps(rest)}
@@ -81,11 +81,13 @@ function TableCell(props: CellProps) {
 
 /**
  * ## Table
+ *
  * A straight forward mapping to a standard html table, which is slightly
  * simplified (does not need a `<tbody>` tag) and with sane default styles
  * (e.g. table width is 100% by default).
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Table>
  *   <Table.Row>
@@ -96,6 +98,8 @@ function TableCell(props: CellProps) {
  *   </Table.Row>
  * </Table>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-table--docs)
  */
 export namespace Table {
   /**

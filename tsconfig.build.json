@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "rootDir": "lib"
+  },
+  "extends": "./tsconfig.json",
+  "include": ["lib", "global.d.ts"]
+}

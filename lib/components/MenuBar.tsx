@@ -1,30 +1,8 @@
-import { type ReactNode, type RefObject, useRef } from 'react';
+import { type ReactNode, useRef } from 'react';
 import { classes } from '../common/react';
 import { Box, type BoxProps } from './Box';
+import { Floating } from './Floating';
 import { Icon } from './Icon';
-import { Popper } from './Popper';
-
-type MenuProps = {
-  children: any;
-  menuRef: RefObject<HTMLElement>;
-  onOutsideClick: () => void;
-  width: string;
-};
-
-function Menu(props: MenuProps) {
-  const { children, width } = props;
-
-  return (
-    <div
-      className="Menubar__menu"
-      style={{
-        width,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
 
 type MenuBarDropdownProps = {
   disabled?: boolean;
@@ -52,35 +30,35 @@ function MenuBarButton(props: MenuBarDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={menuRef}>
-      <Box
-        className={classes([
-          'MenuBar__MenuBarButton',
-          'MenuBar__font',
-          'MenuBar__hover',
-          className,
-        ])}
-        {...rest}
-        onClick={disabled ? () => null : onClick}
-        onMouseOver={onMouseOver}
-      >
-        <span className="MenuBar__MenuBarButton-text">{display}</span>
-      </Box>
-      <Popper
-        onClickOutside={onOutsideClick}
-        placement="bottom-start"
-        content={
-          <Menu
-            width={openWidth}
-            menuRef={menuRef}
-            onOutsideClick={onOutsideClick}
-          >
-            {children}
-          </Menu>
-        }
-        isOpen={open}
-      />
-    </div>
+    <Floating
+      allowedOutsideClasses=".Menubar_inner"
+      content={
+        <div
+          className="MenuBar__menu"
+          style={{
+            width: openWidth,
+          }}
+        >
+          {children}
+        </div>
+      }
+    >
+      <div className="Menubar_inner" ref={menuRef}>
+        <Box
+          className={classes([
+            'MenuBar__MenuBarButton',
+            'MenuBar__font',
+            'MenuBar__hover',
+            className,
+          ])}
+          {...rest}
+          onClick={disabled ? () => null : onClick}
+          onMouseOver={onMouseOver}
+        >
+          <span className="MenuBar__MenuBarButton-text">{display}</span>
+        </Box>
+      </div>
+    </Floating>
   );
 }
 
@@ -97,7 +75,7 @@ type MenuBarItemProps = {
   setOpenOnHover: (flag: boolean) => void;
 };
 
-function Dropdown(props: MenuBarItemProps) {
+function MenuDropdown(props: MenuBarItemProps) {
   const {
     entry,
     children,
@@ -113,32 +91,32 @@ function Dropdown(props: MenuBarItemProps) {
 
   return (
     <MenuBarButton
-      openWidth={openWidth}
-      display={display}
-      disabled={disabled}
-      open={openMenuBar === entry}
       className={className}
+      disabled={disabled}
+      display={display}
       onClick={() => {
         const open = openMenuBar === entry ? null : entry;
         setOpenMenuBar(open);
         setOpenOnHover(!openOnHover);
-      }}
-      onOutsideClick={() => {
-        setOpenMenuBar(null);
-        setOpenOnHover(false);
       }}
       onMouseOver={() => {
         if (openOnHover) {
           setOpenMenuBar(entry);
         }
       }}
+      onOutsideClick={() => {
+        setOpenMenuBar(null);
+        setOpenOnHover(false);
+      }}
+      open={openMenuBar === entry}
+      openWidth={openWidth}
     >
       {children}
     </MenuBarButton>
   );
 }
 
-MenuBar.Dropdown = Dropdown;
+MenuBar.Dropdown = MenuDropdown;
 
 function MenuItemToggle(props) {
   const { value, displayText, onClick, checked } = props;
@@ -153,14 +131,14 @@ function MenuItemToggle(props) {
       onClick={() => onClick(value)}
     >
       <div className="MenuBar__MenuItemToggle__check">
-        <Icon size={1.3} name={checked ? 'check' : ''} />
+        <Icon name={checked ? 'check' : ''} size={1.3} />
       </div>
       {displayText}
     </Box>
   );
 }
 
-Dropdown.MenuItemToggle = MenuItemToggle;
+MenuDropdown.MenuItemToggle = MenuItemToggle;
 
 type MenuItemProps = Partial<{
   value: any;
@@ -184,13 +162,13 @@ function MenuItem(props: MenuItemProps) {
   );
 }
 
-Dropdown.MenuItem = MenuItem;
+MenuDropdown.MenuItem = MenuItem;
 
 function Separator() {
   return <div className="MenuBar__Separator" />;
 }
 
-Dropdown.Separator = Separator;
+MenuDropdown.Separator = Separator;
 
 type MenuBarProps = {
   children: ReactNode;

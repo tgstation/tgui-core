@@ -61,12 +61,12 @@ function dataToPolylinePoints(data) {
 }
 
 const computedStyles: CSSProperties = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
   bottom: 0,
+  left: 0,
   overflow: 'hidden',
+  position: 'absolute',
+  right: 0,
+  top: 0,
 };
 
 export function Chart(props: Props) {
@@ -118,17 +118,17 @@ export function Chart(props: Props) {
     <Box position="relative" {...rest}>
       <div ref={innerRef} style={computedStyles}>
         <svg
-          viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
           preserveAspectRatio="none"
           style={computedStyles}
+          viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
         >
           <title>chart</title>
           <polyline
-            transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
             fill={fillColor}
+            points={points}
             stroke={strokeColor}
             strokeWidth={strokeWidth}
-            points={points}
+            transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
           />
         </svg>
       </div>

@@ -13,6 +13,32 @@ type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
   args: {
-    children: 'TextArea',
+    placeholder: 'Enter your text here',
+  },
+};
+
+export const AutoSelect: Story = {
+  args: {
+    autoSelect: true,
+    value: 'Hello, world!',
+  },
+};
+
+export const Fluid: Story = {
+  args: {
+    fluid: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+};
+
+export const OnKeyDown: Story = {
+  args: {
+    ...Default.args,
+    onKeyDown: (e) => console.log('onKeyDown', e.key, e),
   },
 };

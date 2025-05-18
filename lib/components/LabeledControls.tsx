@@ -1,30 +1,34 @@
 import { Flex, type FlexProps } from './Flex';
 
 /**
- *  ## LabeledControls
+ * ## LabeledControls
+ *
  * LabeledControls is a horizontal grid that is designed to hold various
  * controls, like [Knobs](https://github.com/tgstation/tgui-core/tree/main/lib/components/Knob.tsx)
  * or small [Buttons](https://github.com/tgstation/tgui-core/tree/main/lib/components/Button.tsx).
  *
  * Every item in this grid is labeled at the bottom.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <LabeledControls>
  *   <LabeledControls.Item label="Temperature"><Knob /></LabeledControls.Item>
  *   <LabeledControls.Item label="Submit"><Button /></LabeledControls.Item>
  * </LabeledControls>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledcontrols--docs)
  */
 export function LabeledControls(props: FlexProps) {
   const { children, wrap, ...rest } = props;
 
   return (
     <Flex
-      mx={-0.5}
-      wrap={wrap}
       align="stretch"
       justify="space-between"
+      mx={-0.5}
+      wrap={wrap}
       {...rest}
     >
       {children}
@@ -42,11 +46,11 @@ function LabeledControlsItem(props: ItemProps) {
   return (
     <Flex.Item mx={mx}>
       <Flex
-        height="100%"
-        direction="column"
         align="center"
-        textAlign="center"
+        direction="column"
+        height="100%"
         justify="space-between"
+        textAlign="center"
         {...rest}
       >
         <Flex.Item />

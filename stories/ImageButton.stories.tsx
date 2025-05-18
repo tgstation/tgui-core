@@ -24,9 +24,9 @@ export const Default: Story = {
 
 export const DefaultFluid: Story = {
   args: {
+    children: 'It will take up the entire available width',
     fluid: true,
     title: 'ImageButton',
-    children: 'It will take up the entire available width',
   },
 };
 
@@ -39,20 +39,20 @@ export const FilledDefault: Story = {
       <ImageButton
         {...args}
         base64={soulFishImage}
-        disabled={disabled}
-        selected={selected}
         buttons={
           <Button
-            icon={'power-off'}
             color={disabled ? 'bad' : 'transparent'}
+            icon={'power-off'}
             onClick={() => setDisabled(!disabled)}
           />
         }
         buttonsAlt={soulFish}
-        tooltip={'Also, you can Right Click on it'}
-        tooltipPosition={'bottom'}
+        disabled={disabled}
         onClick={() => setSelected(!selected)}
         onRightClick={() => setDisabled(!disabled)}
+        selected={selected}
+        tooltip={'Also, you can Right Click on it'}
+        tooltipPosition={'bottom'}
       >
         Hover me
       </ImageButton>
@@ -62,9 +62,9 @@ export const FilledDefault: Story = {
 
 export const FilledFluid: Story = {
   args: {
+    base64: soulFishImage,
     fluid: true,
     title: 'ImageButton',
-    base64: soulFishImage,
     tooltip: 'Also, you can Right Click on it',
     tooltipPosition: 'bottom',
   },
@@ -77,7 +77,7 @@ export const FilledFluid: Story = {
         color={disabled ? 'bad' : 'transparent'}
         onClick={() => setDisabled(!disabled)}
       >
-        <Icon name={'power-off'} size={1.66} mb={1} />
+        <Icon mb={1} name={'power-off'} size={1.66} />
         <br />
         {disabled ? 'Enable' : 'Disable'}
       </Button>
@@ -87,22 +87,22 @@ export const FilledFluid: Story = {
       <>
         <ImageButton
           {...args}
-          disabled={disabled}
-          selected={selected}
           buttonsAlt={buttons}
+          disabled={disabled}
           onClick={() => setSelected(!selected)}
           onRightClick={() => setDisabled(!disabled)}
+          selected={selected}
         >
           Fluid with buttonsAlt prop. buttonsAlt container has a fixed width
           that depends on the size of the image
         </ImageButton>
         <ImageButton
           {...args}
-          disabled={disabled}
-          selected={selected}
           buttons={buttons}
+          disabled={disabled}
           onClick={() => setSelected(!selected)}
           onRightClick={() => setDisabled(!disabled)}
+          selected={selected}
         >
           Fluid with buttons prop. buttons container can have custom width. Here
           is auto width
@@ -129,13 +129,13 @@ export const Mixed: Story = {
     const controls = (
       <>
         <Button
-          icon={'power-off'}
           color={disabled ? 'bad' : 'transparent'}
+          icon={'power-off'}
           onClick={() => setDisabled(!disabled)}
         />
         <Button
-          icon={compact ? 'expand' : 'minimize'}
           color={'transparent'}
+          icon={compact ? 'expand' : 'minimize'}
           onClick={() => setCompact(!compact)}
         />
       </>
@@ -144,18 +144,18 @@ export const Mixed: Story = {
     return (
       <ImageButton
         {...args}
-        fluid={!compact}
-        title={'ImageButton'}
         base64={soulFishImage}
-        imageSize={compact ? 96 : 64}
-        disabled={disabled}
-        selected={selected}
         buttons={compact && controls}
         buttonsAlt={compact ? soulFish : controls}
-        tooltip={compact && info}
-        tooltipPosition={'bottom'}
+        disabled={disabled}
+        fluid={!compact}
+        imageSize={compact ? 96 : 64}
         onClick={() => setSelected(!selected)}
         onRightClick={() => setDisabled(!disabled)}
+        selected={selected}
+        title={'ImageButton'}
+        tooltip={compact && info}
+        tooltipPosition={'bottom'}
       >
         {!compact ? info : 'ImageButton'}
       </ImageButton>
@@ -194,13 +194,13 @@ export const Colors: Story = {
     const controls = (
       <>
         <Button
-          icon={'power-off'}
           color={disabled ? 'bad' : 'transparent'}
+          icon={'power-off'}
           onClick={() => setDisabled(!disabled)}
         />
         <Button
-          icon={compact ? 'expand' : 'minimize'}
           color={'transparent'}
+          icon={compact ? 'expand' : 'minimize'}
           onClick={() => setCompact(!compact)}
         />
       </>
@@ -211,18 +211,18 @@ export const Colors: Story = {
         {COLORS.map((color) => (
           <ImageButton
             {...args}
-            key={color}
-            color={color}
-            fluid={!compact}
-            title={!compact ? color : ''}
             base64={soulFishImage}
-            imageSize={compact ? 96 : 48}
-            disabled={disabled}
-            selected={selected}
             buttons={compact && controls}
             buttonsAlt={compact ? soulFish : controls}
+            color={color}
+            disabled={disabled}
+            fluid={!compact}
+            imageSize={compact ? 96 : 48}
+            key={color}
             onClick={() => setSelected(!selected)}
             onRightClick={() => setDisabled(!disabled)}
+            selected={selected}
+            title={!compact ? color : ''}
           >
             {compact && color}
           </ImageButton>

@@ -1,11 +1,15 @@
 @use "sass:meta";
-@use "base";
+
+// CSS Variables
+@use "./vars-colors";
+@use "./vars-values";
+@use "./vars-components";
 
 // Core styles
 @include meta.load-css("./reset.scss");
-@include meta.load-css("./css-variables.scss");
 
 // Components
+
 @include meta.load-css("./components/BlockQuote.scss");
 @include meta.load-css("./components/Button.scss");
 @include meta.load-css("./components/ColorBox.scss");
@@ -25,6 +29,7 @@
 @include meta.load-css("./components/NoticeBox.scss");
 @include meta.load-css("./components/NumberInput.scss");
 @include meta.load-css("./components/ProgressBar.scss");
+@include meta.load-css("./components/RestrictedInput.scss");
 @include meta.load-css("./components/RoundGauge.scss");
 @include meta.load-css("./components/Section.scss");
 @include meta.load-css("./components/Slider.scss");

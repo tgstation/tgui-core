@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import type { ReactNode } from 'react';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxProps } from '../common/ui';
@@ -12,7 +12,6 @@ import type { BoxProps } from './Box';
 import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
-import { Stack } from './Stack';
 import { Tooltip } from './Tooltip';
 
 type Props = Partial<{
@@ -51,7 +50,7 @@ type Props = Partial<{
   color: string;
   /** Makes button disabled and dark red if true. Also disables onClick. */
   disabled: BooleanLike;
-  /** Optional. Adds a "stub" when loading DmIcon. */
+  /** Optional. Replaces default "stub" when loading DmIcon. */
   dmFallback: ReactNode;
   /** Parameter `icon` of component `DmIcon`. */
   dmIcon: string | null;
@@ -64,6 +63,8 @@ type Props = Partial<{
    * Allows the use of `title`
    */
   fluid: boolean;
+  /** Replaces default "question" icon when image missing. */
+  fallbackIcon: string;
   /** Parameter responsible for the size of the image, component and standard "stubs". */
   imageSize: number;
   /** Prop `src` of Image component. Example: `imageSrc={resolveAsset(thing.image)}` */
@@ -78,16 +79,19 @@ type Props = Partial<{
   title: string;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
   tooltip: ReactNode;
-  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+  /** Position of the tooltip. Does not guarantee the position is respected. */
   tooltipPosition: Placement;
 }> &
   BoxProps;
 
 /**
+ * ## ImageButton
+ *
  * Stylized button, with the ability to easily and simply insert any picture into it.
  * - Without image, will be default question icon.
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
- * - Component has no **hover** effects, if `onClick` or `onRightClick` is not specified.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
  */
 export function ImageButton(props: Props) {
   const {
@@ -104,6 +108,7 @@ export function ImageButton(props: Props) {
     dmIcon,
     dmIconState,
     fluid,
+    fallbackIcon,
     imageSize = 64,
     imageSrc,
     onClick,
@@ -117,24 +122,9 @@ export function ImageButton(props: Props) {
 
   let buttonContent = (
     <div
-      className={classes([
-        'container',
-        fluid && (!!buttons || !!buttonsAlt) && 'hasButtons',
-        !onClick && !onRightClick && 'noAction',
-        selected && 'ImageButton--selected',
-        disabled && 'ImageButton--disabled',
-        color && typeof color === 'string'
-          ? `ImageButton--color__${color}`
-          : 'ImageButton--color__default',
-      ])}
-      tabIndex={!disabled ? 0 : undefined}
+      className={'ImageButton__container'}
       onClick={(event) => {
         if (!disabled && onClick) {
-          onClick(event);
-        }
-      }}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' && !disabled && onClick) {
           onClick(event);
         }
       }}
@@ -144,72 +134,72 @@ export function ImageButton(props: Props) {
           onRightClick(event);
         }
       }}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' && !disabled && onClick) {
+          onClick(event);
+        }
+      }}
       style={{ width: !fluid ? `calc(${imageSize}px + 0.5em + 2px)` : 'auto' }}
+      tabIndex={!disabled ? 0 : undefined}
     >
       {/** There is too many ternaty operators, why we can't just use unified image type? */}
-      <div className="image">
+      <div className="ImageButton__image">
         {base64 || imageSrc ? (
           <Image
-            src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             height={`${imageSize}px`}
+            src={base64 ? `data:image/png;base64,${base64}` : imageSrc}
             width={`${imageSize}px`}
           />
         ) : dmIcon && dmIconState ? (
           <DmIcon
-            icon={dmIcon}
-            icon_state={dmIconState}
             fallback={
-              dmFallback || <Fallback icon="spinner" spin size={imageSize} />
+              dmFallback || <Fallback icon="spinner" size={imageSize} spin />
             }
             height={`${imageSize}px`}
+            icon={dmIcon}
+            icon_state={dmIconState}
             width={`${imageSize}px`}
           />
         ) : asset ? (
           <Image
             className={classes(asset || [])}
             height={`${imageSize}px`}
-            width={`${imageSize}px`}
             style={{
               transform: `scale(${imageSize / assetSize})`,
               transformOrigin: 'top left',
             }}
+            width={`${imageSize}px`}
           />
         ) : (
-          <Fallback icon="question" size={imageSize} />
+          <Fallback icon={fallbackIcon || 'question'} size={imageSize} />
         )}
       </div>
       {/** End of image container */}
       {fluid ? (
-        <div className="info">
+        <div className="ImageButton__content">
           {title && (
-            <span className={classes(['title', children && 'divider'])}>
+            <span
+              className={classes([
+                'ImageButton__content--title',
+                !!children && 'ImageButton__content--divider',
+              ])}
+            >
               {title}
             </span>
           )}
-          {children && <span className="contentFluid">{children}</span>}
+          {children && (
+            <span className="ImageButton__content--text">{children}</span>
+          )}
         </div>
       ) : (
-        children && (
-          <span
-            className={classes([
-              'content',
-              selected && 'ImageButton--contentSelected',
-              disabled && 'ImageButton--contentDisabled',
-              color && typeof color === 'string'
-                ? `ImageButton--contentColor__${color}`
-                : 'ImageButton--contentColor__default',
-            ])}
-          >
-            {children}
-          </span>
-        )
+        !!children && <span className="ImageButton__content">{children}</span>
       )}
     </div>
   );
 
   if (tooltip) {
     buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+      <Tooltip content={tooltip} position={tooltipPosition}>
         {buttonContent}
       </Tooltip>
     );
@@ -220,6 +210,13 @@ export function ImageButton(props: Props) {
       className={classes([
         'ImageButton',
         fluid && 'ImageButton--fluid',
+        selected && 'ImageButton--selected',
+        disabled && 'ImageButton--disabled',
+        !children && 'ImageButton--empty',
+        !(onClick || onRightClick) && 'ImageButton--noAction',
+        color && typeof color === 'string'
+          ? `ImageButton__color--${color}`
+          : 'ImageButton__color--default',
         className,
       ])}
       {...computeBoxProps(rest)}
@@ -228,12 +225,8 @@ export function ImageButton(props: Props) {
       {buttons && (
         <div
           className={classes([
-            'buttonsContainer',
-            !children && 'buttonsEmpty',
-            fluid && disabled && 'ImageButton--disabled',
-            fluid && color && typeof color === 'string'
-              ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'ImageButton--buttonsContainerColor__default',
+            'ImageButton__buttons',
+            !children && 'ImageButton__buttons--empty',
           ])}
           style={{
             width: 'auto',
@@ -245,17 +238,13 @@ export function ImageButton(props: Props) {
       {buttonsAlt && (
         <div
           className={classes([
-            'buttonsContainer',
-            'buttonsAltContainer',
-            !children && 'buttonsEmpty',
-            fluid && disabled && 'ImageButton--disabled',
-            fluid && color && typeof color === 'string'
-              ? `ImageButton--buttonsContainerColor__${color}`
-              : fluid && 'ImageButton--buttonsContainerColor__default',
+            'ImageButton__buttons',
+            'ImageButton__buttons--alt',
+            !children && 'ImageButton__buttons--empty',
           ])}
           style={{
-            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
             maxWidth: !fluid ? `calc(${imageSize}px +  0.5em)` : 'auto',
+            width: `calc(${imageSize}px + ${fluid ? 0 : 0.5}em)`,
           }}
         >
           {buttonsAlt}
@@ -273,18 +262,16 @@ type FallbackProps = {
 }>;
 
 function Fallback(props: FallbackProps) {
-  const { icon, spin = false, size = 64 } = props;
+  const { icon, spin, size = 64 } = props;
 
   return (
-    <Stack height={`${size}px`} width={`${size}px`}>
-      <Stack.Item grow textAlign="center" align="center">
-        <Icon
-          spin={spin}
-          name={icon}
-          color="gray"
-          style={{ fontSize: `calc(${size}px * 0.75)` }}
-        />
-      </Stack.Item>
-    </Stack>
+    <Icon
+      className="ImageButton__image--fallback"
+      height={`${size}px`}
+      name={icon}
+      spin={spin}
+      style={{ fontSize: `${size}px` }}
+      width={`${size}px`}
+    />
   );
 }

@@ -19,15 +19,15 @@ export const Default: Story = {
 
 export const StyledChild: Story = {
   args: {
-    title: 'Click me',
-    children: 'Collapsed content',
     child_mt: -0.1,
+    children: 'Collapsed content',
     childStyles: {
-      padding: '0.5em',
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
-      color: 'red',
       border: '1px solid rgba(255, 255, 255, 0.1)',
       borderRadius: '0 0 0.25em 0.25em',
+      color: 'red',
+      padding: '0.5em',
     },
+    title: 'Click me',
   },
 };

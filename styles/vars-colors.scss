@@ -1,0 +1,114 @@
+/**
+ * TGUI
+ * Main Colors
+ *
+ * This file contains all the main colors that are
+ * used elsewhere and are mixed/modified to
+ * suit the needs of the components/ui's.
+ *
+ * The main goal is to standardize colors.
+ * When adding new independent colors, you should add them here.
+ *
+ * Overwriting these variables will have an extreme impact
+ * on the global appearance of the entire TGUI, as they are used everywhere.
+ * For finer customization of components, use vars-components.scss
+ *
+ * Made with love by Aylong (https://github.com/AyIong)
+ */
+
+:root {
+  /* Background colors */
+  --color-base: hsl(0, 0%, 15%);
+  --color-section: hsla(0, 0%, 0%, 0.33);
+  --color-secondary: hsl(
+    from var(--color-base) var(--secondary-hue) var(--secondary-saturation)
+      calc(l + var(--secondary-lightness-adjustment))
+  );
+  --secondary-hue: h;
+  --secondary-saturation: s;
+  --secondary-lightness-adjustment: 7.5;
+  --base-gradient-spread: 2;
+  --color-base-start: hsl(
+    from var(--color-base) h s calc(l + var(--base-gradient-spread))
+  );
+  --color-base-end: hsl(
+    from var(--color-base) h s calc(l - var(--base-gradient-spread))
+  );
+
+  /* Scrollbar */
+  --color-scrollbar-base: var(--color-section);
+  --color-scrollbar-thumb: hsl(from var(--color-base) h s calc(l + 9.25));
+
+  /* Candystripe */
+  --candystripe-odd: hsla(0, 0%, 0%, 0.25);
+  --candystripe-even: transparent;
+
+  /* Base colors */
+  --color-red: hsl(0, 70%, 50%);
+  --color-orange: hsl(25, 90%, 50%);
+  --color-yellow: hsl(50, 97.5%, 50%);
+  --color-olive: hsl(70, 75%, 45%);
+  --color-green: hsl(140, 70%, 40%);
+  --color-teal: hsl(180, 100%, 35%);
+  --color-blue: hsl(210, 65%, 47.5%);
+  --color-violet: hsl(260, 60%, 50%);
+  --color-purple: hsl(290, 60%, 50%);
+  --color-pink: hsl(325, 70%, 50%);
+  --color-brown: hsl(25, 47.5%, 45%);
+
+  /* Additional colors */
+  --color-gold: hsl(40, 90%, 50%);
+
+  /* Grayscale colors */
+  --color-black: hsl(0, 0%, 0%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-grey: hsl(0, 0%, 50%);
+  --color-light-grey: hsl(0, 0%, 66.6%);
+  --color-gray: var(--color-grey);
+  --color-light-gray: var(--color-light-grey);
+
+  /* Action colors */
+  --color-action: hsl(0, 0%, 50%);
+  --color-hover: hsl(from var(--color-action) h s l / 0.25);
+  --color-active: hsl(from var(--color-action) h s l / 0.3);
+  --color-selected: hsl(from var(--color-action) h s l / 0.4);
+
+  /* Semantic colors */
+  --primary-hue: 210;
+  --primary-saturation: 37.5%;
+  --primary-lightness: 45%;
+  --color-primary: hsl(
+    var(--primary-hue),
+    var(--primary-saturation),
+    var(--primary-lightness)
+  );
+  --color-good: hsl(95, 62.5%, 40%);
+  --color-average: hsl(32.5, 90%, 50%);
+  --color-bad: hsl(0, 72.5%, 50%);
+  --color-label: hsl(from var(--color-primary) h 17.5 57.5);
+
+  /* Text colors */
+  --color-text: var(--color-white);
+  --color-text-translucent: hsl(from var(--color-text) h s l / 0.5);
+  --color-text-translucent-light: hsl(from var(--color-text) h s l / 0.75);
+  --color-text-fixed-white: var(--color-white);
+  --color-text-fixed-black: var(--color-black);
+
+  /* Link colors */
+  --color-hyperlink: hsl(220, 100%, 70%);
+  --color-hyperlink-visited: hsl(260, 100%, 70%);
+  --color-hyperlink-new: hsl(0, 100%, 70%);
+  --color-hyperlink-new-visited: hsl(15, 100%, 70%);
+
+  /* Border */
+  --color-border: hsla(0, 0%, 100%, 0.1);
+  --color-border-dark: hsla(0, 0%, 0%, 0.33);
+  --border-primary-saturation: 100;
+  --border-primary-lightness: 75;
+  --border-primary-alpha: 0.75;
+  --color-border-primary: hsl(
+    from var(--color-primary) h var(--border-primary-saturation)
+      var(--border-primary-lightness) / var(--border-primary-alpha)
+  );
+  --color-border-secondary: hsl(from var(--color-border-primary) h s l / 1);
+}

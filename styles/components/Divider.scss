@@ -1,22 +1,21 @@
 @use "../base";
 
-$color: hsla(0, 0%, 100%, 0.1) !default;
-$thickness: base.em(2px) !default;
-$spacing: 0.5em;
+$thickness: 0 !default;
+$spacing: 0 !default;
 
 .Divider--horizontal {
-  margin: $spacing 0;
+  margin: var(--space-m) 0;
 
   &:not(.Divider--hidden) {
-    border-top: $thickness solid $color;
+    border-top: var(--divider-border);
   }
 }
 
 .Divider--vertical {
   height: 100%;
-  margin: 0 $spacing;
+  margin: 0 var(--space-m);
 
   &:not(.Divider--hidden) {
-    border-left: $thickness solid $color;
+    border-left: var(--divider-border);
   }
 }

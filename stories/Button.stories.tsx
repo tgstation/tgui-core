@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { type ComponentProps, useState } from 'react';
+import { COMPONENT_COLORS } from '../lib/common/constants';
 import { Button, Stack } from '../lib/components';
 
 type StoryProps = ComponentProps<typeof Button>;
@@ -14,6 +15,18 @@ type Story = StoryObj<StoryProps>;
 export const Default: Story = {
   args: {
     children: 'Click me',
+  },
+
+  render: (args) => {
+    return (
+      <>
+        <Button {...args} />
+        <Button {...args} color="transparent" />
+        <br />
+        <Button {...args} disabled />
+        <Button {...args} color="transparent" disabled />
+      </>
+    );
   },
 };
 
@@ -32,6 +45,8 @@ export const WithIcon: Story = {
         </Button>
         <br />
         <Button {...args} /> Only Icon
+        <br />
+        <Button compact {...args} /> Compact
       </>
     );
   },
@@ -39,15 +54,15 @@ export const WithIcon: Story = {
 
 export const Ellipsis: Story = {
   args: {
+    children: 'Very long content. Very long content. Very long content.',
     ellipsis: true,
     icon: 'envelope',
-    children: 'Very long content. Very long content. Very long content.',
   },
 
   render: (args) => {
     return (
       <>
-        <Button {...args} width={10} icon={null} />
+        <Button {...args} icon={null} width={10} />
         <Button {...args} width={10} />
         <Button {...args} ellipsis={false} width={10} />
         <Stack fill>
@@ -64,12 +79,28 @@ export const Ellipsis: Story = {
   },
 };
 
+export const Colors: Story = {
+  render: () => {
+    return (
+      <>
+        {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
+          (color) => (
+            <Button color={color} key={color}>
+              {color}
+            </Button>
+          ),
+        )}
+      </>
+    );
+  },
+};
+
 type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
 export const Checkbox: CheckboxStory = {
   args: {
-    children: 'Click me',
     checked: false,
+    children: 'Click me',
     color: 'default',
   },
   render: (args) => {
@@ -106,18 +137,34 @@ export const Confirm: ConfirmStory = {
 type InputStory = StoryObj<ComponentProps<typeof Button.Input>>;
 
 export const Input: InputStory = {
-  args: {
-    children: 'Click me',
+  render: () => {
+    const [startValue, setStartValue] = useState('Click me');
+    const [otherValue, setOtherValue] = useState('External value');
+
+    return (
+      <Stack g={5} vertical width={10}>
+        <Stack.Item>
+          <Button.Input onCommit={setStartValue} value={startValue} />
+        </Stack.Item>
+        <Stack.Item>
+          {otherValue}{' '}
+          <Button.Input
+            buttonText="buttonText doesn't change"
+            onCommit={setOtherValue}
+            value={otherValue}
+          />
+        </Stack.Item>
+      </Stack>
+    );
   },
-  render: (args) => <Button.Input {...args} />,
 };
 
 type FileStory = StoryObj<ComponentProps<typeof Button.File>>;
 
 export const File: FileStory = {
   args: {
-    children: 'Click me',
     accept: 'image/*',
+    children: 'Click me',
   },
   render: (args) => <Button.File {...args} />,
 };

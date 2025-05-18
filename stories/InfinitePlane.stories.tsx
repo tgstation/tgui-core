@@ -27,23 +27,23 @@ export const Default: Story = {
   render: () => (
     <div
       style={{
+        border: '1px solid silver',
         height: 600,
         width: 600,
-        border: '1px solid silver',
       }}
     >
       <InfinitePlane
-        imageWidth={300}
         backgroundImage={gridBackground}
-        onBackgroundMoved={(newX, newY) => console.log(newX, newY)}
+        imageWidth={300}
         initialLeft={165}
         initialTop={250}
+        onBackgroundMoved={(newX, newY) => console.log(newX, newY)}
       >
         {fontAwesomeEmoticons.map((icon, index) => (
           <Icon
             key={icon}
             name={icon}
-            style={{ color: 'orange', position: 'absolute', left: index * 50 }}
+            style={{ color: 'orange', left: index * 50, position: 'absolute' }}
           />
         ))}
       </InfinitePlane>

@@ -1,9 +1,8 @@
 import {
   Component,
+  createRef,
   type HTMLAttributes,
   type PropsWithChildren,
-  type RefObject,
-  createRef,
 } from 'react';
 
 const DEFAULT_ACCEPTABLE_DIFFERENCE = 5;
@@ -20,7 +19,7 @@ type State = {
 };
 
 export class FitText extends Component<Props, State> {
-  ref: RefObject<HTMLDivElement> = createRef();
+  ref = createRef<HTMLDivElement>();
   state: State = {
     fontSize: 0,
   };

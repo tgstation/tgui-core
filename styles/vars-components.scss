@@ -1,0 +1,174 @@
+/**
+ * TGUI
+ * Components Variables
+ *
+ * This file contains all variables used in components,
+ * or almost all...
+ *
+ * If you make a new component, or edit an existing one
+ * and you need a new color for it, it is highly advisable to
+ * add a new variable for the component, and only then use the color.
+ *
+ * That's allows downstreams/other codebases to customize each component as needed,
+ * creating their own unique (almost) TGUI designs with ease (almost).
+ *
+ * Don't add new base colors here, that files only for mixing and modifying
+ * variables from vars-colors.scss and vars-values.scss,
+ * for their further use in components.
+ *
+ * Made with love by Aylong (https://github.com/AyIong)
+ */
+
+:root {
+  /* BlockQuote */
+  --blockquote-color: hsl(
+    from var(--color-label) h s calc(l + var(--adjust-color))
+  );
+  --blockquote-border: var(--border-thickness-small) solid;
+
+  /* Button */
+  --button-color: var(--color-white);
+  --button-color-transparent: var(--color-text-translucent);
+  --button-background-default: var(--color-primary);
+  --button-background-selected: var(--color-green);
+  --button-background-caution: var(--color-yellow);
+  --button-background-danger: var(--color-red);
+  --button-border-radius: var(--border-radius-tiny);
+  --button-transition: var(--transition-time-medium);
+  --button-transition-timing: ease;
+
+  /* Dialog */
+  --dialog-background: hsl(from var(--color-section) h s l / 0.5);
+
+  /* Dimmer */
+  --dimmer-background-opacity: 0.75;
+  --dimmer-background: hsl(
+    from var(--color-base) h s 5 / var(--dimmer-background-opacity)
+  );
+
+  /* Divider */
+  --divider-color: var(--color-border);
+  --divider-border: var(--border-thickness-small) solid var(--divider-color);
+
+  /* Dropdown */
+  --dropdown-transition: var(--transition-time-medium);
+  --dropdown-menu-color: var(--color-text);
+  --dropdown-menu-background: hsl(
+    from var(--color-base) h s calc(l - 5.5) / 0.85
+  );
+  --dropdown-menu-border: var(--border-thickness-tiny) solid var(--color-border);
+  --dropdown-menu-border-radius: var(--border-radius-large);
+  --dropdown-menu-blur: var(--blur-medium);
+  --dropdown-entry-background-hover: var(--color-hover);
+  --dropdown-entry-background-active: var(--color-active);
+  --dropdown-entry-background-selected: var(--color-selected);
+  --dropdown-entry-border-radius: var(--border-radius-small);
+  --dropdown-entry-transition: var(--transition-time-fast);
+
+  /* Floating */
+  --floating-transition-time: var(--transition-time-medium);
+  --floating-transition-timing: ease;
+
+  /* Tabs */
+  --tab-background: transparent;
+  --tab-background-hover: hsl(from var(--color-hover) h s calc(l * 0.75));
+  --tab-background-selected: hsl(from var(--color-selected) h s calc(l * 0.75));
+  --tab-color: var(--color-text-translucent);
+  --tab-color-selected: hsl(from var(--color-primary) h s 90);
+  --tab-border-radius: var(--border-radius-small);
+  --tab-indicator-size: var(--border-thickness-small);
+  --tab-transition: var(--transition-time-medium);
+  --tabs-container-background: var(--color-section);
+
+  /* ImageButton */
+  --imagebutton-transparecy: 0.25;
+
+  /* Input */
+  --input-background-lightness: 5;
+  --input-background: hsl(
+    from var(--color-base) h s var(--input-background-lightness)
+  );
+  --input-color: var(--color-text);
+  --input-color-placeholder: var(--color-text-translucent);
+  --input-border-color: var(--color-border-primary);
+  --input-border-color-focus: var(--color-border-secondary);
+  --input-border-radius: var(--border-radius-tiny);
+  --input-border-disabled: var(--color-gray);
+  --input-transition: var(--transition-time-medium);
+  --input-font-family: var(--font-family);
+  --input-font-family-mono: var(--font-family-mono);
+  --input-width: 9em;
+
+  /* Knob */
+  --knob-color: hsl(from var(--color-base) h 5 20);
+  --knob-ring-color: var(--input-border-color);
+  --knob-popup-background: var(--tooltip-background);
+  --knob-popup-color: var(--tooltip-color);
+  --knob-popup-border-radius: var(--tooltip-border-radius);
+  --knob-popup-blur: var(--tooltip-blur);
+  --knob-inner-padding: var(--space-xs);
+
+  /* Menu Bar */
+  --menu-bar-background: var(--color-base);
+  --menu-bar-font-family: var(--font-family);
+  --menu-bar-transition: var(--transition-time-medium);
+
+  /* Modal */
+  --modal-background: var(--color-base);
+  --modal-padding: var(--space-xl);
+
+  /* Notice Box */
+  --notice-box-stripes: hsla(0, 0%, 0%, 0.1);
+  --notice-box-background: hsl(37.5, 40%, 57.5%);
+  --notice-box-color: var(--color-text-fixed-black);
+
+  /* Number Input */
+  --number-input-background: var(--input-background);
+  --number-input-color: var(--input-color);
+  --number-input-border-color: var(--input-border-color);
+  --number-input-border-color-active: var(--input-border-color-focus);
+  --number-input-border-radius: var(--input-border-radius);
+  --number-input-transition: var(--input-transition);
+
+  /* Progress Bar */
+  --progress-bar-fill: var(--color-primary);
+  --progress-bar-background: transparent;
+  --progress-bar-border-radius: var(--border-radius-tiny);
+  --progress-bar-transition: var(--transition-time-slowest);
+
+  /* Restricted Input */
+  --restricted-input-border-color: var(--color-good);
+  --restricted-input-border-color-focus: hsl(
+    from var(--color-good) h s calc(l + 10)
+  );
+  --restricted-input-border-color-invalid: var(--color-bad);
+
+  /* Round Gauge */
+  --round-gauge-ring-color: var(--input-border-color);
+  --round-gauge-transition: var(--transition-time-medium);
+  --round-gauge-alert-animation: var(--transition-time-slowest);
+  --round-gauge-needle-alert-animation: var(--transition-time-fast);
+  --round-gauge-needle-alert-rotation: 2.5deg;
+
+  /* Section - Why not? */
+  --section-title-color: var(--color-text);
+  --section-background: var(--color-section);
+  --section-separator-color: var(--color-primary);
+  --section-separator-thickness: var(--border-thickness-small);
+
+  /* Slider */
+  --slider-cursor-color: var(--color-text);
+  --slider-popup-background: var(--tooltip-background);
+  --slider-popup-color: var(--tooltip-color);
+  --slider-popup-border-radius: var(--tooltip-border-radius);
+  --slider-popup-blur: var(--tooltip-blur);
+
+  /* Tooltip */
+  --tooltip-color: var(--color-text);
+  --tooltip-background-lightness: 5;
+  --tooltip-background: hsl(
+    from var(--color-base) h s var(--tooltip-background-lightness) / 0.85
+  );
+  --tooltip-border-radius: var(--border-radius-medium);
+  --tooltip-blur: var(--blur-medium);
+}

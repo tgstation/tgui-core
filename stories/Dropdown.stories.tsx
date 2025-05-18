@@ -18,8 +18,8 @@ const defaultItems: any[] = [];
 
 for (let i = 0; i < 15; i++) {
   defaultItems.push({
-    value: `item-${i}`,
     displayText: `Item ${i}`,
+    value: `item-${i}`,
   });
 }
 
@@ -50,17 +50,17 @@ function DropdownStories() {
       <Showcase title="Default">
         <Dropdown
           displayText={displayText}
-          options={defaultItems}
           onSelected={setSelected}
+          options={defaultItems}
           selected={selected}
         />
       </Showcase>
       <Showcase title="Over">
         <Dropdown
-          over
           displayText={displayText}
-          options={defaultItems}
           onSelected={setSelected}
+          options={defaultItems}
+          over
           selected={selected}
         />
       </Showcase>
@@ -68,8 +68,8 @@ function DropdownStories() {
         <Dropdown
           buttons
           displayText={displayText}
-          options={defaultItems}
           onSelected={setSelected}
+          options={defaultItems}
           selected={selected}
         />
       </Showcase>
@@ -77,8 +77,19 @@ function DropdownStories() {
         <Dropdown
           disabled
           displayText={displayText}
-          options={defaultItems}
           onSelected={setSelected}
+          options={defaultItems}
+          selected={selected}
+        />
+      </Showcase>
+
+      <Showcase title="Tiny">
+        <Dropdown
+          icon="smile"
+          iconOnly
+          menuWidth={10}
+          onSelected={setSelected}
+          options={defaultItems}
           selected={selected}
         />
       </Showcase>

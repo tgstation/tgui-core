@@ -43,9 +43,11 @@ const ZOOM_INCREMENT = 0.1;
 
 /**
  * ## InfinitePlane
+ *
  * Creates a scrolling infinite plane using a background image.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <InfinitePlane imageWidth={100} backgroundImage="https://example.com/image.png">
  *   <Box position="absolute" top={0} left={0}>
@@ -59,6 +61,8 @@ const ZOOM_INCREMENT = 0.1;
  *   </Box>
  * </InfinitePlane>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-infiniteplane--docs)
  */
 export function InfinitePlane(props: Props) {
   const {
@@ -168,7 +172,6 @@ export function InfinitePlane(props: Props) {
         style={{
           height: '100%',
           inset: 0,
-          pointerEvents: 'none',
           position: 'absolute',
           transform: `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
           transformOrigin: 'top left',
@@ -177,11 +180,7 @@ export function InfinitePlane(props: Props) {
       >
         {children}
       </div>
-      <ZoomControls
-        zoom={zoom}
-        padding={zoomPadding}
-        onZoomClick={handleZoom}
-      />
+      <ZoomControls padding={zoomPadding} onZoomClick={handleZoom} zoom={zoom} />
     </div>
   );
 }
@@ -196,28 +195,28 @@ function ZoomControls(props: ZoomProps) {
   const { zoom, padding, onZoomClick } = props;
 
   return (
-    <div style={{ position: 'absolute', top: 5, left: 5, right: 5 + padding }}>
+    <div style={{ left: 5, position: 'absolute', right: 5 + padding, top: 5 }}>
       <Stack>
         <Stack.Item>
           <Button
-            icon="minus"
             disabled={zoom <= ZOOM_MIN_VAL}
+            icon="minus"
             onClick={() => onZoomClick(ZoomDirection.Decrease)}
           />
         </Stack.Item>
         <Stack.Item grow>
           <ProgressBar
+            maxValue={ZOOM_MAX_VAL}
             minValue={ZOOM_MIN_VAL}
             value={zoom}
-            maxValue={ZOOM_MAX_VAL}
           >
             {zoom}x
           </ProgressBar>
         </Stack.Item>
         <Stack.Item>
           <Button
-            icon="plus"
             disabled={zoom >= ZOOM_MAX_VAL}
+            icon="plus"
             onClick={() => onZoomClick(ZoomDirection.Increase)}
           />
         </Stack.Item>

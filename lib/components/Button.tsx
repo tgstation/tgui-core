@@ -1,14 +1,15 @@
-import type { Placement } from '@popperjs/core';
+import type { Placement } from '@floating-ui/react';
 import {
   type ChangeEvent,
+  createRef,
   type MouseEvent,
   type ReactNode,
-  createRef,
+  type RefObject,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { KEY, isEscape } from '../common/keys';
+import { isEscape, KEY } from '../common/keys';
 import { type BooleanLike, classes } from '../common/react';
 import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { Box, type BoxProps } from './Box';
@@ -67,7 +68,7 @@ type Props = Partial<{
   selected: BooleanLike;
   /** A fancy, boxy tooltip, which appears when hovering over the button */
   tooltip: ReactNode;
-  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+  /** Position of the tooltip. Does not guarantee the position is respected. */
   tooltipPosition: Placement;
   /** Align content vertically using flex. Use lineHeight if the height is static. */
   verticalAlignContent: string;
@@ -103,6 +104,17 @@ export function Button(props: Props) {
 
   const toDisplay: ReactNode = content || children;
 
+  const buttonIcon = (
+    <Icon
+      className="Button--icon"
+      color={iconColor}
+      name={icon || ''}
+      rotation={iconRotation}
+      size={iconSize}
+      spin={iconSpin}
+    />
+  );
+
   let buttonContent = (
     <div
       className={classes([
@@ -112,7 +124,8 @@ export function Button(props: Props) {
         selected && 'Button--selected',
         circular && 'Button--circular',
         compact && 'Button--compact',
-        iconPosition && `Button--iconPosition--${iconPosition}`,
+        !toDisplay && 'Button--empty',
+        iconPosition && `Button--icon-${iconPosition}`,
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
@@ -123,7 +136,6 @@ export function Button(props: Props) {
         className,
         computeBoxClassName(rest),
       ])}
-      tabIndex={!disabled ? 0 : undefined}
       onClick={(event) => {
         if (!disabled && onClick) {
           onClick(event);
@@ -148,6 +160,7 @@ export function Button(props: Props) {
           event.preventDefault();
         }
       }}
+      tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
       <div
@@ -156,31 +169,13 @@ export function Button(props: Props) {
           ellipsis && 'Button__content--ellipsis',
         ])}
       >
-        {icon && iconPosition !== 'right' && (
-          <Icon
-            mr={toDisplay && 0.5}
-            name={icon}
-            color={iconColor}
-            rotation={iconRotation}
-            size={iconSize}
-            spin={iconSpin}
-          />
-        )}
+        {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
           toDisplay
         ) : (
           <span className="Button--ellipsis">{toDisplay}</span>
         )}
-        {icon && iconPosition === 'right' && (
-          <Icon
-            ml={toDisplay && 0.5}
-            name={icon}
-            color={iconColor}
-            rotation={iconRotation}
-            size={iconSize}
-            spin={iconSpin}
-          />
-        )}
+        {icon && iconPosition === 'right' && buttonIcon}
       </div>
     </div>
   );
@@ -253,8 +248,8 @@ function ButtonConfirm(props: ConfirmProps) {
 
   return (
     <Button
-      icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
+      icon={clickedOnce ? confirmIcon : icon}
       onBlur={handleBlur}
       onClick={handleClick}
       {...rest}
@@ -265,68 +260,87 @@ function ButtonConfirm(props: ConfirmProps) {
 }
 
 type InputProps = Partial<{
-  currentValue: string;
-  defaultValue: string;
+  /** Text to display on the button exclusively. If left blank, displays the value */
+  buttonText: string;
+  /** Use the value prop. This is done to be uniform with other inputs. */
+  children: never;
+  /** Max length of the input */
   maxLength: number;
-  onCommit: (e: any, value: string) => void;
-  placeholder: string;
+  /** Action on outside click or enter key */
+  onCommit: (value: string) => void;
+  /** Reference to the inner input */
+  ref: RefObject<HTMLInputElement | null>;
+  /** The value of the input */
+  value: string;
 }> &
   Props;
 
 function ButtonInput(props: InputProps) {
   const {
+    buttonText,
     children,
     color = 'default',
-    content,
-    currentValue,
-    defaultValue,
     disabled,
     fluid,
     icon,
     iconRotation,
     iconSpin,
     maxLength,
-    onCommit = () => null,
-    placeholder,
-    tooltip,
-    tooltipPosition,
+    onCommit,
+    ref,
+    value = '',
     ...rest
   } = props;
-  const [inInput, setInInput] = useState(false);
-  const inputRef = createRef<HTMLInputElement>();
 
-  const toDisplay = content || children;
+  const [innerValue, setInnerValue] = useState(value);
+  const [editing, setEditing] = useState(false);
+  const escaping = useRef(false);
 
-  function commitResult(e) {
-    const input = inputRef.current;
-    if (!input) return;
+  const ourRef = createRef<HTMLInputElement>();
+  const inputRef = ref ?? ourRef;
 
-    const hasValue = input.value !== '';
-    if (hasValue) {
-      onCommit(e, input.value);
-    } else {
-      if (defaultValue) {
-        onCommit(e, defaultValue);
-      }
+  function handleBlur() {
+    if (!escaping.current && value !== innerValue) {
+      onCommit?.(innerValue);
+      escaping.current = false;
+    }
+    setEditing(false);
+  }
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = event.currentTarget.value;
+    setInnerValue(newValue);
+  }
+
+  function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === KEY.Enter) {
+      event.preventDefault();
+      event.currentTarget.blur();
+      return;
+    }
+
+    if (isEscape(event.key)) {
+      event.preventDefault();
+      escaping.current = true;
+      event.currentTarget.blur();
+      return;
     }
   }
 
   useEffect(() => {
-    const input = inputRef.current;
-    if (!input) return;
-
-    if (inInput) {
-      input.value = currentValue || '';
-      try {
-        input.focus();
-        input.select();
-      } catch {
-        // Ignore errors
-      }
+    if (editing) {
+      inputRef.current?.focus();
+      inputRef.current?.select();
     }
-  }, [inInput, currentValue]);
+  }, [editing]);
 
-  let buttonContent = (
+  useEffect(() => {
+    if (!editing && value !== innerValue) {
+      setInnerValue(value);
+    }
+  }, [editing, value]);
+
+  return (
     <Box
       className={classes([
         'Button',
@@ -334,49 +348,29 @@ function ButtonInput(props: InputProps) {
         disabled && 'Button--disabled',
         `Button--color--${color}`,
       ])}
+      onClick={() => setEditing(true)}
       {...rest}
-      onClick={() => setInInput(true)}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
-      <div>{toDisplay}</div>
+      {buttonText ?? innerValue}
       <input
-        disabled={!!disabled}
-        ref={inputRef}
         className="NumberInput__input"
+        disabled={!!disabled}
+        maxLength={maxLength}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        onKeyDown={handleKeydown}
+        ref={inputRef}
+        spellCheck="false"
         style={{
-          display: !inInput ? 'none' : '',
+          display: !editing ? 'none' : '',
           textAlign: 'left',
         }}
-        onBlur={(event) => {
-          if (!inInput) {
-            return;
-          }
-          setInInput(false);
-          commitResult(event);
-        }}
-        onKeyDown={(event) => {
-          if (event.key === KEY.Enter) {
-            setInInput(false);
-            commitResult(event);
-            return;
-          }
-          if (isEscape(event.key)) {
-            setInInput(false);
-          }
-        }}
+        type="text"
+        value={innerValue}
       />
     </Box>
   );
-
-  if (tooltip) {
-    buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
-        {buttonContent}
-      </Tooltip>
-    );
-  }
-
-  return buttonContent;
 }
 
 type FileProps = {
@@ -415,12 +409,12 @@ function ButtonFile(props: FileProps) {
     <>
       <Button onClick={() => inputRef.current?.click()} {...rest} />
       <input
-        hidden
-        type="file"
-        ref={inputRef}
         accept={accept}
+        hidden
         multiple={multiple}
         onChange={handleChange}
+        ref={inputRef}
+        type="file"
       />
     </>
   );
@@ -428,7 +422,10 @@ function ButtonFile(props: FileProps) {
 
 /**
  * ## Button
+ *
  * Buttons allow users to take actions, and make choices, with a single click.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-button--docs)
  */
 export namespace Button {
   /**

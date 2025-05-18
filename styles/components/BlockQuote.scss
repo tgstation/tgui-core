@@ -1,13 +1,10 @@
-@use "../base";
-@use "../colors";
-
-$color-default: colors.fg(colors.$label) !default;
+$color-default: 0 !default;
 
 .BlockQuote {
-  color: $color-default;
-  border-left: base.em(2px) solid $color-default;
-  padding-left: 0.5em;
-  margin-bottom: 0.5em;
+  color: var(--blockquote-color);
+  border-left: var(--blockquote-border);
+  padding-left: var(--space-m);
+  margin-bottom: var(--space-m);
 
   &:last-child {
     margin-bottom: 0;

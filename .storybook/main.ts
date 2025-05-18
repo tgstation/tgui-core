@@ -1,13 +1,9 @@
-import type { StorybookConfig } from '@storybook/react-vite';
 import sass from 'sass';
+import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 const config: StorybookConfig = {
-  stories: ['../stories/**/*.stories.tsx'],
-
   addons: [
-    '@storybook/addon-onboarding',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
     '@storybook/addon-console',
     {
       name: 'storybook-addon-sass-postcss',
@@ -18,14 +14,20 @@ const config: StorybookConfig = {
       },
     },
   ],
-
+  docs: {},
   framework: {
-    name: '@storybook/react-vite',
+    name: 'storybook-react-rsbuild',
     options: {},
   },
-
-  docs: {},
-
+  rsbuildFinal: (config) => {
+    // Customize the final Rsbuild config here
+    if (process.env.PAGES_URL !== undefined) {
+      config.output ??= {};
+      config.output.assetPrefix = process.env.PAGES_URL;
+    }
+    return config;
+  },
+  stories: ['../stories/**/*.stories.tsx'],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },

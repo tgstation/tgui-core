@@ -1,12 +1,12 @@
-import type { RefObject } from 'react';
+import { type RefObject, useRef } from 'react';
 import { classes } from '../common/react';
 import { computeBoxClassName } from '../common/ui';
 import {
-  type FlexItemProps,
-  type FlexProps,
   computeFlexClassName,
   computeFlexItemProps,
   computeFlexProps,
+  type FlexItemProps,
+  type FlexProps,
 } from './Flex';
 
 type Props = Partial<{
@@ -23,8 +23,9 @@ type Props = Partial<{
 
 /**
  * ## Stack
+ *
  * A higher-level component that is based on
- * [Flex](https://github.com/tgstation/tgui-core/tree/main/lib/components/Flex.tsx).
+ * [Flex](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs).
  *
  * The main difference from `Flex`, is that this component automatically adds
  * spacing between all stack items, reducing the boilerplate that you have to write!
@@ -33,7 +34,8 @@ type Props = Partial<{
  *
  * Stacks can be vertical by adding a `vertical` property.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Stack vertical>
  *   <Stack.Item grow>Button description</Stack.Item>
@@ -47,7 +49,8 @@ type Props = Partial<{
  * Stacks can be used for high level window layout.
  * Make sure to use the `fill` property.
  *
- * @example
+ * Example:
+ *
  * ```tsx
  * <Window>
  *   <Window.Content>
@@ -71,6 +74,8 @@ type Props = Partial<{
  *   </Window.Content>
  * </Window>
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-stack--docs)
  */
 export function Stack(props: Props) {
   const { className, vertical, fill, reverse, zebra, ...rest } = props;
@@ -99,16 +104,18 @@ export function Stack(props: Props) {
 
 type StackItemProps = FlexItemProps &
   Partial<{
-    innerRef: RefObject<HTMLDivElement>;
+    innerRef: RefObject<HTMLDivElement | null>;
   }>;
 
 function StackItem(props: StackItemProps) {
   const { className, innerRef, ...rest } = props;
 
+  const ref = useRef<HTMLDivElement>(innerRef?.current ?? null);
+
   return (
     <div
       className={classes(['Stack__item', className, computeBoxClassName(rest)])}
-      ref={innerRef}
+      ref={ref}
       {...computeFlexItemProps(rest)}
     />
   );

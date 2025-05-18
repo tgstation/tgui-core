@@ -45,13 +45,18 @@ type Props = {
    *
    */
   ranges: Record<string, [number, number]>;
+  /** Removes progress percentage text, makes no sense if children are present */
+  empty: boolean;
 }> &
   BoxProps &
   PropsWithChildren;
 
 /**
  * ## ProgressBar
+ *
  * Progress indicators inform users about the status of ongoing processes.
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs)
  */
 export function ProgressBar(props: Props) {
   const {
@@ -61,6 +66,7 @@ export function ProgressBar(props: Props) {
     maxValue = 1,
     color,
     ranges = {},
+    empty,
     children,
     ...rest
   } = props;
@@ -97,7 +103,7 @@ export function ProgressBar(props: Props) {
         style={fillStyles}
       />
       <div className="ProgressBar__content">
-        {hasContent ? children : `${toFixed(scaledValue * 100)}%`}
+        {hasContent ? children : !empty && `${toFixed(scaledValue * 100)}%`}
       </div>
     </div>
   );
