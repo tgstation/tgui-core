@@ -1,11 +1,16 @@
-import { type PropsWithChildren, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
+
+type Props = Partial<{
+  /** Optional child elements */
+  children: ReactNode;
+}>;
 
 /**
  * ## Autofocus
  *
  * Used to force the window to steal focus on load. Children optional.
  */
-export function Autofocus(props: PropsWithChildren) {
+export function Autofocus(props: Props) {
   const { children } = props;
   const ref = useRef<HTMLDivElement>(null);
 

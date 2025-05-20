@@ -195,9 +195,7 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledlist--docs)
  */
 export namespace LabeledList {
-  /**
-   * Adds some empty space between LabeledList items.
-   */
+  /** Adds some empty space between LabeledList items. */
   export const Divider = LabeledListDivider;
   export const Item = LabeledListItem;
 }

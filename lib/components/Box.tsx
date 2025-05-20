@@ -5,7 +5,6 @@ import {
   type MouseEventHandler,
   type ReactNode,
   type UIEventHandler,
-  useMemo,
 } from 'react';
 import type { BooleanLike } from '../common/react';
 import {
@@ -132,19 +131,14 @@ export function Box<TElement = HTMLDivElement>(
 ) {
   const { as = 'div', className, children, tw, ...rest } = props;
 
-  const computedClassName = useMemo(() => {
-    if (className) {
-      return `${className} ${computeBoxClassName<TElement>(rest)}`;
-    }
-    return computeBoxClassName<TElement>(rest);
-  }, [className, rest]);
+  const computedClassName = className
+    ? `${className} ${computeBoxClassName<TElement>(rest)}`
+    : computeBoxClassName<TElement>(rest);
 
-  const computedProps = useMemo(() => {
-    return computeBoxProps({
-      ...rest,
-      ...computeTwClass(tw),
-    });
-  }, [rest, tw]);
+  const computedProps = computeBoxProps({
+    ...rest,
+    ...computeTwClass(tw),
+  });
 
   return createElement(
     as,

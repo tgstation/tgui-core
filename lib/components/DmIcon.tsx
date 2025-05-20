@@ -38,7 +38,6 @@ type Props = {
  */
 export function DmIcon(props: Props) {
   const {
-    className,
     direction = Direction.SOUTH,
     fallback,
     frame = 1,
