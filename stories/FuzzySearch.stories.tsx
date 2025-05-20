@@ -1006,26 +1006,29 @@ const items: string[] = [
   'Goat - Leg',
 ];
 
-const meta: Meta = {
+type StoryProps = Parameters<typeof useFuzzySearch<string>>;
+
+export default {
   title: 'Hooks/useFuzzySearch',
   parameters: {
     docs: {
       description: {
         component:
-          'A simple hook prooviding fuzzy searching - approximate rather than exact pattern matching.',
+          'A simple hook providing fuzzy search - uses approximate rather than exact pattern matching.',
       },
     },
   },
-};
-export default meta;
+} satisfies Meta<StoryProps>;
 
 type Story = StoryObj;
 
-const FuzzySearchStory = ({
-  matchStrategy,
-}: {
-  matchStrategy: 'off' | 'smart' | 'aggressive';
-}) => {
+type FuzzySearchProps = {
+  matchStrategy: StoryProps['0']['matchStrategy'];
+};
+
+function FuzzySearchStory(props: FuzzySearchProps) {
+  const { matchStrategy } = props;
+
   const { query, setQuery, results } = useFuzzySearch({
     searchArray: items,
     matchStrategy,
@@ -1043,7 +1046,7 @@ const FuzzySearchStory = ({
       </Box>
     </Box>
   );
-};
+}
 
 export const SimpleSearch: Story = {
   render: () => <FuzzySearchStory matchStrategy="off" />,

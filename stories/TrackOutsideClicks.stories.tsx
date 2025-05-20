@@ -9,7 +9,9 @@ export default {
   title: 'Components/TrackOutsideClicks',
 } satisfies Meta<StoryProps>;
 
-export const Default: StoryObj<StoryProps> = {
+type Story = StoryObj<StoryProps>;
+
+export const Default: Story = {
   render: () => (
     <div style={{ width: '250px', height: '250px' }}>
       <TrackOutsideClicks
