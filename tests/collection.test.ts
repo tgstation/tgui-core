@@ -1,5 +1,5 @@
+import { describe, it } from 'bun:test';
 import assert from 'node:assert';
-import { describe, it } from 'node:test';
 import { stringCompare, zip } from '../lib/common/collections.ts';
 
 const array1 = [1, 2, 3];

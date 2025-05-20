@@ -14,7 +14,9 @@ const config: StorybookConfig = {
       },
     },
   ],
-  docs: {},
+  docs: {
+    autodocs: true,
+  },
   framework: {
     name: 'storybook-react-rsbuild',
     options: {},

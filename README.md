@@ -70,13 +70,13 @@ The release workflow will take care of setting the `package.json` version, build
 
 ### Development
 
-This project uses [pnpm](https://pnpm.io/installation) for its package manager.
+This project uses [bun](https://bun.sh/docs/installation) for its package manager.
 
 To set up the repository:
-`pnpm install`
+`bun install`
 
 To test your changes using [Storybook](https://storybook.js.org/docs) run:
-`pnpm run storybook`
+`bun storybook`
 
 To run unit tests run
-`pnpm test`
+`bun test`
