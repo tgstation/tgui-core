@@ -18,17 +18,8 @@ jobs:
         with:
           token: ${{ secrets.ROBUDDYBOT_PAT }}
 
-      - uses: pnpm/action-setup@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
-          cache-dependency-path: "./pnpm-lock.yaml"
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
 
       - name: Extract version from tag
         id: extract_version
@@ -41,7 +32,7 @@ jobs:
           version: ${{ steps.extract_version.outputs.version }}
 
       - name: Build project
-        run: pnpm build
+        run: bun build-rslib
 
       - name: Commit changes
         run: |

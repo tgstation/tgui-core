@@ -33,29 +33,20 @@ jobs:
     needs: retrieve_pages_url
     # Job steps
     steps:
-      # Manual Checkout
-      - uses: actions/checkout@v4
-      # Install pnpm
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      # Set up Node
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
-          cache-dependency-path: "./pnpm-lock.yaml"
-      # Install dependencies
-      - run: pnpm install
+      - name: Setup Bun
+        uses: ./.github/actions/setup-bun
+
       # Build
       - id: build
         env:
           PAGES_URL: ${{ needs.retrieve_pages_url.outputs.pages_url }}
-        run: pnpm build-storybook
+        run: bun build-storybook
+
       # Upload
       - uses: actions/upload-pages-artifact@v3
         with:
           path: "storybook-static"
+
       # Deploy
       - id: deploy
         name: Deploy to GitHub Pages
