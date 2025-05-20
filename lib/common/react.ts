@@ -13,20 +13,6 @@ export function classes(classNames: (string | BooleanLike)[]): string {
 }
 
 /**
- * Normalizes children prop, so that it is always an array of VDom
- * elements.
- */
-export function normalizeChildren<T>(children: T | T[]): T[] {
-  if (Array.isArray(children)) {
-    return children.flat().filter((value) => value) as T[];
-  }
-  if (typeof children === 'object') {
-    return [children];
-  }
-  return [];
-}
-
-/**
  * Shallowly checks if two objects are different.
  * Credit: https://github.com/developit/preact-compat
  */
