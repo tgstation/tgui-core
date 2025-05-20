@@ -18,8 +18,12 @@ jobs:
         with:
           token: ${{ secrets.ROBUDDYBOT_PAT }}
 
-      - name: Setup Bun
-        uses: ./.github/actions/setup-bun
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+        shell: bash
 
       - name: Extract version from tag
         id: extract_version

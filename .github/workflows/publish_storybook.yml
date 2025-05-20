@@ -33,8 +33,12 @@ jobs:
     needs: retrieve_pages_url
     # Job steps
     steps:
-      - name: Setup Bun
-        uses: ./.github/actions/setup-bun
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+        shell: bash
 
       # Build
       - id: build
