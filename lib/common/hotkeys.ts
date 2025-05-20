@@ -161,7 +161,7 @@ export type KeyPassthroughConfig = {
 
 export function setupHotKeys(config?: KeyPassthroughConfig) {
   if (config) {
-    keyPassthroughConfig = config
+    keyPassthroughConfig = config;
   }
   // Read macros
   Byond.winget('default.*').then((data: Record<string, string>) => {
