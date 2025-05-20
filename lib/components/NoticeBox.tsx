@@ -4,7 +4,7 @@ import { Box, type BoxProps } from './Box';
 type Props = ExclusiveProps & BoxProps;
 
 /** You MUST use only one or none */
-type NoticeType = 'info' | 'success' | 'warning' | 'danger';
+type NoticeType = 'info' | 'success' | 'danger';
 
 type None = {
   [K in NoticeType]?: undefined;
@@ -20,10 +20,6 @@ type ExclusiveProps =
       /** Green notice */
       success: boolean;
     })
-  | (Omit<None, 'warning'> & {
-      /** Orange notice */
-      warning: boolean;
-    })
   | (Omit<None, 'danger'> & {
       /** Red notice */
       danger: boolean;
@@ -37,7 +33,7 @@ type ExclusiveProps =
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-noticebox--docs)
  */
 export function NoticeBox(props: Props) {
-  const { className, color, info, success, warning, danger, ...rest } = props;
+  const { className, color, info, success, danger, ...rest } = props;
 
   return (
     <Box

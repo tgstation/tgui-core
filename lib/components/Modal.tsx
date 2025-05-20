@@ -6,13 +6,13 @@ import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
-export type ModalProps = BoxProps &
-  Partial<{
-    /** Fires once the enter key is pressed */
-    onEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
-    /** Fires once the escape key is pressed */
-    onEscape: (e: KeyboardEvent<HTMLInputElement>) => void;
-  }>;
+export type ModalProps = Partial<{
+  /** Fires once the enter key is pressed */
+  onEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
+  /** Fires once the escape key is pressed */
+  onEscape: (e: KeyboardEvent<HTMLInputElement>) => void;
+}> &
+  BoxProps;
 
 /**
  * ## Modal
