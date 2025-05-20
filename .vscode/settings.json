@@ -5,6 +5,7 @@
   "[yaml][markdown][html][scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.biome": "explicit"
   },
