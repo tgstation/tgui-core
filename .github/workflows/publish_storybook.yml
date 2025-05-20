@@ -33,6 +33,9 @@ jobs:
     needs: retrieve_pages_url
     # Job steps
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Install bun
         uses: oven-sh/setup-bun@v2
 
