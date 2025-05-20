@@ -325,7 +325,7 @@ export function getGasColor(gasId: string): string {
 }
 
 // Returns gas object based on gasId
-export const getGasFromId = (gasId: string): Gas | undefined => {
+export function getGasFromId(gasId: string): Gas | undefined {
   if (!gasId) return;
 
   const gasSearchString = gasId.toLowerCase();
@@ -335,10 +335,10 @@ export const getGasFromId = (gasId: string): Gas | undefined => {
       return GASES[idx];
     }
   }
-};
+}
 
 // Returns gas object based on gasPath
-export const getGasFromPath = (gasPath: string): Gas | undefined => {
+export function getGasFromPath(gasPath: string): Gas | undefined {
   if (!gasPath) return;
 
   for (let idx = 0; idx < GASES.length; idx++) {
@@ -346,7 +346,7 @@ export const getGasFromPath = (gasPath: string): Gas | undefined => {
       return GASES[idx];
     }
   }
-};
+}
 
 export const COMPONENT_COLORS = {
   spectrum: [

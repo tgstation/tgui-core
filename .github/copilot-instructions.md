@@ -6,6 +6,8 @@ We use bun and rslib for package management and bundling.
 
 Write in TypeScript React using functional components with the latest features.
 
+Write argument types and return types for all functions.
+
 Only use function declarations, no arrow functions.
 
 Write short block style comments above each global function.

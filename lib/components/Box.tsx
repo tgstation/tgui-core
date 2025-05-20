@@ -15,7 +15,7 @@ import {
   type StringStyleMap,
 } from '../common/ui';
 
-type EventHandlers<TElement = HTMLDivElement> = {
+type EventHandlers<TElement = HTMLDivElement> = Partial<{
   onClick: MouseEventHandler<TElement>;
   onContextMenu: MouseEventHandler<TElement>;
   onDoubleClick: MouseEventHandler<TElement>;
@@ -27,15 +27,22 @@ type EventHandlers<TElement = HTMLDivElement> = {
   onMouseOver: MouseEventHandler<TElement>;
   onMouseUp: MouseEventHandler<TElement>;
   onScroll: UIEventHandler<TElement>;
-};
+}>;
 
-type InternalProps = {
-  /** The component used for the root node. */
+type InternalProps = Partial<{
+  /**
+   * The component used for the root node.
+   * @default <div>
+   */
   as: string;
   /** The content of the component. */
   children: ReactNode;
   /** Class name to pass into the component. */
   className: string | BooleanLike;
+  /** Don't you dare put this elsewhere */
+  dangerouslySetInnerHTML: {
+    __html: any;
+  };
   /** The unique id of the component. */
   id: string;
   /** The inline style of the component. */
@@ -63,21 +70,13 @@ type InternalProps = {
    * 3. This should be a static string with minimal interpolation. If you need more logic, prefer the props approach.
    */
   tw: string;
-};
+}>;
 
-// You may wonder why we don't just use ComponentProps<typeof Box> here.
-// This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
-// While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
-export type BoxProps<TElement = HTMLDivElement> = Partial<
-  InternalProps & BooleanStyleMap & StringStyleMap & EventHandlers<TElement>
->;
-
-// Don't you dare put this elsewhere
-type DangerDoNotUse = {
-  dangerouslySetInnerHTML?: {
-    __html: any;
-  };
-};
+export interface BoxProps<TElement = HTMLDivElement>
+  extends Omit<InternalProps, 'dangerouslySetInnerHTML'>,
+    BooleanStyleMap,
+    StringStyleMap,
+    EventHandlers<TElement> {}
 
 /**
  * ## Box
@@ -126,9 +125,7 @@ type DangerDoNotUse = {
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Box<TElement = HTMLDivElement>(
-  props: BoxProps<TElement> & DangerDoNotUse,
-) {
+export function Box<TElement = HTMLDivElement>(props: BoxProps<TElement>) {
   const { as = 'div', className, children, tw, ...rest } = props;
 
   const computedClassName = className
