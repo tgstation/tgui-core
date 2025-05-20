@@ -16,7 +16,7 @@ Do not use class components unless explicitly asked for.
 
 Create a separate type for the props of each component.
 
-Do not line destructure parameters.
+Do not inline destructure parameters.
 
 Do not use include third-party libraries or frameworks unless asked for.
 
