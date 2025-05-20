@@ -93,13 +93,19 @@ function handlePassthrough(key: KeyEvent) {
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
-    const command = `${globalThis.ByondKeyDown} "${byondKeyCode}"`;
+    const command = keyPassthroughConfig.verbParamsFn(
+      keyPassthroughConfig.keyDownVerb,
+      byondKeyCode,
+    );
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
-    const command = `${globalThis.ByondKeyUp} "${byondKeyCode}"`;
+    const command = keyPassthroughConfig.verbParamsFn(
+      keyPassthroughConfig.keyUpVerb,
+      byondKeyCode,
+    );
     return Byond.command(command);
   }
 }
@@ -126,7 +132,12 @@ export function releaseHeldKeys() {
   for (const byondKeyCode in keyState) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
-      Byond.command(`${globalThis.ByondKeyUp} "${byondKeyCode}"`);
+      Byond.command(
+        keyPassthroughConfig.verbParamsFn(
+          keyPassthroughConfig.keyUpVerb,
+          byondKeyCode,
+        ),
+      );
     }
   }
 }
@@ -136,12 +147,22 @@ type ByondSkinMacro = {
   name: string;
 };
 
-export function setupHotKeys() {
-  if (!globalThis.ByondKeyUp) {
-    globalThis.ByondKeyUp = 'KeyUp';
-    globalThis.ByondKeyDown = 'KeyDown';
-  }
+let keyPassthroughConfig: KeyPassthroughConfig = {
+  keyDownVerb: 'KeyDown',
+  keyUpVerb: 'KeyUp',
+  verbParamsFn: (verb, keyCode) => `${verb} "${keyCode}"`,
+};
 
+export type KeyPassthroughConfig = {
+  keyUpVerb: string;
+  keyDownVerb: string;
+  verbParamsFn: (verb: string, keyCode: string) => string;
+};
+
+export function setupHotKeys(config?: KeyPassthroughConfig) {
+  if (config) {
+    keyPassthroughConfig = config;
+  }
   // Read macros
   Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref

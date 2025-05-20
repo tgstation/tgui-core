@@ -13,11 +13,6 @@ declare module '*.svg' {
   export default content;
 }
 
-declare global {
-  var ByondKeyUp: string;
-  var ByondKeyDown: string;
-}
-
 declare const Byond: ByondType;
 declare const loadedMappings: Record<string, string>;
 
