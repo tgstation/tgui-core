@@ -1,4 +1,4 @@
-import { createRef, ReactElement, useEffect } from 'react';
+import { createRef, type ReactElement, useEffect } from 'react';
 
 type Props = {
   /** The excluded element that CAN be clicked */
@@ -29,6 +29,8 @@ type Props = {
  *  );
  * }
  * ```
+ *
+ * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-trackoutsideclicks--docs)
  */
 export function TrackOutsideClicks(props: Props) {
   const { children, onOutsideClick } = props;
