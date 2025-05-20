@@ -16,7 +16,8 @@ type Props = {
   /** Whether the popper is open */
   isOpen: boolean;
 } & Partial<{
-  /** Base z-index of the popper div
+  /**
+   * Base z-index of the popper div
    * @default 5
    */
   baseZIndex: number;
