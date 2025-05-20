@@ -65,7 +65,7 @@
     "url": "https://github.com/tgstation/tgui-core.git"
   },
   "scripts": {
-    "build": "rslib build",
+    "build-rslib": "rslib build",
     "build-storybook": "storybook build",
     "lint": "biome check lib",
     "lint:fix": "prettier . --write && biome check . --fix",
