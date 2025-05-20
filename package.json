@@ -54,7 +54,7 @@
   ],
   "license": "MIT",
   "name": "tgui-core",
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "bun@1.2.13",
   "peerDependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
