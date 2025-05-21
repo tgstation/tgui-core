@@ -1,6 +1,5 @@
 import { KEY_ALT, KEY_CTRL, KEY_F1, KEY_F12, KEY_SHIFT } from './keycodes';
-
-type Fn = (...args: any[]) => void;
+import type { Fn } from './types';
 
 export class EventEmitter {
   private listeners: Record<string, Fn[]>;

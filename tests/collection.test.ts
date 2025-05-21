@@ -1,6 +1,6 @@
 import { describe, it } from 'bun:test';
 import assert from 'node:assert';
-import { stringCompare, zip } from '../lib/common/collections.ts';
+import { zip } from '../lib/common/collections.ts';
 
 const array1 = [1, 2, 3];
 const array2 = [4, 7, 8, 1];
@@ -35,27 +35,5 @@ describe('Array zip', () => {
       [3, 5],
     ];
     assert.deepEqual(zip(array1, array3), result);
-  });
-});
-
-const string1 = 'TestString';
-const string2 = 'TestString2';
-const string3 = 'TestString';
-
-// StringCompare tests
-describe('StringCompare', () => {
-  it('StringCompare: Lower string first', () => {
-    const result = -1;
-    assert.deepEqual(stringCompare(string1, string2), result);
-  });
-
-  it('StringCompare: Higher string first', () => {
-    const result = 1;
-    assert.deepEqual(stringCompare(string2, string1), result);
-  });
-
-  it('StringCompare: Equal strings', () => {
-    const result = 0;
-    assert.deepEqual(stringCompare(string1, string3), result);
   });
 });

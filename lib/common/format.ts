@@ -85,21 +85,6 @@ export function formatMoney(value: number, precision = 0): string {
   return isNegative ? `-${formattedValue}` : formattedValue;
 }
 
-// Formats a floating point number as a number on the decibel scale
-export function formatDb(value: number): string {
-  const db = 20 * Math.log10(value);
-  const sign = db >= 0 ? '+' : '-';
-  let formatted: string | number = Math.abs(db);
-
-  if (formatted === Number.POSITIVE_INFINITY) {
-    formatted = 'Inf';
-  } else {
-    formatted = formatted.toFixed(2);
-  }
-
-  return `${sign}${formatted} dB`;
-}
-
 const SI_BASE_TEN_UNITS = [
   '',
   '· 10³', // kilo

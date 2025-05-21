@@ -25,7 +25,7 @@ export function getShallowTypes(
       output[key] = 'emptyarray';
     } else if (typeof data[key] === 'object' && data[key] !== null) {
       // Please inspect it further and make a new type for it
-      output[key] = 'object (inspect) || Record<string, any>';
+      output[key] = 'Record<string, sometype>';
     } else if (typeof data[key] === 'number') {
       const num = Number(data[key]);
 

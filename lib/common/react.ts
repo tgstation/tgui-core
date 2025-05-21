@@ -13,20 +13,6 @@ export function classes(classNames: (string | BooleanLike)[]): string {
 }
 
 /**
- * Normalizes children prop, so that it is always an array of VDom
- * elements.
- */
-export function normalizeChildren<T>(children: T | T[]): T[] {
-  if (Array.isArray(children)) {
-    return children.flat().filter((value) => value) as T[];
-  }
-  if (typeof children === 'object') {
-    return [children];
-  }
-  return [];
-}
-
-/**
  * Shallowly checks if two objects are different.
  * Credit: https://github.com/developit/preact-compat
  */
@@ -49,14 +35,12 @@ export function shallowDiffers(
 }
 
 /**
- * A common case in tgui, when you pass a value conditionally, these are
+ * A common case in tgui when you pass a value conditionally. These are
  * the types that can fall through the condition.
  */
 export type BooleanLike = number | boolean | null | undefined;
 
-/**
- * A helper to determine whether the object is renderable by React.
- */
+/** A helper to determine whether the object is renderable by React. */
 export function canRender(value: unknown): boolean {
   return value !== undefined && value !== null && typeof value !== 'boolean';
 }

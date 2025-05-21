@@ -1,6 +1,4 @@
-/**
- * An equivalent to `fetch`, except will automatically retry.
- */
+/** An equivalent to `fetch`, except will automatically retry. */
 export function fetchRetry(
   url: string,
   options?: RequestInit,

@@ -82,7 +82,7 @@ const mapColorPropTo: StyleCourier = (attrName: string) => (style, value) => {
   }
 };
 
-export type StringStyleMap = {
+export type StringStyleMap = Partial<{
   // Alignment
 
   /** Align text inside the box. */
@@ -191,7 +191,7 @@ export type StringStyleMap = {
   lineHeight: string | BooleanLike;
   /** Align text inside the box. */
   textAlign: string | BooleanLike;
-};
+}>;
 
 // String / number props
 export const stringStyleMap: Record<keyof StringStyleMap, any> = {
@@ -260,7 +260,7 @@ export const stringStyleMap: Record<keyof StringStyleMap, any> = {
   width: mapUnitPropTo('width', unit),
 };
 
-export type BooleanStyleMap = {
+export type BooleanStyleMap = Partial<{
   /** Make text bold. */
   bold: boolean;
   /** Fill positioned parent. */
@@ -273,7 +273,7 @@ export type BooleanStyleMap = {
   nowrap: boolean;
   /** Preserves line-breaks and spacing in text. */
   preserveWhitespace: boolean;
-};
+}>;
 
 // Boolean props
 export const booleanStyleMap: Record<keyof BooleanStyleMap, any> = {

@@ -1,4 +1,4 @@
-type Func = (...args: any[]) => any;
+import type { Fn } from './types';
 
 /**
  * Creates a function that returns the result of invoking the given
@@ -17,7 +17,7 @@ type Func = (...args: any[]) => any;
  *
  */
 export const flow =
-  (...funcs: Array<Func | Func[]>) =>
+  (...funcs: Array<Fn | Fn[]>) =>
   (input: any, ...rest: any[]): any => {
     let output = input;
 
