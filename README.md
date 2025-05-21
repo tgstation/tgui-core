@@ -4,9 +4,12 @@ A collection of utilities and components for the [tgui](https://github.com/tgsta
 
 This package was built to help the various downstream SS13 servers stay up to date with TGUI without having to keep a local version of each file.
 
-You can view the code on [GitHub](https://github.com/tgstation/tgui-core).
+## Links
+- [GitHub](https://github.com/tgstation/tgui-core)
+- [npm](https://www.npmjs.com/package/tgui-core)
+- [Storybook](https://tgstation.github.io/tgui-core/?path=/docs/components-animatednumber--docs)
 
-## Installation
+## Usage
 
 (assuming you have a tgui folder, navigate to the specific package)
 
