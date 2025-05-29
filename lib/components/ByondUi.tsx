@@ -31,13 +31,23 @@ type Props = Partial<{
    * You can find a full reference of these parameters
    * in [BYOND controls and parameters guide](https://secure.byond.com/docs/ref/skinparams.html). */
   params: SampleByondParams & Record<string, any>;
+
+  /**
+   * If this ByondUi element should tell DreamMaker that it has been created or not.
+   *
+   * Defaults to on.
+   */
+  phonehome: boolean;
 }> &
   BoxProps;
 
 // Stack of currently allocated BYOND UI element ids.
 const byondUiStack: Array<string | null> = [];
 
-function createByondUiElement(elementId: string | undefined): ByondUiElement {
+function createByondUiElement(
+  elementId: string | undefined,
+  phonehome: boolean = true,
+): ByondUiElement {
   // Reserve an index in the stack
   const index = byondUiStack.length;
   byondUiStack.push(null);
@@ -47,13 +57,13 @@ function createByondUiElement(elementId: string | undefined): ByondUiElement {
   // Return a control structure
   return {
     render: (params: SampleByondParams) => {
-      Byond.sendMessage('renderByondUi', { renderByondUi: id });
+      if (phonehome) Byond.sendMessage('renderByondUi', { renderByondUi: id });
 
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
-      Byond.sendMessage('unmountByondUi', { renderByondUi: id });
+      if (phonehome) Byond.sendMessage('unmountByondUi', { renderByondUi: id });
 
       byondUiStack[index] = null;
       Byond.winset(id, {
@@ -125,10 +135,10 @@ function getBoundingBox(element: HTMLDivElement): BoundingBox {
  * It supports a full set of `Box` properties for layout purposes.
  */
 export function ByondUi(props: Props) {
-  const { params, ...rest } = props;
+  const { params, phonehome, ...rest } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const byondUiElement = useRef(createByondUiElement(params?.id));
+  const byondUiElement = useRef(createByondUiElement(params?.id, phonehome));
 
   function updateRender() {
     const element = containerRef.current;
