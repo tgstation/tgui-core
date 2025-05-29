@@ -47,13 +47,13 @@ function createByondUiElement(elementId: string | undefined): ByondUiElement {
   // Return a control structure
   return {
     render: (params: SampleByondParams) => {
-      Byond.sendMessage("renderByondUi", { renderByondUi: id });
+      Byond.sendMessage('renderByondUi', { renderByondUi: id });
 
       byondUiStack[index] = id;
       Byond.winset(id, params);
     },
     unmount: () => {
-      Byond.sendMessage("unmountByondUi", { renderByondUi: id });
+      Byond.sendMessage('unmountByondUi', { renderByondUi: id });
 
       byondUiStack[index] = null;
       Byond.winset(id, {
