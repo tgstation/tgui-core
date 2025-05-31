@@ -38,11 +38,6 @@ type ByondType = {
   command(command: string): void;
 
   /**
-   * Icon reference map from BYOND
-   */
-  iconRefMap: Record<string, string>;
-
-  /**
    * Loads a stylesheet into the document.
    */
   loadCss(url: string): void;

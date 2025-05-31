@@ -14,7 +14,7 @@ export enum Direction {
 }
 
 type Props = {
-  /** Required: The path of the icon */
+  /** Required: The ref to the icon file. */
   icon: string;
   /** Required: The state of the icon */
   icon_state: string;
@@ -47,11 +47,9 @@ export function DmIcon(props: Props) {
     ...rest
   } = props;
 
-  const iconRef = Byond.iconRefMap?.[icon];
+  if (!icon) return fallback;
 
-  if (!iconRef) return fallback;
-
-  const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
+  const query = `${icon}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
 
   return <Image fixErrors src={query} {...rest} />;
 }
