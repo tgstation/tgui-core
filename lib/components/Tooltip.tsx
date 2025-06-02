@@ -34,6 +34,7 @@ export function Tooltip(props: Props) {
   return (
     <Floating
       content={content}
+      contentAutoWidth={false}
       contentClasses="Tooltip"
       hoverOpen
       placement={position}
