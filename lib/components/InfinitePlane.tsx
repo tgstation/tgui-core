@@ -111,7 +111,7 @@ export function InfinitePlane(props: Props) {
 
     event.preventDefault();
     handleZoom(
-      event.deltaY > 0 ? ZoomDirection.Increase : ZoomDirection.Decrease,
+      event.deltaY < 0 ? ZoomDirection.Increase : ZoomDirection.Decrease,
     );
   }
 
