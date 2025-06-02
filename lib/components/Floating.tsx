@@ -149,7 +149,7 @@ export function Floating(props: Props) {
       return autoUpdate(reference, floating, update, {
         ancestorResize: false,
         ancestorScroll: false,
-        elementResize: false, // ResizeObserver will throw errors with contentAutoWidth
+        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
       });
     },
   });
