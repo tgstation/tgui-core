@@ -72,7 +72,6 @@ function TabItem(props: TabProps) {
   function handleClick(evt) {
     if (onClick) {
       onClick(evt);
-      evt.target.blur();
     }
   }
 
