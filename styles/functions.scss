@@ -11,3 +11,13 @@
   }
   @return math.div($value, $value * 0 + 1);
 }
+
+// Increases perceptual color lightness.
+@function lighten($color, $amount) {
+  @return color.adjust($color, $lightness: $amount * 1%, $space: hsl);
+}
+
+// Decreases perceptual color lightness.
+@function darken($color, $amount) {
+  @return color.adjust($color, $lightness: -$amount * 1%, $space: hsl);
+}
