@@ -143,6 +143,7 @@ $border-radius: 0 !default;
 
 /* Do not move it down, cause it will override selected by specificity */
 .Button--color--transparent {
+  cursor: var(--cursor-pointer);
   color: var(--button-color-transparent);
 
   &:not(.Button--disabled) {
@@ -180,7 +181,7 @@ $border-radius: 0 !default;
 }
 
 .Button--disabled {
-  cursor: var(--cursor-disabled);
+  cursor: var(--cursor-disabled) !important;
   opacity: 0.5;
 }
 

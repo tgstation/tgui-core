@@ -18,6 +18,11 @@
     align-content: center;
   }
 
+  &--fluid {
+    flex: 1;
+    width: 100%;
+  }
+
   &__control {
     display: flex;
     overflow: hidden;
@@ -33,6 +38,7 @@
     flex: 1;
     display: inline-block;
     align-content: center;
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     height: 100%;
