@@ -48,6 +48,8 @@ type Props = {
   noChevron: boolean;
   /** Dropdown renders over instead of below */
   over: boolean;
+  /** Fill all available horizontal space  */
+  fluid: boolean;
   /** Text to show when nothing has been selected. */
   placeholder: string;
   /** @deprecated If you want to allow dropdown breaks layout, set width 100% */
@@ -97,6 +99,7 @@ export function Dropdown(props: Props) {
     over,
     placeholder = 'Select...',
     selected,
+    fluid,
     width = 15,
   } = props;
 
@@ -152,7 +155,7 @@ export function Dropdown(props: Props) {
   }
 
   return (
-    <div className="Dropdown">
+    <div className={classes(['Dropdown', fluid && 'Dropdown--fluid'])}>
       <Floating
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
