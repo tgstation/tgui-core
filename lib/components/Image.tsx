@@ -12,12 +12,20 @@ type Props = Partial<{
   fixErrors: boolean;
   /** Fill is default. */
   objectFit: 'contain' | 'cover';
-  /** The image source. */
+  /**
+   * The image source.
+   *
+   * Use transparent base64 pixel if there is no src so we don't get a broken
+   * image icon when using assets.
+   */
   src: string;
 }> &
   BoxProps;
 
 const maxAttempts = 5;
+
+const transparentImg =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
 /**
  * ## Image
@@ -31,10 +39,9 @@ const maxAttempts = 5;
 export function Image(props: Props) {
   const {
     fixBlur = true,
-    fixErrors = false,
+    fixErrors,
     objectFit = 'fill',
-    /** Use transparent base64 pixel if there is no src. So we don't get broken image icon when using assets */
-    src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
+    src = transparentImg,
     ...rest
   } = props;
   const attempts = useRef(0);
