@@ -1,6 +1,6 @@
+import { Box } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Box } from '../../lib/components/Box';
 
 type StoryProps = ComponentProps<typeof Box>;
 

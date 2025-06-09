@@ -1,6 +1,6 @@
+import { NumberInput } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { NumberInput } from '../../lib/components/NumberInput';
 
 type StoryProps = ComponentProps<typeof NumberInput>;
 

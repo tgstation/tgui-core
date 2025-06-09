@@ -1,7 +1,6 @@
+import { useFuzzySearch } from '@common/fuzzysearch';
+import { Box, Input } from '@components';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { useFuzzySearch } from '../../lib/common/fuzzysearch';
-import { Box } from '../../lib/components/Box';
-import { Input } from '../../lib/components/Input';
 
 const items: string[] = [
   'Cherries - Bing, Canned',

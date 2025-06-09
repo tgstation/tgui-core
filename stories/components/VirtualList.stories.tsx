@@ -1,6 +1,6 @@
+import { VirtualList } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { VirtualList } from '../../lib/components/VirtualList';
 
 type StoryProps = ComponentProps<typeof VirtualList>;
 

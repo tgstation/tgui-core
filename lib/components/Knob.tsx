@@ -1,7 +1,7 @@
+import { keyOfMatchingRange, scale } from '@common/math';
+import { type BooleanLike, classes } from '@common/react';
+import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
-import { keyOfMatchingRange, scale } from '../common/math';
-import { type BooleanLike, classes } from '../common/react';
-import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 import { Floating } from './Floating';

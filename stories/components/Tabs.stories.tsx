@@ -1,8 +1,7 @@
-import type { ComponentProps } from 'react';
-import { useState } from 'react';
+import { COMPONENT_COLORS } from '@common/constants';
+import { Button, Section, Stack, Tabs } from '@components';
+import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { COMPONENT_COLORS } from '../../lib/common/constants';
-import { Button, Section, Stack, Tabs } from '../../lib/components';
 
 type StoryProps = ComponentProps<typeof Tabs>;
 

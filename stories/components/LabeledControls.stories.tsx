@@ -1,6 +1,6 @@
+import { LabeledControls } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { LabeledControls } from '../../lib/components/LabeledControls';
 
 type StoryProps = ComponentProps<typeof LabeledControls>;
 

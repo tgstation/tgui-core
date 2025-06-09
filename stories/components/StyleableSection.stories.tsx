@@ -1,6 +1,6 @@
+import { StyleableSection } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { StyleableSection } from '../../lib/components/StyleableSection';
 
 type StoryProps = ComponentProps<typeof StyleableSection>;
 

@@ -18,7 +18,7 @@ export function Window(props: Props) {
     <div style={{ width, height }} className="Window">
       <div className="Window-Titlebar">
         <div className="Window-Title">
-          <Icon name="eye" className="Window-Eye" />
+          <Icon name="eye" className="Window-Eye" size={1.5} />
           {title}
         </div>
         <div className="Window-Close">X</div>

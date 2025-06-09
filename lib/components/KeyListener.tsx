@@ -1,6 +1,6 @@
+import type { KeyEvent } from '@common/events';
+import { listenForKeyEvents } from '@common/hotkeys';
 import { useEffect } from 'react';
-import type { KeyEvent } from '../common/events';
-import { listenForKeyEvents } from '../common/hotkeys';
 
 type Props = Partial<{
   onKey: (key: KeyEvent) => void;

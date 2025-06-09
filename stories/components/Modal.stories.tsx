@@ -1,6 +1,6 @@
+import { Modal } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Modal } from '../../lib/components/Modal';
 
 type StoryProps = ComponentProps<typeof Modal>;
 

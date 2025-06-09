@@ -1,6 +1,6 @@
+import { Popper } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Popper } from '../../lib/components/Popper';
 
 type StoryProps = ComponentProps<typeof Popper>;
 

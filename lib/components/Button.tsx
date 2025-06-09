@@ -1,3 +1,6 @@
+import { isEscape, KEY } from '@common/keys';
+import { type BooleanLike, classes } from '@common/react';
+import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import {
   type ChangeEvent,
@@ -9,9 +12,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { isEscape, KEY } from '../common/keys';
-import { type BooleanLike, classes } from '../common/react';
-import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';

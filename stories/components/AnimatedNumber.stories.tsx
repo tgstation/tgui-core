@@ -1,6 +1,6 @@
+import { AnimatedNumber } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { AnimatedNumber } from '../../lib/components/AnimatedNumber';
 
 type StoryProps = ComponentProps<typeof AnimatedNumber>;
 

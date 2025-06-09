@@ -1,6 +1,6 @@
+import { TextArea } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { TextArea } from '../../lib/components/TextArea';
 
 type StoryProps = ComponentProps<typeof TextArea>;
 

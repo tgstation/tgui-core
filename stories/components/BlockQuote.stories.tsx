@@ -1,6 +1,6 @@
+import { BlockQuote } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { BlockQuote } from '../../lib/components/BlockQuote';
 
 type StoryProps = ComponentProps<typeof BlockQuote>;
 

@@ -1,6 +1,6 @@
+import { Dimmer } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Dimmer } from '../../lib/components/Dimmer';
 
 type StoryProps = ComponentProps<typeof Dimmer>;
 

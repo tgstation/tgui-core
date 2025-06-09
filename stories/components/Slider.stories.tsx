@@ -1,7 +1,7 @@
+import { COMPONENT_COLORS } from '@common/constants';
+import { Button, Slider, Stack } from '@components';
 import { type ComponentProps, type PropsWithChildren, useState } from 'react';
 import type { Meta } from 'storybook-react-rsbuild';
-import { COMPONENT_COLORS } from '../../lib/common/constants';
-import { Button, Slider, Stack } from '../../lib/components';
 
 type StoryProps = ComponentProps<typeof Slider>;
 export default {

@@ -15,9 +15,7 @@
     "paths": {
       "@common/*": ["lib/common/*.ts"],
       "@components": ["lib/components/index.ts"],
-      "@stories/*": ["stories/*.ts", "stories/*.tsx"],
-      "tgui-core/*": ["dist/common/*.d.ts"],
-      "tgui-core/components/*": ["dist/components/*.d.ts"]
+      "@stories/*": ["stories/*.ts", "stories/*.tsx"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

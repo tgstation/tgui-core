@@ -1,3 +1,4 @@
+import { type BooleanLike, classes } from '@common/react';
 import {
   autoUpdate,
   FloatingPortal,
@@ -22,7 +23,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { type BooleanLike, classes } from '../common/react';
 
 type Props = {
   /** Interacting with this element will open the floating element. */

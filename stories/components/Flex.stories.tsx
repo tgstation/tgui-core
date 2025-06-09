@@ -1,6 +1,6 @@
+import { Flex } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Flex } from '../../lib/components/Flex';
 
 type StoryProps = ComponentProps<typeof Flex>;
 

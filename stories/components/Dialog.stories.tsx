@@ -1,6 +1,6 @@
+import { Dialog } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Dialog } from '../../lib/components/Dialog';
 
 type StoryProps = ComponentProps<typeof Dialog>;
 

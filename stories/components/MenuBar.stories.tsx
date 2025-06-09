@@ -1,7 +1,6 @@
+import { MenuBar, Section, Stack } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Section, Stack } from '../../lib/components';
-import { MenuBar } from '../../lib/components/MenuBar';
 
 type StoryProps = ComponentProps<typeof MenuBar.Dropdown>;
 

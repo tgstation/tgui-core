@@ -1,7 +1,7 @@
+import { COMPONENT_COLORS } from '@common/constants';
+import { Button, Stack } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { COMPONENT_COLORS } from '../../lib/common/constants';
-import { Button, Stack } from '../../lib/components';
 
 type StoryProps = ComponentProps<typeof Button>;
 

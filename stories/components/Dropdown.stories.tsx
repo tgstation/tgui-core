@@ -1,9 +1,6 @@
+import { Box, Dropdown, Stack } from '@components';
 import { type ComponentProps, type PropsWithChildren, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-
-import { Box } from '../../lib/components/Box';
-import { Dropdown } from '../../lib/components/Dropdown';
-import { Stack } from '../../lib/components/Stack';
 
 type StoryProps = ComponentProps<typeof Dropdown>;
 

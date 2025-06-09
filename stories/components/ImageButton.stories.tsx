@@ -1,6 +1,6 @@
+import { Button, Icon, ImageButton } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import { Button, Icon, ImageButton } from '../../lib/components';
 
 const soulFish = (
   <span style={{ color: 'rgba(255, 255, 255, 0.5' }}>SoulFish</span>

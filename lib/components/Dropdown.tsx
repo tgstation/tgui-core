@@ -1,8 +1,8 @@
+import { KEY } from '@common/keys';
+import { classes } from '@common/react';
+import { unit } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import { type ReactNode, useRef, useState } from 'react';
-import { KEY } from '../common/keys';
-import { classes } from '../common/react';
-import { unit } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Floating } from './Floating';

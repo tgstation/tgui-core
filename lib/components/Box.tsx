@@ -1,3 +1,11 @@
+import type { BooleanLike } from '@common/react';
+import {
+  type BooleanStyleMap,
+  computeBoxClassName,
+  computeBoxProps,
+  computeTwClass,
+  type StringStyleMap,
+} from '@common/ui';
 import {
   type CSSProperties,
   createElement,
@@ -6,14 +14,6 @@ import {
   type ReactNode,
   type UIEventHandler,
 } from 'react';
-import type { BooleanLike } from '../common/react';
-import {
-  type BooleanStyleMap,
-  computeBoxClassName,
-  computeBoxProps,
-  computeTwClass,
-  type StringStyleMap,
-} from '../common/ui';
 
 type EventHandlers<TElement = HTMLDivElement> = Partial<{
   onClick: MouseEventHandler<TElement>;

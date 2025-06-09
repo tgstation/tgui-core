@@ -1,5 +1,5 @@
+import { computeBoxProps } from '@common/ui';
 import { useRef } from 'react';
-import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 type Props = Partial<{

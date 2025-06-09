@@ -1,3 +1,6 @@
+import { isEscape, KEY } from '@common/keys';
+import { clamp, round } from '@common/math';
+import { type BooleanLike, classes } from '@common/react';
 import {
   Component,
   createRef,
@@ -5,9 +8,6 @@ import {
   type KeyboardEventHandler,
   type MouseEventHandler,
 } from 'react';
-import { isEscape, KEY } from '../common/keys';
-import { clamp, round } from '../common/math';
-import { type BooleanLike, classes } from '../common/react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
 
