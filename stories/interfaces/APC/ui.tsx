@@ -7,8 +7,8 @@ import {
   Section,
 } from '@components';
 import { Window } from '../../layouts';
+import { InterfaceLockNoticeBox } from '../common/InterfaceLockNoticeBox';
 import { useBackend } from './backend';
-import { InterfaceLockNoticeBox } from './InterfaceLockNoticeBox';
 
 export const Apc = (props) => {
   return (

@@ -30,7 +30,7 @@ export function Window(props: Props) {
 
 type ContentProps = {
   children: ReactNode;
-  scrollable: boolean;
+  scrollable?: boolean;
 };
 
 function WindowContent(props: ContentProps) {

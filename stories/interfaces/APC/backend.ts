@@ -1,4 +1,4 @@
-import { act } from '@stories/act';
+import { act } from '@stories/mock-backend';
 
 const data = {
   locked: 0,

@@ -21,7 +21,7 @@
   background-image: url("./nanotrasen-logo.svg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: calc(100% - 5rem) auto;
+  background-size: 80% 80%;
   flex: 1;
   padding: 0.5rem;
 }
