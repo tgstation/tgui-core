@@ -10,6 +10,7 @@ type Props = Partial<{
   width: number;
 }>;
 
+/** A mock window purely for testing */
 export function Window(props: Props) {
   const { width = 475, height = 650, children, title = 'Untitled' } = props;
 
