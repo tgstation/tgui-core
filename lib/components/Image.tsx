@@ -1,5 +1,5 @@
 import { computeBoxProps } from '@common/ui';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { BoxProps } from './Box';
 
 type Props = Partial<{
@@ -12,30 +12,40 @@ type Props = Partial<{
   fixErrors: boolean;
   /** Fill is default. */
   objectFit: 'contain' | 'cover';
+  /**
+   * The image source.
+   *
+   * Use transparent base64 pixel if there is no src so we don't get a broken
+   * image icon when using assets.
+   */
   src: string;
 }> &
   BoxProps;
 
 const maxAttempts = 5;
 
+const transparentImg =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 /**
  * ## Image
  *
  * A wrapper for the `<img>` element.
  *
- * By default, it will attempt to fix broken images by fetching them again.
+ * It can attempt to fix broken images by fetching them again with `fixErrors`.
  *
  * It will also try to fix blurry images by rendering them pixelated.
  */
 export function Image(props: Props) {
   const {
     fixBlur = true,
-    fixErrors = false,
+    fixErrors,
     objectFit = 'fill',
-    src,
+    src = transparentImg,
     ...rest
   } = props;
   const attempts = useRef(0);
+  const timer = useRef<NodeJS.Timeout>(null);
 
   const computedProps = computeBoxProps(rest);
   computedProps.style = {
@@ -44,25 +54,28 @@ export function Image(props: Props) {
     objectFit,
   };
 
-  return (
-    <img
-      onError={(event) => {
-        if (fixErrors && attempts.current < maxAttempts) {
-          const imgElement = event.currentTarget;
+  function handleError(event: React.SyntheticEvent<HTMLImageElement>) {
+    if (!fixErrors || attempts.current >= maxAttempts) {
+      if (timer.current) clearTimeout(timer.current);
+      return;
+    }
 
-          setTimeout(() => {
-            imgElement.src = `${src}?attempt=${attempts.current}`;
-            attempts.current++;
-          }, 1000);
-        }
-      }}
-      src={
-        src ||
-        /** Use transparent base64 pixel if there is no src. So we don't get broken image icon when using assets */
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='
-      }
-      {...computedProps}
-      alt="dm icon"
-    />
+    const imgElement = event.currentTarget;
+
+    timer.current = setTimeout(() => {
+      imgElement.src = `${src}?attempt=${attempts.current}`;
+      attempts.current++;
+    }, 1000);
+  }
+
+  /** Cleans up any stray timers */
+  useEffect(() => {
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, []);
+
+  return (
+    <img alt="dm icon" onError={handleError} src={src} {...computedProps} />
   );
 }
