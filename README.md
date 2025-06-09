@@ -4,7 +4,14 @@ A collection of utilities and components for the [tgui](https://github.com/tgsta
 
 This package was built to help the various downstream SS13 servers stay up to date with TGUI without having to keep a local version of each file.
 
+## Testing / Demos
+
+This project uses Storybook both for testing locally (via `bun storybook`) and our live demo site (https://tgstation.github.io/tgui-core/).
+
+Storybook is a sandbox environment for UI components so you can test them in isolation without needing to boot the game.
+
 ## Links
+
 - [GitHub](https://github.com/tgstation/tgui-core)
 - [npm](https://www.npmjs.com/package/tgui-core)
 - [Storybook](https://tgstation.github.io/tgui-core/?path=/docs/components-animatednumber--docs)
