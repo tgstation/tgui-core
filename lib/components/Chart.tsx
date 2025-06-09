@@ -1,5 +1,5 @@
+import { zip } from '@common/collections';
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
-import { zip } from '../common/collections';
 import { Box, type BoxProps } from './Box';
 
 type Props = {

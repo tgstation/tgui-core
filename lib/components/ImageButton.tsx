@@ -4,10 +4,10 @@
  * @license MIT
  */
 
+import { type BooleanLike, classes } from '@common/react';
+import { computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import type { ReactNode } from 'react';
-import { type BooleanLike, classes } from '../common/react';
-import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';

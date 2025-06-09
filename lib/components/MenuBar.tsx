@@ -1,5 +1,5 @@
+import { classes } from '@common/react';
 import { type ReactNode, useRef } from 'react';
-import { classes } from '../common/react';
 import { Box, type BoxProps } from './Box';
 import { Floating } from './Floating';
 import { Icon } from './Icon';

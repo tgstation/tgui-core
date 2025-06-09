@@ -1,8 +1,8 @@
+import { isEscape, KEY } from '@common/keys';
+import { classes } from '@common/react';
+import { debounce } from '@common/timer';
+import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import { type RefObject, useEffect, useRef, useState } from 'react';
-import { isEscape, KEY } from '../common/keys';
-import { classes } from '../common/react';
-import { debounce } from '../common/timer';
-import { computeBoxClassName, computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 
 export type BaseInputProps<TElement = HTMLInputElement> = Partial<{

@@ -2,7 +2,6 @@ import type { Preview } from '@storybook/react';
 import previewTheme from './previewTheme.ts';
 import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
-import { withConsole } from '@storybook/addon-console';
 import '../styles/main.scss';
 import {
   Controls,
@@ -10,10 +9,9 @@ import {
   Primary,
   Stories,
   Subtitle,
-} from '@storybook/blocks';
+} from '@storybook/addon-docs/blocks';
 
 const preview: Preview = {
-  decorators: [(storyFn, context) => withConsole()(storyFn)(context)],
   parameters: {
     backgrounds: {
       default: 'Section',

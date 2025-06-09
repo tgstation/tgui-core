@@ -1,6 +1,6 @@
+import { classes } from '@common/react';
+import { computeBoxClassName } from '@common/ui';
 import { type RefObject, useRef } from 'react';
-import { classes } from '../common/react';
-import { computeBoxClassName } from '../common/ui';
 import {
   computeFlexClassName,
   computeFlexItemProps,

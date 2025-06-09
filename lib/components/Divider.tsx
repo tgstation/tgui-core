@@ -1,4 +1,4 @@
-import { classes } from '../common/react';
+import { classes } from '@common/react';
 
 type Props = Partial<{
   /** Divider can divide content without creating a dividing line. */

@@ -1,3 +1,4 @@
+import { computeBoxProps } from '@common/ui';
 import {
   type MouseEvent,
   type PropsWithChildren,
@@ -5,7 +6,6 @@ import {
   useState,
   type WheelEvent,
 } from 'react';
-import { computeBoxProps } from '../common/ui';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';

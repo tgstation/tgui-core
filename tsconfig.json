@@ -13,8 +13,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "tgui-core/*": ["dist/common/*.d.ts"],
-      "tgui-core/components/*": ["dist/components/*.d.ts"]
+      "@common/*": ["lib/common/*.ts"],
+      "@components": ["lib/components/index.ts"],
+      "@stories/*": ["stories/*.ts", "stories/*.tsx"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
