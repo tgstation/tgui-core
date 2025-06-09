@@ -14,6 +14,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@common/*": ["lib/common/*.ts"],
+      "@stories/*": ["stories/*.ts", "stories/*.tsx"],
       "@components": ["lib/components/index.ts"],
       "tgui-core/*": ["dist/common/*.d.ts"],
       "tgui-core/components/*": ["dist/components/*.d.ts"]
