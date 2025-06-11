@@ -101,7 +101,6 @@ export const Checkbox: CheckboxStory = {
   args: {
     checked: false,
     children: 'Click me',
-    color: 'default',
   },
   render: (args) => {
     const [checked, setChecked] = useState(false);
@@ -114,6 +113,12 @@ export const Checkbox: CheckboxStory = {
         <br />
         <Button.Checkbox
           {...args}
+          checked={checked}
+          onClick={() => setChecked(!checked)}
+        />
+        <Button.Checkbox
+          {...args}
+          color="default"
           checked={checked}
           onClick={() => setChecked(!checked)}
         />

@@ -1,16 +1,5 @@
 @use "../colors";
 
-$fg-map: colors.$color-map !default;
-
-$color-default: 0 !default;
-$text-color: 0 !default;
-$text-color-selected: 0 !default;
-$tab-color: 0 !default;
-$tab-color-hovered: 0 !default;
-$tab-color-selected: 0 !default;
-$transition-duration: 0 !default;
-$border-radius: 0 !default;
-
 @mixin indicator($position) {
   position: relative;
   padding-#{$position}: var(--tab-indicator-size);
@@ -145,7 +134,7 @@ $border-radius: 0 !default;
   }
 }
 
-@each $color-name, $color-value in $fg-map {
+@each $color-name, $color-value in colors.$color-map {
   .Tab--selected.Tab--color--#{$color-name} {
     color: hsl(from $color-value h s calc(l + 17.5));
   }

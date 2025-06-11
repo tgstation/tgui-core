@@ -1,11 +1,4 @@
-@use "sass:color";
 @use "../base";
-@use "../colors";
-@use "../functions";
-
-$title-text-color: 0 !default;
-$background-color: 0 !default;
-$separator-color: 0 !default;
 
 .Section {
   position: relative;

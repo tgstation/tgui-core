@@ -1,15 +1,6 @@
-@use "../base";
 @use "../colors";
 
 $pi: 3.1416;
-$bg-map: colors.$color-map !default;
-$fg-map: colors.$color-map !default;
-
-$ring-color: 0 !default;
-$knob-color: 0 !default;
-$popup-background-color: 0 !default;
-$popup-text-color: 0 !default;
-$inner-padding: 0;
 
 .Knob {
   user-select: none;
@@ -18,8 +9,7 @@ $inner-padding: 0;
   font-size: 1rem;
   width: 2.6em;
   height: 2.6em;
-  margin: 0 auto;
-  margin-bottom: -0.2em;
+  margin: 0 auto -0.2em;
 
   // Adjusts a baseline in a way, that makes knob middle-aligned
   // when it flows with the text.
@@ -86,7 +76,7 @@ $inner-padding: 0;
 
 .Knob__ringTrack {
   fill: transparent;
-  stroke: hsl(from var(--knob-ring-color) h s l / 0.15);
+  stroke: hsl(from var(--ring-color, var(--knob-ring-color)) h s l / 0.15);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 75 * $pi;
@@ -102,21 +92,15 @@ $inner-padding: 0;
 
 .Knob__ringFill {
   fill: transparent;
-  stroke: var(--knob-ring-color);
+  stroke: var(--ring-color, var(--knob-ring-color));
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 100 * $pi;
   transition: stroke var(--transition-time-medium) ease-out;
 }
 
-@each $color-name, $color-value in $fg-map {
+@each $color-name, $color-value in colors.$color-map {
   .Knob--color--#{$color-name} {
-    .Knob__ringFill {
-      stroke: $color-value;
-    }
-
-    .Knob__ringTrack {
-      stroke: hsl(from $color-value h s l / 0.15);
-    }
+    --ring-color: #{$color-value};
   }
 }

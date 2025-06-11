@@ -1,9 +1,5 @@
 @use "../base";
 
-$color: 0 !default;
-$background-color: 0 !default;
-$border-radius: 0 !default;
-
 .Tooltip {
   backdrop-filter: var(--tooltip-blur);
   background-color: var(--tooltip-background);

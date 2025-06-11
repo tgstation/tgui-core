@@ -1,60 +1,54 @@
 @use "../base";
 @use "../colors";
 
-$bg-map: colors.$color-map !default;
-$fg-map: colors.$color-map !default;
-$background-color: 0 !default;
-$color-stripes: 0 !default;
-
 .NoticeBox {
+  --noticebox-background: var(--notice-box-background);
   font-weight: bold;
   font-style: italic;
   padding: var(--space-sm) var(--space-m);
   margin-bottom: var(--space-m);
-  color: var(--notice-box-color);
-  background-color: var(--notice-box-background);
+  background-color: oklch(
+    from var(--noticebox-background) calc(l * 0.825) calc(c * 0.75) h
+  );
   background-image: repeating-linear-gradient(
     -45deg,
-    transparent,
-    transparent base.em(10px),
-    var(--notice-box-stripes) base.em(10px),
-    var(--notice-box-stripes) base.em(20px)
+    transparent 0 base.em(10px),
+    var(--notice-box-stripes) base.em(10px) base.em(20px)
   );
+  color: var(--notice-box-color);
 }
 
 @mixin box-color($color) {
-  background-color: oklch(from $color calc(l - 0.14) calc(c - 0.06) h);
-  color: var(--color-text-fixed-white);
 }
 
-@each $color-name, $color-value in $bg-map {
+@each $color-name, $color-value in colors.$color-map {
   .NoticeBox--color--#{$color-name} {
+    --noticebox-background: #{$color-value};
+
     @each $color in colors.$low-contrast-color-map {
       @if $color-name == $color {
-        --color-text-fixed-white: var(--color-black);
+        --notice-box-color: var(--color-black);
       }
     }
 
     @if $color-name == "black" {
       --notice-box-stripes: hsla(0, 0%, 100%, 0.1);
     }
-
-    @include box-color($color-value);
   }
 }
 
 .NoticeBox--type--info {
-  @include box-color(var(--color-blue));
+  --noticebox-background: var(--color-blue);
 }
 
 .NoticeBox--type--success {
-  @include box-color(var(--color-green));
+  --noticebox-background: var(--color-green);
 }
 
 .NoticeBox--type--warning {
-  @include box-color(var(--color-orange));
+  --noticebox-background: var(--color-orange);
 }
 
 .NoticeBox--type--danger {
-  @include box-color(var(--color-red));
+  --noticebox-background: var(--color-red);
 }

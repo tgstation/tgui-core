@@ -1,12 +1,4 @@
-@use "sass:color";
 @use "../base";
-@use "../functions" as *;
-@use "./Input";
-
-$text-color: 0 !default;
-$background-color: 0 !default;
-$border-color: 0 !default;
-$border-radius: 0 !default;
 
 .NumberInput {
   cursor: var(--cursor-n-resize);
@@ -67,7 +59,7 @@ $border-radius: 0 !default;
   height: base.em(17px);
   margin: 0;
   padding: 0 var(--space-m);
-  font-family: Verdana, sans-serif;
+  font-family: var(--font-family);
   background-color: var(--number-input-background);
   color: var(--number-input-color);
 }
