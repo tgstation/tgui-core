@@ -231,7 +231,7 @@ export function Floating(props: Props) {
         (preventPortal ? (
           floatingContent
         ) : (
-          <FloatingPortal>{floatingContent}</FloatingPortal>
+          <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
         ))}
     </>
   );
