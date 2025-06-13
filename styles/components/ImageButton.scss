@@ -263,19 +263,17 @@
 }
 
 .ImageButton__color--default {
-  --imagebutton-color: hsl(
-    from var(--color-base) h s l / var(--imagebutton-transparecy)
-  );
+  --imagebutton-color: hsl(from var(--color-base) h s 30);
 }
 
 .ImageButton__color--primary {
-  --imagebutton-color: hsl(
-    from var(--color-primary) h s l / var(--imagebutton-transparecy)
-  );
+  --imagebutton-color: hsl(from var(--color-primary) h s l);
 }
 
 .ImageButton--selected {
-  --imagebutton-color: var(--button-background-selected);
+  --imagebutton-color: hsl(
+    from var(--button-background-selected) h s calc(l * 1.15)
+  );
   --color-text-fixed-white: var(--color-white);
 }
 
