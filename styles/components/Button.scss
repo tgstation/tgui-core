@@ -1,5 +1,5 @@
-@use "../colors";
 @use "../base";
+@use "../colors";
 
 @mixin button-color() {
   --button-background: hsl(from var(--color) h s calc(l - var(--adjust-color)));
