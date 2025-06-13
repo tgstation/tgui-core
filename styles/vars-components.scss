@@ -27,12 +27,15 @@
   --blockquote-border: var(--border-thickness-small) solid;
 
   /* Button */
+  --button-height: 1.667em;
   --button-color: var(--color-white);
   --button-color-transparent: var(--color-text-translucent);
   --button-background-default: var(--color-primary);
   --button-background-selected: var(--color-green);
   --button-background-caution: var(--color-yellow);
   --button-background-danger: var(--color-red);
+  --button-background-disabled: var(--undefined); // Used for theming
+  --button-disabled-opacity: 0.5;
   --button-border-radius: var(--border-radius-tiny);
   --button-transition: var(--transition-time-medium);
   --button-transition-timing: ease;
@@ -119,8 +122,8 @@
 
   /* Notice Box */
   --notice-box-stripes: hsla(0, 0%, 0%, 0.1);
-  --notice-box-background: hsl(37.5, 40%, 57.5%);
-  --notice-box-color: var(--color-text-fixed-black);
+  --notice-box-background: hsl(37.5, 55%, 57.5%);
+  --notice-box-color: var(--color-text-fixed-white);
 
   /* Number Input */
   --number-input-background: var(--input-background);

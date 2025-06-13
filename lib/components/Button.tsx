@@ -82,7 +82,7 @@ export function Button(props: Props) {
     children,
     circular,
     className,
-    color,
+    color = 'default',
     compact,
     content,
     disabled,
@@ -125,14 +125,13 @@ export function Button(props: Props) {
         circular && 'Button--circular',
         compact && 'Button--compact',
         !toDisplay && 'Button--empty',
+        icon && 'Button--hasIcon',
         iconPosition && `Button--icon-${iconPosition}`,
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
           `Button--verticalAlignContent--${verticalAlignContent}`,
-        color && typeof color === 'string'
-          ? `Button--color--${color}`
-          : 'Button--color--default',
+        color && typeof color === 'string' && `Button--color--${color}`,
         className,
         computeBoxClassName(rest),
       ])}

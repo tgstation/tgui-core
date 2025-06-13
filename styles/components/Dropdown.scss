@@ -1,4 +1,5 @@
 @use "../base";
+@use "./Button" as button;
 
 .Dropdown {
   display: flex;
@@ -32,6 +33,7 @@
     line-height: base.em(16px);
     height: base.em(22px);
     border-radius: var(--button-border-radius);
+    @include button.button-color();
   }
 
   &__selected-text {

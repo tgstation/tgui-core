@@ -1,18 +1,14 @@
 @use "../colors";
 
 $pi: 3.1416;
-$fg-map: colors.$color-map !default;
-$ring-color: 0 !default;
 
 @keyframes RoundGauge__alertAnim {
-  0% {
+  0%,
+  100% {
     opacity: 0.1;
   }
   50% {
     opacity: 1;
-  }
-  100% {
-    opacity: 0.1;
   }
 }
 
@@ -74,6 +70,9 @@ $ring-color: 0 !default;
   transform-origin: top;
 
   &.active {
+    animation: RoundGauge__alertAnim var(--round-gauge-alert-animation)
+      cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+
     ~ .RoundGauge__needle .RoundGauge__needleLine {
       transform-origin: bottom;
       animation: RoundGauge__needleAlertAnim
@@ -83,21 +82,17 @@ $ring-color: 0 !default;
 }
 
 .RoundGauge__alert.max {
-  fill: colors.$bad;
+  fill: var(--color-bad);
 }
 
-@each $color-name, $color-value in $fg-map {
+@each $color-name, $color-value in colors.$color-map {
   .RoundGauge--color--#{$color-name}.RoundGauge__ringFill {
     stroke: $color-value;
   }
 }
 
-@each $color-name, $color-value in $fg-map {
+@each $color-name, $color-value in colors.$color-map {
   .RoundGauge__alert--#{$color-name} {
     fill: $color-value;
-    animation: RoundGauge__alertAnim
-      var(--round-gauge-alert-animation)
-      cubic-bezier(0.34, 1.56, 0.64, 1)
-      infinite;
   }
 }

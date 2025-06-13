@@ -2,6 +2,7 @@ import { clamp01, keyOfMatchingRange, scale } from '@common/math';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { PropsWithChildren } from 'react';
+
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -109,18 +110,19 @@ export function Slider(props: Props) {
           displayElement,
           displayValue,
           dragging,
+          editing,
           handleDragStart,
           inputElement,
         } = control;
 
         const hasFillValue = fillValue !== undefined && fillValue !== null;
 
-        const scaledFillValue = scale(
-          fillValue ?? displayValue,
-          minValue,
-          maxValue,
+        const scaledFillValue = clamp01(
+          scale(fillValue ?? displayValue, minValue, maxValue),
         );
-        const scaledDisplayValue = scale(displayValue, minValue, maxValue);
+        const scaledDisplayValue = clamp01(
+          scale(displayValue, minValue, maxValue),
+        );
 
         const effectiveColor =
           color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
@@ -129,6 +131,7 @@ export function Slider(props: Props) {
           <div
             className={classes([
               'Slider',
+              editing && 'Slider--editing',
               'ProgressBar',
               `ProgressBar--color--${effectiveColor}`,
               className,
@@ -140,30 +143,33 @@ export function Slider(props: Props) {
             <div
               className={classes([
                 'ProgressBar__fill',
-                hasFillValue && 'ProgressBar__fill--animated',
+                hasFillValue && !dragging && 'ProgressBar__fill--animated',
               ])}
               style={{
                 opacity: 0.4,
-                width: `${clamp01(scaledFillValue) * 100}%`,
+                width: `${Math.max(scaledFillValue, scaledDisplayValue) * 100}%`,
               }}
             />
             <div
-              className="ProgressBar__fill"
+              className={classes([
+                'ProgressBar__fill',
+                !dragging && 'ProgressBar__fill--animated',
+              ])}
               style={{
-                width: `${clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100}%`,
+                width: `${Math.min(scaledFillValue, scaledDisplayValue) * 100}%`,
               }}
             />
             <div
               className="Slider__cursorOffset"
               style={{
-                width: `${clamp01(scaledDisplayValue) * 100}%`,
+                width: `${scaledDisplayValue * 100}%`,
               }}
             >
-              <div className="Slider__cursor" />
-              <div className="Slider__pointer" />
-              {dragging && (
-                <div className="Slider__popupValue">{displayElement}</div>
-              )}
+              <div className="Slider__cursor">
+                {dragging && (
+                  <div className="Slider__popupValue">{displayElement}</div>
+                )}
+              </div>
             </div>
             <div className="ProgressBar__content">
               {hasContent ? children : displayElement}

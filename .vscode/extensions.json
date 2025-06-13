@@ -1,3 +1,7 @@
 {
-  "recommendations": ["arcanis.vscode-zipfs", "biomejs.biome"]
+  "recommendations": [
+    "arcanis.vscode-zipfs",
+    "biomejs.biome",
+    "vunguyentuan.vscode-css-variables"
+  ]
 }

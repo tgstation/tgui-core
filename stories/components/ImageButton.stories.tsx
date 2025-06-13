@@ -1,3 +1,4 @@
+import { COMPONENT_COLORS } from '@common/constants';
 import { Button, Icon, ImageButton } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
@@ -167,29 +168,7 @@ export const Colors: Story = {
   render: (args) => {
     const [disabled, setDisabled] = useState(false);
     const [selected, setSelected] = useState(false);
-    const [compact, setCompact] = useState(false);
-
-    const COLORS = [
-      'red',
-      'orange',
-      'yellow',
-      'olive',
-      'green',
-      'teal',
-      'blue',
-      'violet',
-      'purple',
-      'pink',
-      'brown',
-      'grey',
-      'light-grey',
-      'label',
-      'good',
-      'average',
-      'bad',
-      'black',
-      'white',
-    ];
+    const [compact, setCompact] = useState(true);
 
     const controls = (
       <>
@@ -208,25 +187,27 @@ export const Colors: Story = {
 
     return (
       <>
-        {COLORS.map((color) => (
-          <ImageButton
-            {...args}
-            base64={soulFishImage}
-            buttons={compact && controls}
-            buttonsAlt={compact ? soulFish : controls}
-            color={color}
-            disabled={disabled}
-            fluid={!compact}
-            imageSize={compact ? 96 : 48}
-            key={color}
-            onClick={() => setSelected(!selected)}
-            onRightClick={() => setDisabled(!disabled)}
-            selected={selected}
-            title={!compact ? color : ''}
-          >
-            {compact && color}
-          </ImageButton>
-        ))}
+        {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
+          (color) => (
+            <ImageButton
+              {...args}
+              base64={soulFishImage}
+              buttons={compact && controls}
+              buttonsAlt={compact ? soulFish : controls}
+              color={color}
+              disabled={disabled}
+              fluid={!compact}
+              imageSize={compact ? 96 : 48}
+              key={color}
+              onClick={() => setSelected(!selected)}
+              onRightClick={() => setDisabled(!disabled)}
+              selected={selected}
+              title={!compact ? color : ''}
+            >
+              {compact && color}
+            </ImageButton>
+          ),
+        )}
       </>
     );
   },

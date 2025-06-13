@@ -1,112 +1,5 @@
 @use "../colors";
 
-$bg-map: colors.$color-map !default;
-
-@mixin button-style($color) {
-  background-color: hsl(
-    from $color h s calc(l - var(--adjust-color) * 2) /
-      var(--imagebutton-transparecy)
-  );
-  border: var(--border-thickness-tiny) solid
-    hsl(
-      from $color h s calc(l + var(--adjust-color)) /
-        var(--imagebutton-transparecy)
-    );
-
-  &:not(.ImageButton--disabled, .ImageButton--noAction) {
-    .ImageButton__container {
-      cursor: var(--cursor-pointer);
-    }
-
-    &:hover {
-      background-color: hsl(
-        from $color h s calc(l - var(--adjust-color) + var(--adjust-hover)) /
-          var(--imagebutton-transparecy)
-      );
-    }
-
-    &:active {
-      box-shadow: inset var(--shadow-glow-small) hsl(from $color h s l / 0.5);
-      transition-duration: 0s;
-    }
-
-    /* Disable hover/active effects if hovered on buttons container */
-    &:hover,
-    &:active {
-      &:has(.ImageButton__buttons:hover),
-      &:has(.ImageButton__buttons:active) {
-        background-color: hsl(
-          from $color h s calc(l - var(--adjust-color) * 2) /
-            var(--imagebutton-transparecy)
-        );
-        box-shadow: none;
-      }
-    }
-  }
-
-  /* Make non-fluid content opaque */
-  &:not(.ImageButton--fluid) .ImageButton__content {
-    background-color: hsl(from $color h s calc(l - var(--adjust-hover)));
-    border-top: var(--border-thickness-tiny) solid $color;
-  }
-}
-
-@each $color-name, $color-value in $bg-map {
-  .ImageButton__color--#{$color-name} {
-    @each $color in colors.$low-contrast-color-map {
-      @if $color-name == $color {
-        --color-text-fixed-white: var(--color-black);
-      }
-    }
-
-    @include button-style($color-value);
-  }
-}
-
-.ImageButton__color--default {
-  @include button-style(hsl(from var(--color-base) h s 30));
-}
-
-.ImageButton__color--primary {
-  @include button-style(hsl(from var(--color-primary) h s 30));
-}
-
-.ImageButton__color--transparent {
-  @include button-style(hsl(from var(--color-base) h s 30));
-
-  background-color: transparent;
-  border-color: transparent !important;
-
-  .ImageButton__content {
-    background-color: transparent !important;
-    color: var(--color-text-translucent);
-    border-color: transparent !important;
-  }
-
-  &:hover:not(.ImageButton--disabled) .ImageButton__content {
-    color: var(--color-text);
-  }
-}
-
-.ImageButton--selected {
-  @include button-style(var(--button-background-selected));
-}
-
-.ImageButton--disabled {
-  .ImageButton__container {
-    cursor: var(--cursor-disabled);
-    opacity: 0.5;
-  }
-
-  &.ImageButton--fluid {
-    filter: contrast(75%);
-
-    .ImageButton__buttons {
-      filter: contrast(125%);
-    }
-  }
-}
-
 .ImageButton {
   overflow: hidden;
   user-select: none;
@@ -114,29 +7,72 @@ $bg-map: colors.$color-map !default;
   display: inline-flex;
   text-align: center;
   margin: 0.25em;
+  background-color: hsl(
+    from var(--imagebutton-color) h s calc(l - var(--adjust-color) * 2) /
+      var(--imagebutton-transparecy)
+  );
+  border: var(--border-thickness-tiny) solid
+    hsl(
+      from var(--imagebutton-color) h s calc(l + var(--adjust-color)) /
+        var(--imagebutton-transparecy)
+    );
   border-radius: var(--border-radius-medium);
   transition-property: background-color, border-color, box-shadow;
   transition-duration: var(--transition-time-medium);
   border-width: 0;
 
+  &:not(.ImageButton--disabled, .ImageButton--noAction) {
+    .ImageButton__container {
+      cursor: var(--cursor-pointer);
+    }
+
+    &:not(
+       /* Prevent hover/active effects if hovered/pressed on buttons container */
+        :has(.ImageButton__buttons:hover),
+        :has(.ImageButton__buttons:active)
+      ) {
+      &:hover {
+        background-color: hsl(
+          from var(--imagebutton-color) h s
+            calc(l - var(--adjust-color) + var(--adjust-hover)) /
+            var(--imagebutton-transparecy)
+        );
+      }
+
+      &:active .ImageButton__image {
+        filter: drop-shadow(var(--shadow-glow-small) var(--imagebutton-color));
+        transition-duration: 0s;
+      }
+    }
+  }
+
+  /* Make non-fluid content opaque */
+  &:not(.ImageButton--fluid) .ImageButton__content {
+    background-color: hsl(
+      from var(--imagebutton-color) h s calc(l - var(--adjust-hover))
+    );
+    border-top: var(--border-thickness-tiny) solid var(--imagebutton-color);
+  }
+
   &__container {
     display: flex;
     flex-direction: column;
-    transition: opacity var(--transition-time-medium);
     border-color: inherit;
+    transition: opacity var(--transition-time-medium);
   }
 
   &__image {
-    position: relative;
-    align-self: center;
     pointer-events: none;
     overflow: hidden;
+    position: relative;
+    align-self: center;
     line-height: 0;
     padding: var(--space-s);
     border: var(--border-thickness-tiny) solid;
     border-bottom: none;
     border-color: inherit;
     border-radius: var(--border-radius-medium) var(--border-radius-medium) 0 0;
+    transition: filter var(--transition-time-slow);
 
     &--fallback {
       text-align: center;
@@ -152,18 +88,18 @@ $bg-map: colors.$color-map !default;
   }
 
   &__content {
-    user-select: none;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
     padding: 0.25em 0.33em;
+    color: var(--color-text-fixed-white);
     z-index: 2;
   }
 
   &__buttons {
-    display: flex;
-    position: absolute;
     overflow: hidden;
+    position: absolute;
+    display: flex;
     left: var(--border-thickness-tiny);
     bottom: 1.8em;
     max-width: 100%;
@@ -211,6 +147,7 @@ $bg-map: colors.$color-map !default;
   }
 }
 
+// MARK: Fluid
 .ImageButton--fluid {
   display: flex;
   flex-direction: row;
@@ -286,6 +223,71 @@ $bg-map: colors.$color-map !default;
         height: 100%;
         border-left: var(--border-thickness-tiny) solid var(--color-border);
       }
+    }
+  }
+}
+
+// MARK: Colors
+@each $color-name, $color-value in colors.$color-map {
+  .ImageButton__color--#{$color-name} {
+    --imagebutton-color: #{$color-value};
+
+    @each $color in colors.$low-contrast-color-map {
+      @if $color-name == $color {
+        --color-text-fixed-white: var(--color-black);
+      }
+    }
+  }
+}
+
+// I hate this
+.ImageButton__color--transparent {
+  --imagebutton-color: var(--color-text-translucent-light);
+  --imagebutton-transparecy: 0.1;
+  background-color: transparent;
+  border-color: transparent !important;
+
+  .ImageButton__content {
+    background-color: transparent !important;
+    color: var(--color-text-translucent-light);
+    border-color: transparent !important;
+  }
+
+  &.ImageButton--disabled {
+    background-color: hsL(from var(--color-red) h s l / 0.15) !important;
+  }
+
+  &.ImageButton--selected {
+    background-color: hsL(from var(--color-good) h s l / 0.15);
+  }
+}
+
+.ImageButton__color--default {
+  --imagebutton-color: hsl(from var(--color-base) h s 30);
+}
+
+.ImageButton__color--primary {
+  --imagebutton-color: hsl(from var(--color-primary) h s l);
+}
+
+.ImageButton--selected {
+  --imagebutton-color: hsl(
+    from var(--button-background-selected) h s calc(l * 1.15)
+  );
+  --color-text-fixed-white: var(--color-white);
+}
+
+.ImageButton--disabled {
+  .ImageButton__container {
+    cursor: var(--cursor-disabled);
+    opacity: 0.5;
+  }
+
+  &.ImageButton--fluid {
+    filter: contrast(75%);
+
+    .ImageButton__buttons {
+      filter: contrast(125%);
     }
   }
 }

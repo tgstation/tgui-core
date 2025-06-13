@@ -1,52 +1,59 @@
 @use "../base";
 
-$cursor-color: 0 !default;
-$popup-background-color: 0 !default;
-$popup-text-color: 0 !default;
-
 .Slider {
   cursor: e-resize;
   user-select: none;
-}
 
-.Slider__cursorOffset {
-  position: absolute;
-  inset: 0;
-  transition: none !important;
-}
+  &--editing {
+    .Slider__cursor:before {
+      display: none;
+    }
+  }
 
-.Slider__cursor {
-  position: absolute;
-  top: 0;
-  right: calc(-1 * var(--space-xxs));
-  bottom: 0;
-  width: 0;
-  border-left: var(--border-thickness-small) solid var(--slider-cursor-color);
-}
+  &__cursor {
+    position: absolute;
+    inset: 0 calc(-1 * var(--space-xxs));
+    left: unset;
+    border-left: var(--border-thickness-small) solid var(--slider-cursor-color);
+    border-radius: var(--border-radius-circular);
 
-.Slider__pointer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-left: base.em(5px) solid transparent;
-  border-right: base.em(5px) solid transparent;
-  border-bottom: base.em(5px) solid var(--slider-cursor-color);
-  transform: translate(50%, calc(100% - var(--border-thickness-tiny)));
-}
+    &Offset {
+      position: absolute;
+      inset: 0;
+      transition: none !important;
+    }
 
-.Slider__popupValue {
-  user-select: none;
-  white-space: nowrap;
-  position: absolute;
-  right: 0;
-  top: -2rem;
-  font-size: 1rem;
-  padding: var(--space-s) var(--space-m);
-  background-color: var(--slider-popup-background);
-  color: var(--slider-popup-color);
-  border-radius: var(--slider-popup-border-radius);
-  transform: translateX(50%);
-  backdrop-filter: var(--slider-popup-blur);
+    &:before {
+      content: "";
+      aspect-ratio: 1 / 1;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border-left: inherit;
+      transform: scale(4) translateY(50%) rotate(45deg);
+      transform-origin: center;
+      mask-image: linear-gradient(135deg, black 50%, transparent 50%);
+    }
+  }
+
+  &__popupValue {
+    user-select: none;
+    white-space: nowrap;
+    position: absolute;
+    top: -2em;
+    right: 0;
+    font-size: 1em;
+    padding: var(--space-s) var(--space-m);
+    background-color: var(--slider-popup-background);
+    color: var(--slider-popup-color);
+    border-radius: var(--slider-popup-border-radius);
+    transform: translateX(50%);
+    backdrop-filter: var(--slider-popup-blur);
+  }
+
+  .NumberInput__input {
+    inset: 2px;
+    width: auto;
+    height: auto;
+  }
 }

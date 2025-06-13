@@ -1,60 +1,69 @@
 @use "../base";
 @use "../colors";
 
-$bg-map: colors.$color-map !default;
-$fg-map: colors.$color-map !default;
-
-$color-default: 0 !default;
-$color-selected: 0 !default;
-$color-caution: 0 !default;
-$color-danger: 0 !default;
-$color-transparent-text: 0 !default;
-$border-radius: 0 !default;
-
-@mixin button-color($color, $text-color: var(--color-text-fixed-white)) {
+@mixin button-color() {
+  --button-background: hsl(from var(--color) h s calc(l - var(--adjust-color)));
   cursor: var(--cursor-pointer);
-  background-color: hsl(from $color h s calc(l - var(--adjust-color)));
-  color: $text-color;
-
-  &:not(.Button--disabled) {
-    &:hover {
-      background-color: hsl(
-        from $color h s
-          calc(calc(l - var(--adjust-color)) + var(--adjust-hover))
-      );
-      color: $text-color;
-    }
-
-    &:active {
-      background-color: hsl(
-        from $color h s
-          calc(calc(l - var(--adjust-color)) - var(--adjust-active))
-      );
-      color: $text-color;
-    }
-  }
-}
-
-.Button {
-  cursor: var(--cursor-pointer);
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-  line-height: 1.667em;
-  padding: 0 var(--space-m);
-  margin-right: var(--space-xs);
-  margin-bottom: var(--space-xs);
-  outline: 0;
-  border-radius: var(--button-border-radius);
+  background-color: var(--button-background);
+  color: var(--button-color);
   transition-property: background-color, color, opacity;
   transition-duration: var(--button-transition);
   transition-timing-function: var(--button-transition-timing);
   // Disable selection in buttons
   user-select: none;
 
+  &:hover {
+    background-color: hsl(
+      from var(--button-background) h s calc(l + var(--adjust-hover))
+    );
+    color: var(--button-color);
+  }
+
   &:active {
+    background-color: hsl(
+      from var(--button-background) h s calc(l - var(--adjust-active))
+    );
+    color: var(--button-color);
     transition: none;
   }
+}
+
+@mixin button-color-transparent() {
+  --button-background: hsl(from var(--button-color) h s l / 0.1);
+  --button-color: var(--button-color-transparent);
+  background-color: transparent;
+
+  &:hover {
+    --button-color: hsl(from var(--button-color-transparent) h s l / 1);
+  }
+
+  &:active {
+    opacity: 0.75;
+  }
+
+  &.Button--selected {
+    --button-color: hsl(from var(--color) h s calc(l + var(--adjust-color)));
+  }
+
+  &.Button--disabled {
+    --button-background: hsl(from var(--button-color) h s l / 0.2);
+    --button-color: var(--color-bad);
+    opacity: 1;
+    color: var(--button-color) !important;
+  }
+}
+
+.Button {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  line-height: var(--button-height);
+  padding: 0 var(--space-m);
+  margin-right: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  border-radius: var(--button-border-radius);
+  outline: none;
+  @include button-color();
 
   &:last-child {
     margin-right: 0;
@@ -76,7 +85,7 @@ $border-radius: 0 !default;
     text-align: center;
   }
 
-  &:has(.Button--icon) {
+  &.Button--hasIcon {
     padding-left: 0;
 
     .Button--icon {
@@ -84,7 +93,7 @@ $border-radius: 0 !default;
     }
   }
 
-  &--icon-right:has(.Button--icon) {
+  &--icon-right.Button--hasIcon {
     padding-left: var(--space-m);
     padding-right: var(--space-s);
 
@@ -93,7 +102,7 @@ $border-radius: 0 !default;
     }
   }
 
-  &--empty:has(.Button--icon) {
+  &--empty.Button--hasIcon {
     padding: 0;
   }
 
@@ -101,7 +110,7 @@ $border-radius: 0 !default;
     padding: 0 var(--space-s);
     line-height: 1.333em;
 
-    &:has(.Button--icon) .Button--icon {
+    &.Button--hasIcon .Button--icon {
       margin: 0 var(--space-xxs);
     }
   }
@@ -118,75 +127,64 @@ $border-radius: 0 !default;
 
   &--ellipsis {
     display: block;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
     margin-right: calc(-1 * var(--space-s));
   }
 
   // We don't need additional margin if button inside stack
+  .Stack > &,
   .Stack__item > & {
     margin: 0;
   }
 }
 
-@each $color-name, $color-value in $bg-map {
+@each $color-name, $color-value in colors.$color-map {
   .Button--color--#{$color-name} {
+    --color: #{$color-value};
+    --button-color: var(--color-white);
+
     @each $color in colors.$low-contrast-color-map {
       @if $color-name == $color {
-        --color-text-fixed-white: var(--color-black);
+        --button-color: var(--color-black);
       }
     }
-
-    @include button-color($color-value);
   }
-}
-
-/* Do not move it down, cause it will override selected by specificity */
-.Button--color--transparent {
-  cursor: var(--cursor-pointer);
-  color: var(--button-color-transparent);
-
-  &:not(.Button--disabled) {
-    &:hover {
-      background-color: var(--color-hover);
-      color: hsl(from var(--button-color-transparent) h s l / 1);
-    }
-
-    &:active {
-      background-color: var(--color-active);
-      color: hsl(from var(--button-color-transparent) h s l / 1);
-    }
-  }
-
-  &.Button--disabled {
-    --button-color-transparent: var(--color-text-translucent-light);
-    background-color: hsl(from var(--color-bad) h s l / 0.33) !important;
-  }
-}
-
-.Button--color--default {
-  @include button-color(var(--button-background-default), var(--button-color));
-}
-
-.Button--color--caution {
-  @include button-color(var(--button-background-caution));
-}
-
-.Button--color--danger {
-  @include button-color(var(--button-background-danger));
 }
 
 .Button--selected {
-  @include button-color(var(--button-background-selected));
+  --color: var(--button-background-selected);
 }
 
 .Button--disabled {
   cursor: var(--cursor-disabled) !important;
-  opacity: 0.5;
+  background-color: var(
+    --button-background-disabled,
+    var(--button-background)
+  ) !important;
+  opacity: var(--button-disabled-opacity);
+}
+
+.Button--color-- {
+  &default {
+    --color: var(--button-background-default);
+  }
+
+  &caution {
+    --color: var(--button-background-caution);
+  }
+
+  &danger {
+    --color: var(--button-background-danger);
+  }
+
+  &transparent {
+    @include button-color-transparent();
+  }
 }
 
 .Button--flex {
-  display: inline-flex; //Inline even for fluid
+  display: inline-flex; // Inline even for fluid
   flex-direction: column;
 }
 
