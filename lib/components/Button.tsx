@@ -80,7 +80,7 @@ export function Button(props: Props) {
     children,
     circular,
     className,
-    color = 'default',
+    color,
     compact,
     content,
     disabled,
@@ -129,7 +129,7 @@ export function Button(props: Props) {
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
           `Button--verticalAlignContent--${verticalAlignContent}`,
-        color && typeof color === 'string' && `Button--color--${color}`,
+        `Button--color--${color || 'default'}`,
         className,
         computeBoxClassName(rest),
       ])}
