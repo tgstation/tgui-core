@@ -4,16 +4,15 @@ import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
 import '../styles/main.scss';
 import '../styles/atomic.scss';
-
 import {
   Controls,
   Description,
   Primary,
-  Stories,
   Subtitle,
 } from '@storybook/addon-docs/blocks';
 
 const preview: Preview = {
+  tags: ['autodocs'],
   parameters: {
     backgrounds: {
       default: 'Section',
@@ -34,12 +33,10 @@ const preview: Preview = {
           <Description />
           <Primary />
           <Controls />
-          <Stories />
         </>
       ),
     },
   },
-  tags: ['autodocs'],
 };
 
 export default preview;

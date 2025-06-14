@@ -3,6 +3,7 @@ import type { StorybookConfig } from 'storybook-react-rsbuild';
 
 const config: StorybookConfig = {
   addons: [
+    '@storybook/addon-docs',
     {
       name: 'storybook-addon-sass-postcss',
       options: {
