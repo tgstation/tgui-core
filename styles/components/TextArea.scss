@@ -1,3 +1,6 @@
 .TextArea {
   resize: none;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
 }

@@ -14,11 +14,14 @@ type Story = StoryObj<StoryProps>;
 export const Default: Story = {
   args: {
     placeholder: 'Enter your text here',
+    height: '150px',
+    width: '300px',
   },
 };
 
 export const AutoSelect: Story = {
   args: {
+    ...Default.args,
     autoSelect: true,
     value: 'Hello, world!',
   },
@@ -26,12 +29,14 @@ export const AutoSelect: Story = {
 
 export const Fluid: Story = {
   args: {
+    ...Default.args,
     fluid: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
+    ...Default.args,
     disabled: true,
   },
 };
