@@ -152,19 +152,6 @@
   }
 }
 
-.Button--selected {
-  --color: var(--button-background-selected);
-}
-
-.Button--disabled {
-  cursor: var(--cursor-disabled) !important;
-  background-color: var(
-    --button-background-disabled,
-    var(--button-background)
-  ) !important;
-  opacity: var(--button-disabled-opacity);
-}
-
 .Button--color-- {
   &default {
     --color: var(--button-background-default);
@@ -181,6 +168,19 @@
   &transparent {
     @include button-color-transparent();
   }
+}
+
+.Button--selected {
+  --color: var(--button-background-selected);
+}
+
+.Button--disabled {
+  cursor: var(--cursor-disabled) !important;
+  background-color: var(
+    --button-background-disabled,
+    var(--button-background)
+  ) !important;
+  opacity: var(--button-disabled-opacity);
 }
 
 .Button--flex {
