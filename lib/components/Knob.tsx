@@ -27,12 +27,12 @@ type Props = {
   maxValue: number;
   /** Lowest possible value. */
   minValue: number;
-  /** Adjust value by this amount when dragging the input. */
-  onChange: (event: Event, value: number) => void;
   /**
-   * An event, which fires about every 500ms when you drag the input up and
-   * down, on release and on manual editing.
+   * An event which fires when release the knob or enter a number. This is the
+   * default value event for controls.
    */
+  onChange: (event: Event, value: number) => void;
+  /** An event which fires about every 500ms while dragging the input */
   onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the outer ring around the knob based on whether the

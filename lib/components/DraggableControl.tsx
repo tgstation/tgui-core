@@ -42,7 +42,10 @@ type Props = {
   maxValue: number;
   /** The minimum value. */
   minValue: number;
-  /** An event which fires when you release the input, or successfully enter a number. */
+  /**
+   * An event which fires when you release the input or successfully enter a
+   * number. This is the default value event for controls.
+   */
   onChange: (event: Event, value: number) => void;
   /** An event which fires when you drag the input. */
   onDrag: (event: MouseEvent, value: number) => void;
