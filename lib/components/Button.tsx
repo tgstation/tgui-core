@@ -3,9 +3,7 @@ import { type BooleanLike, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import {
-  type ChangeEvent,
   createRef,
-  type MouseEvent,
   type ReactNode,
   type RefObject,
   useEffect,
@@ -230,12 +228,12 @@ function ButtonConfirm(props: ConfirmProps) {
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
 
-  function handleBlur(event: FocusEvent) {
+  function handleBlur(event: FocusEvent): void {
     setClickedOnce(false);
     onBlur?.(event);
   }
 
-  function handleClick(event: MouseEvent<HTMLDivElement>) {
+  function handleClick(event: React.MouseEvent<HTMLDivElement>): void {
     if (!clickedOnce) {
       setClickedOnce(true);
       return;
@@ -298,7 +296,7 @@ function ButtonInput(props: InputProps) {
   const ourRef = createRef<HTMLInputElement>();
   const inputRef = ref ?? ourRef;
 
-  function handleBlur() {
+  function handleBlur(): void {
     if (!escaping.current && value !== innerValue) {
       onCommit?.(innerValue);
       escaping.current = false;
@@ -306,12 +304,12 @@ function ButtonInput(props: InputProps) {
     setEditing(false);
   }
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const newValue = event.currentTarget.value;
     setInnerValue(newValue);
   }
 
-  function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeydown(event: React.KeyboardEvent<HTMLInputElement>): void {
     if (event.key === KEY.Enter) {
       event.preventDefault();
       event.currentTarget.blur();
@@ -383,7 +381,7 @@ function ButtonFile(props: FileProps) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  async function read(files: FileList) {
+  async function read(files: FileList): Promise<string[]> {
     const promises = Array.from(files).map((file) => {
       const reader = new FileReader();
 
@@ -396,7 +394,9 @@ function ButtonFile(props: FileProps) {
     return await Promise.all(promises);
   }
 
-  async function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  async function handleChange(
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): Promise<void> {
     const files = event.target.files;
     if (files?.length) {
       const readFiles = await read(files);

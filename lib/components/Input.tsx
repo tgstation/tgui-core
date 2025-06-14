@@ -131,11 +131,7 @@ export function Input(props: Props) {
 
   const [innerValue, setInnerValue] = useState(value ?? '');
 
-  function handleBlur(_event: React.FocusEvent<HTMLInputElement>) {
-    onBlur?.(innerValue);
-  }
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.currentTarget.value;
     setInnerValue(value);
     if (expensive) {
@@ -145,7 +141,7 @@ export function Input(props: Props) {
     }
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
     onKeyDown?.(event);
 
     if (event.key === KEY.Enter) {
@@ -209,7 +205,7 @@ export function Input(props: Props) {
       className={clsx}
       disabled={disabled}
       maxLength={maxLength}
-      onBlur={handleBlur}
+      onBlur={() => onBlur?.(innerValue)}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}

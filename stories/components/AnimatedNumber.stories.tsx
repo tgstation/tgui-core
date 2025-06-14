@@ -7,11 +7,12 @@ type StoryProps = ComponentProps<typeof AnimatedNumber>;
 export default {
   component: AnimatedNumber,
   title: 'Components/AnimatedNumber',
+  tags: ['autodocs'],
 } satisfies Meta<StoryProps>;
 
 type Story = StoryObj<StoryProps>;
 
-function getRandom() {
+function getRandom(): number {
   return Math.round(Math.random() * 100 * 100) / 100;
 }
 

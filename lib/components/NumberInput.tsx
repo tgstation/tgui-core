@@ -6,7 +6,6 @@ import {
   createRef,
   type FocusEventHandler,
   type KeyboardEventHandler,
-  type MouseEventHandler,
 } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
@@ -85,7 +84,7 @@ export class NumberInput extends Component<Props, State> {
     });
   }
 
-  handleDragStart: MouseEventHandler<HTMLDivElement> = (event) => {
+  handleDragStart: React.MouseEventHandler<HTMLDivElement> = (event) => {
     const { value, disabled } = this.props;
     const { editing } = this.state;
     if (disabled || editing) {

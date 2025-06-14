@@ -22,7 +22,7 @@ function normalizeData(
   scale: number[],
   rangeX?: Range,
   rangeY?: Range,
-) {
+): Point[] {
   if (data.length === 0) {
     return [];
   }
@@ -51,7 +51,7 @@ function normalizeData(
   return normalized;
 }
 
-function dataToPolylinePoints(data) {
+function dataToPolylinePoints(data: Point[]): string {
   let points = '';
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
@@ -95,7 +95,7 @@ export function Chart(props: Props) {
   }
   const points = dataToPolylinePoints(normalized);
 
-  function handleResize() {
+  function handleResize(): void {
     const element = innerRef.current;
     if (!element) {
       return;

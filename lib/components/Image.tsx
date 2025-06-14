@@ -54,7 +54,7 @@ export function Image(props: Props) {
     objectFit,
   };
 
-  function handleError(event: React.SyntheticEvent<HTMLImageElement>) {
+  function handleError(event: React.SyntheticEvent<HTMLImageElement>): void {
     if (!fixErrors || attempts.current >= maxAttempts) {
       if (timer.current) clearTimeout(timer.current);
       return;

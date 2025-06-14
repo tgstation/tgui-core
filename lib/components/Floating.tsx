@@ -21,6 +21,7 @@ import {
   type ReactElement,
   type ReactNode,
   useEffect,
+  useId,
   useState,
 } from 'react';
 
@@ -98,6 +99,7 @@ type Props = {
  * ## Floating
  *
  *  Floating lets you position elements so that they don't go out of the bounds of the window.
+ *
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
 export function Floating(props: Props) {
@@ -122,6 +124,7 @@ export function Floating(props: Props) {
     onOpenChange,
   } = props;
 
+  const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -231,7 +234,7 @@ export function Floating(props: Props) {
         (preventPortal ? (
           floatingContent
         ) : (
-          <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
+          <FloatingPortal id={id}>{floatingContent}</FloatingPortal>
         ))}
     </>
   );

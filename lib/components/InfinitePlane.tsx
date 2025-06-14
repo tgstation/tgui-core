@@ -1,11 +1,5 @@
 import { computeBoxProps } from '@common/ui';
-import {
-  type MouseEvent,
-  type PropsWithChildren,
-  useEffect,
-  useState,
-  type WheelEvent,
-} from 'react';
+import { type PropsWithChildren, useEffect, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
@@ -84,13 +78,13 @@ export function InfinitePlane(props: Props) {
   const [top, setTop] = useState(0);
   const [zoom, setZoom] = useState(1);
 
-  function handleMouseDown(event: MouseEvent<HTMLDivElement>) {
+  function handleMouseDown(event: React.MouseEvent<HTMLDivElement>): void {
     setLastLeft(event.clientX - left);
     setLastTop(event.clientY - top);
     setMouseDown(true);
   }
 
-  function handleMouseMove(event: MouseEvent<HTMLDivElement>) {
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>): void {
     if (!mouseDown) return;
 
     const newX = event.clientX - lastLeft;
@@ -102,11 +96,11 @@ export function InfinitePlane(props: Props) {
     setTop(newY);
   }
 
-  function onMouseUp() {
+  function onMouseUp(): void {
     setMouseDown(false);
   }
 
-  function handleWheelScroll(event: WheelEvent<HTMLDivElement>) {
+  function handleWheelScroll(event: React.WheelEvent<HTMLDivElement>): void {
     if (event.deltaY === 0) return;
 
     event.preventDefault();
@@ -115,7 +109,7 @@ export function InfinitePlane(props: Props) {
     );
   }
 
-  function handleZoom(direction: ZoomDirection) {
+  function handleZoom(direction: ZoomDirection): void {
     if (direction === ZoomDirection.Increase && zoom >= ZOOM_MAX_VAL) return;
     if (direction === ZoomDirection.Decrease && zoom <= ZOOM_MIN_VAL) return;
 

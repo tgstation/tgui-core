@@ -64,7 +64,7 @@ const DEFAULT_UPDATE_RATE = 400;
 const ORIGIN_UNSET = -1;
 
 /** Reduces screen offset to a single number based on the matrix provided. */
-function getScalarScreenOffset(event: MouseEvent, matrix: number[]) {
+function getScalarScreenOffset(event: MouseEvent, matrix: number[]): number {
   return event.screenX * matrix[0] + event.screenY * matrix[1];
 }
 
@@ -117,7 +117,7 @@ export function DraggableControl(props: Props) {
   }, [props.value]);
 
   /** Handed to the child component - onMouseDown  */
-  function handleDragStart(event: React.MouseEvent<HTMLDivElement>) {
+  function handleDragStart(event: React.MouseEvent<HTMLDivElement>): void {
     if (editing) return;
 
     document.body.style['pointer-events'] = 'none';
@@ -134,7 +134,7 @@ export function DraggableControl(props: Props) {
   }
 
   /** Called after x seconds to ensure it's still dragging */
-  function checkDragging(event: MouseEvent) {
+  function checkDragging(event: MouseEvent): void {
     if (dragging.current) {
       document.addEventListener('mousemove', handleDragMove);
 
@@ -159,7 +159,7 @@ export function DraggableControl(props: Props) {
   }
 
   /** User has held mouse down and is moving */
-  function handleDragMove(event: MouseEvent) {
+  function handleDragMove(event: MouseEvent): void {
     const position = getScalarScreenOffset(event, dragMatrix);
     const offset = position - origin.current;
     const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
@@ -185,7 +185,7 @@ export function DraggableControl(props: Props) {
   }
 
   /** Ends all drag/click events */
-  function handleDragEnd(event: MouseEvent) {
+  function handleDragEnd(event: MouseEvent): void {
     document.body.style['pointer-events'] = 'auto';
 
     if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
@@ -202,13 +202,13 @@ export function DraggableControl(props: Props) {
     dragging.current = false;
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
     if (event.key === KEY.Enter || isEscape(event.key)) {
       setEditing(false);
     }
   }
 
-  function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
+  function handleBlur(event: React.FocusEvent<HTMLInputElement>): void {
     let ourValue = Number.parseFloat(event.currentTarget.value);
     if (!unclamped) {
       ourValue = clamp(ourValue, minValue, maxValue);

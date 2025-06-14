@@ -88,7 +88,7 @@ export function RoundGauge(props: Props) {
     }
   }
 
-  function shouldShowAlert() {
+  function shouldShowAlert(): boolean {
     // If both after and before alert props are set, and value is between them
     if (
       alertAfter &&

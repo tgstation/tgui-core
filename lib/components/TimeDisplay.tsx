@@ -25,13 +25,13 @@ export function TimeDisplay(props: TimeDisplayProps) {
     auto = undefined,
     format = undefined,
   } = props;
-  const [currentValue, setCurrentValue] = useState<number>(() =>
+  const [currentValue, setCurrentValue] = useState(() =>
     isSafeNumber(initialValue) ? initialValue : 0,
   );
   const [lastSeenValue, setLastSeenValue] = useState<number | undefined>(
     isSafeNumber(initialValue) ? initialValue : undefined,
   );
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<NodeJS.Timeout>(null);
 
   // Manage the timer setup and cleanup
   useEffect(() => {

@@ -2,6 +2,7 @@ import { COMPONENT_COLORS } from '@common/constants';
 import { Button, Section, Stack, Tabs } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
+import '../../styles/components/Tabs.scss';
 
 type StoryProps = ComponentProps<typeof Tabs>;
 

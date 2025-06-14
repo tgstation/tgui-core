@@ -25,7 +25,7 @@ function getMarkupString(
   markupType: string,
   startPosition: number,
   endPosition: number,
-) {
+): string {
   return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
 }
 

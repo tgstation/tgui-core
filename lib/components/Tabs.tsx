@@ -69,12 +69,6 @@ function TabItem(props: TabProps) {
     ...rest
   } = props;
 
-  function handleClick(evt) {
-    if (onClick) {
-      onClick(evt);
-    }
-  }
-
   return (
     <div
       className={classes([
@@ -85,7 +79,7 @@ function TabItem(props: TabProps) {
         className,
         computeBoxClassName(rest),
       ])}
-      onClick={handleClick}
+      onClick={(event) => onClick?.(event)}
       {...computeBoxProps(rest)}
     >
       {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
