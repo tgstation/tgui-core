@@ -170,10 +170,6 @@
   }
 }
 
-.Button--selected {
-  --color: var(--button-background-selected) !important;
-}
-
 .Button--disabled {
   cursor: var(--cursor-disabled) !important;
   background-color: var(
@@ -181,6 +177,10 @@
     var(--button-background)
   ) !important;
   opacity: var(--button-disabled-opacity);
+}
+
+.Button--selected {
+  --color: var(--button-background-selected) !important;
 }
 
 .Button--flex {
