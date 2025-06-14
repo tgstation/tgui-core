@@ -51,7 +51,8 @@ export type TextInputProps<TElement = HTMLInputElement> = Partial<{
    * Use this if you want to hold the value in the parent for external
    * manipulation. For instance:
    *
-   * ### Clearing the input
+   * Clearing the input
+   *
    * ```tsx
    * const [value, setValue] = useState('');
    *
@@ -70,7 +71,8 @@ export type TextInputProps<TElement = HTMLInputElement> = Partial<{
    * )
    * ```
    *
-   * ### Updating the value from the backend
+   * Updating the value from the backend
+   *
    * ```tsx
    * const { data } = useBackend<Data>();
    * const { valveSetting } = data;

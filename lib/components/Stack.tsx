@@ -45,7 +45,7 @@ type Props = Partial<{
  * </Stack>
  * ```
  *
- * ### High level window layout
+ * **High level window layout**
  * Stacks can be used for high level window layout.
  * Make sure to use the `fill` property.
  *

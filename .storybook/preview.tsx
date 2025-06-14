@@ -26,7 +26,7 @@ const preview: Preview = {
     },
     docs: {
       theme: previewTheme,
-      toc: true,
+      toc: false,
       page: () => (
         <>
           <Subtitle />

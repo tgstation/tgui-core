@@ -44,21 +44,20 @@ type InternalProps = Partial<{
   /** The inline style of the component. */
   style: CSSProperties;
   /**
-   * ### tw
    * A shorthand classname syntax based loosely on tailwind.
    *
    * This takes all Box style props with a dash separator for params, e.g.'mb-4' or the prop name alone e.g. 'bold'.
    *
    * It's compatible with regular Box props, even on the same component, but it will take precedence.
    *
-   * ### Example:
+   * Example:
    * ```tsx
    * <Box tw="mb-2 bold fontSize-16px">
    *  // Is equivalent to
    * <Box mb={2} bold fontSize="16px">
    *  ```
    *
-   * ### Caveats:
+   * Caveats:
    * 1. You can't use this for custom props from other components.
    *
    * 2. There is no type info or safety for this method. Like the old days, it simply won't work if you use it incorrectly.
