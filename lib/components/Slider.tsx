@@ -2,7 +2,6 @@ import { clamp01, keyOfMatchingRange, scale } from '@common/math';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { PropsWithChildren } from 'react';
-
 import type { BoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 
@@ -29,12 +28,12 @@ type Props = {
   fillValue: number;
   /** Format value using this function before displaying it. */
   format: (value: number) => string;
-  /** Adjust value by this amount when dragging the input. */
-  onChange: (event: Event, value: number) => void;
   /**
-   * An event which fires when you release the input or successfully enter
-   * a number.
+   * An event which fires when you release the slider or enter a number. This is
+   * the default value event for controls.
    */
+  onChange: (event: Event, value: number) => void;
+  /** An event which fires only while dragging the slider. */
   onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the slider based on whether the value lands in the
