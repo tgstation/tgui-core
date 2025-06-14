@@ -50,6 +50,7 @@ export function Icon(props: Props) {
       iconClass += ' fa-spin';
     }
   }
+
   return (
     <i
       className={classes([
@@ -65,6 +66,7 @@ export function Icon(props: Props) {
 
 function IconStack(props: BoxProps) {
   const { className, children, ...rest } = props;
+
   return (
     <span
       className={classes([

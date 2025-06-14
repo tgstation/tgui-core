@@ -91,7 +91,7 @@ export function Section(props: Props) {
   const nodeRef = ref ?? ourRef;
 
   useEffect(() => {
-    // Don't use early returns here as we're in useEffect
+    // Doesn't use early returns here as we're in useEffect
     if (nodeRef.current) {
       if (scrollable || scrollableHorizontal) {
         addScrollableNode(nodeRef.current);

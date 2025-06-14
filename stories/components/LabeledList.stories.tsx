@@ -12,7 +12,11 @@ export default {
 type Story = StoryObj<StoryProps>;
 
 export const Default: Story = {
-  args: {
-    children: 'LabeledList',
-  },
+  render: () => (
+    <LabeledList>
+      <LabeledList.Item label="Label 1">Value 1</LabeledList.Item>
+      <LabeledList.Item label="Label 2">Value 2</LabeledList.Item>
+      <LabeledList.Item label="Label 3">Value 3</LabeledList.Item>
+    </LabeledList>
+  ),
 };

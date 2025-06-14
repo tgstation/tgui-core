@@ -10,6 +10,7 @@ import {
   Slider,
   Stack,
 } from '@components';
+import { useState } from 'react';
 import { Window } from '../../layouts';
 import { useBackend } from './backend';
 import { map } from './collections';
@@ -44,6 +45,11 @@ export const Radio = (props) => {
     subspaceSwitchable,
     radio_noises,
   } = data;
+  const [freq, setFreq] = useState(frequency);
+  const [volume, setVolume] = useState(radio_noises);
+  const [broadcastingOn, setBroadcastingOn] = useState(broadcasting);
+  const [listeningOn, setListeningOn] = useState(listening);
+
   const tunedChannel = RADIO_CHANNELS.find(
     (channel) => channel.freq === frequency,
   );
@@ -63,14 +69,14 @@ export const Radio = (props) => {
   return (
     <Window width={376} height={height}>
       <Window.Content>
-        <Section>
+        <Section style={{ userSelect: 'none' }}>
           <LabeledList>
             <LabeledList.Item label="Frequency">
-              {(freqlock && (
+              {freqlock ? (
                 <Box inline color="light-gray">
-                  {toFixed(frequency / 10, 1) + ' kHz'}
+                  {toFixed(freq / 10, 1) + ' kHz'}
                 </Box>
-              )) || (
+              ) : (
                 <NumberInput
                   animated
                   unit="kHz"
@@ -78,13 +84,9 @@ export const Radio = (props) => {
                   stepPixelSize={10}
                   minValue={minFrequency / 10}
                   maxValue={maxFrequency / 10}
-                  value={frequency / 10}
+                  value={freq}
                   format={(value) => toFixed(value, 1)}
-                  onDrag={(value) =>
-                    act('frequency', {
-                      adjust: value - frequency / 10,
-                    })
-                  }
+                  onDrag={(value) => setFreq(value)}
                 />
               )}
               {tunedChannel && (
@@ -97,16 +99,16 @@ export const Radio = (props) => {
               <Button
                 textAlign="center"
                 width="37px"
-                icon={listening ? 'volume-up' : 'volume-mute'}
-                selected={listening}
-                onClick={() => act('listen')}
+                icon={listeningOn ? 'volume-up' : 'volume-mute'}
+                selected={listeningOn}
+                onClick={() => setListeningOn(!listeningOn)}
               />
               <Button
                 textAlign="center"
                 width="37px"
-                icon={broadcasting ? 'microphone' : 'microphone-slash'}
-                selected={broadcasting}
-                onClick={() => act('broadcast')}
+                icon={broadcastingOn ? 'microphone' : 'microphone-slash'}
+                selected={broadcastingOn}
+                onClick={() => setBroadcastingOn(!broadcastingOn)}
               />
               {!!command && (
                 <Button
@@ -130,14 +132,12 @@ export const Radio = (props) => {
             <LabeledList.Item label="Radio Noise Volume">
               <Slider
                 onChange={(e, value) => {
-                  act('set_radio_volume', {
-                    volume: value,
-                  });
+                  setVolume(value);
                 }}
                 minValue={0}
                 maxValue={100}
                 step={1}
-                value={radio_noises}
+                value={volume}
                 stepPixelSize={10}
               />
             </LabeledList.Item>

@@ -109,7 +109,7 @@ export function Dropdown(props: Props) {
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
 
-  function scrollToElement(position: number) {
+  function scrollToElement(position: number): void {
     let scrollPos = position;
     if (position < selectedIndex) {
       scrollPos = position < 2 ? 0 : position - 2;
@@ -126,7 +126,7 @@ export function Dropdown(props: Props) {
   }
 
   /** Update the selected value when clicking the left/right buttons */
-  function updateSelected(direction: DIRECTION) {
+  function updateSelected(direction: DIRECTION): void {
     if (options.length < 1 || disabled) {
       return;
     }

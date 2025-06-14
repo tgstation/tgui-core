@@ -37,7 +37,7 @@ export function TrackOutsideClicks(props: Props) {
 
   const ref = createRef<HTMLDivElement>();
 
-  function handleOutsideClick(event: MouseEvent) {
+  function handleOutsideClick(event: MouseEvent): void {
     if (!(event.target instanceof Node)) {
       return;
     }

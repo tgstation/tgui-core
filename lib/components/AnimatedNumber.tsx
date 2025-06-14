@@ -66,7 +66,7 @@ export function AnimatedNumber(props: Props) {
       : getPrecise();
 
   /** Formats the current value to match the precision of `value`. */
-  function getPrecise() {
+  function getPrecise(): string {
     const fraction = String(value).split('.')[1];
     const precision = fraction ? fraction.length : 0;
 

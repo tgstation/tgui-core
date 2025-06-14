@@ -337,7 +337,7 @@ function DomainEntry(props: DomainEntryProps) {
   );
 }
 
-const AvatarDisplay = (props) => {
+function AvatarDisplay(props) {
   const { act, data } = useBackend<Data>();
   if (!isConnected(data)) {
     return null;
@@ -419,9 +419,9 @@ const AvatarDisplay = (props) => {
       </Table>
     </Section>
   );
-};
+}
 
-const DisplayDetails = (props: DisplayDetailsProps) => {
+function DisplayDetails(props: DisplayDetailsProps) {
   const { amount = 0, color, icon = 'star' } = props;
 
   if (amount === 0) {
@@ -434,26 +434,22 @@ const DisplayDetails = (props: DisplayDetailsProps) => {
 
   if (amount > 4) {
     return (
-      <Table.Cell>
-        <Stack>
-          <Stack.Item>{amount}</Stack.Item>
-          <Stack.Item>
-            <Icon color={color} name={icon} />
-          </Stack.Item>
-        </Stack>
-      </Table.Cell>
+      <Stack>
+        <Stack.Item>{amount}</Stack.Item>
+        <Stack.Item>
+          <Icon color={color} name={icon} />
+        </Stack.Item>
+      </Stack>
     );
   }
 
   return (
-    <Table.Cell>
-      <Stack>
-        {Array.from({ length: amount }, (_, index) => (
-          <Stack.Item key={index}>
-            <Icon color={color} name={icon} />
-          </Stack.Item>
-        ))}
-      </Stack>
-    </Table.Cell>
+    <Stack>
+      {Array.from({ length: amount }, (_, index) => (
+        <Stack.Item key={index}>
+          <Icon color={color} name={icon} />
+        </Stack.Item>
+      ))}
+    </Stack>
   );
-};
+}

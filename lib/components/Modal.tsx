@@ -1,15 +1,14 @@
 import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import type { KeyboardEvent } from 'react';
 import type { BoxProps } from './Box';
 import { Dimmer } from './Dimmer';
 
 export type ModalProps = Partial<{
   /** Fires once the enter key is pressed */
-  onEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onEnter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   /** Fires once the escape key is pressed */
-  onEscape: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onEscape: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }> &
   BoxProps;
 
@@ -28,7 +27,7 @@ export type ModalProps = Partial<{
 export function Modal(props: ModalProps) {
   const { className, children, onEnter, onEscape, ...rest } = props;
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>): void {
     if (e.key === KEY.Enter) {
       onEnter?.(e);
     }

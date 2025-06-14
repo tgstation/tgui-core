@@ -58,7 +58,7 @@ export type FlexProps = Partial<{
 }> &
   BoxProps;
 
-export function computeFlexClassName(props: FlexProps) {
+export function computeFlexClassName(props: FlexProps): string {
   return classes([
     'Flex',
     props.inlineFlex && 'Flex--inline',
@@ -119,6 +119,7 @@ export function computeFlexProps(props: FlexProps) {
  */
 export function Flex(props) {
   const { className, ...rest } = props;
+
   return (
     <div
       className={classes([className, computeFlexClassName(rest)])}
@@ -127,9 +128,9 @@ export function Flex(props) {
   );
 }
 
-export const computeFlexItemClassName = (props: FlexItemProps) => {
+export function computeFlexItemClassName(props: FlexItemProps): string {
   return classes(['Flex__item', computeBoxClassName(props)]);
-};
+}
 
 export type FlexItemProps = Partial<{
   /** This allows the default alignment (or the one specified by align-items) to be overridden for individual flex items. */
@@ -188,6 +189,7 @@ export function computeFlexItemProps(props: FlexItemProps) {
 
 function FlexItem(props) {
   const { className, ...rest } = props;
+
   return (
     <div
       className={classes([className, computeFlexItemClassName(props)])}

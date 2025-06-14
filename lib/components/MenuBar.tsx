@@ -120,6 +120,7 @@ MenuBar.Dropdown = MenuDropdown;
 
 function MenuItemToggle(props) {
   const { value, displayText, onClick, checked } = props;
+
   return (
     <Box
       className={classes([
@@ -148,6 +149,7 @@ type MenuItemProps = Partial<{
 
 function MenuItem(props: MenuItemProps) {
   const { value, displayText, onClick } = props;
+
   return (
     <Box
       className={classes([
@@ -176,5 +178,6 @@ type MenuBarProps = {
 
 export function MenuBar(props: MenuBarProps) {
   const { children } = props;
+
   return <Box className="MenuBar">{children}</Box>;
 }

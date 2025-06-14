@@ -21,7 +21,7 @@ export function VirtualList(props: PropsWithChildren) {
   const [visibleElements, setVisibleElements] = useState(1);
   const [padding, setPadding] = useState(0);
 
-  const adjustExtents = useCallback(() => {
+  const adjustExtents = useCallback((): void => {
     const { current } = containerRef;
 
     if (

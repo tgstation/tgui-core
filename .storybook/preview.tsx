@@ -3,6 +3,8 @@ import previewTheme from './previewTheme.ts';
 import '../stories/assets/fonts.css';
 import '../stories/assets/all.min.css';
 import '../styles/main.scss';
+import '../styles/atomic.scss';
+
 import {
   Controls,
   Description,
