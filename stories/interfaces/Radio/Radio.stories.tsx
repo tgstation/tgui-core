@@ -7,6 +7,7 @@ type StoryProps = ComponentProps<typeof Radio>;
 export default {
   component: Radio,
   title: 'Interfaces/Radio',
+  tags: ['!autodocs'],
 } satisfies Meta<StoryProps>;
 
 export const Default = {};

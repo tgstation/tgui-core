@@ -7,6 +7,7 @@ type StoryProps = ComponentProps<typeof PowerMonitor>;
 export default {
   component: PowerMonitor,
   title: 'Interfaces/PowerMonitor',
+  tags: ['!autodocs'],
 } satisfies Meta<StoryProps>;
 
 export const Default = {};

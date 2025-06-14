@@ -7,6 +7,7 @@ type StoryProps = ComponentProps<typeof ChemDispenser>;
 export default {
   component: ChemDispenser,
   title: 'Interfaces/ChemDispenser',
+  tags: ['!autodocs'],
 } satisfies Meta<StoryProps>;
 
 export const Default = {};
