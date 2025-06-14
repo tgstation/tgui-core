@@ -6,15 +6,20 @@ import {
   ProgressBar,
   Section,
 } from '@components';
+import { useEffect, useState } from 'react';
 import { Window } from '../../layouts';
 import { InterfaceLockNoticeBox } from '../common/InterfaceLockNoticeBox';
 import { useBackend } from './backend';
 
-export const Apc = (props) => {
+type Props = {
+  locked: boolean;
+};
+
+export const Apc = (props: Props) => {
   return (
     <Window width={450} height={445}>
       <Window.Content scrollable>
-        <ApcContent />
+        <ApcContent locked={props.locked} />
       </Window.Content>
     </Window>
   );
@@ -61,16 +66,52 @@ const malfMap = {
   },
 };
 
-const ApcContent = (props) => {
+enum ChannelStatus {
+  Off,
+  On,
+  Auto,
+}
+
+const channels = [
+  { title: 'Equipment', output: '760 W' },
+  { title: 'Lighting', output: '1.28 kW' },
+  { title: 'Environment', output: '110 W' },
+] as const;
+
+type ChannelSetting = {
+  title: string;
+  status: ChannelStatus;
+};
+
+const ApcContent = (props: Props) => {
   const { act, data } = useBackend();
-  const locked = data.locked && !data.siliconUser;
+  const { locked } = props;
+
+  const [isOperating, setIsOperating] = useState(!!data.isOperating);
+  const [channelSettings, setChannelSettings] = useState<ChannelSetting[]>([
+    { title: 'Equipment', status: ChannelStatus.Auto },
+    { title: 'Lighting', status: ChannelStatus.Auto },
+    { title: 'Environment', status: ChannelStatus.Auto },
+  ]);
+
+  useEffect(() => {
+    const status = isOperating ? ChannelStatus.Auto : ChannelStatus.Off;
+
+    setChannelSettings((prev) => [
+      { title: 'Equipment', status },
+      { title: 'Lighting', status },
+      { title: 'Environment', status },
+    ]);
+  }, [isOperating]);
+
   const externalPowerStatus =
     powerStatusMap[data.externalPower] || powerStatusMap[0];
   const chargingStatus =
     powerStatusMap[data.chargingStatus] || powerStatusMap[0];
-  const channelArray = data.powerChannels || [];
+
   const malfStatus = malfMap[data.malfStatus] || malfMap[0];
   const adjustedCellChange = data.powerCellStatus / 100;
+
   if (data.failTime > 0) {
     return (
       <NoticeBox info textAlign="center" mb={0}>
@@ -93,6 +134,15 @@ const ApcContent = (props) => {
       </NoticeBox>
     );
   }
+
+  function updateChannelSettings(title: string, newStatus: ChannelStatus) {
+    setChannelSettings((prev) =>
+      prev.map((setting) =>
+        setting.title === title ? { ...setting, status: newStatus } : setting,
+      ),
+    );
+  }
+
   return (
     <>
       <InterfaceLockNoticeBox
@@ -106,11 +156,11 @@ const ApcContent = (props) => {
             color={externalPowerStatus.color}
             buttons={
               <Button
-                icon={data.isOperating ? 'power-off' : 'times'}
-                content={data.isOperating ? 'On' : 'Off'}
-                selected={data.isOperating && !locked}
+                icon={isOperating ? 'power-off' : 'times'}
+                content={isOperating ? 'On' : 'Off'}
+                selected={isOperating && !locked}
                 disabled={locked}
-                onClick={() => act('breaker')}
+                onClick={() => setIsOperating(!isOperating)}
               />
             }
           >
@@ -140,49 +190,57 @@ const ApcContent = (props) => {
       </Section>
       <Section title="Power Channels">
         <LabeledList>
-          {channelArray.map((channel) => {
-            const { topicParams } = channel;
+          {channels.map((channel) => {
+            const channelSetting =
+              channelSettings.find((c) => c.title === channel.title) ||
+              channelSettings[0];
+
             return (
               <LabeledList.Item
                 key={channel.title}
                 label={channel.title}
                 buttons={
                   <>
-                    <Box
-                      inline
-                      mx={2}
-                      color={channel.status >= 2 ? 'good' : 'bad'}
-                    >
-                      {channel.status >= 2 ? 'On' : 'Off'}
+                    <Box inline mx={2} color={isOperating ? 'good' : 'bad'}>
+                      {isOperating ? 'On' : 'Off'}
                     </Box>
                     <Button
                       icon="sync"
                       content="Auto"
                       selected={
-                        !locked &&
-                        (channel.status === 1 || channel.status === 3)
+                        !locked && channelSetting.status === ChannelStatus.Auto
                       }
                       disabled={locked}
-                      onClick={() => act('channel', topicParams.auto)}
+                      onClick={() =>
+                        updateChannelSettings(channel.title, ChannelStatus.Auto)
+                      }
                     />
                     <Button
                       icon="power-off"
                       content="On"
-                      selected={!locked && channel.status === 2}
+                      selected={
+                        !locked && channelSetting.status === ChannelStatus.On
+                      }
                       disabled={locked}
-                      onClick={() => act('channel', topicParams.on)}
+                      onClick={() =>
+                        updateChannelSettings(channel.title, ChannelStatus.On)
+                      }
                     />
                     <Button
                       icon="times"
                       content="Off"
-                      selected={!locked && channel.status === 0}
+                      selected={
+                        !locked && channelSetting.status === ChannelStatus.Off
+                      }
                       disabled={locked}
-                      onClick={() => act('channel', topicParams.off)}
+                      onClick={() =>
+                        updateChannelSettings(channel.title, ChannelStatus.Off)
+                      }
                     />
                   </>
                 }
               >
-                {channel.powerLoad}
+                {channel.output}
               </LabeledList.Item>
             );
           })}
