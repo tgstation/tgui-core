@@ -198,6 +198,9 @@ export function setupHotKeys(config?: KeyPassthroughConfig) {
   globalEvents.on('window-blur', () => {
     releaseHeldKeys();
   });
+  globalEvents.on('input-focus', () => {
+    releaseHeldKeys();
+  });
   startKeyPassthrough();
 }
 
