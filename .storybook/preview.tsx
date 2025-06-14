@@ -1,9 +1,12 @@
 import type { Preview } from '@storybook/react';
 import previewTheme from './previewTheme.ts';
-import '../stories/assets/fonts.css';
-import '../stories/assets/all.min.css';
+
+import '../assets/fonts.css';
+import '../assets/all.min.css';
 import '../styles/main.scss';
-import '../styles/atomic.scss';
+import '../styles/all-atomic.scss';
+import '../styles/all-themes.scss';
+
 import {
   Controls,
   Description,

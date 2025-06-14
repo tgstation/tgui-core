@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
-import './assets/window.css';
+import { type ReactNode, useEffect, useState } from 'react';
+import '../assets/window.css';
 import { classes } from '@common/react';
-import { Icon } from '@components';
+import { Dropdown, Icon } from '@components';
+import { themes } from './themes';
 
 type Props = Partial<{
   children: ReactNode;
@@ -14,16 +15,37 @@ type Props = Partial<{
 export function Window(props: Props) {
   const { width = 475, height = 650, children, title = 'Untitled' } = props;
 
+  const [currentTheme, setCurrentTheme] = useState('default');
+
+  useEffect(() => {
+    document.documentElement.className = `theme-${currentTheme}`;
+  }, [currentTheme]);
+
   return (
-    <div style={{ width, height }} className="Window">
-      <div className="Window-Titlebar">
-        <div className="Window-Title">
-          <Icon name="eye" className="Window-Eye" size={1.5} />
-          {title}
-        </div>
-        <div className="Window-Close">X</div>
+    <div
+      className={classes([
+        'Story__container',
+        currentTheme !== 'default' && `theme-${currentTheme}`,
+      ])}
+    >
+      <div className="Story__themeSelector">
+        Select a theme
+        <Dropdown
+          options={themes}
+          selected={currentTheme}
+          onSelected={setCurrentTheme}
+        />
       </div>
-      {children}
+      <div style={{ width, height }} className="Window">
+        <div className="Window__titlebar">
+          <div className="Window__title">
+            <Icon name="eye" className="Window__eye" size={1.5} />
+            {title}
+          </div>
+          <div className="Window__close">X</div>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }
@@ -39,8 +61,8 @@ function WindowContent(props: ContentProps) {
   return (
     <div
       className={classes([
-        'Window-Content',
-        scrollable && 'Window-Content__Scrollable',
+        'Layout__content',
+        scrollable && 'Layout__content-Scrollable',
       ])}
     >
       {children}

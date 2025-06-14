@@ -25,6 +25,7 @@ const config: StorybookConfig = {
       config.output ??= {};
       config.output.assetPrefix = process.env.PAGES_URL;
     }
+
     return config;
   },
 
