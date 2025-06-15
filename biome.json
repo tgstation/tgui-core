@@ -15,7 +15,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/node_modules", "!**/dist", "!**/assets"]
+    "includes": ["**", "!**/node_modules", "!**/dist", "!**/static"]
   },
   "formatter": {
     "enabled": true,

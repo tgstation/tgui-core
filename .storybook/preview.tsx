@@ -1,8 +1,8 @@
 import type { Preview } from '@storybook/react';
 import previewTheme from './previewTheme.ts';
 
-import '../assets/fonts.css';
-import '../assets/all.min.css';
+import '../static/fonts.css';
+import '../static/all.min.css';
 import '../styles/main.scss';
 import '../styles/all-atomic.scss';
 import '../styles/all-themes.scss';
