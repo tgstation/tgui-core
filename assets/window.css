@@ -1,0 +1,75 @@
+.Layout__content {
+  background-image: url("./nanotrasen-logo.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 80% 80%;
+
+  flex: 1;
+  padding: 0.5rem;
+  overflow: auto;
+}
+
+.Layout__content-scrollable {
+  overflow-y: scroll;
+}
+
+.Window {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  color: var(--color-text);
+  background-color: var(--color-base);
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-base-start) 0%,
+    var(--color-base-end) 100%
+  );
+}
+
+.Window__close {
+  align-items: center;
+  background-color: #e53935;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+
+.Window__eye {
+  color: #43d675;
+}
+
+.Window__title {
+  align-items: center;
+  color: #ffffffad;
+  display: flex;
+  gap: 0.7rem;
+  font-weight: bold;
+}
+
+.Window__titlebar {
+  align-items: center;
+  background-color: #333;
+  display: flex;
+  height: 2.5rem;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.Story__container {
+  display: flex;
+  gap: 5rem;
+}
+
+.Story__themeSelector {
+  width: 15rem;
+  color: var(--color-label);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
