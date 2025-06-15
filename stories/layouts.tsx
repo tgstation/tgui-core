@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from 'react';
-import '../assets/window.css';
+import '../static/window.css';
 import { classes } from '@common/react';
 import { Dropdown, Icon } from '@components';
 import { themes } from './themes';

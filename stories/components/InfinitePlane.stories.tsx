@@ -1,7 +1,7 @@
 import { Icon, InfinitePlane } from '@components';
 import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
-import gridBackground from '../../assets/grid_background.png';
+import gridBackground from '../../static/grid_background.png';
 
 type StoryProps = ComponentProps<typeof InfinitePlane>;
 
