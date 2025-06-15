@@ -1,12 +1,11 @@
 .Layout__content {
-  background-image: url("./nanotrasen-logo.svg");
+  background-image: url("@assets/bg-nanotrasen.svg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 80% 80%;
+  background-size: 70% 70%;
 
   flex: 1;
   padding: 0.5rem;
-  overflow: auto;
 }
 
 .Layout__content-scrollable {
