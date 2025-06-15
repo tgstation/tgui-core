@@ -27,7 +27,7 @@
       "import": "./dist/common/*.js"
     },
     "./assets/*": {
-      "import": "./assets/*"
+      "default": "./assets/*"
     },
     "./components": {
       "import": "./dist/components/index.js"
