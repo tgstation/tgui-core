@@ -21,7 +21,6 @@ import {
   type ReactElement,
   type ReactNode,
   useEffect,
-  useId,
   useState,
 } from 'react';
 
@@ -124,7 +123,6 @@ export function Floating(props: Props) {
     onOpenChange,
   } = props;
 
-  const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -152,7 +150,7 @@ export function Floating(props: Props) {
       return autoUpdate(reference, floating, update, {
         ancestorResize: false,
         ancestorScroll: false,
-        elementResize: !contentAutoWidth, // ResizeObserver will throw errors with contentAutoWidth
+        elementResize: false, // ResizeObserver crashes in multiple cases, disabled for now
       });
     },
   });
@@ -234,7 +232,8 @@ export function Floating(props: Props) {
         (preventPortal ? (
           floatingContent
         ) : (
-          <FloatingPortal id={id}>{floatingContent}</FloatingPortal>
+          // biome-ignore lint/nursery/useUniqueElementIds: We only want a single div in our DOM
+          <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
         ))}
     </>
   );
