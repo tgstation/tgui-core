@@ -1,5 +1,5 @@
 import { computeBoxProps } from '@common/ui';
-import { type PropsWithChildren, useEffect, useState } from 'react';
+import { type PropsWithChildren, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { ProgressBar } from './ProgressBar';
@@ -17,6 +17,25 @@ type Props = {
   initialTop: number;
   /** Padding applied to the right of the zoom controls */
   zoomPadding: number;
+  /**
+   * Minimum level of zoom possible
+   * @default 0.5
+   */
+  minimumZoom: number;
+  /**
+   * Maximum level of zoom possible
+   * @default 1.5
+   */
+  maximumZoom: number;
+  /**
+   * Increments by which zoom level changes every scroll/button click
+   * @default 0.1
+   */
+  zoomIncrement: number;
+  /** X position to snap to. When this value is changed, the element will snap to said position */
+  zoomToX: number;
+  /** Y position to snap to. When this value is changed, the element will snap to said position */
+  zoomToY: number;
   /** A callback function that is called when the background image is moved. */
   onBackgroundMoved: (newX: number, newY: number) => void;
   /** A callback function that is called when the zoom value changes. */
@@ -29,11 +48,6 @@ enum ZoomDirection {
   Increase = 'increase',
   Decrease = 'decrease',
 }
-
-const ZOOM_MIN_VAL = 0.5;
-const ZOOM_MAX_VAL = 1.5;
-
-const ZOOM_INCREMENT = 0.1;
 
 /**
  * ## InfinitePlane
@@ -66,17 +80,23 @@ export function InfinitePlane(props: Props) {
     zoomPadding = 0,
     initialLeft = 0,
     initialTop = 0,
+    minimumZoom = 0.5,
+    maximumZoom = 1.5,
+    zoomIncrement = 0.1,
+    zoomToX = initialLeft,
+    zoomToY = initialTop,
     onBackgroundMoved,
     onZoomChange,
     ...rest
   } = props;
 
-  const [lastLeft, setLastLeft] = useState(0);
-  const [lastTop, setLastTop] = useState(0);
-  const [left, setLeft] = useState(0);
+  const [lastLeft, setLastLeft] = useState(initialLeft);
+  const [lastTop, setLastTop] = useState(initialTop);
+  const [left, setLeft] = useState(initialLeft);
+  const [top, setTop] = useState(initialTop);
   const [mouseDown, setMouseDown] = useState(false);
-  const [top, setTop] = useState(0);
   const [zoom, setZoom] = useState(1);
+  const divRef = useRef<HTMLDivElement>(null);
 
   function handleMouseDown(event: React.MouseEvent<HTMLDivElement>): void {
     setLastLeft(event.clientX - left);
@@ -90,7 +110,7 @@ export function InfinitePlane(props: Props) {
     const newX = event.clientX - lastLeft;
     const newY = event.clientY - lastTop;
 
-    onBackgroundMoved?.(newX + initialLeft, newY + initialTop);
+    onBackgroundMoved?.(newX, newY);
 
     setLeft(newX);
     setTop(newY);
@@ -102,22 +122,33 @@ export function InfinitePlane(props: Props) {
 
   function handleWheelScroll(event: React.WheelEvent<HTMLDivElement>): void {
     if (event.deltaY === 0) return;
-
     event.preventDefault();
     handleZoom(
       event.deltaY < 0 ? ZoomDirection.Increase : ZoomDirection.Decrease,
+      event.nativeEvent.offsetX,
+      event.nativeEvent.offsetY,
     );
   }
 
-  function handleZoom(direction: ZoomDirection): void {
-    if (direction === ZoomDirection.Increase && zoom >= ZOOM_MAX_VAL) return;
-    if (direction === ZoomDirection.Decrease && zoom <= ZOOM_MIN_VAL) return;
+  function handleZoom(
+    direction: ZoomDirection,
+    zoomX: number,
+    zoomY: number,
+  ): void {
+    if (direction === ZoomDirection.Increase && zoom >= maximumZoom) return;
+    if (direction === ZoomDirection.Decrease && zoom <= minimumZoom) return;
 
     const increment =
-      direction === ZoomDirection.Increase ? ZOOM_INCREMENT : -ZOOM_INCREMENT;
+      direction === ZoomDirection.Increase ? zoomIncrement : -zoomIncrement;
     const newZoom = Math.round((zoom + increment) * 10) / 10;
+    // Convert left and top values to new ones to zoom into the screen center
+    // instead of (0, 0)
+    const newLeft = ((left - zoomX) / zoom) * newZoom + zoomX;
+    const newTop = (top - zoomY) * newZoom + zoomY;
 
     setZoom(newZoom);
+    setLeft(newLeft);
+    setTop(newTop);
     onZoomChange?.(newZoom);
   }
 
@@ -129,8 +160,11 @@ export function InfinitePlane(props: Props) {
     };
   }, []);
 
-  const finalLeft = initialLeft + left;
-  const finalTop = initialTop + top;
+  useEffect(() => {
+    if (zoomToX === undefined || zoomToY === undefined) return;
+    setLeft(zoomToX as number);
+    setTop(zoomToY as number);
+  }, [zoomToX, zoomToY]);
 
   return (
     <div
@@ -144,6 +178,7 @@ export function InfinitePlane(props: Props) {
           width: '100%',
         },
       })}
+      ref={divRef}
     >
       <div
         onMouseDown={handleMouseDown}
@@ -151,9 +186,10 @@ export function InfinitePlane(props: Props) {
         onWheel={handleWheelScroll}
         style={{
           backgroundImage: `url("${backgroundImage}")`,
-          backgroundPosition: `${finalLeft}px ${finalTop}px`,
+          backgroundPosition: `${left}px ${top}px`,
           backgroundRepeat: 'repeat',
           backgroundSize: `${zoom * imageWidth}px`,
+          transition: `${mouseDown ? '0s' : '0.075s'} linear`,
           height: '100%',
           inset: 0,
           position: 'absolute',
@@ -167,7 +203,8 @@ export function InfinitePlane(props: Props) {
           height: '100%',
           inset: 0,
           position: 'absolute',
-          transform: `translate(${finalLeft}px, ${finalTop}px) scale(${zoom})`,
+          transform: `translate(${left}px, ${top}px) scale(${zoom})`,
+          transition: `${mouseDown ? '0s' : '0.075s'} linear`,
           transformOrigin: 'top left',
           width: '100%',
         }}
@@ -176,6 +213,10 @@ export function InfinitePlane(props: Props) {
       </div>
       <ZoomControls
         padding={zoomPadding}
+        minimumZoom={minimumZoom}
+        maximumZoom={maximumZoom}
+        zoomX={(divRef.current?.offsetWidth || 0) / 2}
+        zoomY={(divRef.current?.offsetHeight || 0) / 2}
         onZoomClick={handleZoom}
         zoom={zoom}
       />
@@ -186,26 +227,31 @@ export function InfinitePlane(props: Props) {
 type ZoomProps = {
   zoom: number;
   padding: number;
-  onZoomClick: (direction: ZoomDirection) => void;
+  minimumZoom: number;
+  maximumZoom: number;
+  zoomX: number;
+  zoomY: number;
+  onZoomClick: (direction: ZoomDirection, zoomX: number, zoomY: number) => void;
 };
 
 function ZoomControls(props: ZoomProps) {
-  const { zoom, padding, onZoomClick } = props;
+  const { zoom, padding, onZoomClick, minimumZoom, maximumZoom, zoomX, zoomY } =
+    props;
 
   return (
     <div style={{ left: 5, position: 'absolute', right: 5 + padding, top: 5 }}>
       <Stack>
         <Stack.Item>
           <Button
-            disabled={zoom <= ZOOM_MIN_VAL}
+            disabled={zoom <= minimumZoom}
             icon="minus"
-            onClick={() => onZoomClick(ZoomDirection.Decrease)}
+            onClick={() => onZoomClick(ZoomDirection.Decrease, zoomX, zoomY)}
           />
         </Stack.Item>
         <Stack.Item grow>
           <ProgressBar
-            maxValue={ZOOM_MAX_VAL}
-            minValue={ZOOM_MIN_VAL}
+            maxValue={maximumZoom}
+            minValue={minimumZoom}
             value={zoom}
           >
             {zoom}x
@@ -213,9 +259,9 @@ function ZoomControls(props: ZoomProps) {
         </Stack.Item>
         <Stack.Item>
           <Button
-            disabled={zoom >= ZOOM_MAX_VAL}
+            disabled={zoom >= maximumZoom}
             icon="plus"
-            onClick={() => onZoomClick(ZoomDirection.Increase)}
+            onClick={() => onZoomClick(ZoomDirection.Increase, zoomX, zoomY)}
           />
         </Stack.Item>
       </Stack>
