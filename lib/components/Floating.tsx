@@ -21,7 +21,6 @@ import {
   type ReactElement,
   type ReactNode,
   useEffect,
-  useId,
   useState,
 } from 'react';
 
@@ -124,7 +123,6 @@ export function Floating(props: Props) {
     onOpenChange,
   } = props;
 
-  const id = useId();
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     middleware: [
@@ -234,7 +232,7 @@ export function Floating(props: Props) {
         (preventPortal ? (
           floatingContent
         ) : (
-          <FloatingPortal id={id}>{floatingContent}</FloatingPortal>
+          <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
         ))}
     </>
   );
