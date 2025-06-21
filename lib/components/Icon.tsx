@@ -65,7 +65,7 @@ export function Icon(props: Props) {
 }
 
 type IconStackProps = {
-  /** Icons size. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
+  /** Works same as `Icon` size prop, but for all icons inside. */
   size?: number;
 };
 
