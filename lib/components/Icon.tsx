@@ -64,8 +64,19 @@ export function Icon(props: Props) {
   );
 }
 
-function IconStack(props: BoxProps) {
-  const { className, children, ...rest } = props;
+type IconStackProps = {
+  /** Works same as `Icon` size prop, but for all icons inside. */
+  size?: number;
+};
+
+function IconStack(props: BoxProps & IconStackProps) {
+  const { className, children, size, ...rest } = props;
+
+  const customStyle = rest.style || {};
+  if (size) {
+    customStyle.fontSize = `${size * 100}%`;
+  }
+  rest.style = customStyle;
 
   return (
     <span

@@ -16,3 +16,19 @@ export const Default: Story = {
     name: 'question',
   },
 };
+
+export const Stack: Story = {
+  render() {
+    return (
+      <>
+        <Icon name="lemon" />
+        <Icon name="slash" color="red" />
+        <br />
+        <Icon.Stack>
+          <Icon name="lemon" />
+          <Icon name="slash" color="red" />
+        </Icon.Stack>
+      </>
+    );
+  },
+};

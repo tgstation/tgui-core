@@ -1,18 +1,16 @@
-.IconStack > .Icon {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-}
-
 .IconStack {
   position: relative;
-  display: inline-block;
-  height: 1.2em;
-  line-height: 2em;
-  vertical-align: middle;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
-  &:after {
-    color: transparent;
-    content: ".";
+  .Icon {
+    &:before {
+      vertical-align: middle;
+    }
+
+    &:not(:first-child) {
+      position: absolute;
+    }
   }
 }
