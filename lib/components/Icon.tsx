@@ -64,8 +64,19 @@ export function Icon(props: Props) {
   );
 }
 
-function IconStack(props: BoxProps) {
-  const { className, children, ...rest } = props;
+type IconStackProps = {
+  /** Icons size. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
+  size?: number;
+};
+
+function IconStack(props: BoxProps & IconStackProps) {
+  const { className, children, size, ...rest } = props;
+
+  const customStyle = rest.style || {};
+  if (size) {
+    customStyle.fontSize = `${size * 100}%`;
+  }
+  rest.style = customStyle;
 
   return (
     <span
