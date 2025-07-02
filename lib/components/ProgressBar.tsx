@@ -57,6 +57,7 @@ type Props = {
  * Progress indicators inform users about the status of ongoing processes.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ProgressBar(props: Props) {
   const {

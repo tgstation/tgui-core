@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, DOMAttributes } from 'react';
 import type { BoxProps } from '../components/Box';
 import { CSS_COLORS } from './constants';
 import { type BooleanLike, classes } from './react';
@@ -365,3 +365,23 @@ export function computeTwClass(input: string | undefined): StyleMap {
 
   return props;
 }
+
+/** Short list of accepted DOM event handlers */
+export const eventHandlers = [
+  'onClick',
+  'onContextMenu',
+  'onDoubleClick',
+  'onKeyDown',
+  'onKeyUp',
+  'onMouseDown',
+  'onMouseLeave',
+  'onMouseMove',
+  'onMouseOver',
+  'onMouseUp',
+  'onScroll',
+] as const;
+
+export type EventHandlers<TElement = HTMLDivElement> = Pick<
+  DOMAttributes<TElement>,
+  (typeof eventHandlers)[number]
+>;

@@ -1,5 +1,27 @@
 import sass from 'sass';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
+import {
+  booleanStyleMap,
+  eventHandlers,
+  stringStyleMap,
+} from '../lib/common/ui';
+import type { BoxInternalProps } from '../lib/components/Box';
+
+const boxInternalProps: Array<keyof BoxInternalProps> = [
+  'as',
+  'children',
+  'className',
+  'id',
+  'style',
+  'tw',
+];
+
+const boxProps = [
+  ...Object.keys(stringStyleMap),
+  ...Object.keys(booleanStyleMap),
+  ...boxInternalProps,
+  ...eventHandlers,
+] as const;
 
 const config: StorybookConfig = {
   addons: [
@@ -33,6 +55,15 @@ const config: StorybookConfig = {
 
   typescript: {
     reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      propFilter: (props, component) => {
+        if (component.name === 'Box') {
+          return true;
+        }
+
+        return !boxProps.includes(props.name);
+      },
+    },
   },
 };
 

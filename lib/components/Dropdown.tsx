@@ -78,6 +78,7 @@ function getOptionValue(option: DropdownOption): string | number {
  * and displays selected entry.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-dropdown--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function Dropdown(props: Props) {
   const {

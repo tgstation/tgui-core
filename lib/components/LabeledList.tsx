@@ -193,6 +193,7 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  * ```
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledlist--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace LabeledList {
   /** Adds some empty space between LabeledList items. */

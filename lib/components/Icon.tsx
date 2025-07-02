@@ -106,6 +106,7 @@ function IconStack(props: BoxProps & IconStackProps) {
  * Icons: https://fontawesome.com/v6/search?o=r&m=free
  *
  * - [View documentation on tgui core](http://localhost:6006/?path=/docs/components-icon--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace Icon {
   /**

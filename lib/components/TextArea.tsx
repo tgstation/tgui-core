@@ -39,6 +39,7 @@ const textareaDebounce = debounce((onChange: () => void) => onChange(), 250);
  * than one row.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-textarea--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function TextArea(props: Props) {
   const {

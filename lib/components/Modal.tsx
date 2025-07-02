@@ -23,6 +23,7 @@ export type ModalProps = Partial<{
  * Must be a direct child of a layout component (e.g. `Window`).
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-modal--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function Modal(props: ModalProps) {
   const { className, children, onEnter, onEscape, ...rest } = props;

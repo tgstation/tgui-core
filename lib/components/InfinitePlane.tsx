@@ -71,6 +71,7 @@ enum ZoomDirection {
  * ```
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-infiniteplane--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function InfinitePlane(props: Props) {
   const {
