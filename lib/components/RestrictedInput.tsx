@@ -77,6 +77,7 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * Has a special event for changes in validation states - `onValidationChange`.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-restrictedinput--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function RestrictedInput(props: Props) {
   const {

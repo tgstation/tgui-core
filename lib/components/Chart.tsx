@@ -69,6 +69,15 @@ const computedStyles: CSSProperties = {
   top: 0,
 };
 
+/**
+ * ## Chart
+ *
+ * A simple chart component that displays a polyline based on the provided data.
+ *
+ * It normalizes the data to fit within the viewBox dimensions and allows for custom fill and stroke colors.
+ *
+ * - [View inherited Box Props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
+ */
 export function Chart(props: Props) {
   const {
     data = [],

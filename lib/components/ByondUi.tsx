@@ -133,6 +133,8 @@ function getBoundingBox(element: HTMLDivElement): BoundingBox {
  * ```
  *
  * It supports a full set of `Box` properties for layout purposes.
+ *
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ByondUi(props: Props) {
   const { params, phonehome, ...rest } = props;

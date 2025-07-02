@@ -100,6 +100,7 @@ function TableCell(props: CellProps) {
  * ```
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-table--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace Table {
   /**

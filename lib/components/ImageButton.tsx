@@ -92,6 +92,7 @@ type Props = Partial<{
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ImageButton(props: Props) {
   const {

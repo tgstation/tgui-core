@@ -116,6 +116,7 @@ export function computeFlexProps(props: FlexProps) {
  * where possible.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-flex--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function Flex(props) {
   const { className, ...rest } = props;

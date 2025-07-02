@@ -55,6 +55,7 @@ type State = {
  * to fine tune the value, or single click it to manually type a number.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-numberinput--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight

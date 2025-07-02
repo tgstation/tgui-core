@@ -105,6 +105,7 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * A basic text input which allow users to enter text into a UI.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-input--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function Input(props: Props) {
   const {

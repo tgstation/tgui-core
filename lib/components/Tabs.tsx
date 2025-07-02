@@ -157,6 +157,7 @@ function TabItem(props: TabProps) {
  * ```
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-tabs--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace Tabs {
   /**
