@@ -176,7 +176,7 @@ export function ImageButton(props: Props) {
         )}
       </div>
       {/** End of image container */}
-      {fluid ? (
+      {fluid && (title || children) ? (
         <div className="ImageButton__content">
           {title && (
             <span
@@ -193,7 +193,7 @@ export function ImageButton(props: Props) {
           )}
         </div>
       ) : (
-        !!children && <span className="ImageButton__content">{children}</span>
+        children && <span className="ImageButton__content">{children}</span>
       )}
     </div>
   );
