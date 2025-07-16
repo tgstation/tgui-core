@@ -79,6 +79,7 @@ export const Radio = (props) => {
               ) : (
                 <NumberInput
                   animated
+                  expensive
                   unit="kHz"
                   step={0.2}
                   stepPixelSize={10}
@@ -86,7 +87,7 @@ export const Radio = (props) => {
                   maxValue={maxFrequency / 10}
                   value={freq}
                   format={(value) => toFixed(value, 1)}
-                  onDrag={(value) => setFreq(value)}
+                  onChange={(value) => setFreq(value)}
                 />
               )}
               {tunedChannel && (

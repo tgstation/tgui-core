@@ -31,11 +31,12 @@ function SliderPreview(props: PreviewProps) {
         <Stack.Item width={20}>
           <Slider
             animated
+            expensive
             color={color}
             fillValue={value}
             maxValue={100}
             minValue={0}
-            onDrag={(_, v) => setValue(v)}
+            onChange={(_, v) => setValue(v)}
             ranges={ranges || { default: [0, 100] }}
             value={value}
           />
