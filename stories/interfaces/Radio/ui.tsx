@@ -155,13 +155,14 @@ export const Radio = (props) => {
                       <Button
                         icon={channel.status ? 'check-square-o' : 'square-o'}
                         selected={channel.status}
-                        content={channel.name}
                         onClick={() =>
                           act('channel', {
                             channel: channel.name,
                           })
                         }
-                      />
+                      >
+                        {channel.name}
+                      </Button>
                     </Box>
                   ))}
                 </Stack>
