@@ -107,7 +107,9 @@ export function ProgressBar(props: Props) {
         style={fillStyles}
       />
       <div className="ProgressBar__content">
-        {hasContent ? children : !empty && `${(scaledValue * 100).toFixed(fractionDigits)}%`}
+        {hasContent
+          ? children
+          : !empty && `${(scaledValue * 100).toFixed(fractionDigits)}%`}
       </div>
     </div>
   );
