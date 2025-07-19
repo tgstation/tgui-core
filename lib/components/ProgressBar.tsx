@@ -44,7 +44,7 @@ type Props = {
    * ```
    *
    */
-  ranges: Record<string, [number, number]>;
+  ranges: Readonly<Record<string, Readonly<[number, number]>>>;
   /** Removes progress percentage text, makes no sense if children are present */
   empty: boolean;
 }> &
