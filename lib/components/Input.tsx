@@ -22,7 +22,7 @@ export type BaseInputProps<TElement = HTMLInputElement> = Partial<{
    *
    * It will only fire once every 250ms.
    */
-  expensive: boolean;
+  tickWhileTyping: boolean;
   /** Fills the parent container */
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
@@ -113,7 +113,7 @@ export function Input(props: Props) {
     autoSelect,
     className,
     disabled,
-    expensive,
+    tickWhileTyping,
     fluid,
     maxLength,
     monospace,
@@ -137,7 +137,7 @@ export function Input(props: Props) {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.currentTarget.value;
     setInnerValue(value);
-    if (expensive) {
+    if (tickWhileTyping) {
       inputDebounce(() => onChange?.(value));
     } else {
       onChange?.(value);

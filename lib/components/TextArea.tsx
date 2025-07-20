@@ -48,7 +48,7 @@ export function TextArea(props: Props) {
     className,
     disabled,
     dontUseTabForIndent,
-    expensive,
+    tickWhileTyping,
     fluid,
     maxLength,
     monospace,
@@ -79,7 +79,7 @@ export function TextArea(props: Props) {
     setInnerValue(value);
 
     if (!onChange) return;
-    if (expensive) {
+    if (tickWhileTyping) {
       textareaDebounce(() => onChange(value));
     } else {
       onChange(value);

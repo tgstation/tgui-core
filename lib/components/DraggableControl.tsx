@@ -37,7 +37,7 @@ type Props = {
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
   /** onChange also fires when you drag the input. */
-  expensive: boolean;
+  tickWhileDragging: boolean;
   /** Format the value using this function before displaying it. */
   format: (value: number) => string;
   /** The maximum value. */
@@ -83,7 +83,7 @@ export function DraggableControl(props: Props) {
     animated,
     children,
     dragMatrix = [1, 0],
-    expensive,
+    tickWhileDragging,
     format,
     maxValue = Number.POSITIVE_INFINITY,
     minValue = Number.NEGATIVE_INFINITY,
@@ -142,7 +142,8 @@ export function DraggableControl(props: Props) {
       document.addEventListener('mousemove', handleDragMove);
 
       dragIntervalRef.current = setInterval(() => {
-        if (dragging.current && expensive) onChange?.(event, props.value);
+        if (dragging.current && tickWhileDragging)
+          onChange?.(event, props.value);
       }, updateRate);
     } else {
       setEditing(true);

@@ -26,7 +26,7 @@ type Props = Required<{
     /** Makes the input field uneditable & non draggable to prevent user changes */
     disabled: boolean;
     /** onChange also fires about every 500ms when you drag the input up and down. */
-    expensive: boolean;
+    tickWhileDragging: boolean;
     /** Format value using this function before displaying it. */
     format: (value: number) => string;
     /** Adjusts the width to 100% of its parent container */
@@ -64,7 +64,7 @@ export class NumberInput extends Component<Props, State> {
   // After this time has elapsed we are in drag mode so no editing when dragging ends
   dragTimeout: NodeJS.Timeout;
 
-  // Call onChange if expensive at this interval
+  // Call onChange if tickWhileDragging at this interval
   dragInterval: NodeJS.Timeout;
 
   // default values for the number input state
@@ -108,8 +108,8 @@ export class NumberInput extends Component<Props, State> {
     }, 250);
     this.dragInterval = setInterval(() => {
       const { dragging, currentValue, previousValue } = this.state;
-      const { onChange, expensive } = this.props;
-      if (dragging && expensive && currentValue !== previousValue) {
+      const { onChange, tickWhileDragging } = this.props;
+      if (dragging && tickWhileDragging && currentValue !== previousValue) {
         this.setState({
           previousValue: currentValue,
         });

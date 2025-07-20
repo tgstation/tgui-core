@@ -31,7 +31,7 @@ function SliderPreview(props: PreviewProps) {
         <Stack.Item width={20}>
           <Slider
             animated
-            expensive
+            tickWhileDragging
             color={color}
             fillValue={value}
             maxValue={100}

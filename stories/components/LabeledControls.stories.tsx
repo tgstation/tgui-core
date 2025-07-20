@@ -20,14 +20,14 @@ export const Default: Story = {
       <LabeledControls width={50}>
         <LabeledControls.Item label="Label 1">
           <Knob
-            expensive
+            tickWhileDragging
             value={knobValue}
             onChange={(e, v) => setKnobValue(v)}
           />
         </LabeledControls.Item>
         <LabeledControls.Item label="Label 2">
           <Slider
-            expensive
+            tickWhileDragging
             value={sliderValue}
             onChange={(e, v) => setSliderValue(v)}
             minValue={0}
@@ -36,7 +36,7 @@ export const Default: Story = {
         </LabeledControls.Item>
         <LabeledControls.Item label="Label 3">
           <Knob
-            expensive
+            tickWhileDragging
             value={knobValue}
             onChange={(e, v) => setKnobValue(v)}
           />

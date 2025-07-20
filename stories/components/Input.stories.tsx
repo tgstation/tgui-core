@@ -41,7 +41,7 @@ export const Disabled: Story = {
 export const Expensive: Story = {
   args: {
     ...Default.args,
-    expensive: true,
+    tickWhileTyping: true,
     onChange: (v) => console.log('New value: ', v),
     value: "I'm debounced!",
   },

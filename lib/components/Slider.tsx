@@ -22,7 +22,7 @@ type Props = {
   /** Disables the slider. */
   disabled: boolean;
   /** onChange also fires when you drag the input. */
-  expensive: boolean;
+  tickWhileDragging: boolean;
   /**
    * If set, this value will be used to set the fill percentage of the
    * progress bar filler independently of the main value.
@@ -69,7 +69,7 @@ export function Slider(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
-    expensive,
+    tickWhileDragging,
     format,
     maxValue,
     minValue,
@@ -94,7 +94,7 @@ export function Slider(props: Props) {
       dragMatrix={[1, 0]}
       {...{
         animated,
-        expensive,
+        tickWhileDragging,
         format,
         maxValue,
         minValue,

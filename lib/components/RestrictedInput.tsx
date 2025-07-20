@@ -86,7 +86,7 @@ export function RestrictedInput(props: Props) {
     autoSelect,
     className,
     disabled,
-    expensive,
+    tickWhileTyping,
     fluid,
     maxValue = 10000,
     minValue = 0,
@@ -107,7 +107,7 @@ export function RestrictedInput(props: Props) {
 
   function tryOnChange(newValue: number): void {
     if (!onChange) return;
-    if (expensive) {
+    if (tickWhileTyping) {
       inputDebounce(() => onChange(newValue));
     } else {
       onChange(newValue);
