@@ -79,6 +79,7 @@ export const Radio = (props) => {
               ) : (
                 <NumberInput
                   animated
+                  tickWhileDragging
                   unit="kHz"
                   step={0.2}
                   stepPixelSize={10}
@@ -86,7 +87,7 @@ export const Radio = (props) => {
                   maxValue={maxFrequency / 10}
                   value={freq}
                   format={(value) => toFixed(value, 1)}
-                  onDrag={(value) => setFreq(value)}
+                  onChange={(value) => setFreq(value)}
                 />
               )}
               {tunedChannel && (
@@ -154,13 +155,14 @@ export const Radio = (props) => {
                       <Button
                         icon={channel.status ? 'check-square-o' : 'square-o'}
                         selected={channel.status}
-                        content={channel.name}
                         onClick={() =>
                           act('channel', {
                             channel: channel.name,
                           })
                         }
-                      />
+                      >
+                        {channel.name}
+                      </Button>
                     </Box>
                   ))}
                 </Stack>

@@ -19,18 +19,27 @@ export const Default: Story = {
     return (
       <LabeledControls width={50}>
         <LabeledControls.Item label="Label 1">
-          <Knob value={knobValue} onDrag={(e, v) => setKnobValue(v)} />
+          <Knob
+            tickWhileDragging
+            value={knobValue}
+            onChange={(e, v) => setKnobValue(v)}
+          />
         </LabeledControls.Item>
         <LabeledControls.Item label="Label 2">
           <Slider
+            tickWhileDragging
             value={sliderValue}
-            onDrag={(e, v) => setSliderValue(v)}
+            onChange={(e, v) => setSliderValue(v)}
             minValue={0}
             maxValue={20}
           />
         </LabeledControls.Item>
         <LabeledControls.Item label="Label 3">
-          <Knob value={knobValue} onDrag={(e, v) => setKnobValue(v)} />
+          <Knob
+            tickWhileDragging
+            value={knobValue}
+            onChange={(e, v) => setKnobValue(v)}
+          />
         </LabeledControls.Item>
       </LabeledControls>
     );
