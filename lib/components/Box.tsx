@@ -7,7 +7,12 @@ import {
   type EventHandlers,
   type StringStyleMap,
 } from '@common/ui';
-import { type CSSProperties, createElement, type ReactNode } from 'react';
+import {
+  type CSSProperties,
+  createElement,
+  HTMLAttributes,
+  type ReactNode,
+} from 'react';
 
 export type BoxInternalProps = Partial<{
   /**
@@ -47,6 +52,13 @@ export type BoxInternalProps = Partial<{
   tw: string;
 }>;
 
+type LiftedHTMLAttributes<TElement> = {
+  /** Whether this element is draggable.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/draggable
+   */
+  draggable: HTMLAttributes<TElement>['draggable'];
+};
+
 // You may wonder why we don't just use ComponentProps<typeof Box> here.
 // This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
 // While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
@@ -54,6 +66,7 @@ export interface BoxProps<TElement = HTMLDivElement>
   extends BoxInternalProps,
     BooleanStyleMap,
     StringStyleMap,
+    LiftedHTMLAttributes<TElement>,
     EventHandlers<TElement> {}
 
 // Don't you dare put this elsewhere
