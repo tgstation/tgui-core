@@ -52,7 +52,7 @@ type Props = {
   /** The step size. */
   step: number;
   /** The step size in pixels. */
-  stepPixelSize: number;
+  stepPixelSize: number | ((defaultStepPixelSize: number) => number);
   /** Whether to unclamp the value. */
   unclamped: boolean;
   /** The unit of the value. */
@@ -63,8 +63,6 @@ type Props = {
   Omit<BoxProps, 'children'>;
 
 const DEFAULT_UPDATE_RATE = 400;
-
-const ORIGIN_UNSET = -1;
 
 /** Reduces screen offset to a single number based on the matrix provided. */
 function getScalarScreenOffset(event: MouseEvent, matrix: number[]): number {
@@ -89,7 +87,7 @@ export function DraggableControl(props: Props) {
     minValue = Number.NEGATIVE_INFINITY,
     onChange,
     step = 1,
-    stepPixelSize = 1,
+    stepPixelSize,
     unclamped,
     unit,
     updateRate = DEFAULT_UPDATE_RATE,
@@ -105,8 +103,9 @@ export function DraggableControl(props: Props) {
 
   const dragging = useRef(false);
   const finalValue = useRef(props.value);
-  const internalValue = useRef(0);
-  const origin = useRef(ORIGIN_UNSET);
+  const originalValue = useRef<number | null>(0);
+  const origin = useRef<number | null>(0);
+  const finalStepPixelSize = useRef<number | null>(null);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dragIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -123,10 +122,26 @@ export function DraggableControl(props: Props) {
   function handleDragStart(event: React.MouseEvent<HTMLDivElement>): void {
     if (editing) return;
 
+    if (typeof stepPixelSize !== 'number') {
+      const defaultStepPixelSize =
+        event.currentTarget.offsetWidth / ((maxValue - minValue) / step);
+      if (stepPixelSize === undefined) {
+        finalStepPixelSize.current = defaultStepPixelSize;
+      } else if (typeof stepPixelSize === 'function') {
+        finalStepPixelSize.current = stepPixelSize(defaultStepPixelSize);
+      } else {
+        throw new Error(
+          `Unsupported value for stepPixelSize of type ${typeof stepPixelSize}`,
+        );
+      }
+    } else {
+      finalStepPixelSize.current = stepPixelSize;
+    }
+
     document.body.style['pointer-events'] = 'none';
 
     origin.current = getScalarScreenOffset(event.nativeEvent, dragMatrix);
-    internalValue.current = props.value;
+    originalValue.current = props.value;
     dragging.current = true;
 
     document.addEventListener('mouseup', handleDragEnd);
@@ -150,7 +165,7 @@ export function DraggableControl(props: Props) {
 
       if (inputRef.current) {
         const input = inputRef.current;
-        input.value = internalValue.current.toString();
+        input.value = finalValue.current.toString();
 
         setTimeout(() => {
           input.focus();
@@ -164,28 +179,30 @@ export function DraggableControl(props: Props) {
 
   /** User has held mouse down and is moving */
   function handleDragMove(event: MouseEvent): void {
+    const currentOrigin = origin.current;
+    if (currentOrigin === null) {
+      throw new Error('Origin is unset.');
+    }
     const position = getScalarScreenOffset(event, dragMatrix);
-    const offset = position - origin.current;
-    const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
+    const offset = position - currentOrigin;
 
-    // Translate mouse movement to value
-    // Give it some headroom (by increasing clamp range by 1 step)
-    internalValue.current = clamp(
-      internalValue.current + (offset * step) / stepPixelSize,
-      minValue - step,
-      maxValue + step,
-    );
-
-    const clamped = clamp(
-      internalValue.current - (internalValue.current % step) + stepOffset,
+    const currentFinalStepPixelSize = finalStepPixelSize.current;
+    if (currentFinalStepPixelSize === null) {
+      throw new Error('Final step pixel size has not been computed.');
+    }
+    const currentOriginalValue = originalValue.current;
+    if (currentOriginalValue === null) {
+      throw new Error('Original value is unset.');
+    }
+    // change in value is based on offset from drag origin
+    const stepDifference = Math.trunc(offset / currentFinalStepPixelSize);
+    const newValue = clamp(
+      Math.floor(currentOriginalValue / step) * step + stepDifference * step,
       minValue,
       maxValue,
     );
-
-    finalValue.current = clamped;
-    setStateValue(clamped);
-
-    origin.current = position;
+    finalValue.current = newValue;
+    setStateValue(newValue);
   }
 
   /** Ends all drag/click events */
@@ -194,7 +211,9 @@ export function DraggableControl(props: Props) {
 
     if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
 
-    origin.current = ORIGIN_UNSET;
+    origin.current = null;
+    finalStepPixelSize.current = null;
+    originalValue.current = null;
 
     document.removeEventListener('mousemove', handleDragMove);
     document.removeEventListener('mouseup', handleDragEnd);
@@ -222,7 +241,6 @@ export function DraggableControl(props: Props) {
       return;
     }
 
-    internalValue.current = ourValue;
     finalValue.current = ourValue;
     setStateValue(ourValue);
 
