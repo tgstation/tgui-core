@@ -56,7 +56,7 @@ type LiftedHTMLAttributes<TElement> = {
   /** Whether this element is draggable.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/draggable
    */
-  draggable: HTMLAttributes<TElement>['draggable'];
+  draggable?: HTMLAttributes<TElement>['draggable'];
 };
 
 // You may wonder why we don't just use ComponentProps<typeof Box> here.
