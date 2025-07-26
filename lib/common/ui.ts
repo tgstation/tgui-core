@@ -379,7 +379,15 @@ export const eventHandlers = [
   'onMouseOver',
   'onMouseUp',
   'onScroll',
-] as const;
+  'onDrag',
+  'onDragEnd',
+  'onDragEnter',
+  'onDragExit',
+  'onDragLeave',
+  'onDragOver',
+  'onDragStart',
+  'onDrop',
+] as const satisfies (keyof DOMAttributes<HTMLDivElement>)[];
 
 export type EventHandlers<TElement = HTMLDivElement> = Pick<
   DOMAttributes<TElement>,
