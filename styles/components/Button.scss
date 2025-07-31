@@ -142,7 +142,6 @@
 @each $color-name, $color-value in colors.$color-map {
   .Button--color--#{$color-name} {
     --color: #{$color-value};
-    --button-color: var(--color-white);
 
     @each $color in colors.$low-contrast-color-map {
       @if $color-name == $color {
