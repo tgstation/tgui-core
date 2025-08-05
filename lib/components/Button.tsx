@@ -74,32 +74,30 @@ type Props = Partial<{
   EllipsisUnion &
   BoxProps;
 
-export function Button(props: Props) {
-  const {
-    captureKeys = true,
-    children,
-    circular,
-    className,
-    color,
-    compact,
-    content,
-    disabled,
-    ellipsis,
-    fluid,
-    icon,
-    iconColor,
-    iconPosition,
-    iconRotation,
-    iconSize,
-    iconSpin,
-    onClick,
-    selected,
-    tooltip,
-    tooltipPosition,
-    verticalAlignContent,
-    ...rest
-  } = props;
-
+export function Button({
+  captureKeys = true,
+  children,
+  circular,
+  className,
+  color,
+  compact,
+  content,
+  disabled,
+  ellipsis,
+  fluid,
+  icon,
+  iconColor,
+  iconPosition,
+  iconRotation,
+  iconSize,
+  iconSpin,
+  onClick,
+  selected,
+  tooltip,
+  tooltipPosition,
+  verticalAlignContent,
+  ...rest
+}: Props) {
   const toDisplay: ReactNode = content || children;
 
   const buttonIcon = (
@@ -213,19 +211,18 @@ type ConfirmProps = Partial<{
 }> &
   Props;
 
-function ButtonConfirm(props: ConfirmProps) {
-  const {
-    children,
-    color,
-    confirmColor = 'bad',
-    confirmContent = 'Confirm?',
-    confirmIcon,
-    ellipsis = true,
-    icon,
-    onBlur,
-    onClick,
-    ...rest
-  } = props;
+function ButtonConfirm({
+  children,
+  color,
+  confirmColor = 'bad',
+  confirmContent = 'Confirm?',
+  confirmIcon,
+  ellipsis = true,
+  icon,
+  onBlur,
+  onClick,
+  ...rest
+}: ConfirmProps) {
   const [clickedOnce, setClickedOnce] = useState(false);
 
   function handleBlur(event: FocusEvent): void {
@@ -272,23 +269,21 @@ type InputProps = Partial<{
 }> &
   Props;
 
-function ButtonInput(props: InputProps) {
-  const {
-    buttonText,
-    children,
-    color = 'default',
-    disabled,
-    fluid,
-    icon,
-    iconRotation,
-    iconSpin,
-    maxLength,
-    onCommit,
-    ref,
-    value = '',
-    ...rest
-  } = props;
-
+function ButtonInput({
+  buttonText,
+  children,
+  color = 'default',
+  disabled,
+  fluid,
+  icon,
+  iconRotation,
+  iconSpin,
+  maxLength,
+  onCommit,
+  ref,
+  value = '',
+  ...rest
+}: InputProps) {
   const [innerValue, setInnerValue] = useState(value);
   const [editing, setEditing] = useState(false);
   const escaping = useRef(false);

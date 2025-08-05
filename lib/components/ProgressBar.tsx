@@ -61,19 +61,18 @@ type Props = {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function ProgressBar(props: Props) {
-  const {
-    className,
-    value,
-    minValue = 0,
-    maxValue = 1,
-    color,
-    ranges = {},
-    empty,
-    children,
-    fractionDigits = 0,
-    ...rest
-  } = props;
+export function ProgressBar({
+  className,
+  value,
+  minValue = 0,
+  maxValue = 1,
+  color,
+  ranges = {},
+  empty,
+  children,
+  fractionDigits = 0,
+  ...rest
+}: Props) {
   const scaledValue = scale(value, minValue, maxValue);
   const hasContent = children !== undefined;
 

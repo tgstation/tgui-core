@@ -80,30 +80,28 @@ function getOptionValue(option: DropdownOption): string | number {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-dropdown--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Dropdown(props: Props) {
-  const {
-    autoScroll = true,
-    buttons,
-    className,
-    color = 'default',
-    disabled,
-    displayText,
-    icon,
-    iconRotation,
-    iconSpin,
-    iconOnly,
-    menuWidth,
-    noChevron,
-    onClick,
-    onSelected,
-    options = [],
-    over,
-    placeholder = 'Select...',
-    selected,
-    fluid,
-    width = 15,
-  } = props;
-
+export function Dropdown({
+  autoScroll = true,
+  buttons,
+  className,
+  color = 'default',
+  disabled,
+  displayText,
+  icon,
+  iconRotation,
+  iconSpin,
+  iconOnly,
+  menuWidth,
+  noChevron,
+  onClick,
+  onSelected,
+  options = [],
+  over,
+  placeholder = 'Select...',
+  selected,
+  fluid,
+  width = 15,
+}: Props) {
   const [open, setOpen] = useState(false);
   const innerRef = useRef<HTMLDivElement>(null);
 

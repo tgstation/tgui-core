@@ -79,28 +79,26 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-restrictedinput--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function RestrictedInput(props: Props) {
-  const {
-    allowFloats,
-    autoFocus,
-    autoSelect,
-    className,
-    disabled,
-    expensive,
-    fluid,
-    maxValue = 10000,
-    minValue = 0,
-    monospace,
-    onBlur,
-    onChange,
-    onEnter,
-    onEscape,
-    onKeyDown,
-    onValidationChange,
-    value,
-    ...rest
-  } = props;
-
+export function RestrictedInput({
+  allowFloats,
+  autoFocus,
+  autoSelect,
+  className,
+  disabled,
+  expensive,
+  fluid,
+  maxValue = 10000,
+  minValue = 0,
+  monospace,
+  onBlur,
+  onChange,
+  onEnter,
+  onEscape,
+  onKeyDown,
+  onValidationChange,
+  value,
+  ...rest
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);

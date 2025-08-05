@@ -60,21 +60,19 @@ type Props = {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-roundgauge--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function RoundGauge(props: Props) {
-  const {
-    alertAfter,
-    alertBefore,
-    className,
-    format,
-    maxValue = 1,
-    minValue = 1,
-    ranges,
-    size = 1,
-    style,
-    value,
-    ...rest
-  } = props;
-
+export function RoundGauge({
+  alertAfter,
+  alertBefore,
+  className,
+  format,
+  maxValue = 1,
+  minValue = 1,
+  ranges,
+  size = 1,
+  style,
+  value,
+  ...rest
+}: Props) {
   const scaledValue = scale(value, minValue, maxValue);
   const clampedValue = clamp01(scaledValue);
   const scaledRanges = ranges ? {} : { primary: [0, 1] };

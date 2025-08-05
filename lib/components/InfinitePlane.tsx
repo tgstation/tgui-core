@@ -73,23 +73,24 @@ enum ZoomDirection {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-infiniteplane--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function InfinitePlane(props: Props) {
-  const {
-    backgroundImage,
-    children,
-    imageWidth,
-    zoomPadding = 0,
-    initialLeft = 0,
-    initialTop = 0,
-    minimumZoom = 0.5,
-    maximumZoom = 1.5,
-    zoomIncrement = 0.1,
-    zoomToX = initialLeft,
-    zoomToY = initialTop,
-    onBackgroundMoved,
-    onZoomChange,
-    ...rest
-  } = props;
+export function InfinitePlane({
+  backgroundImage,
+  children,
+  imageWidth,
+  zoomPadding = 0,
+  initialLeft = 0,
+  initialTop = 0,
+  minimumZoom = 0.5,
+  maximumZoom = 1.5,
+  zoomIncrement = 0.1,
+  zoomToX,
+  zoomToY,
+  onBackgroundMoved,
+  onZoomChange,
+  ...rest
+}: Props) {
+  const computedZoomToX = zoomToX !== undefined ? zoomToX : initialLeft;
+  const computedZoomToY = zoomToY !== undefined ? zoomToY : initialTop;
 
   const [lastLeft, setLastLeft] = useState(initialLeft);
   const [lastTop, setLastTop] = useState(initialTop);
@@ -162,10 +163,10 @@ export function InfinitePlane(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (zoomToX === undefined || zoomToY === undefined) return;
-    setLeft(zoomToX as number);
-    setTop(zoomToY as number);
-  }, [zoomToX, zoomToY]);
+    if (computedZoomToX === undefined || computedZoomToY === undefined) return;
+    setLeft(computedZoomToX as number);
+    setTop(computedZoomToY as number);
+  }, [computedZoomToX, computedZoomToY]);
 
   return (
     <div

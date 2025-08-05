@@ -27,6 +27,8 @@ export type BaseInputProps<TElement = HTMLInputElement> = Partial<{
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+  /** Allows to toggle on spellcheck on inputs */
+  spellcheck: boolean;
 }> &
   BoxProps<TElement>;
 
@@ -107,28 +109,27 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-input--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Input(props: Props) {
-  const {
-    autoFocus,
-    autoSelect,
-    className,
-    disabled,
-    expensive,
-    fluid,
-    maxLength,
-    monospace,
-    onBlur,
-    onChange,
-    onEnter,
-    onEscape,
-    onKeyDown,
-    placeholder,
-    ref,
-    selfClear,
-    value,
-    ...rest
-  } = props;
-
+export function Input({
+  autoFocus,
+  autoSelect,
+  className,
+  disabled,
+  expensive,
+  fluid,
+  maxLength,
+  monospace,
+  onBlur,
+  onChange,
+  onEnter,
+  onEscape,
+  onKeyDown,
+  placeholder,
+  ref,
+  selfClear,
+  spellcheck = false,
+  value,
+  ...rest
+}: Props) {
   const ourRef = useRef<HTMLInputElement>(null);
   const inputRef = ref ?? ourRef;
 
@@ -213,7 +214,7 @@ export function Input(props: Props) {
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={inputRef}
-      spellCheck={false}
+      spellCheck={spellcheck}
       type="text"
       value={innerValue}
     />

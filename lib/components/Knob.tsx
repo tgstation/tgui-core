@@ -68,32 +68,30 @@ type Props = {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-knob--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Knob(props: Props) {
-  const {
-    // Draggable props (passthrough)
-    animated,
-    tickWhileDragging,
-    format,
-    maxValue,
-    minValue,
-    onChange,
-    step,
-    stepPixelSize,
-    unclamped,
-    unit,
-    value,
-    // Own props
-    bipolar,
-    popupPosition,
-    className,
-    color,
-    fillValue,
-    ranges = {},
-    size = 1,
-    style,
-    ...rest
-  } = props;
-
+export function Knob({
+  // Draggable props (passthrough)
+  animated,
+  tickWhileDragging,
+  format,
+  maxValue,
+  minValue,
+  onChange,
+  step,
+  stepPixelSize,
+  unclamped,
+  unit,
+  value,
+  // Own props
+  bipolar,
+  popupPosition,
+  className,
+  color,
+  fillValue,
+  ranges = {},
+  size = 1,
+  style,
+  ...rest
+}: Props) {
   return (
     <DraggableControl
       dragMatrix={[0, -1]}

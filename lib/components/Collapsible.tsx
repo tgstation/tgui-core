@@ -28,18 +28,18 @@ type Props = Partial<{
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-collapsible--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Collapsible(props: Props) {
-  const {
-    children,
-    child_mt = 1,
-    childStyles,
-    color,
-    title,
-    buttons,
-    icon,
-    ...rest
-  } = props;
-  const [open, setOpen] = useState(props.open);
+export function Collapsible({
+  children,
+  child_mt = 1,
+  childStyles,
+  color,
+  title,
+  buttons,
+  icon,
+  open,
+  ...rest
+}: Props) {
+  const [isOpen, setIsOpen] = useState(open);
 
   return (
     <Box mb={1}>
@@ -48,8 +48,8 @@ export function Collapsible(props: Props) {
           <Button
             color={color}
             fluid
-            icon={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
-            onClick={() => setOpen(!open)}
+            icon={icon ? icon : isOpen ? 'chevron-down' : 'chevron-right'}
+            onClick={() => setIsOpen(!isOpen)}
             {...rest}
           >
             {title}
@@ -59,7 +59,7 @@ export function Collapsible(props: Props) {
           <div className="Table__cell Table__cell--collapsing">{buttons}</div>
         )}
       </div>
-      {open && (
+      {isOpen && (
         <Box mt={child_mt} style={childStyles}>
           {children}
         </Box>

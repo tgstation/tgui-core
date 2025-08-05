@@ -10,7 +10,7 @@ import {
 import {
   type CSSProperties,
   createElement,
-  HTMLAttributes,
+  type HTMLAttributes,
   type ReactNode,
 } from 'react';
 
