@@ -76,7 +76,6 @@ function getScalarScreenOffset(event: MouseEvent, matrix: number[]): number {
  * Generally, you won't need to use this component directly.
  */
 export function DraggableControl({
-  value,
   // Our props
   animated,
   children,
@@ -91,6 +90,7 @@ export function DraggableControl({
   unclamped,
   unit,
   updateRate = DEFAULT_UPDATE_RATE,
+  value,
   // Box props
   fontSize,
   height,
