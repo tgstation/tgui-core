@@ -59,7 +59,6 @@ export function TextArea({
   placeholder,
   ref,
   selfClear,
-  spellcheck = false,
   userMarkup,
   value,
   ...rest
@@ -182,7 +181,7 @@ export function TextArea({
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={textareaRef}
-      spellCheck={spellcheck}
+      spellCheck={false}
       value={innerValue}
     />
   );
