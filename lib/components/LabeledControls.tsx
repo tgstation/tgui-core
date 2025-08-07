@@ -41,7 +41,9 @@ type ItemProps = {
   label: string;
 } & FlexProps;
 
-function LabeledControlsItem({ label, children, mx = 1, ...rest }: ItemProps) {
+function LabeledControlsItem(props: ItemProps) {
+  const { label, children, mx = 1, ...rest } = props;
+
   return (
     <Flex.Item mx={mx}>
       <Flex

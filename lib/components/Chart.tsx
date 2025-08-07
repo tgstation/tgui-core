@@ -78,15 +78,17 @@ const computedStyles: CSSProperties = {
  *
  * - [View inherited Box Props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Chart({
-  data = [],
-  rangeX,
-  rangeY,
-  fillColor = 'none',
-  strokeColor = '#ffffff',
-  strokeWidth = 2,
-  ...rest
-}: Props) {
+export function Chart(props: Props) {
+  const {
+    data = [],
+    rangeX,
+    rangeY,
+    fillColor = 'none',
+    strokeColor = '#ffffff',
+    strokeWidth = 2,
+    ...rest
+  } = props;
+
   const innerRef = useRef<HTMLDivElement>(null);
   const [viewBox, setViewBox] = useState<ViewBox>([600, 200]);
 

@@ -101,26 +101,28 @@ type Props = {
  *
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
-export function Floating({
-  allowedOutsideClasses,
-  animationDuration,
-  children,
-  closeAfterInteract,
-  content,
-  contentAutoWidth,
-  contentClasses,
-  contentOffset = 6,
-  contentStyles,
-  disabled,
-  hoverDelay,
-  hoverOpen,
-  handleOpen,
-  onMounted,
-  placement,
-  preventPortal,
-  stopChildPropagation,
-  onOpenChange,
-}: Props) {
+export function Floating(props: Props) {
+  const {
+    allowedOutsideClasses,
+    animationDuration,
+    children,
+    closeAfterInteract,
+    content,
+    contentAutoWidth,
+    contentClasses,
+    contentOffset = 6,
+    contentStyles,
+    disabled,
+    hoverDelay,
+    hoverOpen,
+    handleOpen,
+    onMounted,
+    placement,
+    preventPortal,
+    stopChildPropagation,
+    onOpenChange,
+  } = props;
+
   const [isOpen, setIsOpen] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     middleware: [

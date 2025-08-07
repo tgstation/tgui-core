@@ -41,29 +41,31 @@ const textareaDebounce = debounce((onChange: () => void) => onChange(), 250);
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-textarea--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function TextArea({
-  autoFocus,
-  autoSelect,
-  className,
-  disabled,
-  dontUseTabForIndent,
-  expensive,
-  fluid,
-  maxLength,
-  monospace,
-  onBlur,
-  onChange,
-  onEnter,
-  onEscape,
-  onKeyDown,
-  placeholder,
-  ref,
-  selfClear,
-  spellcheck = false,
-  userMarkup,
-  value,
-  ...rest
-}: Props) {
+export function TextArea(props: Props) {
+  const {
+    autoFocus,
+    autoSelect,
+    className,
+    disabled,
+    dontUseTabForIndent,
+    expensive,
+    fluid,
+    maxLength,
+    monospace,
+    onBlur,
+    onChange,
+    onEnter,
+    onEscape,
+    onKeyDown,
+    placeholder,
+    ref,
+    selfClear,
+    spellcheck = false,
+    userMarkup,
+    value,
+    ...rest
+  } = props;
+
   const ourRef = useRef<HTMLTextAreaElement>(null);
   const textareaRef = ref ?? ourRef;
 

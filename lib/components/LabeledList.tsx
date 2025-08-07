@@ -63,21 +63,23 @@ type LabeledListItemProps = Partial<{
   preserveWhitespace: boolean;
 }>;
 
-function LabeledListItem({
-  className,
-  label,
-  labelColor = 'label',
-  labelWrap,
-  color,
-  textAlign,
-  buttons,
-  content,
-  children,
-  verticalAlign = 'baseline',
-  preserveWhitespace,
-  tooltip,
-  tooltipPosition,
-}: LabeledListItemProps) {
+function LabeledListItem(props: LabeledListItemProps) {
+  const {
+    className,
+    label,
+    labelColor = 'label',
+    labelWrap,
+    color,
+    textAlign,
+    buttons,
+    content,
+    children,
+    verticalAlign = 'baseline',
+    preserveWhitespace,
+    tooltip,
+    tooltipPosition,
+  } = props;
+
   let innerLabel: ReactNode;
   if (label) {
     innerLabel = label;

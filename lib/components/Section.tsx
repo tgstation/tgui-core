@@ -67,23 +67,25 @@ type Props = Partial<{
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-section--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Section({
-  buttons,
-  children,
-  className,
-  container_id = '',
-  fill,
-  fitted,
-  flexGrow,
-  noTopPadding,
-  onScroll,
-  ref,
-  scrollable,
-  scrollableHorizontal,
-  stretchContents,
-  title,
-  ...rest
-}: Props) {
+export function Section(props: Props) {
+  const {
+    buttons,
+    children,
+    className,
+    container_id = '',
+    fill,
+    fitted,
+    flexGrow,
+    noTopPadding,
+    onScroll,
+    ref,
+    scrollable,
+    scrollableHorizontal,
+    stretchContents,
+    title,
+    ...rest
+  } = props;
+
   const hasTitle = canRender(title) || canRender(buttons);
 
   const ourRef = useRef<HTMLDivElement>(null);

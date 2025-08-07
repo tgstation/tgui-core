@@ -36,13 +36,14 @@ const transparentImg =
  *
  * It will also try to fix blurry images by rendering them pixelated.
  */
-export function Image({
-  fixBlur = true,
-  fixErrors,
-  objectFit,
-  src = transparentImg,
-  ...rest
-}: Props) {
+export function Image(props: Props) {
+  const {
+    fixBlur = true,
+    fixErrors,
+    objectFit = 'fill',
+    src = transparentImg,
+    ...rest
+  } = props;
   const attempts = useRef(0);
   const timer = useRef<NodeJS.Timeout>(null);
 
@@ -50,7 +51,7 @@ export function Image({
   computedProps.style = {
     ...computedProps.style,
     imageRendering: fixBlur ? 'pixelated' : 'auto',
-    objectFit: objectFit ?? 'fill',
+    objectFit,
   };
 
   function handleError(event: React.SyntheticEvent<HTMLImageElement>): void {

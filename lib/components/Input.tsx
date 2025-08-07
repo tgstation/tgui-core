@@ -109,27 +109,29 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-input--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Input({
-  autoFocus,
-  autoSelect,
-  className,
-  disabled,
-  expensive,
-  fluid,
-  maxLength,
-  monospace,
-  onBlur,
-  onChange,
-  onEnter,
-  onEscape,
-  onKeyDown,
-  placeholder,
-  ref,
-  selfClear,
-  spellcheck = false,
-  value,
-  ...rest
-}: Props) {
+export function Input(props: Props) {
+  const {
+    autoFocus,
+    autoSelect,
+    className,
+    disabled,
+    expensive,
+    fluid,
+    maxLength,
+    monospace,
+    onBlur,
+    onChange,
+    onEnter,
+    onEscape,
+    onKeyDown,
+    placeholder,
+    ref,
+    selfClear,
+    spellcheck = false,
+    value,
+    ...rest
+  } = props;
+
   const ourRef = useRef<HTMLInputElement>(null);
   const inputRef = ref ?? ourRef;
 

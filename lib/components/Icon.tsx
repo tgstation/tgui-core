@@ -17,14 +17,9 @@ type Props = {
 
 const FA_OUTLINE_REGEX = /-o$/;
 
-export function Icon({
-  name = '',
-  size,
-  spin,
-  className,
-  rotation,
-  ...rest
-}: Props) {
+export function Icon(props: Props) {
+  const { name = '', size, spin, className, rotation, ...rest } = props;
+
   const customStyle = rest.style || {};
   if (size) {
     customStyle.fontSize = `${size * 100}%`;

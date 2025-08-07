@@ -75,33 +75,34 @@ function getScalarScreenOffset(event: MouseEvent, matrix: number[]): number {
  * A wrapper component for draggable elements.
  * Generally, you won't need to use this component directly.
  */
-export function DraggableControl({
-  // Our props
-  animated,
-  children,
-  dragMatrix = [1, 0],
-  tickWhileDragging,
-  format,
-  maxValue = Number.POSITIVE_INFINITY,
-  minValue = Number.NEGATIVE_INFINITY,
-  onChange,
-  step = 1,
-  stepPixelSize,
-  unclamped,
-  unit,
-  updateRate = DEFAULT_UPDATE_RATE,
-  value,
-  // Box props
-  fontSize,
-  height,
-  lineHeight,
-}: Props) {
+export function DraggableControl(props: Props) {
+  const {
+    // Our props
+    animated,
+    children,
+    dragMatrix = [1, 0],
+    tickWhileDragging,
+    format,
+    maxValue = Number.POSITIVE_INFINITY,
+    minValue = Number.NEGATIVE_INFINITY,
+    onChange,
+    step = 1,
+    stepPixelSize,
+    unclamped,
+    unit,
+    updateRate = DEFAULT_UPDATE_RATE,
+    // Box props
+    fontSize,
+    height,
+    lineHeight,
+  } = props;
+
   // just to re-render
-  const [_stateValue, setStateValue] = useState(value);
+  const [_stateValue, setStateValue] = useState(props.value);
   const [editing, setEditing] = useState(false);
 
   const dragging = useRef(false);
-  const finalValue = useRef(value);
+  const finalValue = useRef(props.value);
   const originalValue = useRef<number | null>(0);
   const origin = useRef<number | null>(0);
   const finalStepPixelSize = useRef<number | null>(null);
@@ -111,11 +112,11 @@ export function DraggableControl({
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (value !== finalValue.current) {
-      finalValue.current = value;
-      setStateValue(value);
+    if (props.value !== finalValue.current) {
+      finalValue.current = props.value;
+      setStateValue(props.value);
     }
-  }, [value]);
+  }, [props.value]);
 
   /** Handed to the child component - onMouseDown  */
   function handleDragStart(event: React.MouseEvent<HTMLDivElement>): void {
@@ -140,7 +141,7 @@ export function DraggableControl({
     document.body.style['pointer-events'] = 'none';
 
     origin.current = getScalarScreenOffset(event.nativeEvent, dragMatrix);
-    originalValue.current = value;
+    originalValue.current = props.value;
     dragging.current = true;
 
     document.addEventListener('mouseup', handleDragEnd);
@@ -156,7 +157,8 @@ export function DraggableControl({
       document.addEventListener('mousemove', handleDragMove);
 
       dragIntervalRef.current = setInterval(() => {
-        if (dragging.current && tickWhileDragging) onChange?.(event, value);
+        if (dragging.current && tickWhileDragging)
+          onChange?.(event, props.value);
       }, updateRate);
     } else {
       setEditing(true);
@@ -249,7 +251,7 @@ export function DraggableControl({
     }
   }
 
-  let displayValue = value;
+  let displayValue = props.value;
   if (dragging.current) {
     displayValue = finalValue.current;
   }

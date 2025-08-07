@@ -65,26 +65,28 @@ type Props = {
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-slider--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function Slider({
-  // Draggable props (passthrough)
-  animated,
-  tickWhileDragging,
-  format,
-  maxValue,
-  minValue,
-  onChange,
-  step,
-  stepPixelSize,
-  unit,
-  value,
-  // Own props
-  className,
-  fillValue,
-  color,
-  ranges = {},
-  children,
-  ...rest
-}: Props) {
+export function Slider(props: Props) {
+  const {
+    // Draggable props (passthrough)
+    animated,
+    tickWhileDragging,
+    format,
+    maxValue,
+    minValue,
+    onChange,
+    step,
+    stepPixelSize,
+    unit,
+    value,
+    // Own props
+    className,
+    fillValue,
+    color,
+    ranges = {},
+    children,
+    ...rest
+  } = props;
+
   const hasContent = children !== undefined;
 
   return (

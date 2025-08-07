@@ -36,15 +36,17 @@ type Props = {
  * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
  * A much faster alternative to base64 icons.
  */
-export function DmIcon({
-  direction = Direction.SOUTH,
-  fallback,
-  frame = 1,
-  icon_state,
-  icon,
-  movement = false,
-  ...rest
-}: Props) {
+export function DmIcon(props: Props) {
+  const {
+    direction = Direction.SOUTH,
+    fallback,
+    frame = 1,
+    icon_state,
+    icon,
+    movement = false,
+    ...rest
+  } = props;
+
   const iconRef = Byond.iconRefMap?.[icon];
 
   if (!iconRef) return fallback;

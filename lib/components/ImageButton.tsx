@@ -94,31 +94,33 @@ type Props = Partial<{
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
  * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
-export function ImageButton({
-  asset,
-  assetSize = 32,
-  base64,
-  buttons,
-  buttonsAlt,
-  children,
-  className,
-  color,
-  disabled,
-  dmFallback,
-  dmIcon,
-  dmIconState,
-  fluid,
-  fallbackIcon,
-  imageSize = 64,
-  imageSrc,
-  onClick,
-  onRightClick,
-  selected,
-  title,
-  tooltip,
-  tooltipPosition,
-  ...rest
-}: Props) {
+export function ImageButton(props: Props) {
+  const {
+    asset,
+    assetSize = 32,
+    base64,
+    buttons,
+    buttonsAlt,
+    children,
+    className,
+    color,
+    disabled,
+    dmFallback,
+    dmIcon,
+    dmIconState,
+    fluid,
+    fallbackIcon,
+    imageSize = 64,
+    imageSrc,
+    onClick,
+    onRightClick,
+    selected,
+    title,
+    tooltip,
+    tooltipPosition,
+    ...rest
+  } = props;
+
   let buttonContent = (
     <div
       className={'ImageButton__container'}
