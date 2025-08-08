@@ -27,6 +27,8 @@ export type BaseInputProps<TElement = HTMLInputElement> = Partial<{
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+  /** Allows to toggle on spellcheck on inputs */
+  spellcheck: boolean;
 }> &
   BoxProps<TElement>;
 
@@ -125,6 +127,7 @@ export function Input(props: Props) {
     placeholder,
     ref,
     selfClear,
+    spellcheck = false,
     value,
     ...rest
   } = props;
@@ -213,7 +216,7 @@ export function Input(props: Props) {
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={inputRef}
-      spellCheck={false}
+      spellCheck={spellcheck}
       type="text"
       value={innerValue}
     />

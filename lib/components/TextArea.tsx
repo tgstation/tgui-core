@@ -60,6 +60,7 @@ export function TextArea(props: Props) {
     placeholder,
     ref,
     selfClear,
+    spellcheck = false,
     userMarkup,
     value,
     ...rest
@@ -183,7 +184,7 @@ export function TextArea(props: Props) {
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
       ref={textareaRef}
-      spellCheck={false}
+      spellCheck={spellcheck}
       value={innerValue}
     />
   );
