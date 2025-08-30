@@ -20,6 +20,8 @@ export const Default: Story = {
       <LabeledControls width={50}>
         <LabeledControls.Item label="Label 1">
           <Knob
+            minValue={0}
+            maxValue={10}
             tickWhileDragging
             value={knobValue}
             onChange={(e, v) => setKnobValue(v)}
@@ -36,6 +38,8 @@ export const Default: Story = {
         </LabeledControls.Item>
         <LabeledControls.Item label="Label 3">
           <Knob
+            minValue={0}
+            maxValue={10}
             tickWhileDragging
             value={knobValue}
             onChange={(e, v) => setKnobValue(v)}

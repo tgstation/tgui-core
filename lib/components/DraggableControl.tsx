@@ -158,7 +158,7 @@ export function DraggableControl(props: Props) {
 
       dragIntervalRef.current = setInterval(() => {
         if (dragging.current && tickWhileDragging)
-          onChange?.(event, props.value);
+          onChange?.(event, finalValue.current);
       }, updateRate);
     } else {
       setEditing(true);
