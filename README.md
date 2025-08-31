@@ -90,3 +90,6 @@ To test your changes using [Storybook](https://storybook.js.org/docs) run:
 
 To run unit tests run
 `bun test`
+
+To build dist folder
+`bun run build-rslib`
