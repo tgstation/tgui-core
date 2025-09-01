@@ -51,6 +51,7 @@ export function AnimatedNumber(props: Props) {
     if (currentValue !== value) {
       startTicking();
     }
+    return () => stopTicking();
   }, [value]);
 
   /** Cleanup any intervals */
