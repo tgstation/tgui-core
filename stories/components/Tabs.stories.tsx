@@ -75,20 +75,20 @@ export const Scrollable: Story = {
       <Stack vertical width={20} height={20}>
         <Stack.Item>
           <Tabs scrollable>
-            {Array.from({ length: 100 }, (_, i) => (
+            {Array.from({ length: 10 }, (_, i) => (
               <Tabs.Tab
                 key={`tab-${i}`}
                 selected={selectedTab === i}
                 onClick={() => setSelectedTab(i)}
               >
-                Tab {i}
+                Tab {i + 1}
               </Tabs.Tab>
             ))}
           </Tabs>
         </Stack.Item>
         <Stack.Item grow>
           <Section fill title="Scrollable Tabs">
-            Selected tab: {selectedTab}
+            Selected tab: {selectedTab + 1}
           </Section>
         </Stack.Item>
       </Stack>

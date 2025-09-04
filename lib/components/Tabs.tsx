@@ -75,11 +75,13 @@ export function Tabs(props: Props) {
 
     tabsElement.addEventListener('wheel', horizontalScroll);
     tabsElement.addEventListener('scroll', checkScrollable);
+    window.addEventListener('resize', checkScrollable);
     checkScrollable();
 
     return () => {
       tabsElement.removeEventListener('wheel', horizontalScroll);
       tabsElement.removeEventListener('scroll', checkScrollable);
+      window.removeEventListener('resize', checkScrollable);
     };
   }, [scrollable, vertical, children]);
 
