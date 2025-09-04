@@ -72,10 +72,10 @@ export const Scrollable: Story = {
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
-      <Stack vertical width={20} height={20}>
+      <Stack vertical width={50} height={20}>
         <Stack.Item>
           <Tabs scrollable>
-            {Array.from({ length: 10 }, (_, i) => (
+            {Array.from({ length: 25 }, (_, i) => (
               <Tabs.Tab
                 key={`tab-${i}`}
                 selected={selectedTab === i}

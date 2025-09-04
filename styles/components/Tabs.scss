@@ -136,44 +136,35 @@
 }
 
 .Tabs--scrollable {
-  --mask-width: 2.5rem;
-  --mask-indent: var(--button-height);
+  --mask-width: 3.25rem;
+  --mask-left: 0rem;
+  --mask-right: 0rem;
 
   &-content {
     overflow: hidden;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
+    mask-image: linear-gradient(
+      90deg,
+      transparent calc(var(--mask-left) * 0.5),
+      black calc(0% + var(--mask-left)),
+      black calc(100% - var(--mask-right)),
+      transparent calc(100% - calc(var(--mask-right) * 0.5))
+    );
 
     &.scrollable-left.scrollable-right {
-      mask-image: linear-gradient(
-        90deg,
-        transparent var(--mask-indent),
-        black calc(0% + var(--mask-width)),
-        black calc(100% - var(--mask-width)),
-        transparent calc(100% - var(--mask-indent))
-      );
+      --mask-left: var(--mask-width);
+      --mask-right: var(--mask-width);
     }
 
     &.scrollable-left {
-      mask-image: linear-gradient(
-        -90deg,
-        black calc(100% - var(--mask-width)),
-        transparent calc(100% - var(--mask-indent))
-      );
+      --mask-left: var(--mask-width);
     }
 
     &.scrollable-right {
-      mask-image: linear-gradient(
-        90deg,
-        black calc(100% - var(--mask-width)),
-        transparent calc(100% - var(--mask-indent))
-      );
+      --mask-right: var(--mask-width);
     }
-  }
-
-  .Tab {
-    flex-shrink: 0;
   }
 
   .scroll-left,
@@ -181,10 +172,9 @@
     position: absolute;
     align-content: center;
     top: 0;
-    bottom: 0;
-    margin: 0;
     height: 100%;
-    border-radius: 0;
+    margin: none;
+    border-radius: unset;
     z-index: 1;
   }
 
@@ -194,6 +184,10 @@
 
   .scroll-right {
     right: 0;
+  }
+
+  .Tab {
+    flex-shrink: 0;
   }
 }
 
