@@ -22,7 +22,7 @@ export const Default: Story = {
     return (
       <Stack fill height={40} vertical={!vertical} wrap>
         <Stack.Item>
-          <Tabs fill vertical={vertical} scrollable>
+          <Tabs fill vertical={vertical}>
             {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
               (color) => (
                 <Tabs.Tab
