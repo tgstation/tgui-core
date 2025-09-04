@@ -29,9 +29,7 @@ export function Tabs(props: Props) {
   const { className, vertical, scrollable, fill, fluid, children, ...rest } =
     props;
 
-  const scrollSize = 150;
   const tabsRef = useRef<HTMLDivElement>(null);
-
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -75,9 +73,15 @@ export function Tabs(props: Props) {
     };
   }, [scrollable, vertical]);
 
-  function makeScroll(amount: number) {
-    tabsRef?.current?.scrollBy({
-      left: amount,
+  function makeScroll(direction: 'left' | 'right') {
+    if (!tabsRef?.current) {
+      return;
+    }
+
+    const tabsElement = tabsRef.current;
+    const tabsElementWidth = tabsElement.clientWidth * 0.5;
+    tabsElement.scrollBy({
+      left: direction === 'left' ? -tabsElementWidth : tabsElementWidth,
       behavior: 'smooth',
     });
   }
@@ -91,7 +95,7 @@ export function Tabs(props: Props) {
             className="scroll-left"
             color="transparent"
             icon="angle-left"
-            onClick={() => makeScroll(-scrollSize)}
+            onClick={() => makeScroll('left')}
           />
         )}
         <div
@@ -109,7 +113,7 @@ export function Tabs(props: Props) {
             className="scroll-right"
             color="transparent"
             icon="angle-right"
-            onClick={() => makeScroll(scrollSize)}
+            onClick={() => makeScroll('right')}
           />
         )}
       </>
