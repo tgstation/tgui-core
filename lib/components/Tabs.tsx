@@ -33,19 +33,6 @@ export function Tabs(props: Props) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  function checkScrollable() {
-    if (!tabsRef.current) {
-      return;
-    }
-
-    const tabsElement = tabsRef.current;
-    setCanScrollLeft(tabsElement.scrollLeft > 0);
-    setCanScrollRight(
-      tabsElement.scrollLeft + tabsElement.clientWidth <
-        tabsElement.scrollWidth,
-    );
-  }
-
   useEffect(() => {
     if (!scrollable || vertical || !tabsRef.current) {
       return;
@@ -54,6 +41,14 @@ export function Tabs(props: Props) {
     const tabsElement = tabsRef.current;
     if (tabsElement.scrollWidth < tabsElement.clientWidth) {
       return;
+    }
+
+    function checkScrollable() {
+      setCanScrollLeft(tabsElement.scrollLeft > 0);
+      setCanScrollRight(
+        tabsElement.scrollLeft + tabsElement.clientWidth <
+          tabsElement.scrollWidth,
+      );
     }
 
     function horizontalScroll(event) {
