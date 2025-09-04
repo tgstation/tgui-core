@@ -345,7 +345,11 @@ function ButtonInput(props: InputProps) {
         disabled && 'Button--disabled',
         `Button--color--${color}`,
       ])}
-      onClick={() => setEditing(true)}
+      onClick={() => {
+        if (!disabled) {
+          setEditing(true);
+        }
+      }}
       {...rest}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
