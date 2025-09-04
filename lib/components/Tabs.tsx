@@ -74,7 +74,7 @@ export function Tabs(props: Props) {
   }, [scrollable, vertical]);
 
   function makeScroll(direction: 'left' | 'right') {
-    if (!tabsRef?.current) {
+    if (!tabsRef.current) {
       return;
     }
 
