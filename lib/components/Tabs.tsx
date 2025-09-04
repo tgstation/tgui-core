@@ -52,26 +52,36 @@ export function Tabs(props: Props) {
     }
 
     const tabsElement = tabsRef.current;
+    if (tabsElement.scrollWidth < tabsElement.clientWidth) {
+      return;
+    }
+
     function horizontalScroll(event) {
-      if (tabsElement.scrollWidth > tabsElement.clientWidth) {
-        // Only scroll horizontally
-        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-          tabsElement.scrollLeft += event.deltaY;
-        }
+      // Only scroll horizontally
+      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+        tabsElement.scrollLeft += event.deltaY;
       }
     }
 
-    if (scrollable && !vertical) {
-      tabsElement.addEventListener('wheel', horizontalScroll);
-      tabsElement.addEventListener('scroll', checkScrollable);
-      checkScrollable();
+    const selectedElement = tabsElement.querySelector('.Tab--selected');
+    if (!selectedElement) {
+      return;
     }
+
+    selectedElement.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+    });
+
+    tabsElement.addEventListener('wheel', horizontalScroll);
+    tabsElement.addEventListener('scroll', checkScrollable);
+    checkScrollable();
 
     return () => {
       tabsElement.removeEventListener('wheel', horizontalScroll);
       tabsElement.removeEventListener('scroll', checkScrollable);
     };
-  }, [scrollable, vertical]);
+  }, [scrollable, vertical, children]);
 
   function makeScroll(direction: 'left' | 'right') {
     if (!tabsRef.current) {
