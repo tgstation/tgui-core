@@ -22,7 +22,7 @@ export const Default: Story = {
     return (
       <Stack fill height={40} vertical={!vertical} wrap>
         <Stack.Item>
-          <Tabs fill vertical={vertical}>
+          <Tabs fill vertical={vertical} scrollable>
             {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
               (color) => (
                 <Tabs.Tab
@@ -60,6 +60,35 @@ export const Default: Story = {
             title={`Vertical Tabs - Tab ${tab}`}
           >
             Selected tab: {tab}
+          </Section>
+        </Stack.Item>
+      </Stack>
+    );
+  },
+};
+
+export const Scrollable: Story = {
+  render() {
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    return (
+      <Stack vertical width={20} height={20}>
+        <Stack.Item>
+          <Tabs scrollable>
+            {Array.from({ length: 100 }, (_, i) => (
+              <Tabs.Tab
+                key={`tab-${i}`}
+                selected={selectedTab === i}
+                onClick={() => setSelectedTab(i)}
+              >
+                Tab {i}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section fill title="Scrollable Tabs">
+            Selected tab: {selectedTab}
           </Section>
         </Stack.Item>
       </Stack>

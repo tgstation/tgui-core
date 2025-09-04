@@ -1,7 +1,8 @@
 import { canRender, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
+import { Button } from './Button';
 import { Icon } from './Icon';
 
 type Props = Partial<{
@@ -16,11 +17,104 @@ type Props = Partial<{
   fluid: boolean;
   /** Use a vertical configuration, where tabs will be stacked vertically. */
   vertical: boolean;
+  /**
+   * Allows you to scroll horizontal tabs, and adds special buttons for it.
+   * Has no effect on vertical tabs.
+   */
+  scrollable: boolean;
 }> &
   BoxProps;
 
 export function Tabs(props: Props) {
-  const { className, vertical, fill, fluid, children, ...rest } = props;
+  const { className, vertical, scrollable, fill, fluid, children, ...rest } =
+    props;
+
+  const scrollSize = 150;
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  function checkScrollable() {
+    if (!tabsRef.current) {
+      return;
+    }
+
+    const tabsElement = tabsRef.current;
+    setCanScrollLeft(tabsElement.scrollLeft > 0);
+    setCanScrollRight(
+      tabsElement.scrollLeft + tabsElement.clientWidth <
+        tabsElement.scrollWidth,
+    );
+  }
+
+  useEffect(() => {
+    if (!scrollable || vertical || !tabsRef.current) {
+      return;
+    }
+
+    const tabsElement = tabsRef.current;
+    function horizontalScroll(event) {
+      if (tabsElement.scrollWidth > tabsElement.clientWidth) {
+        // Only scroll horizontally
+        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+          tabsElement.scrollLeft += event.deltaY;
+        }
+      }
+    }
+
+    if (scrollable && !vertical) {
+      tabsElement.addEventListener('wheel', horizontalScroll);
+      tabsElement.addEventListener('scroll', checkScrollable);
+      checkScrollable();
+    }
+
+    return () => {
+      tabsElement.removeEventListener('wheel', horizontalScroll);
+      tabsElement.removeEventListener('scroll', checkScrollable);
+    };
+  }, [scrollable, vertical]);
+
+  function makeScroll(amount: number) {
+    tabsRef?.current?.scrollBy({
+      left: amount,
+      behavior: 'smooth',
+    });
+  }
+
+  let tabsContent = children;
+  if (scrollable && !vertical) {
+    tabsContent = (
+      <>
+        {canScrollLeft && (
+          <Button
+            className="scroll-left"
+            color="transparent"
+            icon="angle-left"
+            onClick={() => makeScroll(-scrollSize)}
+          />
+        )}
+        <div
+          ref={tabsRef}
+          className={classes([
+            'Tabs--scrollable-content',
+            canScrollLeft && 'scrollable-left',
+            canScrollRight && 'scrollable-right',
+          ])}
+        >
+          {children}
+        </div>
+        {canScrollRight && (
+          <Button
+            className="scroll-right"
+            color="transparent"
+            icon="angle-right"
+            onClick={() => makeScroll(scrollSize)}
+          />
+        )}
+      </>
+    );
+  }
 
   return (
     <div
@@ -29,12 +123,13 @@ export function Tabs(props: Props) {
         vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
         fill && 'Tabs--fill',
         fluid && 'Tabs--fluid',
+        !vertical && scrollable && 'Tabs--scrollable',
         className,
         computeBoxClassName(rest),
       ])}
       {...computeBoxProps(rest)}
     >
-      {children}
+      {tabsContent}
     </div>
   );
 }
