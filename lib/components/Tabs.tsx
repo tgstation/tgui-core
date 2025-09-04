@@ -103,12 +103,7 @@ export function Tabs(props: Props) {
     tabsContent = (
       <>
         {canScrollLeft && (
-          <Button
-            className="scroll-left"
-            color="transparent"
-            icon="angle-left"
-            onClick={() => makeScroll('left')}
-          />
+          <ScrollButton direction="left" makeScroll={makeScroll} />
         )}
         <div
           ref={tabsRef}
@@ -121,12 +116,7 @@ export function Tabs(props: Props) {
           {children}
         </div>
         {canScrollRight && (
-          <Button
-            className="scroll-right"
-            color="transparent"
-            icon="angle-right"
-            onClick={() => makeScroll('right')}
-          />
+          <ScrollButton direction="right" makeScroll={makeScroll} />
         )}
       </>
     );
@@ -147,6 +137,18 @@ export function Tabs(props: Props) {
     >
       {tabsContent}
     </div>
+  );
+}
+
+function ScrollButton(props) {
+  const { direction, makeScroll } = props;
+  return (
+    <Button
+      className={`scroll-${direction}`}
+      color="transparent"
+      icon={`angle-${direction}`}
+      onClick={() => makeScroll(direction)}
+    />
   );
 }
 
