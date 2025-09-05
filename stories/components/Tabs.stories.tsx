@@ -69,7 +69,7 @@ export const Default: Story = {
 
 export const Scrollable: Story = {
   render() {
-    const [selectedTab, setSelectedTab] = useState(0);
+    const [selectedTab, setSelectedTab] = useState(14);
 
     return (
       <Stack vertical width={50} height={20}>

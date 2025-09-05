@@ -29,6 +29,7 @@ export function Tabs(props: Props) {
   const { className, vertical, scrollable, fill, fluid, children, ...rest } =
     props;
 
+  const firstRender = useRef<boolean>(true);
   const tabsRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -64,9 +65,10 @@ export function Tabs(props: Props) {
     }
 
     selectedElement.scrollIntoView({
-      behavior: 'smooth',
+      behavior: firstRender.current ? 'auto' : 'smooth',
       inline: 'center',
     });
+    firstRender.current = false;
 
     tabsElement.addEventListener('wheel', horizontalScroll);
     tabsElement.addEventListener('scroll', checkScrollable);
