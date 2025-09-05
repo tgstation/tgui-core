@@ -66,3 +66,32 @@ export const Default: Story = {
     );
   },
 };
+
+export const Scrollable: Story = {
+  render() {
+    const [selectedTab, setSelectedTab] = useState(14);
+
+    return (
+      <Stack vertical width={50} height={20}>
+        <Stack.Item>
+          <Tabs scrollable>
+            {Array.from({ length: 25 }, (_, i) => (
+              <Tabs.Tab
+                key={`tab-${i}`}
+                selected={selectedTab === i}
+                onClick={() => setSelectedTab(i)}
+              >
+                Tab {i + 1}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section fill title="Scrollable Tabs">
+            Selected tab: {selectedTab + 1}
+          </Section>
+        </Stack.Item>
+      </Stack>
+    );
+  },
+};
