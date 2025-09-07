@@ -1,7 +1,8 @@
 import { canRender, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import type { ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
+import { Button } from './Button';
 import { Icon } from './Icon';
 
 type Props = Partial<{
@@ -16,11 +17,107 @@ type Props = Partial<{
   fluid: boolean;
   /** Use a vertical configuration, where tabs will be stacked vertically. */
   vertical: boolean;
+  /**
+   * Allows you to scroll horizontal tabs, and adds special buttons for it.
+   * Has no effect on vertical tabs.
+   */
+  scrollable: boolean;
 }> &
   BoxProps;
 
 export function Tabs(props: Props) {
-  const { className, vertical, fill, fluid, children, ...rest } = props;
+  const { className, vertical, scrollable, fill, fluid, children, ...rest } =
+    props;
+
+  const firstRender = useRef<boolean>(true);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useEffect(() => {
+    if (!scrollable || vertical || !tabsRef.current) {
+      return;
+    }
+
+    const tabsElement = tabsRef.current;
+    if (tabsElement.scrollWidth < tabsElement.clientWidth) {
+      return;
+    }
+
+    function checkScrollable() {
+      setCanScrollLeft(tabsElement.scrollLeft > 0);
+      setCanScrollRight(
+        tabsElement.scrollLeft + tabsElement.clientWidth <
+          tabsElement.scrollWidth,
+      );
+    }
+
+    function horizontalScroll(event) {
+      // Only scroll horizontally
+      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+        tabsElement.scrollLeft += event.deltaY;
+      }
+    }
+
+    const selectedElement = tabsElement.querySelector('.Tab--selected');
+    if (!selectedElement) {
+      return;
+    }
+
+    selectedElement.scrollIntoView({
+      behavior: firstRender.current ? 'auto' : 'smooth',
+      inline: 'center',
+    });
+    firstRender.current = false;
+
+    tabsElement.addEventListener('wheel', horizontalScroll);
+    tabsElement.addEventListener('scroll', checkScrollable);
+    window.addEventListener('resize', checkScrollable);
+    checkScrollable();
+
+    return () => {
+      tabsElement.removeEventListener('wheel', horizontalScroll);
+      tabsElement.removeEventListener('scroll', checkScrollable);
+      window.removeEventListener('resize', checkScrollable);
+    };
+  }, [scrollable, vertical, children]);
+
+  function makeScroll(direction: 'left' | 'right') {
+    if (!tabsRef.current) {
+      return;
+    }
+
+    const tabsElement = tabsRef.current;
+    const tabsElementWidth = tabsElement.clientWidth * 0.5;
+    tabsElement.scrollBy({
+      left: direction === 'left' ? -tabsElementWidth : tabsElementWidth,
+      behavior: 'smooth',
+    });
+  }
+
+  let tabsContent = children;
+  if (scrollable && !vertical) {
+    tabsContent = (
+      <>
+        {canScrollLeft && (
+          <ScrollButton direction="left" makeScroll={makeScroll} />
+        )}
+        <div
+          ref={tabsRef}
+          className={classes([
+            'Tabs--scrollable-content',
+            canScrollLeft && 'scrollable-left',
+            canScrollRight && 'scrollable-right',
+          ])}
+        >
+          {children}
+        </div>
+        {canScrollRight && (
+          <ScrollButton direction="right" makeScroll={makeScroll} />
+        )}
+      </>
+    );
+  }
 
   return (
     <div
@@ -29,13 +126,26 @@ export function Tabs(props: Props) {
         vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
         fill && 'Tabs--fill',
         fluid && 'Tabs--fluid',
+        !vertical && scrollable && 'Tabs--scrollable',
         className,
         computeBoxClassName(rest),
       ])}
       {...computeBoxProps(rest)}
     >
-      {children}
+      {tabsContent}
     </div>
+  );
+}
+
+function ScrollButton(props) {
+  const { direction, makeScroll } = props;
+  return (
+    <Button
+      className={`scroll-${direction}`}
+      color="transparent"
+      icon={`angle-${direction}`}
+      onClick={() => makeScroll(direction)}
+    />
   );
 }
 
