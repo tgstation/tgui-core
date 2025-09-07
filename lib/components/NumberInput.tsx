@@ -6,6 +6,7 @@ import {
   createRef,
   type FocusEventHandler,
   type KeyboardEventHandler,
+  type WheelEventHandler,
 } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
@@ -255,6 +256,32 @@ export class NumberInput extends Component<Props, State> {
     }
   };
 
+  /** Handles scroll wheel events to adjust value */
+  handleWheel: WheelEventHandler<HTMLDivElement> = (event) => {
+    const { disabled, step, minValue, maxValue, onChange } = this.props;
+    const { editing } = this.state;
+
+    if (disabled || editing) {
+      return;
+    }
+
+    // Prevent page scrolling
+    event.preventDefault();
+
+    // Determine direction: positive deltaY means scroll down (decrease value)
+    const direction = event.deltaY > 0 ? -1 : 1;
+    const currentValue = Number.parseFloat(this.props.value.toString());
+    const newValue = clamp(currentValue + direction * step, minValue, maxValue);
+
+    if (newValue !== currentValue) {
+      this.setState({
+        currentValue: newValue,
+        previousValue: newValue,
+      });
+      onChange?.(newValue);
+    }
+  };
+
   render() {
     const { dragging, editing, currentValue } = this.state;
 
@@ -304,6 +331,7 @@ export class NumberInput extends Component<Props, State> {
         minHeight={height}
         minWidth={width}
         onMouseDown={this.handleDragStart}
+        onWheel={this.handleWheel}
       >
         <div className="NumberInput__barContainer">
           <div

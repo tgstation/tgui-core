@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type WheelEventHandler,
 } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 import type { BoxProps } from './Box';
@@ -23,6 +24,8 @@ type Control = {
   editing: boolean;
   /** Attach this to the element you want to be draggable  */
   handleDragStart: MouseEventHandler<HTMLDivElement>;
+  /** Attach this to the element to enable scroll wheel support  */
+  handleWheel: WheelEventHandler<HTMLDivElement>;
   /** The input element. */
   inputElement: ReactNode;
 };
@@ -251,6 +254,28 @@ export function DraggableControl(props: Props) {
     }
   }
 
+  /** Handles scroll wheel events to adjust value */
+  function handleWheel(event: React.WheelEvent<HTMLDivElement>): void {
+    if (editing) return;
+
+    // Prevent page scrolling
+    event.preventDefault();
+
+    // Determine direction: positive deltaY means scroll down (decrease value)
+    const direction = event.deltaY > 0 ? -1 : 1;
+    const newValue = clamp(
+      finalValue.current + direction * step,
+      minValue,
+      maxValue,
+    );
+
+    if (newValue !== finalValue.current) {
+      finalValue.current = newValue;
+      setStateValue(newValue);
+      onChange?.(event.nativeEvent, newValue);
+    }
+  }
+
   let displayValue = props.value;
   if (dragging.current) {
     displayValue = finalValue.current;
@@ -291,6 +316,7 @@ export function DraggableControl(props: Props) {
     dragging: dragging.current,
     editing,
     handleDragStart,
+    handleWheel,
     inputElement,
   });
 }

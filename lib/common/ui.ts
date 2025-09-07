@@ -379,6 +379,7 @@ export const eventHandlers = [
   'onMouseOver',
   'onMouseUp',
   'onScroll',
+  'onWheel',
   'onDrag',
   'onDragEnd',
   'onDragEnter',

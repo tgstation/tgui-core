@@ -112,6 +112,7 @@ export function Slider(props: Props) {
           dragging,
           editing,
           handleDragStart,
+          handleWheel,
           inputElement,
         } = control;
 
@@ -139,6 +140,7 @@ export function Slider(props: Props) {
             ])}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}
+            onWheel={handleWheel}
           >
             <div
               className={classes([

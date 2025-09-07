@@ -117,6 +117,7 @@ export function Knob(props: Props) {
           displayValue,
           dragging,
           handleDragStart,
+          handleWheel,
           inputElement,
         } = control;
         const scaledFillValue = scale(
@@ -153,6 +154,7 @@ export function Knob(props: Props) {
                 ...rest,
               })}
               onMouseDown={handleDragStart}
+              onWheel={handleWheel}
             >
               <div className="Knob__circle">
                 <div
