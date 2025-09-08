@@ -31,6 +31,8 @@ export function Tabs(props: Props) {
 
   const firstRender = useRef<boolean>(true);
   const tabsRef = useRef<HTMLDivElement>(null);
+  const prevSelectedRef = useRef<Element | null>(null);
+
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -64,13 +66,16 @@ export function Tabs(props: Props) {
       return;
     }
 
-    selectedElement.scrollIntoView({
-      behavior: firstRender.current ? 'auto' : 'smooth',
-      inline: 'center',
-    });
-    firstRender.current = false;
+    if (prevSelectedRef.current !== selectedElement) {
+      prevSelectedRef.current = selectedElement;
+      selectedElement.scrollIntoView({
+        behavior: firstRender.current ? 'auto' : 'smooth',
+        inline: 'center',
+      });
+    }
 
-    tabsElement.addEventListener('wheel', horizontalScroll);
+    firstRender.current = false;
+    tabsElement.addEventListener('wheel', horizontalScroll, { passive: true });
     tabsElement.addEventListener('scroll', checkScrollable);
     window.addEventListener('resize', checkScrollable);
     checkScrollable();

@@ -136,9 +136,12 @@
 }
 
 .Tabs--scrollable {
-  --mask-width: 3.25rem;
+  --mask-width: 3.25em;
   --mask-left: 0rem;
   --mask-right: 0rem;
+
+  display: grid;
+  padding: 0;
 
   &-content {
     overflow: auto;
@@ -146,13 +149,13 @@
     overscroll-behavior: none;
     display: flex;
     flex-wrap: nowrap;
-    width: 100%;
+    padding: var(--space-s) var(--space-s) 0;
     mask-image: linear-gradient(
       90deg,
-      transparent calc(var(--mask-left) * 0.5),
+      transparent calc(var(--mask-left) * 0.66),
       black calc(0% + var(--mask-left)),
       black calc(100% - var(--mask-right)),
-      transparent calc(100% - calc(var(--mask-right) * 0.5))
+      transparent calc(100% - calc(var(--mask-right) * 0.66))
     );
 
     &.scrollable-left.scrollable-right {
@@ -175,8 +178,8 @@
     align-content: center;
     top: 0;
     height: 100%;
-    margin: none;
-    border-radius: unset;
+    margin: 0;
+    border-radius: 0;
     z-index: 1;
   }
 
