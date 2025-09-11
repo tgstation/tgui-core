@@ -11,7 +11,7 @@ import { Icon } from './Icon';
 
 type MenuBarDropdownProps = {
   disabled?: boolean;
-  display: any;
+  displayText: any;
   onMouseOver: () => void;
   onOutsideClick: () => void;
   open: boolean;
@@ -23,7 +23,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
     children,
     className,
     disabled,
-    display,
+    displayText,
     onClick,
     onMouseOver,
     open,
@@ -61,7 +61,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
           onClick={disabled ? () => null : onClick}
           onMouseOver={onMouseOver}
         >
-          <span className="MenuBar__MenuBarButton-text">{display}</span>
+          <span className="MenuBar__MenuBarButton-text">{displayText}</span>
         </Box>
       </div>
     </Floating>
@@ -72,7 +72,7 @@ type MenuBarItemProps = {
   children: ReactNode;
   className?: string;
   disabled?: boolean;
-  display: ReactNode;
+  displayText: ReactNode;
   entry: string;
   openMenuBar: string | null;
   openOnHover: boolean;
@@ -86,7 +86,7 @@ function MenuDropdown(props: MenuBarItemProps) {
     entry,
     children,
     openWidth,
-    display,
+    displayText,
     setOpenMenuBar,
     openMenuBar,
     setOpenOnHover,
@@ -99,7 +99,7 @@ function MenuDropdown(props: MenuBarItemProps) {
     <MenuBarButton
       className={className}
       disabled={disabled}
-      display={display}
+      displayText={displayText}
       onClick={() => {
         const open = openMenuBar === entry ? null : entry;
         setOpenMenuBar(open);
@@ -126,13 +126,13 @@ MenuBar.Dropdown = MenuDropdown;
 
 type MenuItemProps = Partial<{
   value: any;
-  display: ReactNode;
+  displayText: ReactNode;
   disabled: BooleanLike;
   onClick: (value: any) => void;
 }>;
 
 function MenuItem(props: MenuItemProps) {
-  const { value, disabled, display, onClick } = props;
+  const { value, disabled, displayText, onClick } = props;
 
   return (
     <Box
@@ -144,7 +144,7 @@ function MenuItem(props: MenuItemProps) {
       ])}
       onClick={() => onClick?.(value)}
     >
-      {display}
+      {displayText}
     </Box>
   );
 }
@@ -154,7 +154,7 @@ MenuDropdown.MenuItem = MenuItem;
 type MenuItemToggleProps = MenuItemProps & Partial<{ checked: BooleanLike }>;
 
 function MenuItemToggle(props: MenuItemToggleProps) {
-  const { value, disabled, display, onClick, checked } = props;
+  const { value, disabled, displayText, onClick, checked } = props;
 
   return (
     <Box
@@ -170,7 +170,7 @@ function MenuItemToggle(props: MenuItemToggleProps) {
       <div className="MenuBar__MenuItemToggle__check">
         <Icon name={checked ? 'check' : ''} size={1.3} />
       </div>
-      {display}
+      {displayText}
     </Box>
   );
 }
@@ -182,7 +182,7 @@ type MenuItemSubmenuProps = PropsWithChildren<
 >;
 
 function MenuItemSubmenu(props: MenuItemSubmenuProps) {
-  const { display, disabled, openWidth, children } = props;
+  const { displayText, disabled, openWidth, children } = props;
   const [open, setOpen] = useState<boolean>(false);
   return (
     <Floating
@@ -214,7 +214,7 @@ function MenuItemSubmenu(props: MenuItemSubmenuProps) {
           'MenuBar__hover',
         ])}
       >
-        {display}
+        {displayText}
         <Icon name="chevron-right" />
       </Box>
     </Floating>
