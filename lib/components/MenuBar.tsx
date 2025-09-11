@@ -36,6 +36,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
 
   return (
     <Floating
+      placement="bottom-start"
       allowedOutsideClasses=".Menubar_inner"
       content={
         <div
