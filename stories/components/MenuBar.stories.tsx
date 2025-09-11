@@ -33,6 +33,7 @@ export const Default: StoryObj<StoryProps> = {
     const [openMenuBar, setOpenMenuBar] = useState<string | null>(null);
     const [openOnHover, setOpenOnHover] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
+    const { openWidth } = args;
 
     const menuBarProps = {
       openMenuBar: openMenuBar,
@@ -54,17 +55,21 @@ export const Default: StoryObj<StoryProps> = {
           display="File"
           entry="file"
         >
-          <MenuBar.Dropdown.MenuItem
-            displayText="Open File"
-            onClick={closeMenu}
-          />
-          <MenuBar.Dropdown.MenuItem displayText="Save" onClick={closeMenu} />
-          <MenuBar.Dropdown.MenuItem
-            displayText="Save As"
-            onClick={closeMenu}
-          />
+          <MenuBar.Dropdown.MenuItem display="Open File" onClick={closeMenu} />
+          <MenuBar.Dropdown.Submenu display="Open Recent" openWidth={openWidth}>
+            <MenuBar.Dropdown.MenuItem display="/foo.js" onClick={closeMenu} />
+            <MenuBar.Dropdown.MenuItem display="/bar.ts" onClick={closeMenu} />
+            <MenuBar.Dropdown.MenuItem display="/baz.tsx" onClick={closeMenu} />
+            <MenuBar.Dropdown.Separator />
+            <MenuBar.Dropdown.MenuItem
+              display="Clear Recently Opened"
+              onClick={closeMenu}
+            />
+          </MenuBar.Dropdown.Submenu>
+          <MenuBar.Dropdown.MenuItem display="Save" onClick={closeMenu} />
+          <MenuBar.Dropdown.MenuItem display="Save As" onClick={closeMenu} />
           <MenuBar.Dropdown.Separator />
-          <MenuBar.Dropdown.MenuItem displayText="Exit" onClick={closeMenu} />
+          <MenuBar.Dropdown.MenuItem display="Exit" onClick={closeMenu} />
         </MenuBar.Dropdown>
         <MenuBar.Dropdown
           {...args}
@@ -73,12 +78,12 @@ export const Default: StoryObj<StoryProps> = {
           entry="settings"
         >
           <MenuBar.Dropdown.MenuItem
-            displayText="User Settings"
+            display="User Settings"
             onClick={closeMenu}
           />
           <MenuBar.Dropdown.MenuItemToggle
             checked={checkbox}
-            displayText="Save on file edit"
+            display="Save on file edit"
             onClick={() => {
               setCheckbox(!checkbox);
             }}
@@ -90,10 +95,7 @@ export const Default: StoryObj<StoryProps> = {
           display="Help"
           entry="help"
         >
-          <MenuBar.Dropdown.MenuItem
-            displayText="More Info"
-            onClick={closeMenu}
-          />
+          <MenuBar.Dropdown.MenuItem display="More Info" onClick={closeMenu} />
         </MenuBar.Dropdown>
       </MenuBar>
     );
