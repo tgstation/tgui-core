@@ -11,7 +11,7 @@ import { Icon } from './Icon';
 
 type MenuBarDropdownProps = {
   disabled?: boolean;
-  displayText: any;
+  display: ReactNode;
   onMouseOver: () => void;
   onOutsideClick: () => void;
   open: boolean;
@@ -23,7 +23,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
     children,
     className,
     disabled,
-    displayText,
+    display,
     onClick,
     onMouseOver,
     open,
@@ -62,7 +62,7 @@ function MenuBarButton(props: MenuBarDropdownProps) {
           onClick={disabled ? () => null : onClick}
           onMouseOver={onMouseOver}
         >
-          <span className="MenuBar__MenuBarButton-text">{displayText}</span>
+          <span className="MenuBar__MenuBarButton-text">{display}</span>
         </Box>
       </div>
     </Floating>
@@ -100,7 +100,7 @@ function MenuDropdown(props: MenuBarItemProps) {
     <MenuBarButton
       className={className}
       disabled={disabled}
-      displayText={displayText}
+      display={displayText}
       onClick={() => {
         const open = openMenuBar === entry ? null : entry;
         setOpenMenuBar(open);
@@ -184,7 +184,7 @@ type MenuItemSubmenuProps = PropsWithChildren<
 
 function MenuItemSubmenu(props: MenuItemSubmenuProps) {
   const { displayText, disabled, openWidth, children } = props;
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   return (
     <Floating
       hoverOpen
