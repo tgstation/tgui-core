@@ -73,7 +73,7 @@ type MenuBarItemProps = {
   children: ReactNode;
   className?: string;
   disabled?: boolean;
-  displayText: ReactNode;
+  display: ReactNode;
   entry: string;
   openMenuBar: string | null;
   openOnHover: boolean;
@@ -87,7 +87,7 @@ function MenuDropdown(props: MenuBarItemProps) {
     entry,
     children,
     openWidth,
-    displayText,
+    display,
     setOpenMenuBar,
     openMenuBar,
     setOpenOnHover,
@@ -100,7 +100,7 @@ function MenuDropdown(props: MenuBarItemProps) {
     <MenuBarButton
       className={className}
       disabled={disabled}
-      display={displayText}
+      display={display}
       onClick={() => {
         const open = openMenuBar === entry ? null : entry;
         setOpenMenuBar(open);

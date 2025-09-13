@@ -52,7 +52,7 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          displayText="File"
+          display="File"
           entry="file"
         >
           <MenuBar.Dropdown.MenuItem
@@ -92,7 +92,7 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          displayText="Settings"
+          display="Settings"
           entry="settings"
         >
           <MenuBar.Dropdown.MenuItem
@@ -110,7 +110,7 @@ export const Default: StoryObj<StoryProps> = {
         <MenuBar.Dropdown
           {...args}
           {...menuBarProps}
-          displayText="Help"
+          display="Help"
           entry="help"
         >
           <MenuBar.Dropdown.MenuItem
