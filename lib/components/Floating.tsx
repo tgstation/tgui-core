@@ -5,6 +5,7 @@ import {
   flip,
   offset,
   type Placement,
+  safePolygon,
   shift,
   size,
   useClick,
@@ -67,6 +68,12 @@ type Props = {
    */
   hoverDelay: number;
   /**
+   * Content will not close if the mouse moves out of the children while
+   * trying to move into the content.
+   * - Works only if used `hoverOpen` prop.
+   */
+  hoverSafePolygon: boolean;
+  /**
    * Whitelisted classes.
    * Used to allow to add some secured classes,
    * click on which will not close the content.
@@ -115,6 +122,7 @@ export function Floating(props: Props) {
     disabled,
     hoverDelay,
     hoverOpen,
+    hoverSafePolygon,
     handleOpen,
     onMounted,
     placement,
@@ -172,6 +180,11 @@ export function Floating(props: Props) {
   const hover = useHover(context, {
     enabled: !disabled,
     restMs: hoverDelay || 200,
+    handleClose: hoverSafePolygon
+      ? safePolygon({
+          requireIntent: false,
+        })
+      : null,
   });
 
   const openHandled = handleOpen !== undefined;

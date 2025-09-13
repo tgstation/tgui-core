@@ -8,12 +8,20 @@
   font-family: var(--menu-bar-font-family);
   font-size: base.em(12px);
   line-height: base.em(17px);
+
+  &.MenuBar__disabled {
+    color: hsl(from currentColor h s l / 0.2);
+  }
 }
 
 .MenuBar__hover {
   &:hover {
     background-color: hsl(from var(--menu-bar-background) h s calc(l + 20));
     transition: background-color 0ms;
+  }
+
+  &.MenuBar__disabled {
+    background-color: var(--menu-bar-background);
   }
 }
 
@@ -47,6 +55,16 @@
   text-align: center;
   min-width: 2.5rem;
   padding-left: var(--space-sm);
+}
+
+.MenuBar__MenuItemSubmenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.MenuBar__MenuItemSubmenu__Open {
+  background-color: hsl(from var(--menu-bar-background) h s calc(l + 20));
 }
 
 .MenuBar__over {
