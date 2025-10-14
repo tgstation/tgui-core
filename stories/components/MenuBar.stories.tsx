@@ -33,6 +33,7 @@ export const Default: StoryObj<StoryProps> = {
     const [openMenuBar, setOpenMenuBar] = useState<string | null>(null);
     const [openOnHover, setOpenOnHover] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
+    const { openWidth } = args;
 
     const menuBarProps = {
       openMenuBar: openMenuBar,
@@ -58,6 +59,28 @@ export const Default: StoryObj<StoryProps> = {
             displayText="Open File"
             onClick={closeMenu}
           />
+          <MenuBar.Dropdown.Submenu
+            displayText="Open Recent"
+            openWidth={openWidth}
+          >
+            <MenuBar.Dropdown.MenuItem
+              displayText="/foo.js"
+              onClick={closeMenu}
+            />
+            <MenuBar.Dropdown.MenuItem
+              displayText="/bar.ts"
+              onClick={closeMenu}
+            />
+            <MenuBar.Dropdown.MenuItem
+              displayText="/baz.tsx"
+              onClick={closeMenu}
+            />
+            <MenuBar.Dropdown.Separator />
+            <MenuBar.Dropdown.MenuItem
+              displayText="Clear Recently Opened"
+              onClick={closeMenu}
+            />
+          </MenuBar.Dropdown.Submenu>
           <MenuBar.Dropdown.MenuItem displayText="Save" onClick={closeMenu} />
           <MenuBar.Dropdown.MenuItem
             displayText="Save As"
