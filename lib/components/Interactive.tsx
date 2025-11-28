@@ -13,7 +13,7 @@
  */
 
 import { clamp } from '@common/math';
-import { Component, ReactNode, createRef, RefObject } from 'react';
+import { Component, createRef, type ReactNode, type RefObject } from 'react';
 
 export interface Interaction {
   left: number;
@@ -22,7 +22,7 @@ export interface Interaction {
 
 // Finds the proper window object to fix iframe embedding issues
 const getParentWindow = (node?: HTMLDivElement | null): Window => {
-  return (node && node.ownerDocument.defaultView) || self;
+  return (node?.ownerDocument.defaultView) || self;
 };
 
 // Returns a relative position of the pointer inside the node's bounding box
@@ -60,7 +60,7 @@ export class Interactive extends Component {
   props: InteractiveProps;
 
   constructor(props: InteractiveProps) {
-    super();
+    super(props);
     this.props = props;
     this.containerRef = createRef();
   }
