@@ -27,7 +27,7 @@ export class Color {
 
   /**  Darkens a color by a given percent. Returns a color, which can have toString called to get it's rgba() css value. */
   darken(percent: number): Color {
-	const scaled = percent / 100;
+    const scaled = percent / 100;
     return new Color(
       this.r - this.r * scaled,
       this.g - this.g * scaled,
