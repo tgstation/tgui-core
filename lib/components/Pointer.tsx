@@ -12,8 +12,8 @@
  * SOFTWARE.
  */
 
-import type { ReactNode } from 'react';
 import { classes } from '@common/react';
+import type { ReactNode } from 'react';
 
 interface PointerProps {
   className?: string;

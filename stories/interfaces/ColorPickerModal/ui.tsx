@@ -13,14 +13,13 @@ import {
   rgbaToHsva,
   validHex,
 } from '@common/color';
-import { type Interaction, Interactive } from '@components/Interactive';
+import { KEY } from '@common/keys';
 import { clamp } from '@common/math';
 import { classes } from '@common/react';
 import {
   Autofocus,
   Box,
-  Button,
-  Flex,
+  Interactive,
   NumberInput,
   Pointer,
   Section,
@@ -29,15 +28,16 @@ import {
 } from '@components';
 import {
   Component,
+  createRef,
   type FocusEvent,
   type FormEvent,
-  type ReactNode,
   useState,
 } from 'react';
-import { Window } from '../layouts';
+import type { Interaction } from '../../../lib/components/Interactive';
+import { Window } from '../../layouts';
+import { InputButtons } from '../common/InputButtons';
+import { Loader } from '../common/Loader';
 import { useBackend } from './backend';
-import { InputButtons } from './common/InputButtons';
-import { Loader } from './common/Loader';
 
 type ColorPickerData = {
   autofocus: boolean;
@@ -50,8 +50,8 @@ type ColorPickerData = {
   default_color: string;
 };
 
-export const ColorPickerModal = (_) => {
-  const { act, data } = useBackend<ColorPickerData>();
+export const ColorPickerModal = () => {
+  const { data } = useBackend<ColorPickerData>();
   const {
     timeout,
     message,
@@ -64,13 +64,13 @@ export const ColorPickerModal = (_) => {
   );
 
   return (
-    <Window height={400} title={title} width={600} theme="generic">
+    <Window height={390} title={title} width={600}>
       {!!timeout && <Loader value={timeout} />}
       <Window.Content>
         <Stack fill vertical>
           {message && (
-            <Stack.Item m={1}>
-              <Section fill>
+            <Stack.Item my={-1}>
+              <Section>
                 <Box color="label" overflow="hidden">
                   {message}
                 </Box>
@@ -88,8 +88,9 @@ export const ColorPickerModal = (_) => {
             </Section>
           </Stack.Item>
           <Stack.Item>
-            <InputButtons input={hsvaToHex(selectedColor)} />
-            <Button onClick={() => act('null')}>Null</Button>
+            <Section fill>
+              <InputButtons input={hsvaToHex(selectedColor)} />
+            </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -114,8 +115,8 @@ export const ColorSelector = ({
   const rgb = hsvaToRgba(color);
   const hexColor = hsvaToHex(color);
   return (
-    <Flex direction="row">
-      <Flex.Item mr={2}>
+    <Stack direction="row">
+      <Stack.Item mr={2}>
         <Stack vertical>
           <Stack.Item>
             <div className="react-colorful">
@@ -153,8 +154,8 @@ export const ColorSelector = ({
             </Tooltip>
           </Stack.Item>
         </Stack>
-      </Flex.Item>
-      <Flex.Item grow fontSize="15px" lineHeight="24px">
+      </Stack.Item>
+      <Stack.Item grow fontSize="15px" lineHeight="24px">
         <Stack vertical>
           <Stack.Item>
             <Stack>
@@ -185,7 +186,7 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={color.h}
-                  callback={(_, v) => handleChange({ h: v })}
+                  callback={(value) => handleChange({ h: value })}
                   max={360}
                   unit="°"
                 />
@@ -203,7 +204,7 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={color.s}
-                  callback={(_, v) => handleChange({ s: v })}
+                  callback={(value) => handleChange({ s: value })}
                   unit="%"
                 />
               </Stack.Item>
@@ -220,7 +221,7 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={color.v}
-                  callback={(_, v) => handleChange({ v: v })}
+                  callback={(value) => handleChange({ v: value })}
                   unit="%"
                 />
               </Stack.Item>
@@ -238,8 +239,8 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={rgb.r}
-                  callback={(_, v) => {
-                    rgb.r = v;
+                  callback={(value) => {
+                    rgb.r = value;
                     handleChange(rgbaToHsva(rgb));
                   }}
                   max={255}
@@ -258,8 +259,8 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={rgb.g}
-                  callback={(_, v) => {
-                    rgb.g = v;
+                  callback={(value) => {
+                    rgb.g = value;
                     handleChange(rgbaToHsva(rgb));
                   }}
                   max={255}
@@ -278,8 +279,8 @@ export const ColorSelector = ({
               <Stack.Item>
                 <TextSetter
                   value={rgb.b}
-                  callback={(_, v) => {
-                    rgb.b = v;
+                  callback={(value) => {
+                    rgb.b = value;
                     handleChange(rgbaToHsva(rgb));
                   }}
                   max={255}
@@ -288,8 +289,8 @@ export const ColorSelector = ({
             </Stack>
           </Stack.Item>
         </Stack>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -344,11 +345,11 @@ interface HexColorInputProps
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): ReactNode => {
+function HexColorInput(props: HexColorInputProps) {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
-  const color_escape = (value: string) =>
+  const escapeKey = (value: string) =>
     value.replace(/([^0-9A-F]+)/gi, '').substring(0, alpha ? 8 : 6);
 
   /** Validates hexadecimal strings */
@@ -360,12 +361,12 @@ export const HexColorInput = (props: HexColorInputProps): ReactNode => {
       fluid={fluid}
       color={color}
       onChange={onChange}
-      escape={color_escape}
+      escape={escapeKey}
       format={prefixed ? prefix : undefined}
       validate={validate}
     />
   );
-};
+}
 
 interface ColorInputBaseProps {
   fluid?: boolean;
@@ -379,24 +380,27 @@ interface ColorInputBaseProps {
   format?: (value: string) => string;
 }
 
-export class ColorInput extends Component {
-  props: ColorInputBaseProps;
-  state: { localValue: string };
+type ColorState = {
+  localValue: string;
+};
 
-  constructor(props: ColorInputBaseProps) {
+export class ColorInput extends Component<ColorInputBaseProps, ColorState> {
+  ref: React.RefObject<HTMLDivElement | null>;
+
+  constructor(props) {
     super(props);
-    this.props = props;
+    this.ref = createRef();
     this.state = { localValue: this.props.escape(this.props.color) };
   }
 
   // Trigger `onChange` handler only if the input value is a valid color
-  handleInput = (e: FormEvent<HTMLInputElement>) => {
+  handleInput = (e: FormEvent<HTMLInputElement>): void => {
     const inputValue = this.props.escape(e.currentTarget.value);
     this.setState({ localValue: inputValue });
   };
 
   // Take the color from props if the last typed color (in local state) is not valid
-  handleBlur = (e: FocusEvent<HTMLInputElement>) => {
+  handleBlur = (e: FocusEvent<HTMLInputElement>): void => {
     if (e.currentTarget) {
       if (!this.props.validate(e.currentTarget.value)) {
         this.setState({ localValue: this.props.escape(this.props.color) }); // return to default;
@@ -410,7 +414,18 @@ export class ColorInput extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, _prevState): void {
+  handleKeyDown = (event): void => {
+    if (event.getModifierState('AltGraph')) return;
+
+    switch (event.key) {
+      case KEY.Enter:
+        event.preventDefault();
+        this.handleBlur(event);
+        break;
+    }
+  };
+
+  componentDidUpdate(prevProps) {
     if (prevProps.color !== this.props.color) {
       // Update the local state when `color` property value is changed
       // eslint-disable-next-line react/no-did-update-set-state
@@ -420,20 +435,18 @@ export class ColorInput extends Component {
 
   render() {
     return (
-      <Box className={classes(['Input', this.props.fluid && 'Input--fluid'])}>
-        <div className="Input__baseline">.</div>
-        <input
-          className="Input__input"
-          value={
-            this.props.format
-              ? this.props.format(this.state.localValue)
-              : this.state.localValue
-          }
-          spellCheck="false" // the element should not be checked for spelling errors
-          onInput={this.handleInput}
-          onBlur={this.handleBlur}
-        />
-      </Box>
+      <input
+        className={classes(['Input', this.props.fluid && 'Input--fluid'])}
+        value={
+          this.props.format
+            ? this.props.format(this.state.localValue)
+            : this.state.localValue
+        }
+        spellCheck={false} // the element should not be checked for spelling errors
+        onChange={this.handleInput}
+        onKeyDown={this.handleKeyDown}
+        onBlur={this.handleBlur}
+      />
     );
   }
 }
@@ -448,6 +461,7 @@ const SaturationValue = ({ hsva, onChange }) => {
 
   const handleKey = (offset: Interaction) => {
     // Saturation and brightness always fit into [0, 100] range
+    // onChange={(value) => {this.setState({ localValue: value });}}
     onChange({
       s: clamp(hsva.s + offset.left * 100, 0, 100),
       v: clamp(hsva.v - offset.top * 100, 0, 100),
@@ -455,12 +469,13 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    'background-color': hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 }),
+    backgroundColor: hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 }),
   };
 
   return (
     <div className="react-colorful__saturation_value" style={containerStyle}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-label="Color"
@@ -504,6 +519,7 @@ const Hue = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-label="Hue"
@@ -546,6 +562,7 @@ const Saturation = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         style={{
           background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
@@ -595,6 +612,7 @@ const Value = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         style={{
           background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
@@ -658,6 +676,7 @@ const RGBSlider = ({
   return (
     <div className={nodeClassName}>
       <Interactive
+        containerRef={createRef<HTMLDivElement>()}
         onMove={handleMove}
         onKey={handleKey}
         aria-valuenow={rgb[target]}
