@@ -1,4 +1,3 @@
-import sass from 'sass';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
 import {
   booleanStyleMap,
@@ -24,17 +23,7 @@ const boxProps = [
 ] as const;
 
 const config: StorybookConfig = {
-  addons: [
-    '@storybook/addon-docs',
-    {
-      name: 'storybook-addon-sass-postcss',
-      options: {
-        postcssLoaderOptions: {
-          implementation: sass,
-        },
-      },
-    },
-  ],
+  addons: ['@storybook/addon-docs'],
 
   framework: {
     name: 'storybook-react-rsbuild',
