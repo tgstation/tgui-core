@@ -13,7 +13,7 @@
  */
 
 import { clamp } from '@common/math';
-import { Component, type RefObject } from 'react';
+import { Component, type ReactNode, type RefObject } from 'react';
 
 export interface Interaction {
   left: number;
@@ -22,16 +22,16 @@ export interface Interaction {
 
 // Finds the proper window object to fix iframe embedding issues
 const getParentWindow = (node?: HTMLDivElement | null): Window => {
-  return node?.ownerDocument?.defaultView || self;
+  return (node?.ownerDocument?.defaultView) || self;
 };
 
 // Returns a relative position of the pointer inside the node's bounding box
 const getRelativePosition = (
   node: HTMLDivElement,
-  event: React.MouseEvent<HTMLDivElement>,
+  event: MouseEvent,
 ): Interaction => {
   const rect = node.getBoundingClientRect();
-  const pointer = event as React.MouseEvent<HTMLDivElement>;
+  const pointer = event as MouseEvent;
   return {
     left: clamp(
       (pointer.pageX - (rect.left + getParentWindow(node).pageXOffset)) /
@@ -51,7 +51,7 @@ const getRelativePosition = (
 export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
-  children: React.ReactNode;
+  children: ReactNode;
   containerRef: RefObject<HTMLDivElement | null>;
   style?: any;
 }
@@ -59,14 +59,15 @@ export interface InteractiveProps {
 export class Interactive extends Component<InteractiveProps> {
   containerRef: RefObject<HTMLDivElement | null>;
 
-  constructor(props) {
+  constructor(props: InteractiveProps) {
     super(props);
-    this.containerRef = props.containerRef;
+    this.containerRef = props.containerRef
   }
 
-  handleMoveStart = (event: React.MouseEvent<HTMLDivElement>) => {
+  handleMoveStart = (event: any) => {
     const el = this.containerRef?.current;
-    if (!el) return;
+    if (!el)
+        return;
 
     // Prevent text selection
     event.preventDefault();
@@ -75,7 +76,7 @@ export class Interactive extends Component<InteractiveProps> {
     this.toggleDocumentEvents(true);
   };
 
-  handleMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  handleMove = (event: MouseEvent) => {
     // Prevent text selection
     event.preventDefault();
 
@@ -101,7 +102,8 @@ export class Interactive extends Component<InteractiveProps> {
     const keyCode = event.which || event.keyCode;
 
     // Ignore all keys except arrow ones
-    if (keyCode < 37 || keyCode > 40) return;
+    if (keyCode < 37 || keyCode > 40)
+        return;
     // Do not scroll page by arrow keys when document is focused on the element
     event.preventDefault();
     // Send relative offset to the parent component.
