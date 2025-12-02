@@ -23,9 +23,7 @@ const boxProps = [
 ] as const;
 
 const config: StorybookConfig = {
-  addons: [
-    '@storybook/addon-docs',
-  ],
+  addons: ['@storybook/addon-docs'],
 
   framework: {
     name: 'storybook-react-rsbuild',

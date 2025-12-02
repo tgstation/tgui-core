@@ -20,8 +20,8 @@ const preview: Preview = {
   parameters: {
     backgrounds: {
       options: {
-        section: { name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }
-      }
+        section: { name: 'Section', value: 'rgba(0, 0, 0, 0.33)' },
+      },
     },
     controls: {
       matchers: {
@@ -45,9 +45,9 @@ const preview: Preview = {
 
   initialGlobals: {
     backgrounds: {
-      value: 'section'
-    }
-  }
+      value: 'section',
+    },
+  },
 };
 
 export default preview;
