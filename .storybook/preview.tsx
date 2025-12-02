@@ -16,10 +16,12 @@ import {
 
 const preview: Preview = {
   tags: ['autodocs'],
+
   parameters: {
     backgrounds: {
-      default: 'Section',
-      values: [{ name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }],
+      options: {
+        section: { name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }
+      }
     },
     controls: {
       matchers: {
@@ -40,6 +42,12 @@ const preview: Preview = {
       ),
     },
   },
+
+  initialGlobals: {
+    backgrounds: {
+      value: 'section'
+    }
+  }
 };
 
 export default preview;

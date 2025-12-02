@@ -1,10 +1,9 @@
-import sass from 'sass';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
 import {
   booleanStyleMap,
   eventHandlers,
   stringStyleMap,
-} from '../lib/common/ui';
+} from '../lib/common/ui.ts';
 import type { BoxInternalProps } from '../lib/components/Box';
 
 const boxInternalProps: Array<keyof BoxInternalProps> = [
@@ -26,14 +25,6 @@ const boxProps = [
 const config: StorybookConfig = {
   addons: [
     '@storybook/addon-docs',
-    {
-      name: 'storybook-addon-sass-postcss',
-      options: {
-        postcssLoaderOptions: {
-          implementation: sass,
-        },
-      },
-    },
   ],
 
   framework: {
