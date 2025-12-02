@@ -3,7 +3,7 @@ import {
   booleanStyleMap,
   eventHandlers,
   stringStyleMap,
-} from '../lib/common/ui.ts';
+} from '../lib/common/ui';
 import type { BoxInternalProps } from '../lib/components/Box';
 
 const boxInternalProps: Array<keyof BoxInternalProps> = [
