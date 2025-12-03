@@ -112,9 +112,9 @@ export class Color {
  * SOFTWARE.
  */
 
-const round = (number: number, digits = 0, base = 10 ** digits): number => {
+function round(number: number, digits = 0, base = 10 ** digits): number {
   return Math.round(base * number) / base;
-};
+}
 
 export interface RgbColor {
   r: number;
@@ -166,9 +166,11 @@ const angleUnits: Record<string, number> = {
   rad: 360 / (Math.PI * 2),
 };
 
-export const hexToHsva = (hex: string): HsvaColor => rgbaToHsva(hexToRgba(hex));
+export function hexToHsva(hex: string): HsvaColor {
+  return rgbaToHsva(hexToRgba(hex));
+}
 
-export const hexToRgba = (hex: string): RgbaColor => {
+export function hexToRgba(hex: string): RgbaColor {
   if (hex[0] === '#') hex = hex.substring(1);
 
   if (hex.length < 6) {
@@ -186,13 +188,13 @@ export const hexToRgba = (hex: string): RgbaColor => {
     b: parseInt(hex.substring(4, 6), 16),
     a: hex.length === 8 ? round(parseInt(hex.substring(6, 8), 16) / 255, 2) : 1,
   };
-};
+}
 
-export const parseHue = (value: string, unit = 'deg'): number => {
+export function parseHue(value: string, unit = 'deg'): number {
   return Number(value) * (angleUnits[unit] || 1);
-};
+}
 
-export const hslaStringToHsva = (hslString: string): HsvaColor => {
+export function hslStringToHsva(hslString: string): HsvaColor {
   const matcher =
     /hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
   const match = matcher.exec(hslString);
@@ -205,11 +207,9 @@ export const hslaStringToHsva = (hslString: string): HsvaColor => {
     l: Number(match[4]),
     a: match[5] === undefined ? 1 : Number(match[5]) / (match[6] ? 100 : 1),
   });
-};
+}
 
-export const hslStringToHsva = hslaStringToHsva;
-
-export const hslaToHsva = ({ h, s, l, a }: HslaColor): HsvaColor => {
+export function hslaToHsva({ h, s, l, a }: HslaColor): HsvaColor {
   s *= (l < 50 ? l : 100 - l) / 100;
 
   return {
@@ -218,12 +218,13 @@ export const hslaToHsva = ({ h, s, l, a }: HslaColor): HsvaColor => {
     v: l + s,
     a,
   };
-};
+}
 
-export const hsvaToHex = (hsva: HsvaColor): string =>
-  rgbaToHex(hsvaToRgba(hsva));
+export function hsvaToHex(hsva: HsvaColor): string {
+  return rgbaToHex(hsvaToRgba(hsva));
+}
 
-export const hsvaToHsla = ({ h, s, v, a }: HsvaColor): HslaColor => {
+export function hsvaToHsla({ h, s, v, a }: HsvaColor): HslaColor {
   const hh = ((200 - s) * v) / 100;
 
   return {
@@ -236,29 +237,29 @@ export const hsvaToHsla = ({ h, s, v, a }: HsvaColor): HslaColor => {
     l: round(hh / 2),
     a: round(a, 2),
   };
-};
+}
 
-export const hsvaToHslString = (hsva: HsvaColor): string => {
+export function hsvaToHslString(hsva: HsvaColor): string {
   const { h, s, l } = hsvaToHsla(hsva);
   return `hsl(${h}, ${s}%, ${l}%)`;
-};
+}
 
-export const hsvaToHsvString = (hsva: HsvaColor): string => {
+export function hsvaToHsvString(hsva: HsvaColor): string {
   const { h, s, v } = roundHsva(hsva);
   return `hsv(${h}, ${s}%, ${v}%)`;
-};
+}
 
-export const hsvaToHsvaString = (hsva: HsvaColor): string => {
+export function hsvaToHsvaString(hsva: HsvaColor): string {
   const { h, s, v, a } = roundHsva(hsva);
   return `hsva(${h}, ${s}%, ${v}%, ${a})`;
-};
+}
 
-export const hsvaToHslaString = (hsva: HsvaColor): string => {
+export function hsvaToHslaString(hsva: HsvaColor): string {
   const { h, s, l, a } = hsvaToHsla(hsva);
   return `hsla(${h}, ${s}%, ${l}%, ${a})`;
-};
+}
 
-export const hsvaToRgba = ({ h, s, v, a }: HsvaColor): RgbaColor => {
+export function hsvaToRgba({ h, s, v, a }: HsvaColor): RgbaColor {
   h = (h / 360) * 6;
   s = s / 100;
   v = v / 100;
@@ -275,19 +276,19 @@ export const hsvaToRgba = ({ h, s, v, a }: HsvaColor): RgbaColor => {
     b: [b, b, d, v, v, c][module] * 255,
     a: round(a, 2),
   };
-};
+}
 
-export const hsvaToRgbString = (hsva: HsvaColor): string => {
+export function hsvaToRgbString(hsva: HsvaColor): string {
   const { r, g, b } = hsvaToRgba(hsva);
   return `rgb(${round(r)}, ${round(g)}, ${round(b)})`;
-};
+}
 
-export const hsvaToRgbaString = (hsva: HsvaColor): string => {
+export function hsvaToRgbaString(hsva: HsvaColor): string {
   const { r, g, b, a } = hsvaToRgba(hsva);
   return `rgba(${round(r)}, ${round(g)}, ${round(b)}, ${round(a, 2)})`;
-};
+}
 
-export const hsvaStringToHsva = (hsvString: string): HsvaColor => {
+export function hsvStringToHsva(hsvString: string): HsvaColor {
   const matcher =
     /hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
   const match = matcher.exec(hsvString);
@@ -300,11 +301,9 @@ export const hsvaStringToHsva = (hsvString: string): HsvaColor => {
     v: Number(match[4]),
     a: match[5] === undefined ? 1 : Number(match[5]) / (match[6] ? 100 : 1),
   });
-};
+}
 
-export const hsvStringToHsva = hsvaStringToHsva;
-
-export const rgbaStringToHsva = (rgbaString: string): HsvaColor => {
+export function rgbStringToHsva(rgbaString: string): HsvaColor {
   const matcher =
     /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
   const match = matcher.exec(rgbaString);
@@ -317,21 +316,19 @@ export const rgbaStringToHsva = (rgbaString: string): HsvaColor => {
     b: Number(match[5]) / (match[6] ? 100 / 255 : 1),
     a: match[7] === undefined ? 1 : Number(match[7]) / (match[8] ? 100 : 1),
   });
-};
+}
 
-export const rgbStringToHsva = rgbaStringToHsva;
-
-const format = (number: number) => {
+function format(number: number) {
   const hex = number.toString(16);
   return hex.length < 2 ? `0${hex}` : hex;
-};
+}
 
-export const rgbaToHex = ({ r, g, b, a }: RgbaColor): string => {
+export function rgbaToHex({ r, g, b, a }: RgbaColor): string {
   const alphaHex = a < 1 ? format(round(a * 255)) : '';
   return `#${format(round(r))}${format(round(g))}${format(round(b))}${alphaHex}`;
-};
+}
 
-export const rgbaToHsva = ({ r, g, b, a }: RgbaColor): HsvaColor => {
+export function rgbaToHsva({ r, g, b, a }: RgbaColor): HsvaColor {
   const max = Math.max(r, g, b);
   const delta = max - Math.min(r, g, b);
 
@@ -350,27 +347,33 @@ export const rgbaToHsva = ({ r, g, b, a }: RgbaColor): HsvaColor => {
     v: (max / 255) * 100,
     a,
   };
-};
+}
 
-export const roundHsva = (hsva: HsvaColor): HsvaColor => ({
-  h: round(hsva.h),
-  s: round(hsva.s),
-  v: round(hsva.v),
-  a: round(hsva.a, 2),
-});
+export function roundHsva(hsva: HsvaColor): HsvaColor {
+  return {
+    h: round(hsva.h),
+    s: round(hsva.s),
+    v: round(hsva.v),
+    a: round(hsva.a, 2),
+  };
+}
 
-export const rgbaToRgb = ({ r, g, b }: RgbaColor): RgbColor => ({ r, g, b });
+export function rgbaToRgb({ r, g, b }: RgbaColor): RgbColor {
+  return { r, g, b };
+}
 
-export const hslaToHsl = ({ h, s, l }: HslaColor): HslColor => ({ h, s, l });
+export function hslaToHsl({ h, s, l }: HslaColor): HslColor {
+  return { h, s, l };
+}
 
-export const hsvaToHsv = (hsva: HsvaColor): HsvColor => {
+export function hsvaToHsv(hsva: HsvaColor): HsvColor {
   const { h, s, v } = roundHsva(hsva);
   return { h, s, v };
-};
+}
 
 const hexMatcher = /^#?([0-9A-F]{3,8})$/i;
 
-export const validHex = (value: string, alpha?: boolean): boolean => {
+export function validHex(value: string, alpha?: boolean): boolean {
   const match = hexMatcher.exec(value);
   const length = match ? match[1].length : 0;
 
@@ -380,24 +383,21 @@ export const validHex = (value: string, alpha?: boolean): boolean => {
     (!!alpha && length === 4) || // '#rgba' format
     (!!alpha && length === 8) // '#rrggbbaa' format
   );
-};
+}
 
 // Source for the following luminance and contrast calculation code: https://blog.cristiana.tech/calculating-color-contrast-in-typescript-using-web-content-accessibility-guidelines-wcag
-export const luminance = (rgb: RgbColor): number => {
+export function luminance(rgb: RgbColor): number {
   const [r, g, b] = [rgb.r, rgb.g, rgb.b].map((v) => {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
   });
   return r * 0.2126 + g * 0.7152 + b * 0.0722;
-};
+}
 
-export const contrast = (
-  foreground: RgbColor,
-  background: RgbColor,
-): number => {
+export function contrast(foreground: RgbColor, background: RgbColor): number {
   const foreground_luminance = luminance(foreground);
   const background_luminance = luminance(background);
   return background_luminance < foreground_luminance
     ? (background_luminance + 0.05) / (foreground_luminance + 0.05)
     : (foreground_luminance + 0.05) / (background_luminance + 0.05);
-};
+}
