@@ -194,10 +194,13 @@ export function parseHue(value: string, unit = 'deg'): number {
   return Number(value) * (angleUnits[unit] || 1);
 }
 
+const hslMatcher = /hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
+const hsvMatcher = /hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
+const rgbMatcher = /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
+const hexMatcher = /^#?([0-9A-F]{3,8})$/i;
+
 export function hslStringToHsva(hslString: string): HsvaColor {
-  const matcher =
-    /hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
-  const match = matcher.exec(hslString);
+  const match = hslMatcher.exec(hslString);
 
   if (!match) return { h: 0, s: 0, v: 0, a: 1 };
 
@@ -289,9 +292,7 @@ export function hsvaToRgbaString(hsva: HsvaColor): string {
 }
 
 export function hsvStringToHsva(hsvString: string): HsvaColor {
-  const matcher =
-    /hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
-  const match = matcher.exec(hsvString);
+  const match = hsvMatcher.exec(hsvString);
 
   if (!match) return { h: 0, s: 0, v: 0, a: 1 };
 
@@ -304,9 +305,7 @@ export function hsvStringToHsva(hsvString: string): HsvaColor {
 }
 
 export function rgbStringToHsva(rgbaString: string): HsvaColor {
-  const matcher =
-    /rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i;
-  const match = matcher.exec(rgbaString);
+  const match = rgbMatcher.exec(rgbaString);
 
   if (!match) return { h: 0, s: 0, v: 0, a: 1 };
 
@@ -332,7 +331,6 @@ export function rgbaToHsva({ r, g, b, a }: RgbaColor): HsvaColor {
   const max = Math.max(r, g, b);
   const delta = max - Math.min(r, g, b);
 
-  // prettier-ignore
   const hh = delta
     ? max === r
       ? (g - b) / delta
@@ -370,8 +368,6 @@ export function hsvaToHsv(hsva: HsvaColor): HsvColor {
   const { h, s, v } = roundHsva(hsva);
   return { h, s, v };
 }
-
-const hexMatcher = /^#?([0-9A-F]{3,8})$/i;
 
 export function validHex(value: string, alpha?: boolean): boolean {
   const match = hexMatcher.exec(value);

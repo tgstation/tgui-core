@@ -35,10 +35,8 @@ $label: var(--color-label) !default;
 // Mappings of color names
 $color-map: ();
 
-// prettier-ignore
 $_gen_map: (
-  /* Base colors */
-  "red": var(--color-red),
+  /* Base colors */ "red": var(--color-red),
   "orange": var(--color-orange),
   "yellow": var(--color-yellow),
   "olive": var(--color-olive),
@@ -49,24 +47,18 @@ $_gen_map: (
   "purple": var(--color-purple),
   "pink": var(--color-pink),
   "brown": var(--color-brown),
-
-  /* Additional colors */
-  "gold": var(--color-gold),
-
-  /* Grayscale colors */
-  "black": var(--color-black),
+  /* Additional colors */ "gold": var(--color-gold),
+  /* Grayscale colors */ "black": var(--color-black),
   "white": var(--color-white),
   "grey": var(--color-grey),
   "gray": var(--color-grey),
   "light-grey": var(--color-light-grey),
   "light-gray": var(--color-light-grey),
-
-  /* Semantic colors */
-  "primary": var(--color-primary),
+  /* Semantic colors */ "primary": var(--color-primary),
   "good": var(--color-good),
   "average": var(--color-average),
   "bad": var(--color-bad),
-  "label": var(--color-label),
+  "label": var(--color-label)
 );
 $low-contrast-color-map: ("yellow", "white") !default;
 
