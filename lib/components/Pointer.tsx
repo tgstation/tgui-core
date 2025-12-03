@@ -22,12 +22,12 @@ interface PointerProps {
   color: string;
 }
 
-export const Pointer = ({
+export function Pointer({
   className,
   color,
   left,
   top = 0.5,
-}: PointerProps): ReactNode => {
+}: PointerProps): ReactNode {
   const nodeClassName = classes(['react-colorful__pointer', className]);
 
   const style = {
@@ -43,4 +43,4 @@ export const Pointer = ({
       />
     </div>
   );
-};
+}

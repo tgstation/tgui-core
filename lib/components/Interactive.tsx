@@ -21,15 +21,15 @@ export interface Interaction {
 }
 
 // Finds the proper window object to fix iframe embedding issues
-const getParentWindow = (node?: HTMLDivElement | null): Window => {
+function getParentWindow(node?: HTMLDivElement | null): Window {
   return node?.ownerDocument?.defaultView || self;
-};
+}
 
 // Returns a relative position of the pointer inside the node's bounding box
-const getRelativePosition = (
+function getRelativePosition(
   node: HTMLDivElement,
   event: MouseEvent,
-): Interaction => {
+): Interaction {
   const rect = node.getBoundingClientRect();
   const pointer = event as MouseEvent;
   return {
@@ -46,7 +46,7 @@ const getRelativePosition = (
       1,
     ),
   };
-};
+}
 
 export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
