@@ -13,25 +13,40 @@
  */
 
 import { clamp } from '@common/math';
-import { Component, type ReactNode, type RefObject } from 'react';
+import type { CSSProperties, ReactNode, RefObject } from 'react';
+import { isArrow, KEY } from '../common/keys';
 
-export interface Interaction {
+export type Interaction = {
   left: number;
   top: number;
-}
+};
 
-// Finds the proper window object to fix iframe embedding issues
+export type InteractiveProps = {
+  /** Callback when interaction moves */
+  onMove: (interaction: Interaction) => void;
+  /** Callback when key is pressed */
+  onKey: (offset: Interaction) => void;
+  /** Child elements */
+  children: ReactNode;
+  /** Ref to the container element */
+  containerRef: RefObject<HTMLDivElement | null>;
+  /** Optional styles */
+  style?: CSSProperties;
+};
+
+/** Finds the proper window object to fix iframe embedding issues */
 function getParentWindow(node?: HTMLDivElement | null): Window {
   return node?.ownerDocument?.defaultView || self;
 }
 
-// Returns a relative position of the pointer inside the node's bounding box
+/** Returns a relative position of the pointer inside the node's bounding box */
 function getRelativePosition(
   node: HTMLDivElement,
-  event: MouseEvent,
+  event: MouseEvent | PointerEvent,
 ): Interaction {
   const rect = node.getBoundingClientRect();
-  const pointer = event as MouseEvent;
+  const pointer = event;
+
   return {
     left: clamp(
       (pointer.pageX - (rect.left + getParentWindow(node).pageXOffset)) /
@@ -48,105 +63,70 @@ function getRelativePosition(
   };
 }
 
-export interface InteractiveProps {
-  onMove: (interaction: Interaction) => void;
-  onKey: (offset: Interaction) => void;
-  children: ReactNode;
-  containerRef: RefObject<HTMLDivElement | null>;
-  style?: any;
-}
+/**
+ * ## Interactive
+ *
+ * A low-level component that handles pointer and keyboard interactions.
+ *
+ * See an example of usage in the story:
+ * - [View Colorpicker story](https://tgstation.github.io/tgui-core/?path=/story/interfaces-colorpickermodal--default)
+ */
+export function Interactive(props: InteractiveProps) {
+  const { onMove, onKey, children, containerRef, style, ...rest } = props;
 
-export class Interactive extends Component<InteractiveProps> {
-  containerRef: RefObject<HTMLDivElement | null>;
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>): void {
+    // Prevent text selection
+    event.preventDefault();
 
-  constructor(props: InteractiveProps) {
-    super(props);
-    this.containerRef = props.containerRef;
+    // Only trigger if this element has captured the pointer (is dragging)
+    if (containerRef.current?.hasPointerCapture(event.pointerId)) {
+      onMove(getRelativePosition(containerRef.current, event.nativeEvent));
+    }
   }
 
-  handleMoveStart = (event: any) => {
-    const el = this.containerRef?.current;
+  function handlePointerDown(event: React.PointerEvent<HTMLDivElement>): void {
+    const el = containerRef.current;
     if (!el) return;
 
     // Prevent text selection
     event.preventDefault();
     el.focus();
-    this.props.onMove(getRelativePosition(el, event));
-    this.toggleDocumentEvents(true);
-  };
+    // Capture the pointer so we receive events even if mouse leaves the div
+    el.setPointerCapture(event.pointerId);
+    onMove(getRelativePosition(el, event.nativeEvent));
+  }
 
-  handleMove = (event: MouseEvent) => {
-    // Prevent text selection
-    event.preventDefault();
+  function handlePointerUp(event: React.PointerEvent<HTMLDivElement>): void {
+    containerRef.current?.releasePointerCapture(event.pointerId);
+  }
 
-    // If user moves the pointer outside of the window or iframe bounds and release it there,
-    // `mouseup`/`touchend` won't be fired. In order to stop the picker from following the cursor
-    // after the user has moved the mouse/finger back to the document, we check `event.buttons`
-    // and `event.touches`. It allows us to detect that the user is just moving his pointer
-    // without pressing it down
-    const isDown = event.buttons > 0;
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>): void {
+    const key = event.key;
+    if (!isArrow(key)) return;
 
-    if (isDown && this.containerRef?.current) {
-      this.props.onMove(getRelativePosition(this.containerRef.current, event));
-    } else {
-      this.toggleDocumentEvents(false);
-    }
-  };
-
-  handleMoveEnd = () => {
-    this.toggleDocumentEvents(false);
-  };
-
-  handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const keyCode = event.which || event.keyCode;
-
-    // Ignore all keys except arrow ones
-    if (keyCode < 37 || keyCode > 40) return;
     // Do not scroll page by arrow keys when document is focused on the element
     event.preventDefault();
     // Send relative offset to the parent component.
-    // We use codes (37←, 38↑, 39→, 40↓) instead of keys ('ArrowRight', 'ArrowDown', etc)
-    // to reduce the size of the library
-    this.props.onKey({
-      left: keyCode === 39 ? 0.05 : keyCode === 37 ? -0.05 : 0,
-      top: keyCode === 40 ? 0.05 : keyCode === 38 ? -0.05 : 0,
+    onKey({
+      left: key === KEY.Right ? 0.05 : key === KEY.Left ? -0.05 : 0,
+      top: key === KEY.Down ? 0.05 : key === KEY.Up ? -0.05 : 0,
     });
-  };
-
-  toggleDocumentEvents(state?: boolean) {
-    const el = this.containerRef?.current;
-    const parentWindow = getParentWindow(el);
-
-    // Add or remove additional pointer event listeners
-    const toggleEvent = state
-      ? parentWindow.addEventListener
-      : parentWindow.removeEventListener;
-    toggleEvent('mousemove', this.handleMove);
-    toggleEvent('mouseup', this.handleMoveEnd);
   }
 
-  componentDidMount() {
-    this.toggleDocumentEvents(true);
-  }
-
-  componentWillUnmount() {
-    this.toggleDocumentEvents(false);
-  }
-
-  render() {
-    return (
-      <div
-        {...this.props}
-        style={this.props.style}
-        ref={this.containerRef}
-        onMouseDown={this.handleMoveStart}
-        className="react-colorful__interactive"
-        onKeyDown={this.handleKeyDown}
-        tabIndex={0}
-        role="slider"
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+  return (
+    <div
+      {...rest}
+      className="react-colorful__interactive"
+      onKeyDown={handleKeyDown}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      ref={containerRef}
+      role="slider"
+      style={style}
+      tabIndex={0}
+    >
+      {children}
+    </div>
+  );
 }

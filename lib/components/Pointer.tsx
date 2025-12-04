@@ -13,30 +13,25 @@
  */
 
 import { classes } from '@common/react';
-import type { ReactNode } from 'react';
 
-interface PointerProps {
+export type PointerProps = {
   className?: string;
   top?: number;
   left: number;
   color: string;
-}
+};
 
-export function Pointer({
-  className,
-  color,
-  left,
-  top = 0.5,
-}: PointerProps): ReactNode {
-  const nodeClassName = classes(['react-colorful__pointer', className]);
-
-  const style = {
-    top: `${top * 100}%`,
-    left: `${left * 100}%`,
-  };
+export function Pointer(props: PointerProps) {
+  const { className, color, left, top = 0.5 } = props;
 
   return (
-    <div className={nodeClassName} style={style}>
+    <div
+      className={classes(['react-colorful__pointer', className])}
+      style={{
+        top: `${top * 100}%`,
+        left: `${left * 100}%`,
+      }}
+    >
       <div
         className="react-colorful__pointer-fill"
         style={{ backgroundColor: color }}
