@@ -1,9 +1,9 @@
 {
-  "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc]": {
+  "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc][html]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[yaml][markdown][html][scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[yaml][markdown][scss]": {
+    "editor.defaultFormatter": "prettier.prettier-vscode"
   },
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "editor.codeActionsOnSave": {
