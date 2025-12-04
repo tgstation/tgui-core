@@ -14,7 +14,7 @@
 
 import { clamp } from '@common/math';
 import type { CSSProperties, ReactNode, RefObject } from 'react';
-import { KEY } from '../common/keys';
+import { isArrow, KEY } from '../common/keys';
 
 export type Interaction = {
   left: number;
@@ -105,14 +105,7 @@ export function Interactive(props: InteractiveProps) {
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>): void {
     const key = event.key;
-
-    // Ignore all keys except arrow ones
-    if (
-      key !== KEY.Down &&
-      key !== KEY.Up &&
-      key !== KEY.Left &&
-      key !== KEY.Right
-    ) {
+    if (!isArrow(key)) {
       return;
     }
 
