@@ -97,17 +97,12 @@ export function Interactive(props: InteractiveProps) {
   }
 
   function handlePointerUp(event: React.PointerEvent<HTMLDivElement>): void {
-    const el = containerRef.current;
-    if (el) {
-      el.releasePointerCapture(event.pointerId);
-    }
+    containerRef.current?.releasePointerCapture(event.pointerId);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>): void {
     const key = event.key;
-    if (!isArrow(key)) {
-      return;
-    }
+    if (!isArrow(key)) return;
 
     // Do not scroll page by arrow keys when document is focused on the element
     event.preventDefault();
