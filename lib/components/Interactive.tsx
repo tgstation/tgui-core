@@ -34,16 +34,12 @@ export type InteractiveProps = {
   style?: CSSProperties;
 };
 
-/**
- * Finds the proper window object to fix iframe embedding issues
- */
+/** Finds the proper window object to fix iframe embedding issues */
 function getParentWindow(node?: HTMLDivElement | null): Window {
   return node?.ownerDocument?.defaultView || self;
 }
 
-/**
- * Returns a relative position of the pointer inside the node's bounding box
- */
+/** Returns a relative position of the pointer inside the node's bounding box */
 function getRelativePosition(
   node: HTMLDivElement,
   event: MouseEvent | PointerEvent,
@@ -68,7 +64,12 @@ function getRelativePosition(
 }
 
 /**
- * Interactive component
+ * ## Interactive
+ *
+ * A low-level component that handles pointer and keyboard interactions.
+ *
+ * See an example of usage in the story:
+ * - [View Colorpicker story](https://tgstation.github.io/tgui-core/?path=/story/interfaces-colorpickermodal--default)
  */
 export function Interactive(props: InteractiveProps) {
   const { onMove, onKey, children, containerRef, style, ...rest } = props;
