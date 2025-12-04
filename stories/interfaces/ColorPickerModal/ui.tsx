@@ -99,9 +99,6 @@ export const ColorPickerModal: React.FC<ColorPickerModalProps> = () => {
               />
             </Section>
           </Stack.Item>
-          <Stack.Item>
-            <InputButtons input={hsvaToHex(selectedColor)} />
-          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
@@ -212,6 +209,9 @@ const ColorSelector: React.FC<ColorSelectorProps> = React.memo(
                   backgroundColor={defaultColor}
                 />
               </Tooltip>
+            </Stack.Item>
+            <Stack.Item>
+              <InputButtons input={hsvaToHex(color)} />
             </Stack.Item>
           </Stack>
         </Stack.Item>
