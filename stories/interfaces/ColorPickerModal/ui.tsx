@@ -185,7 +185,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = React.memo(
                 New
               </Box>
               <Box inline width="100px" height="20px" textAlign="center">
-                Existing
+                Current
               </Box>
               <br />
               <Tooltip content={hexColor} position="bottom">
