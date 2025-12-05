@@ -13,7 +13,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "tgui-core/*": ["*"],
+      "tgui-core/*": ["lib/*"],
       "@common/*": ["lib/common/*.ts"],
       "@components": ["lib/components/index.ts"],
       "@stories/*": ["stories/*.ts", "stories/*.tsx"]

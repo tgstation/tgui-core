@@ -11,6 +11,11 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { Window } from '../../layouts';
+import { InputButtons } from '../common/InputButtons';
+import { Loader } from '../common/Loader';
+import { useBackend } from './backend';
+import './ColorPicker.scss';
 import {
   type HsvaColor,
   hexToHsva,
@@ -19,7 +24,9 @@ import {
   hsvaToRgba,
   rgbaToHsva,
   validHex,
-} from 'tgui-core/color';
+} from '@common/color';
+import { clamp } from '@common/math';
+import { classes } from '@common/react';
 import {
   Autofocus,
   Box,
@@ -32,14 +39,7 @@ import {
   Section,
   Stack,
   Tooltip,
-} from 'tgui-core/components';
-import { clamp } from 'tgui-core/math';
-import { classes } from 'tgui-core/react';
-import { Window } from '../../layouts';
-import { InputButtons } from '../common/InputButtons';
-import { Loader } from '../common/Loader';
-import { useBackend } from './backend';
-import './ColorPicker.scss';
+} from '@components';
 
 interface ColorPickerData {
   autofocus: boolean;
