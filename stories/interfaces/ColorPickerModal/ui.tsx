@@ -5,10 +5,10 @@
  */
 
 import React, {
-  createRef,
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -25,6 +25,7 @@ import {
   Box,
   Button,
   Input,
+  type Interaction,
   Interactive,
   NumberInput,
   Pointer,
@@ -39,11 +40,6 @@ import { InputButtons } from '../common/InputButtons';
 import { Loader } from '../common/Loader';
 import { useBackend } from './backend';
 import './ColorPicker.scss';
-
-type Interaction = {
-  left: number;
-  top: number;
-};
 
 interface ColorPickerData {
   autofocus: boolean;
@@ -168,7 +164,6 @@ const ColorSelector: React.FC<ColorSelectorProps> = React.memo(
     );
 
     const [showPresets, setShowPresets] = useState<boolean>(false);
-    const rgb = hsvaToRgba(color);
     const hexColor = hsvaToHex(color);
 
     return (
@@ -545,11 +540,12 @@ const SaturationValue: React.FC<SaturationValueProps> = React.memo(
       }),
       [hsva.h],
     );
+    const containerRef = useRef<HTMLDivElement>(null);
 
     return (
       <div className="react-colorful__saturation_value" style={containerStyle}>
         <Interactive
-          containerRef={createRef<HTMLDivElement>()}
+          containerRef={containerRef}
           onMove={handleMove}
           onKey={handleKey}
           aria-label="Color"
@@ -585,11 +581,12 @@ const Hue: React.FC<HueProps> = React.memo(({ className, hue, onChange }) => {
   };
 
   const nodeClassName = classes(['react-colorful__hue', className]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={nodeClassName}>
       <Interactive
-        containerRef={createRef<HTMLDivElement>()}
+        containerRef={containerRef}
         onMove={handleMove}
         onKey={handleKey}
         aria-label="Hue"
@@ -635,11 +632,12 @@ const Saturation: React.FC<SaturationProps> = React.memo(
         })}, ${hsvaToHslString({ h: color.h, s: 100, v: color.v, a: 1 })})`,
       [color],
     );
+    const containerRef = useRef<HTMLDivElement>(null);
 
     return (
       <div className={nodeClassName}>
         <Interactive
-          containerRef={createRef<HTMLDivElement>()}
+          containerRef={containerRef}
           style={{ background }}
           onMove={handleMove}
           onKey={handleKey}
@@ -694,6 +692,7 @@ const Value: React.FC<ValueProps> = React.memo(
         })}, ${hsvaToHslString({ h: color.h, s: color.s, v: 100, a: 1 })})`,
       [color],
     );
+    const containerRef = useRef<HTMLDivElement>(null);
 
     return (
       <div className={nodeClassName}>
@@ -701,7 +700,7 @@ const Value: React.FC<ValueProps> = React.memo(
           style={{
             background,
           }}
-          containerRef={createRef<HTMLDivElement>()}
+          containerRef={containerRef}
           onMove={handleMove}
           onKey={handleKey}
           aria-label="Value"
@@ -753,11 +752,12 @@ const RGBSlider: React.FC<RGBSliderProps> = React.memo(
     };
 
     const selected = channels[target];
+    const containerRef = useRef<HTMLDivElement>(null);
 
     return (
       <div className={nodeClassName}>
         <Interactive
-          containerRef={createRef<HTMLDivElement>()}
+          containerRef={containerRef}
           onMove={handleMove}
           onKey={handleKey}
           aria-valuenow={rgb[target]}
