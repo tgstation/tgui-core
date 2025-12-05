@@ -22,7 +22,7 @@ export { Image } from './Image';
 export { ImageButton } from './ImageButton';
 export { InfinitePlane } from './InfinitePlane';
 export { Input } from './Input';
-export { Interactive } from './Interactive';
+export { type Interaction, Interactive } from './Interactive';
 export { KeyListener } from './KeyListener';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';
