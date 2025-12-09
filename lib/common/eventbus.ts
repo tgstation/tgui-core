@@ -3,9 +3,6 @@
  *
  * Handles different event messages from byond and TGUI.
  *
- * Don't fret! This is a simple class under the hood. Using some typescript-fu,
- * it's able to provide type safety for the event types and their payloads.
- *
  * The philosophy: This interacts directly with state managers in vanilla JS,
  * offering a way to handle browser events. UIs then subscribe to these states
  * and update accordingly.
@@ -58,22 +55,28 @@
  * } as const;
  *
  */
-export class EventBus<
-  TListeners extends Readonly<Record<string, (payload: unknown) => void>>,
-> {
-  private listeners: Partial<{
-    [TType in keyof TListeners]: TListeners[TType];
-  }> = {};
+export class EventBus<TListeners extends ListenerMap> {
+  private listeners: TListeners;
 
   constructor(initialListeners: TListeners) {
     this.listeners = initialListeners;
   }
 
   /** Dispatch a message to the appropriate listener. */
-  dispatch<TType extends keyof TListeners>(message: {
-    type: TType;
-    payload?: Parameters<TListeners[TType]>[0];
-  }): void {
-    this.listeners[message.type]?.(message.payload);
+  dispatch(message: Message): void {
+    const listener = this.listeners[message.type];
+
+    if ('payload' in message) {
+      listener(message.payload);
+    } else {
+      listener();
+    }
   }
 }
+
+export type ListenerMap = Record<string, (payload?: unknown) => void>;
+
+export type Message = {
+  type: string;
+  payload?: unknown;
+};
