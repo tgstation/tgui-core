@@ -11,35 +11,42 @@
  * and update accordingly.
  *
  * @usage
+ *
+ * First, create an EventBus with the listeners you want to handle.
  * ```ts
  * const bus = new EventBus(listeners);
+ *```
  *
- * // These are the event types and their corresponding callbacks.
+ *  Next, define the listeners object. These are the event types and their
+ * corresponding callbacks.
+ * ```ts
  * const listeners = {
- *   'messageTypeA': (message) => { logger.log(message.payload); },
+ *   'messageTypeA': [handlerA, handlerB, handlerC],
  * } as const;
+ *```
  *
- * // You can further shorten this by linking a function to the event type:
- * function messageTypeA(payload: { text: string }) {
+ * Write a handler for the specific message type. They're handled serially.
+ * Anything you return will be passed to the next listener as the payload.
+ * ```ts
+ * function handlerA(payload: { text: string }) {
  *  logger.log(payload.text);
+ *  // The payload is discarded!
  * }
  *
- * const listeners = {
- *   messageTypeA,
- * } as const;
+ * function handlerB(payload: { count: number }) {
+ *  // The next handler will receive this object as its payload.
+ *  return { count: payload.count + 1, otherData: 'foo' };
+ * }
  *
- *
- * // Later, dispatch a message:
- * const message: ByondMessage = {
- *   type: 'messageTypeA',
- *   payload: { text: 'Hello, world!' },
- * };
- *
- * bus.dispatch(message);
- * ```
+ * function handlerC(payload: { count: number; otherData: string }) {
+ *  logger.log(`Count is ${payload.count} and otherData is ${payload.otherData}`);
+ * }
+ *```
  */
 export class EventBus<
-  TListeners extends Readonly<Record<string, (payload: unknown) => void>>,
+  TListeners extends Readonly<
+    Record<string, Array<(payload: unknown) => void>>
+  >,
 > {
   private listeners: Partial<{
     [TType in keyof TListeners]: TListeners[TType];
@@ -52,8 +59,23 @@ export class EventBus<
   /** Dispatch a message to the appropriate listener. */
   dispatch<TType extends keyof TListeners>(message: {
     type: TType;
-    payload?: Parameters<TListeners[TType]>[0];
+    /**
+     * This should match the first listener's payload type. It can be passed
+     * along and mutated by each listener in the chain by returning a new value.
+     */
+    payload?: Parameters<TListeners[TType][0]>[0];
   }): void {
-    this.listeners[message.type]?.(message.payload);
+    const total = this.listeners[message.type]?.length || 0;
+    if (total === 0) {
+      console.warn(
+        `EventBus: No listeners for message type "${String(message.type)}"`,
+      );
+      return;
+    }
+
+    let payload = message.payload; // We can mutate this with each listener.
+    for (let i = 0; i < total; i++) {
+      payload = this.listeners[message.type]?.[i](payload);
+    }
   }
 }
