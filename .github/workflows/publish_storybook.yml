@@ -34,7 +34,7 @@ jobs:
     # Job steps
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
@@ -50,7 +50,7 @@ jobs:
         run: bun build-storybook
 
       # Upload
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: "storybook-static"
 

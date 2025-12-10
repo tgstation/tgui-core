@@ -9,65 +9,31 @@ jobs:
     name: Publish Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: read
+      contents: read
       id-token: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.ROBUDDYBOT_PAT }}
+        uses: actions/checkout@v6
 
       - name: Install bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Setup Node.js (for npm)
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
-        shell: bash
 
       - name: Extract version from tag
         id: extract_version
         run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      # Updates the version in the package.json
       - name: Set package version
-        uses: ZeWaka/set-node-package-version@v1
-        with:
-          version: ${{ steps.extract_version.outputs.version }}
-
-      - name: Build project
-        run: bun build-rslib
-
-      - name: Commit changes
-        run: |
-          git config --global user.name "robuddybot"
-          git config --global user.email "65057909+robuddybot@users.noreply.github.com"
-          git add .
-          git commit -m "Build & Release ${{ github.event.release.tag_name }}" || echo "No changes to commit"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.ROBUDDYBOT_PAT }}
-
-      - name: Get new Git SHA
-        id: get_sha
-        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Update tag to latest commit
-        run: |
-          git tag -f ${{ github.event.release.tag_name }} ${{ steps.get_sha.outputs.sha }}
-          git push origin ${{ github.event.release.tag_name }} --force
-
-      - name: Update Release
-        uses: tubone24/update_release@v1.0
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          TAG_NAME: ${{ github.event.release.tag_name }}
-        with:
-          release_name: ${{ github.event.release.tag_name }}
-          draft: false
+        run: npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
 
       - name: Publish to npm
-        run: bun publish
+        run: bun publish --production

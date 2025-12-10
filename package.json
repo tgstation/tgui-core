@@ -64,5 +64,5 @@
     "test": "bun test"
   },
   "type": "module",
-  "version": "5.5.4"
+  "version": "0.0.0"
 }
