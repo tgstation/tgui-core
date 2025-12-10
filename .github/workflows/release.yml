@@ -38,5 +38,8 @@ jobs:
       - name: Set package version
         run: npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
 
+      - name: Build package
+        run: bun run build-rslib
+
       - name: Publish to npm
         run: npm publish
