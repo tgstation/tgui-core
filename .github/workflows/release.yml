@@ -36,4 +36,4 @@ jobs:
         run: npm version ${{ steps.extract_version.outputs.version }} --no-git-tag-version
 
       - name: Publish to npm
-        run: bun publish --production
+        run: npm publish
