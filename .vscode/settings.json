@@ -2,7 +2,7 @@
   "[javascript][typescript][javascriptreact][typescriptreact][css][json][jsonc][html]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "[yaml][markdown][scss]": {
+  "[yaml][markdown][scss][github-actions-workflow]": {
     "editor.defaultFormatter": "prettier.prettier-vscode"
   },
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,

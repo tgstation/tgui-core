@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -68,6 +69,5 @@ jobs:
           release_name: ${{ github.event.release.tag_name }}
           draft: false
 
-      - uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm
+        run: bun publish
