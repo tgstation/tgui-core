@@ -1,5 +1,7 @@
 # tgui-core
 
+[![npm version](https://img.shields.io/npm/v/tgui-core.svg)](https://www.npmjs.com/package/tgui-core)
+
 A collection of utilities and components for the [tgui](https://github.com/tgstation/tgstation) framework.
 
 This package was built to help the various downstream SS13 servers stay up to date with TGUI without having to keep a local version of each file.
