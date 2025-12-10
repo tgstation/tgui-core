@@ -65,6 +65,7 @@ export class EventBus<TListeners extends ListenerMap> {
   /** Dispatch a message to the appropriate listener. */
   dispatch(message: Message): void {
     const listener = this.listeners[message.type];
+    if (!listener) return;
 
     if ('payload' in message) {
       listener(message.payload);
