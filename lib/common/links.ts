@@ -5,7 +5,7 @@
  */
 
 /**
- * Prevents baby jailing the user when he clicks an external link.
+ * Prevents baby jailing the user when they click an external link.
  */
 export function captureExternalLinks(): void {
   // Subscribe to all document clicks
