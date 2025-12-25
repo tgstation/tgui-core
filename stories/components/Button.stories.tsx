@@ -122,6 +122,16 @@ export const Checkbox: CheckboxStory = {
           checked={checked}
           onClick={() => setChecked(!checked)}
         />
+        <Button.Checkbox
+          {...args}
+          checked={checked}
+          onClick={() => setChecked(!checked)}
+        >
+          <Stack fill>
+            <Stack.Item grow>With</Stack.Item>
+            <Stack.Item>Stack</Stack.Item>
+          </Stack>
+        </Button.Checkbox>
       </>
     );
   },

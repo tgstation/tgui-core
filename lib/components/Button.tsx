@@ -160,12 +160,7 @@ export function Button(props: Props) {
       tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
-      <div
-        className={classes([
-          'Button__content',
-          ellipsis && 'Button__content--ellipsis',
-        ])}
-      >
+      <div className={classes(['Button__content'])}>
         {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
           toDisplay

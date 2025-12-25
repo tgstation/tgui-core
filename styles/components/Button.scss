@@ -71,12 +71,12 @@
   }
 
   &__content {
-    display: block;
+    display: flex; // Inline flex will broke ellipsis, don't change it.
+    align-items: center;
     align-self: stretch;
 
-    &--ellipsis {
-      display: flex; // Inline flex will broke ellipsis, don't change it.
-      align-items: center;
+    &--wrap {
+      flex-wrap: wrap;
     }
   }
 
