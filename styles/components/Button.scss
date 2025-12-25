@@ -74,6 +74,7 @@
     align-items: center;
     align-self: stretch;
     min-height: var(--button-height);
+    width: fit-content;
   }
 
   .Button--icon {
