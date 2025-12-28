@@ -160,12 +160,7 @@ export function Button(props: Props) {
       tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
-      <div
-        className={classes([
-          'Button__content',
-          ellipsis && 'Button__content--ellipsis',
-        ])}
-      >
+      <div className="Button__content">
         {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
           toDisplay
@@ -341,6 +336,7 @@ function ButtonInput(props: InputProps) {
     <Box
       className={classes([
         'Button',
+        'Button__content',
         fluid && 'Button--fluid',
         disabled && 'Button--disabled',
         `Button--color--${color}`,
