@@ -22,8 +22,8 @@ jobs:
       - name: Setup Node.js (for npm)
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Upgrade npm for OIDC support
         run: npm install -g npm@latest

@@ -120,8 +120,8 @@ const ColorPresets: React.FC<ColorPresetsProps> = React.memo(
         </Button>
         <Stack justify="center">
           <Stack.Item>
-            {colorList.map((row, index) => (
-              <Stack.Item key={index} width="100%">
+            {colorList.map((row) => (
+              <Stack.Item key={row.join('')} width="100%">
                 <Stack justify="center">
                   {row.map((entry) => (
                     <Box key={entry} p="1px" backgroundColor="black">

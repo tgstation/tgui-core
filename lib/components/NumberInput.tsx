@@ -213,7 +213,7 @@ export class NumberInput extends Component<Props, State> {
     const targetValue = clamp(
       Number.parseFloat(event.target.value),
       minValue ?? 0,
-      maxValue ?? 100
+      maxValue ?? 100,
     );
     if (Number.isNaN(targetValue)) {
       this.setState({
@@ -243,7 +243,7 @@ export class NumberInput extends Component<Props, State> {
       const targetValue = clamp(
         Number.parseFloat(event.currentTarget.value),
         minValue ?? 0,
-        maxValue ?? 100
+        maxValue ?? 100,
       );
       if (Number.isNaN(targetValue)) {
         this.setState({
@@ -321,12 +321,12 @@ export class NumberInput extends Component<Props, State> {
           <div
             className="NumberInput__bar"
             style={{
-             height: `${clamp(
-              // biome-ignore lint/style/noNonNullAssertion: will never be undefined
-              ((displayValue - (minValue!)) / (maxValue! - minValue!)) * 100,
-              0,
-              100,
-            )}%`,
+              height: `${clamp(
+                // biome-ignore lint/style/noNonNullAssertion: will never be undefined
+                ((displayValue - minValue!) / (maxValue! - minValue!)) * 100,
+                0,
+                100,
+              )}%`,
             }}
           />
         </div>

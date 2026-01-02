@@ -124,7 +124,7 @@ function LabeledListItem(props: LabeledListItemProps) {
         as="td"
         className="LabeledList__cell"
         color={color}
-        // @ts-ignore
+        // @ts-expect-error
         colSpan={buttons ? undefined : 2}
         textAlign={textAlign}
         verticalAlign={verticalAlign}

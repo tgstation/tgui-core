@@ -18,6 +18,7 @@ export function debounce<F extends (...args: any[]) => any>(
       }
     }
     const callNow = immediate && !timeout;
+    // biome-ignore lint/style/noNonNullAssertion: clearTimeout can be passed undefined too, so why not null? i dont know.
     clearTimeout(timeout!);
     timeout = setTimeout(later, time);
     if (callNow) {

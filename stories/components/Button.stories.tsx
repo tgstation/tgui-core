@@ -1,26 +1,27 @@
-import { COMPONENT_COLORS } from "@common/constants";
-import { Button, Stack } from "@components";
-import type { ComponentProps } from "react";
-import type { Meta, StoryObj } from "storybook-react-rsbuild";
+import { COMPONENT_COLORS } from '@common/constants';
+import { Button, Stack } from '@components';
+import type { ComponentProps } from 'react';
+import type { Meta, StoryObj } from 'storybook-react-rsbuild';
+import { createUuid } from 'tgui-core/common/uuid';
 
 type StoryProps = ComponentProps<typeof Button>;
 
 export default {
   component: Button,
-  title: "Components/Button",
+  title: 'Components/Button',
   argTypes: {
-    children: { control: "text" },
+    children: { control: 'text' },
     color: {
-      control: "select",
+      control: 'select',
       options: [...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum],
     },
-    disabled: { control: "boolean" },
-    compact: { control: "boolean" },
-    fluid: { control: "boolean" },
-    circular: { control: "boolean" },
-    icon: { control: "text" },
-    iconPosition: { control: "select", options: ["left", "right"] },
-    ellipsis: { control: "boolean" },
+    disabled: { control: 'boolean' },
+    compact: { control: 'boolean' },
+    fluid: { control: 'boolean' },
+    circular: { control: 'boolean' },
+    icon: { control: 'text' },
+    iconPosition: { control: 'select', options: ['left', 'right'] },
+    ellipsis: { control: 'boolean' },
   },
 } satisfies Meta<StoryProps>;
 
@@ -28,13 +29,13 @@ type Story = StoryObj<StoryProps>;
 
 export const Playground: Story = {
   args: {
-    children: "Click me",
+    children: 'Click me',
   },
 };
 
 export const States: Story = {
   args: {
-    children: "Click me",
+    children: 'Click me',
   },
   render: (args: StoryProps) => (
     <>
@@ -49,8 +50,8 @@ export const States: Story = {
 
 export const WithIcon: Story = {
   args: {
-    children: "With Icon",
-    icon: "envelope",
+    children: 'With Icon',
+    icon: 'envelope',
   },
   render: (args) => (
     <>
@@ -67,9 +68,9 @@ export const WithIcon: Story = {
 
 export const Ellipsis: Story = {
   args: {
-    children: "Very long content. Very long content. Very long content.",
+    children: 'Very long content. Very long content. Very long content.',
     ellipsis: true,
-    icon: "envelope",
+    icon: 'envelope',
     width: 10,
     fluid: true,
   },
@@ -79,8 +80,8 @@ export const Ellipsis: Story = {
       <Button {...args} />
       <Button {...args} ellipsis={false} />
       <Stack fill>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Stack.Item grow key={i}>
+        {Array.from({ length: 5 }).map((_) => (
+          <Stack.Item grow key={createUuid()}>
             <Button {...args} fluid>
               Inside Stack Inside Stack Inside Stack
             </Button>
@@ -109,9 +110,9 @@ type CheckboxStory = StoryObj<ComponentProps<typeof Button.Checkbox>>;
 
 export const Checkbox: CheckboxStory = {
   args: {
-    children: "Checkbox",
+    children: 'Checkbox',
     checked: false,
-    color: "default",
+    color: 'default',
   },
 };
 
@@ -119,9 +120,9 @@ type ConfirmStory = StoryObj<ComponentProps<typeof Button.Confirm>>;
 
 export const Confirm: ConfirmStory = {
   args: {
-    children: "Click me",
-    confirmColor: "bad",
-    confirmContent: "Confirm?",
+    children: 'Click me',
+    confirmColor: 'bad',
+    confirmContent: 'Confirm?',
   },
 };
 
@@ -129,7 +130,7 @@ type FileStory = StoryObj<ComponentProps<typeof Button.File>>;
 
 export const File: FileStory = {
   args: {
-    accept: "image/*",
-    children: "Upload file",
+    accept: 'image/*',
+    children: 'Upload file',
   },
 };

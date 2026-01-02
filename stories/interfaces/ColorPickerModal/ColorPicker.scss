@@ -12,8 +12,8 @@
  * SOFTWARE.
  */
 
-@use '../../../styles/colors.scss';
-@use '../../../styles/base.scss';
+@use "../../../styles/colors.scss";
+@use "../../../styles/base.scss";
 
 .react-colorful {
   position: relative;
@@ -31,17 +31,14 @@
   border-color: transparent; /* Fixes https://github.com/omgovich/react-colorful/issues/139 */
   border-bottom: 12px solid #000;
   border-radius: 8px 8px 0 0;
-  background-image: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 255),
-      rgba(0, 0, 0, 0)
-    ),
+  background-image:
+    linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0)),
     linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0));
 }
 
 .react-colorful__pointer-fill,
 .react-colorful__alpha-gradient {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
