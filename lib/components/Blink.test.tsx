@@ -1,9 +1,13 @@
-import { afterEach, describe, expect, it, spyOn } from 'bun:test';
-import { cleanup, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, jest, spyOn } from 'bun:test';
+import { act, cleanup, render } from '@testing-library/react';
 import { Blink } from './Blink';
 
+// why must setTimeout plague me...
 describe('Blink Component', () => {
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    jest.useRealTimers();
+  });
 
   it('renders children correctly', () => {
     const { getByText } = render(<Blink>Blinking Content</Blink>);
@@ -16,20 +20,24 @@ describe('Blink Component', () => {
     expect(span.style.visibility).toBe('visible');
   });
 
-  it('toggles visibility after the interval', async () => {
+  it('toggles visibility after the interval', () => {
+    jest.useFakeTimers();
     const { getByText } = render(
       <Blink interval={50} time={50}>
         Content
-      </Blink>
+      </Blink>,
     );
     const span = getByText('Content');
-
     // wait for hidden
-    await new Promise((resolve) => setTimeout(resolve, 60));
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
     expect(span.style.visibility).toBe('hidden');
 
     // and then unhide
-    await new Promise((resolve) => setTimeout(resolve, 60));
+    act(() => {
+      jest.advanceTimersByTime(50);
+    });
     expect(span.style.visibility).toBe('visible');
   });
 
@@ -43,21 +51,26 @@ describe('Blink Component', () => {
     clearIntervalSpy.mockRestore();
   });
 
-  it('restarts interval when props change', async () => {
+  it('restarts interval when props change', () => {
+    jest.useFakeTimers();
     const { getByText, rerender } = render(
       <Blink interval={1000} time={1000}>
         Content
-      </Blink>
+      </Blink>,
     );
     const span = getByText('Content');
 
-    rerender(
-      <Blink interval={10} time={10}>
-        Content
-      </Blink>
-    );
+    act(() => {
+      rerender(
+        <Blink interval={10} time={10}>
+          Content
+        </Blink>,
+      );
+    });
 
-    await new Promise((resolve) => setTimeout(resolve, 15));
+    act(() => {
+      jest.advanceTimersByTime(20);
+    });
     expect(span.style.visibility).toBe('hidden');
   });
 });
