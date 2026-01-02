@@ -1,14 +1,14 @@
-import { describe, it } from 'bun:test';
-import assert from 'node:assert';
+import { afterEach, describe, expect, it } from 'bun:test';
 import { KEY } from '@common/keys';
-import { fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { NumberInput } from './NumberInput.tsx';
 
-
 describe('NumberInput Component', () => {
+  afterEach(cleanup);
+
   it('renders initial value correctly', () => {
     const { getByText } = render(<NumberInput value={42} />);
-    assert(getByText('42'));
+    expect(getByText('42')).toBeTruthy();
   });
 
   it('calls onChange when Enter is pressed with a new value', () => {
@@ -25,8 +25,8 @@ describe('NumberInput Component', () => {
     fireEvent.change(input, { target: { value: '25' } });
     fireEvent.keyDown(input, { key: KEY.Enter });
 
-    assert.strictEqual(changedValue, 25);
-    assert.strictEqual(input.value, '25');
+    expect(changedValue).toBe(25);
+    expect(input.value).toBe('25');
   });
 
   it('clamps value to minValue and maxValue', () => {
@@ -47,11 +47,11 @@ describe('NumberInput Component', () => {
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: '5' } });
     fireEvent.keyDown(input, { key: KEY.Enter });
-    assert.strictEqual(changedValue, 10);
+    expect(changedValue).toBe(10);
 
     fireEvent.change(input, { target: { value: '25' } });
     fireEvent.keyDown(input, { key: KEY.Enter });
-    assert.strictEqual(changedValue, 20);
+    expect(changedValue).toBe(20);
   });
 
   // Note we dont check the actual input value element here because it's never actually set. Value is a state/prop
@@ -72,7 +72,7 @@ describe('NumberInput Component', () => {
 
     // value should not have changed.
     fireEvent.blur(input); // triggers handleBlur
-    assert.strictEqual(changedValue, 0);
+    expect(changedValue).toBe(0);
   });
 
   it('resets editing state on Escape key', () => {
@@ -80,6 +80,6 @@ describe('NumberInput Component', () => {
     const input = container.querySelector('input')!;
     fireEvent.focus(input);
     fireEvent.keyDown(input, { key: KEY.Escape });
-    assert.strictEqual(input.style.display, 'none');
+    expect(input.style.display).toBe('none');
   });
 });

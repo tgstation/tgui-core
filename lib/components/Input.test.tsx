@@ -1,31 +1,32 @@
-import { describe, it } from 'bun:test';
-import assert from 'node:assert';
+import { afterEach, describe, expect, it } from 'bun:test';
 import { KEY } from '@common/keys';
-import { act, fireEvent, render } from '@testing-library/react';
+
+import { act, cleanup, fireEvent, render } from '@testing-library/react';
 import { Input } from './Input.tsx';
 
 describe('Input Component', () => {
+  afterEach(cleanup);
+
   it('renders initial value', () => {
     const { getByDisplayValue } = render(<Input value="Hello" />);
     const input = getByDisplayValue('Hello') as HTMLInputElement;
-    assert(input);
+    expect(input).toBeTruthy();
   });
 
+  it('updates innerValue and calls onChange when typing', async () => {
+    let changedValue = '';
+    const { container } = render(
+      <Input value="" onChange={(v) => (changedValue = v)} expensive={false} />,
+    );
+    const input = container.querySelector('input')!;
 
-it('updates innerValue and calls onChange when typing', async () => {
-  let changedValue = '';
-  const { container } = render(
-    <Input value="" onChange={(v) => (changedValue = v)} expensive={false} />
-  );
-  const input = container.querySelector('input')!;
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'Test' } });
+    });
 
-  await act(async () => {
-    fireEvent.change(input, { target: { value: 'Test' } });
+    expect(input.value).toBe('Test');
+    expect(changedValue).toBe('Test');
   });
-
-  assert.strictEqual(input.value, 'Test');
-  assert.strictEqual(changedValue, 'Test');
-});
 
   it('calls onEnter when Enter is pressed', () => {
     let enteredValue = '';
@@ -35,9 +36,9 @@ it('updates innerValue and calls onChange when typing', async () => {
     const input = container.querySelector('input')!;
     fireEvent.keyDown(input, { key: KEY.Enter });
 
-    assert.strictEqual(enteredValue, 'start');
+    expect(enteredValue).toBe('start');
     // input loses focus after Enter
-    assert.notStrictEqual(document.activeElement, input);
+    expect(document.activeElement).not.toBe(input);
   });
 
   it('calls onEscape when Escape is pressed', () => {
@@ -48,9 +49,9 @@ it('updates innerValue and calls onChange when typing', async () => {
     const input = container.querySelector('input')!;
     fireEvent.keyDown(input, { key: KEY.Escape });
 
-    assert.strictEqual(escapedValue, 'test');
+    expect(escapedValue).toBe('test');
     // input loses focus after Escape
-    assert.notStrictEqual(document.activeElement, input);
+    expect(document.activeElement).not.toBe(input);
   });
 
   it('clears value if selfClear is true on Enter', () => {
@@ -59,15 +60,15 @@ it('updates innerValue and calls onChange when typing', async () => {
     );
     const input = container.querySelector('input')!;
     fireEvent.keyDown(input, { key: KEY.Enter });
-    assert.strictEqual(input.value, '');
+    expect(input.value).toBe('');
   });
 
   it('updates innerValue when props.value changes externally', () => {
     const { rerender, container } = render(<Input value="first" />);
     const input = container.querySelector('input')!;
-    assert.strictEqual(input.value, 'first');
+    expect(input.value).toBe('first');
 
     rerender(<Input value="second" />);
-    assert.strictEqual(input.value, 'second');
+    expect(input.value).toBe('second');
   });
 });
