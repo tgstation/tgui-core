@@ -1,5 +1,5 @@
 import { Button, NumberInput, Stack } from '@components';
-import { type ComponentProps, useState } from 'react';
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
 
 type StoryProps = ComponentProps<typeof NumberInput>;
@@ -7,6 +7,15 @@ type StoryProps = ComponentProps<typeof NumberInput>;
 export default {
   component: NumberInput,
   title: 'Components/NumberInput',
+  argTypes: {
+    value: { control: 'number' },
+    minValue: { control: 'number' },
+    maxValue: { control: 'number' },
+    step: { control: 'number' },
+    width: { control: 'number' },
+    disabled: { control: 'boolean' },
+    onChange: { action: 'changed' },
+  },
 } satisfies Meta<StoryProps>;
 
 type Story = StoryObj<StoryProps>;
@@ -16,28 +25,24 @@ function getRandom() {
 }
 
 export const Default: Story = {
-  render: () => {
-    const [value, setValue] = useState(0);
-
-    return (
-      <Stack vertical>
-        <Stack.Item>
-          <Button onClick={() => setValue(getRandom())}>Randomize</Button>
-        </Stack.Item>
-        <Stack.Item>
-          <NumberInput
-            minValue={0}
-            maxValue={50}
-            width={5}
-            step={1}
-            value={value}
-            onChange={setValue}
-          />
-        </Stack.Item>{' '}
-        <Stack.Item style={{ userSelect: 'none', color: 'var(--color-label)' }}>
-          Try dragging the control
-        </Stack.Item>
-      </Stack>
-    );
+  render: (args) => (
+    <Stack vertical>
+      <Stack.Item>
+        <Button onClick={() => args.onChange?.(getRandom())}>Randomize</Button>
+      </Stack.Item>
+      <Stack.Item>
+        <NumberInput {...args} />
+      </Stack.Item>
+      <Stack.Item style={{ userSelect: 'none', color: 'var(--color-label)' }}>
+        Try dragging the control
+      </Stack.Item>
+    </Stack>
+  ),
+  args: {
+    value: 0,
+    minValue: 0,
+    maxValue: 50,
+    step: 1,
+    width: 5,
   },
 };

@@ -1,6 +1,7 @@
 import { type CSSProperties, type ReactNode, useState } from 'react';
 import { Box, type BoxProps } from './Box';
 import { Button } from './Button';
+import { Icon } from './Icon';
 
 type Props = Partial<{
   /** Buttons or other content to render inline with the button */
@@ -9,6 +10,8 @@ type Props = Partial<{
   child_mt: number;
   /** Icon to display with the collapsible */
   icon: string;
+  /** Icon to display to the left of the collapsible icon */
+  sideIcon: string;
   /** Whether the collapsible is open */
   open: boolean;
   /** Text to display on the button for collapsing */
@@ -37,6 +40,7 @@ export function Collapsible(props: Props) {
     title,
     buttons,
     icon,
+    sideIcon,
     ...rest
   } = props;
   const [open, setOpen] = useState(props.open);
@@ -46,12 +50,21 @@ export function Collapsible(props: Props) {
       <div className="Table">
         <div className="Table__cell">
           <Button
+            className="Button--icon"
             color={color}
             fluid
-            icon={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
             onClick={() => setOpen(!open)}
             {...rest}
+            innerStyle={{
+              ...rest.style,
+              gap: '2px',
+            }}
           >
+            {sideIcon && <Icon name={sideIcon} />}
+            <Icon
+              className="Button--icon"
+              name={icon ? icon : open ? 'chevron-down' : 'chevron-right'}
+            />
             {title}
           </Button>
         </div>
