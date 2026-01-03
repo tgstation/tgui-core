@@ -2,8 +2,7 @@
   "author": "jlsnow301",
   "dependencies": {
     "@floating-ui/react": "^0.27.16",
-    "@nozbe/microfuzz": "^1.0.0",
-    "fast-glob": "^3.3.3"
+    "@nozbe/microfuzz": "^1.0.0"
   },
   "description": "TGUI core component library",
   "devDependencies": {
