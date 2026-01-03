@@ -1,4 +1,5 @@
 {
+  // When bumping biome, make sure to bump the version in .github/workflows/pr.yml
   "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
   "assist": {
     "actions": {
