@@ -30,7 +30,7 @@ type RadioData = {
   radio_noises: number;
 };
 
-export const Radio = (props) => {
+export const Radio = (_props) => {
   const { act, data } = useBackend<RadioData>();
   const {
     freqlock,
@@ -74,7 +74,7 @@ export const Radio = (props) => {
             <LabeledList.Item label="Frequency">
               {freqlock ? (
                 <Box inline color="light-gray">
-                  {toFixed(freq / 10, 1) + ' kHz'}
+                  {`${toFixed(freq / 10, 1)} kHz`}
                 </Box>
               ) : (
                 <NumberInput
@@ -132,7 +132,7 @@ export const Radio = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Radio Noise Volume">
               <Slider
-                onChange={(e, value) => {
+                onChange={(_e, value) => {
                   setVolume(value);
                 }}
                 minValue={0}

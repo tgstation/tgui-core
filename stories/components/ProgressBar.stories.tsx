@@ -1,13 +1,25 @@
 import { COMPONENT_COLORS } from '@common/constants';
 import { Button, ProgressBar, Stack } from '@components';
 import { type ComponentProps, type PropsWithChildren, useState } from 'react';
-import type { Meta } from 'storybook-react-rsbuild';
+import type { Meta, StoryObj } from 'storybook-react-rsbuild';
 
 type StoryProps = ComponentProps<typeof ProgressBar>;
+
 export default {
   component: ProgressBar,
   title: 'Components/ProgressBar',
+  argTypes: {
+    value: { control: 'number' },
+    color: { control: 'text' },
+    minValue: { control: 'number' },
+    maxValue: { control: 'number' },
+    empty: { control: 'boolean' },
+    fractionDigits: { control: 'number' },
+    children: { control: 'text' },
+  },
 } satisfies Meta<StoryProps>;
+
+type Story = StoryObj<StoryProps>;
 
 type PreviewProps = {
   color?: string;
@@ -32,7 +44,7 @@ function ProgressBarPreview(props: PreviewProps) {
           <Button
             color={color}
             icon="angle-left"
-            onClick={() => setValue(value - 10)}
+            onClick={() => setValue(Math.max(0, value - 10))}
           />
         </Stack.Item>
         <Stack.Item grow>
@@ -47,7 +59,7 @@ function ProgressBarPreview(props: PreviewProps) {
           <Button
             color={color}
             icon="angle-right"
-            onClick={() => setValue(value + 10)}
+            onClick={() => setValue(Math.min(100, value + 10))}
           />
         </Stack.Item>
         <Stack.Item>
@@ -62,36 +74,33 @@ function ProgressBarPreview(props: PreviewProps) {
   );
 }
 
-export const Default = {
-  render: () => {
-    return (
-      <Stack vertical>
-        <ProgressBarPreview />
-      </Stack>
-    );
-  },
+export const Default: Story = {
+  render: () => (
+    <Stack vertical>
+      <ProgressBarPreview />
+    </Stack>
+  ),
 };
 
-export const Empty = {
-  render: () => {
-    return (
-      <Stack vertical>
-        <ProgressBarPreview empty />
-      </Stack>
-    );
-  },
+export const Empty: Story = {
+  render: () => (
+    <Stack vertical>
+      <ProgressBarPreview empty />
+    </Stack>
+  ),
 };
 
-export const Colors = {
-  render: () => {
-    return (
-      <Stack vertical>
-        {[...COMPONENT_COLORS.states, ...COMPONENT_COLORS.spectrum].map(
-          (color) => (
-            <ProgressBarPreview color={color} key={color} />
-          ),
-        )}
-      </Stack>
-    );
-  },
+export const Colors: Story = {
+  render: () => (
+    <Stack vertical>
+      States
+      {[...COMPONENT_COLORS.states].map((color) => (
+        <ProgressBarPreview color={color} key={color} />
+      ))}
+      Spectrum
+      {[...COMPONENT_COLORS.spectrum].map((color) => (
+        <ProgressBarPreview color={color} key={color} />
+      ))}
+    </Stack>
+  ),
 };

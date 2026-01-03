@@ -11,16 +11,16 @@ import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
 
 type Props = Required<{
-  /** Highest possible value. */
-  maxValue: number;
-  /** Lowest possible value. */
-  minValue: number;
-  /** Adjust value by this amount when dragging the input. */
-  step: number;
   /** Value itself. */
   value: number | string;
 }> &
   Partial<{
+    /** Highest possible value. */
+    maxValue: number;
+    /** Lowest possible value. */
+    minValue: number;
+    /** Adjust value by this amount when dragging the input. */
+    step: number;
     /** Animates the value if it was changed externally. */
     animated: boolean;
     /** Makes the input field uneditable & non draggable to prevent user changes */
@@ -69,11 +69,17 @@ export class NumberInput extends Component<Props, State> {
 
   // default values for the number input state
   state: State = {
-    currentValue: 0,
+    currentValue: Number(this.props.value ?? 0),
     dragging: false,
     editing: false,
     origin: 0,
-    previousValue: 0,
+    previousValue: Number(this.props.value ?? 0),
+  };
+
+  static defaultProps: Partial<Props> = {
+    minValue: Number.NEGATIVE_INFINITY,
+    maxValue: Number.POSITIVE_INFINITY,
+    step: 1,
   };
 
   componentDidMount(): void {
@@ -122,7 +128,13 @@ export class NumberInput extends Component<Props, State> {
   };
 
   handleDragMove = (event: MouseEvent) => {
-    const { minValue, maxValue, step, stepPixelSize, disabled } = this.props;
+    const {
+      minValue = Number.NEGATIVE_INFINITY,
+      maxValue = Number.POSITIVE_INFINITY,
+      step = 1,
+      stepPixelSize,
+      disabled,
+    } = this.props;
     if (disabled) {
       return;
     }
@@ -200,8 +212,8 @@ export class NumberInput extends Component<Props, State> {
 
     const targetValue = clamp(
       Number.parseFloat(event.target.value),
-      minValue,
-      maxValue,
+      minValue ?? 0,
+      maxValue ?? 100,
     );
     if (Number.isNaN(targetValue)) {
       this.setState({
@@ -230,8 +242,8 @@ export class NumberInput extends Component<Props, State> {
     if (event.key === KEY.Enter) {
       const targetValue = clamp(
         Number.parseFloat(event.currentTarget.value),
-        minValue,
-        maxValue,
+        minValue ?? 0,
+        maxValue ?? 100,
       );
       if (Number.isNaN(targetValue)) {
         this.setState({
@@ -310,7 +322,8 @@ export class NumberInput extends Component<Props, State> {
             className="NumberInput__bar"
             style={{
               height: `${clamp(
-                ((displayValue - minValue) / (maxValue - minValue)) * 100,
+                // biome-ignore lint/style/noNonNullAssertion: will never be undefined
+                ((displayValue - minValue!) / (maxValue! - minValue!)) * 100,
                 0,
                 100,
               )}%`,

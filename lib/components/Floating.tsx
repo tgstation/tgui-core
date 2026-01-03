@@ -245,7 +245,6 @@ export function Floating(props: Props) {
         (preventPortal ? (
           floatingContent
         ) : (
-          // biome-ignore lint/nursery/useUniqueElementIds: We only want a single div in our DOM
           <FloatingPortal id="tgui-root">{floatingContent}</FloatingPortal>
         ))}
     </>

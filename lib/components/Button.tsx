@@ -3,6 +3,7 @@ import { type BooleanLike, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import {
+  type CSSProperties,
   createRef,
   type ReactNode,
   type RefObject,
@@ -42,6 +43,8 @@ type Props = Partial<{
   circular: boolean;
   /** Reduces the padding of the button */
   compact: boolean;
+  /** The styles to be passed to Button__content */
+  innerStyle: CSSProperties;
   /** Disables button and makes it semi-transparent */
   disabled: BooleanLike;
   /** Fill all available horizontal space */
@@ -83,6 +86,7 @@ export function Button(props: Props) {
     color,
     compact,
     content,
+    innerStyle,
     disabled,
     ellipsis,
     fluid,
@@ -160,7 +164,7 @@ export function Button(props: Props) {
       tabIndex={!disabled ? 0 : undefined}
       {...computeBoxProps(rest)}
     >
-      <div className="Button__content">
+      <div className="Button__content" style={innerStyle}>
         {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
           toDisplay

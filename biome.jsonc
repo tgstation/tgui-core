@@ -1,5 +1,6 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.8/schema.json",
+  // When bumping biome, make sure to bump the version in .github/workflows/pr.yml
+  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -43,6 +44,33 @@
       }
     }
   },
+  // Overrides for tests
+  "overrides": [
+    {
+      "includes": ["**/*.{test,spec}.{ts,tsx}"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noAssignInExpressions": "off"
+          },
+          "style": {
+            "noNonNullAssertion": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.stories.{tsx,jsx}"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            // Neccessary for explicitly setting children to undefined when we need to.
+            "noChildrenProp": "off"
+          }
+        }
+      }
+    }
+  ],
   "vcs": {
     "clientKind": "git",
     "enabled": false,

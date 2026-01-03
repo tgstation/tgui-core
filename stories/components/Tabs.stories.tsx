@@ -3,6 +3,7 @@ import { Button, Section, Stack, Tabs } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
 import '../../styles/components/Tabs.scss';
+import { createUuid } from 'tgui-core/common/uuid';
 
 type StoryProps = ComponentProps<typeof Tabs>;
 
@@ -77,7 +78,7 @@ export const Scrollable: Story = {
           <Tabs scrollable>
             {Array.from({ length: 25 }, (_, i) => (
               <Tabs.Tab
-                key={`tab-${i}`}
+                key={`tab-${createUuid()}`}
                 selected={selectedTab === i}
                 onClick={() => setSelectedTab(i)}
               >
