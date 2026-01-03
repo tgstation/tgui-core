@@ -17,12 +17,12 @@ describe('Dialog Component', () => {
     expect(getByText('Test Content')).toBeTruthy();
   });
 
-it('calls onClose when the close button is clicked', () => {
+  it('calls onClose when the close button is clicked', () => {
     const handleClose = mock(() => {});
     const { container } = render(
       <Dialog title="Title" onClose={handleClose}>
         Content
-      </Dialog>
+      </Dialog>,
     );
 
     const closeButton = container.querySelector('.Button');
@@ -60,7 +60,7 @@ it('calls onClose when the close button is clicked', () => {
     const contentBox = container.querySelector(
       '.Dialog__content',
     ) as HTMLElement;
-    expect(contentBox.style.width).toBe(`${pxToRem(370, "css")}`);
+    expect(contentBox.style.width).toBe(`${pxToRem(370, 'css')}`);
   });
 });
 

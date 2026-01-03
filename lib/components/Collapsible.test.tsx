@@ -9,7 +9,7 @@ describe('Collapsible Component', () => {
     const { getByText, queryByText } = render(
       <Collapsible title="Toggle Me">
         <p>Hidden Content</p>
-      </Collapsible>
+      </Collapsible>,
     );
 
     expect(getByText('Toggle Me')).toBeTruthy();
@@ -20,7 +20,7 @@ describe('Collapsible Component', () => {
     const { getByText, queryByText } = render(
       <Collapsible title="Toggle Me">
         <p>Hidden Content</p>
-      </Collapsible>
+      </Collapsible>,
     );
 
     const button = getByText('Toggle Me');
@@ -33,7 +33,7 @@ describe('Collapsible Component', () => {
     const { queryByText } = render(
       <Collapsible title="Title" open>
         <p>Visible Content</p>
-      </Collapsible>
+      </Collapsible>,
     );
 
     expect(queryByText('Visible Content')).toBeTruthy();
@@ -41,16 +41,14 @@ describe('Collapsible Component', () => {
 
   it('renders extra buttons if provided', () => {
     const { getByText } = render(
-      <Collapsible title="Title" buttons={<button>Extra</button>} />
+      <Collapsible title="Title" buttons={<button>Extra</button>} />,
     );
 
     expect(getByText('Extra')).toBeTruthy();
   });
 
   it('changes the chevron icon based on open state', () => {
-    const { container, getByText } = render(
-      <Collapsible title="Toggle Me" />
-    );
+    const { container, getByText } = render(<Collapsible title="Toggle Me" />);
 
     const button = getByText('Toggle Me');
     const icon = container.querySelector('.fa-chevron-right');
@@ -63,18 +61,14 @@ describe('Collapsible Component', () => {
   });
 
   it('renders a custom icon if provided instead of chevron', () => {
-    const { container } = render(
-      <Collapsible title="Title" icon="star" />
-    );
+    const { container } = render(<Collapsible title="Title" icon="star" />);
 
     expect(container.querySelector('.fa-star')).toBeTruthy();
     expect(container.querySelector('.fa-chevron-right')).toBeFalsy();
   });
 
   it('renders sideIcon if provided', () => {
-    const { container } = render(
-      <Collapsible title="Title" sideIcon="cog" />
-    );
+    const { container } = render(<Collapsible title="Title" sideIcon="cog" />);
 
     expect(container.querySelector('.fa-cog')).toBeTruthy();
   });

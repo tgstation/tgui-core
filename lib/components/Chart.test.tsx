@@ -23,7 +23,7 @@ describe('Chart Component', () => {
         strokeColor="#ff0000"
         fillColor="#00ff00"
         strokeWidth={5}
-      />
+      />,
     );
     const polyline = container.querySelector('polyline')!;
     expect(polyline.getAttribute('stroke')).toBe('#ff0000');
@@ -33,7 +33,10 @@ describe('Chart Component', () => {
 
   it('updates viewBox on window resize', () => {
     // getBoundingClientRect just returns 0s, so we have to mock it
-    const spy = spyOn(HTMLDivElement.prototype, 'getBoundingClientRect').mockReturnValue({
+    const spy = spyOn(
+      HTMLDivElement.prototype,
+      'getBoundingClientRect',
+    ).mockReturnValue({
       width: 800,
       height: 400,
       top: 0,
@@ -57,7 +60,10 @@ describe('Chart Component', () => {
   });
 
   it('normalizes points within the viewBox', () => {
-    const spy = spyOn(HTMLDivElement.prototype, 'getBoundingClientRect').mockReturnValue({
+    const spy = spyOn(
+      HTMLDivElement.prototype,
+      'getBoundingClientRect',
+    ).mockReturnValue({
       width: 600,
       height: 200,
       top: 0,
@@ -71,11 +77,14 @@ describe('Chart Component', () => {
 
     const { container } = render(
       <Chart
-        data={[[0, 0], [10, 10]]}
+        data={[
+          [0, 0],
+          [10, 10],
+        ]}
         rangeX={[0, 10]}
         rangeY={[0, 10]}
         strokeWidth={0}
-      />
+      />,
     );
 
     const polyline = container.querySelector('polyline')!;
@@ -88,9 +97,15 @@ describe('Chart Component', () => {
     spy.mockRestore();
   });
 
-
   it('adds padding points to create a fillable polygon', () => {
-    const { container } = render(<Chart data={[[0, 0], [100, 100]]} />);
+    const { container } = render(
+      <Chart
+        data={[
+          [0, 0],
+          [100, 100],
+        ]}
+      />,
+    );
     const polyline = container.querySelector('polyline')!;
     const points = polyline.getAttribute('points')!.trim().split(' ');
 
