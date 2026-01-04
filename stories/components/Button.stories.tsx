@@ -137,12 +137,10 @@ export const File: FileStory = {
 
 export const ButtonList: Story = {
   render: () => (
-    <Stack style={{ width: '320px', flexDirection: "column" }} fill>
+    <Stack style={{ width: '320px', flexDirection: 'column' }} fill>
       {['First', 'Second', 'Third', 'Fourth', 'Fifth'].map((label) => (
         <Stack.Item key={label} grow>
-          <Button fluid>
-            {label}
-          </Button>
+          <Button fluid>{label}</Button>
         </Stack.Item>
       ))}
     </Stack>
