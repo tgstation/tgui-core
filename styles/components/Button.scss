@@ -57,6 +57,7 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
+  line-height: var(--button-height);
   padding: 0 var(--space-m);
   margin-right: var(--space-xs);
   margin-bottom: var(--space-xs);
@@ -70,8 +71,7 @@
   }
 
   &__content {
-    display: flex; // Inline flex will broke ellipsis, don't change it.
-    align-items: center;
+    display: block;
     align-self: stretch;
     min-height: var(--button-height);
     width: 100%; // do not change to fit-content, it will break ellipsis
@@ -105,13 +105,10 @@
 
   &--compact {
     padding: 0 var(--space-s);
+    line-height: 1.333em;
 
     &.Button--hasIcon .Button--icon {
       margin: 0 var(--space-xxs);
-    }
-
-    .Button__content {
-      min-height: calc(var(--button-height) * 0.8);
     }
   }
 
