@@ -73,8 +73,11 @@
   &__content {
     display: block;
     align-self: stretch;
-    min-height: var(--button-height);
-    width: fit-content;
+
+    &--ellipsis {
+      display: flex; // Inline flex will broke ellipsis, don't change it.
+      align-items: center;
+    }
   }
 
   .Button--icon {
