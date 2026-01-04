@@ -340,7 +340,6 @@ function ButtonInput(props: InputProps) {
     <Box
       className={classes([
         'Button',
-        'Button__content',
         fluid && 'Button--fluid',
         disabled && 'Button--disabled',
         `Button--color--${color}`,
