@@ -74,7 +74,7 @@
     display: block;
     align-self: stretch;
     min-height: var(--button-height);
-    width: 100%; // do not change to fit-content, it will break ellipsis
+    width: fit-content;
   }
 
   .Button--icon {
@@ -126,12 +126,7 @@
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
-    // margin-right: calc(-1 * var(--space-s));
-
-    white-space: nowrap;
-    .Button__content {
-      overflow: hidden;
-    }
+    margin-right: calc(-1 * var(--space-s));
   }
 
   // We don't need additional margin if button inside stack
