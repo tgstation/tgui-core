@@ -2,15 +2,12 @@ import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import { debounce } from 'lib/common/timer';
-import type { RefObject } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import type { TextInputProps } from './Input';
 
 type Props = Partial<{
   /** Don't use tab for indent */
   dontUseTabForIndent: boolean;
-  /** Ref to the textarea element. */
-  ref: RefObject<HTMLTextAreaElement | null>;
   /**
    * Provides a Record with key: markupChar entries which can be used for
    * ctrl + key combinations to surround a selected text with the markup
@@ -52,11 +49,6 @@ export function TextArea(props: Props) {
     fluid,
     maxLength,
     monospace,
-    onBlur,
-    onChange,
-    onEnter,
-    onEscape,
-    onKeyDown,
     placeholder,
     ref,
     selfClear,
@@ -72,28 +64,28 @@ export function TextArea(props: Props) {
   const [innerValue, setInnerValue] = useState(value ?? '');
 
   function handleBlur(_event: React.FocusEvent<HTMLTextAreaElement>) {
-    onBlur?.(innerValue);
+    props.onBlur?.(innerValue);
   }
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const value = event.currentTarget.value;
     setInnerValue(value);
 
-    if (!onChange) return;
+    if (!props.onChange) return;
     if (expensive) {
-      textareaDebounce(() => onChange(value));
+      textareaDebounce(() => props.onChange?.(value, event));
     } else {
-      onChange(value);
+      props.onChange(value, event);
     }
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
-    onKeyDown?.(event);
+    props.onKeyDown?.(event);
 
     // Enter
     if (event.key === KEY.Enter && !event.shiftKey) {
       event.preventDefault();
-      onEnter?.(event.currentTarget.value);
+      props.onEnter?.(event.currentTarget.value, event);
       if (selfClear) {
         setInnerValue('');
       }
@@ -103,7 +95,7 @@ export function TextArea(props: Props) {
 
     // Escape
     if (isEscape(event.key)) {
-      onEscape?.(event.currentTarget.value);
+      props.onEscape?.(event.currentTarget.value, event);
       event.currentTarget.blur();
       return;
     }
@@ -116,7 +108,7 @@ export function TextArea(props: Props) {
         `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`,
       );
       event.currentTarget.selectionEnd = selectionStart + 1;
-      onChange?.(event.currentTarget.value);
+      props.onChange?.(event.currentTarget.value, event as any);
       return;
     }
 
@@ -134,7 +126,7 @@ export function TextArea(props: Props) {
         getMarkupString(value, markupString, selectionStart, selectionEnd),
       );
       event.currentTarget.selectionEnd = selectionEnd + markupString.length * 2;
-      onChange?.(event.currentTarget.value);
+      props.onChange?.(event.currentTarget.value, event as any);
       return;
     }
   }

@@ -12,59 +12,10 @@ type Props = Partial<{
   maxValue: number;
   /** Min value. 0 by default. */
   minValue: number;
-  /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
-  onBlur: (value: number) => void;
-  /** Fires each time the input has been changed */
-  onChange: (value: number) => void;
-  /** Fires once the enter key is pressed */
-  onEnter: (value: number) => void;
-  /** Fires once the escape key is pressed */
-  onEscape: (value: number) => void;
   /** Fires on input validation change */
   onValidationChange: (isValid: boolean) => void;
-  /**
-   * Generally, input can handle its own state value. You might not NEED this.
-   *
-   * Use this if you want to hold the value in the parent for external
-   * manipulation. For instance:
-   *
-   * Clearing the input
-   *
-   * ```tsx
-   * const [value, setValue] = useState(1);
-   *
-   * return (
-   *  <>
-   *    <Button onClick={() => act('inputVal', {inputVal: value})}>
-   *      Submit
-   *    </Button>
-   *    <RestrictedInput
-   *      value={value}
-   *      onChange={setValue} />
-   *    <Button onClick={() => setValue(1)}>
-   *      Clear
-   *    </Button>
-   *  </>
-   * )
-   * ```
-   *
-   * Updating the value from the backend
-   *
-   * ```tsx
-   * const { data } = useBackend<Data>();
-   * const { valveSetting } = data;
-   *
-   * return (
-   *  <RestrictedInput
-   *    value={valveSetting}
-   *    onEnter={(value) => act('submit', { valveSetting: value })}
-   *  />
-   * )
-   * ```
-   */
-  value: number;
 }> &
-  BaseInputProps;
+  BaseInputProps<HTMLInputElement, number>;
 
 // Prevent input parent change event from being called too often
 const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
@@ -91,12 +42,6 @@ export function RestrictedInput(props: Props) {
     maxValue = 10000,
     minValue = 0,
     monospace,
-    onBlur,
-    onChange,
-    onEnter,
-    onEscape,
-    onKeyDown,
-    onValidationChange,
     value,
     ...rest
   } = props;
@@ -105,39 +50,42 @@ export function RestrictedInput(props: Props) {
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
 
-  function tryOnChange(newValue: number): void {
-    if (!onChange) return;
+  function tryOnChange(
+    newValue: number,
+    event?: React.ChangeEvent<HTMLInputElement>,
+  ): void {
+    if (!props.onChange) return;
     if (expensive) {
-      inputDebounce(() => onChange(newValue));
+      inputDebounce(() => props.onChange?.(newValue, event));
     } else {
-      onChange(newValue);
+      props.onChange(newValue, event);
     }
   }
 
   function onBlurHandler(_event: React.FocusEvent<HTMLInputElement>): void {
-    onBlur?.(innerValue);
+    props.onBlur?.(innerValue);
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     const newValue = Number(event.target.value);
     setInnerValue(newValue);
-    tryOnChange(newValue);
+    tryOnChange(newValue, event);
   }
 
   function onKeyDownHandler(
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void {
-    onKeyDown?.(event);
+    props.onKeyDown?.(event);
 
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      onEnter?.(innerValue);
+      props.onEnter?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
     if (isEscape(event.key)) {
       event.preventDefault();
-      onEscape?.(innerValue);
+      props.onEscape?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
@@ -145,7 +93,7 @@ export function RestrictedInput(props: Props) {
       event.preventDefault();
       const newValue = innerValue * -1;
       setInnerValue(newValue);
-      tryOnChange(newValue);
+      tryOnChange(newValue, event as any);
       return;
     }
   }
@@ -172,7 +120,7 @@ export function RestrictedInput(props: Props) {
       const formValid = inputRef.current.validity.valid;
       if (isValid !== formValid) {
         setIsValid(formValid);
-        onValidationChange?.(formValid);
+        props.onValidationChange?.(formValid);
       }
     }
   }, [innerValue]);
