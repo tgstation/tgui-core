@@ -1,9 +1,12 @@
-import { afterEach, describe, expect, it, spyOn } from 'bun:test';
-import { cleanup, render } from '@testing-library/react';
+import { afterEach, describe, expect, it, jest, spyOn } from 'bun:test';
+import { act, cleanup, render } from '@testing-library/react';
 import { AnimatedNumber } from './AnimatedNumber';
 
 describe('AnimatedNumber Component', () => {
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    jest.useRealTimers();
+  });
 
   it('renders initial value immediately', () => {
     const { getByText } = render(<AnimatedNumber value={100} />);
@@ -16,11 +19,14 @@ describe('AnimatedNumber Component', () => {
   });
 
   it('animates towards the target value', async () => {
+    jest.useFakeTimers();
     const { getByText } = render(<AnimatedNumber value={100} initial={0} />);
 
     expect(getByText('0')).toBeTruthy();
 
-    await new Promise((resolve) => setTimeout(resolve, 50));
+    act(() => {
+      jest.advanceTimersByTime(50);
+    });
 
     const element = getByText(/^[0-9.]+$/);
     const currentValue = parseFloat(element.textContent!);
@@ -30,9 +36,12 @@ describe('AnimatedNumber Component', () => {
   });
 
   it('converges to the target value', async () => {
+    jest.useFakeTimers();
     const { getByText } = render(<AnimatedNumber value={10} initial={9} />);
 
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    act(() => {
+      jest.advanceTimersByTime(1_000);
+    });
 
     expect(getByText('10')).toBeTruthy();
   });
@@ -56,7 +65,9 @@ describe('AnimatedNumber Component', () => {
     const clearIntervalSpy = spyOn(global, 'clearInterval');
     const { unmount } = render(<AnimatedNumber value={100} initial={0} />);
 
-    unmount();
+    act(() => {
+      unmount();
+    });
 
     expect(clearIntervalSpy).toHaveBeenCalled();
     clearIntervalSpy.mockRestore();
