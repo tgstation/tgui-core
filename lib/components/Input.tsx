@@ -31,6 +31,7 @@ export type BaseInputProps<
   /** Fills the parent container */
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
+  monospace: boolean;
   /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
   onBlur: (value: TInput) => void;
   /**
@@ -49,9 +50,6 @@ export type BaseInputProps<
   onEnter: (value: TInput, event?: React.KeyboardEvent<TElement>) => void;
   /** Fires once the escape key is pressed */
   onEscape: (value: TInput, event?: React.KeyboardEvent<TElement>) => void;
-  monospace: boolean;
-  /** Allows to toggle on spellcheck on inputs */
-  spellcheck: boolean;
   /**
    * Generally, input can handle its own state value. You might not NEED this.
    *
@@ -105,6 +103,8 @@ export type TextInputProps<TElement = HTMLInputElement> = Partial<{
   ref: RefObject<TElement | null>;
   /** Clears the input value on enter */
   selfClear: boolean;
+  /** Allows to toggle on spellcheck on inputs */
+  spellcheck: boolean;
 }> &
   BaseInputProps<TElement>;
 
@@ -129,6 +129,11 @@ export function Input(props: TextInputProps) {
     fluid,
     maxLength,
     monospace,
+    onBlur,
+    onChange,
+    onEnter,
+    onEscape,
+    onKeyDown,
     placeholder,
     ref,
     selfClear,
@@ -146,18 +151,18 @@ export function Input(props: TextInputProps) {
     const value = event.currentTarget.value;
     setInnerValue(value);
     if (expensive) {
-      inputDebounce(() => props.onChange?.(value, event));
+      inputDebounce(() => onChange?.(value, event));
     } else {
-      props.onChange?.(value, event);
+      onChange?.(value, event);
     }
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
-    props.onKeyDown?.(event);
+    onKeyDown?.(event);
 
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      props.onEnter?.(event.currentTarget.value, event);
+      onEnter?.(event.currentTarget.value, event);
       if (selfClear) {
         setInnerValue('');
       }
@@ -167,7 +172,7 @@ export function Input(props: TextInputProps) {
 
     if (isEscape(event.key)) {
       event.preventDefault();
-      props.onEscape?.(event.currentTarget.value, event);
+      onEscape?.(event.currentTarget.value, event);
       event.currentTarget.blur();
     }
   }
@@ -216,7 +221,7 @@ export function Input(props: TextInputProps) {
       className={clsx}
       disabled={disabled}
       maxLength={maxLength}
-      onBlur={() => props.onBlur?.(innerValue)}
+      onBlur={() => onBlur?.(innerValue)}
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}

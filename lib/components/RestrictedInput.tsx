@@ -42,6 +42,12 @@ export function RestrictedInput(props: Props) {
     maxValue = 10000,
     minValue = 0,
     monospace,
+    onBlur,
+    onChange,
+    onEnter,
+    onEscape,
+    onKeyDown,
+    onValidationChange,
     value,
     ...rest
   } = props;
@@ -54,16 +60,16 @@ export function RestrictedInput(props: Props) {
     newValue: number,
     event?: React.ChangeEvent<HTMLInputElement>,
   ): void {
-    if (!props.onChange) return;
+    if (!onChange) return;
     if (expensive) {
-      inputDebounce(() => props.onChange?.(newValue, event));
+      inputDebounce(() => onChange?.(newValue, event));
     } else {
-      props.onChange(newValue, event);
+      onChange(newValue, event);
     }
   }
 
   function onBlurHandler(_event: React.FocusEvent<HTMLInputElement>): void {
-    props.onBlur?.(innerValue);
+    onBlur?.(innerValue);
   }
 
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -75,17 +81,17 @@ export function RestrictedInput(props: Props) {
   function onKeyDownHandler(
     event: React.KeyboardEvent<HTMLInputElement>,
   ): void {
-    props.onKeyDown?.(event);
+    onKeyDown?.(event);
 
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      props.onEnter?.(innerValue, event);
+      onEnter?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
     if (isEscape(event.key)) {
       event.preventDefault();
-      props.onEscape?.(innerValue, event);
+      onEscape?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
@@ -120,7 +126,7 @@ export function RestrictedInput(props: Props) {
       const formValid = inputRef.current.validity.valid;
       if (isValid !== formValid) {
         setIsValid(formValid);
-        props.onValidationChange?.(formValid);
+        onValidationChange?.(formValid);
       }
     }
   }, [innerValue]);
