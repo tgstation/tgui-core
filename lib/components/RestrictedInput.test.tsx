@@ -9,7 +9,13 @@ import {
   spyOn,
 } from 'bun:test';
 import { KEY } from '@common/keys';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+} from '@testing-library/react';
 import { RestrictedInput } from './RestrictedInput';
 
 describe('RestrictedInput Component', () => {
@@ -40,7 +46,7 @@ describe('RestrictedInput Component', () => {
     const input = getByRole('spinbutton');
 
     fireEvent.change(input, { target: { value: '100' } });
-    expect(onChange).toHaveBeenCalledWith(100);
+    expect(onChange).toHaveBeenCalledWith(100, expect.anything());
   });
 
   it('debounces onChange when expensive prop is true', () => {
@@ -54,8 +60,10 @@ describe('RestrictedInput Component', () => {
 
     expect(onChange).not.toHaveBeenCalled(); // debounce has not happened
 
-    jest.advanceTimersByTime(250); // now it should have happened
-    expect(onChange).toHaveBeenCalledWith(100);
+    act(() => {
+      jest.advanceTimersByTime(250); // now it should have happened
+    });
+    expect(onChange).toHaveBeenCalledWith(100, expect.anything());
   });
 
   it('toggles negative value when Minus key is pressed', () => {
@@ -77,7 +85,7 @@ describe('RestrictedInput Component', () => {
 
     fireEvent.keyDown(input, { key: KEY.Enter });
 
-    expect(onEnter).toHaveBeenCalledWith(50);
+    expect(onEnter).toHaveBeenCalledWith(50, expect.anything());
     expect(blurSpy).toHaveBeenCalled();
   });
 
@@ -90,7 +98,7 @@ describe('RestrictedInput Component', () => {
 
     fireEvent.keyDown(input, { key: KEY.Escape });
 
-    expect(onEscape).toHaveBeenCalledWith(50);
+    expect(onEscape).toHaveBeenCalledWith(50, expect.anything());
   });
 
   it('validates min/max constraints and triggers onValidationChange', () => {
@@ -115,7 +123,9 @@ describe('RestrictedInput Component', () => {
     const { getByRole } = render(<RestrictedInput autoFocus />);
     const input = getByRole('spinbutton');
 
-    jest.advanceTimersByTime(1);
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
     expect(document.activeElement).toBe(input);
   });
 });

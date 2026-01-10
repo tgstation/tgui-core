@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, it } from 'bun:test';
 import { KEY } from '@common/keys';
-
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 import { Input } from './Input.tsx';
 
@@ -16,7 +15,13 @@ describe('Input Component', () => {
   it('updates innerValue and calls onChange when typing', async () => {
     let changedValue = '';
     const { container } = render(
-      <Input value="" onChange={(v) => (changedValue = v)} expensive={false} />,
+      <Input
+        value=""
+        onChange={(v) => {
+          changedValue = v;
+        }}
+        expensive={false}
+      />,
     );
     const input = container.querySelector('input')!;
 
@@ -31,7 +36,12 @@ describe('Input Component', () => {
   it('calls onEnter when Enter is pressed', () => {
     let enteredValue = '';
     const { container } = render(
-      <Input value="start" onEnter={(v) => (enteredValue = v)} />,
+      <Input
+        value="start"
+        onEnter={(v) => {
+          enteredValue = v;
+        }}
+      />,
     );
     const input = container.querySelector('input')!;
     fireEvent.keyDown(input, { key: KEY.Enter });
@@ -44,7 +54,12 @@ describe('Input Component', () => {
   it('calls onEscape when Escape is pressed', () => {
     let escapedValue = '';
     const { container } = render(
-      <Input value="test" onEscape={(v) => (escapedValue = v)} />,
+      <Input
+        value="test"
+        onEscape={(v) => {
+          escapedValue = v;
+        }}
+      />,
     );
     const input = container.querySelector('input')!;
     fireEvent.keyDown(input, { key: KEY.Escape });
