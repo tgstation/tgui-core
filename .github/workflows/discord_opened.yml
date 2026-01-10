@@ -1,0 +1,32 @@
+name: Announce PR on Discord
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Announce new PR to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{
+            "content": "New PR #${{ env.PR_NUMBER }} *opened* by ${{ env.PR_AUTHOR }}: **${{ env.PR_TITLE }}**",
+            "embeds": [{
+              "description": "[View Pull Request](${{ env.PR_URL }})",
+              "color": 3066993,
+              "fields": [
+                {
+                  "name": "Author",
+                  "value": "${{ env.PR_AUTHOR }}",
+                  "inline": true
+                }
+              ]
+            }]
+          }' ${{ env.DISCORD_WEBHOOK }}

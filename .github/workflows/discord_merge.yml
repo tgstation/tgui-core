@@ -1,0 +1,22 @@
+name: Announce PR Merged
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  announce_merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Announce PR merged to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          MERGER: ${{ github.event.pull_request.merged_by.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{
+            "content": "PR #${{ env.PR_NUMBER }} *merged* by ${{ env.MERGER }}: **${{ env.PR_TITLE }}**\n__<${{ env.PR_URL }}>__"
+          }' ${{ env.DISCORD_WEBHOOK }}
