@@ -17,10 +17,11 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
           curl -H "Content-Type: application/json" -X POST -d '{
-            "content": "New PR #${{ env.PR_NUMBER }} *opened* by ${{ env.PR_AUTHOR }}: **${{ env.PR_TITLE }}**",
+            "content": "New PR #${{ env.PR_NUMBER }} *opened* by
+            ${{ env.PR_AUTHOR }}: **${{ env.PR_TITLE }}**",
             "embeds": [{
               "description": "[View Pull Request](${{ env.PR_URL }})",
-              "color": 3066993,
+              "color": 10738085,
               "fields": [
                 {
                   "name": "Author",

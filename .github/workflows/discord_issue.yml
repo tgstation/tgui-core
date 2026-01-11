@@ -1,0 +1,33 @@
+name: Announce Issue on Discord
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Announce new issue to Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{
+            "content": "New issue #${{ env.ISSUE_NUMBER }} *opened* by
+            ${{ env.ISSUE_AUTHOR }}: **${{ env.ISSUE_TITLE }}**",
+            "embeds": [{
+              "description": "[View Issue](${{ env.ISSUE_URL }})",
+              "color": 11771355,
+              "fields": [
+                {
+                  "name": "Author",
+                  "value": "${{ env.ISSUE_AUTHOR }}",
+                  "inline": true
+                }
+              ]
+            }]
+          }' ${{ env.DISCORD_WEBHOOK }}
