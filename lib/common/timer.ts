@@ -62,3 +62,11 @@ export function throttle<F extends (...args: any[]) => any>(
 export function sleep(time: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+
+/**
+ * Prevent input parent change event from being called too often
+ * @param dTime Debounce time, default is 250
+ */
+export function inputDebounce(dTime = 250) {
+  return debounce((onChange: () => void) => onChange(), dTime);
+}

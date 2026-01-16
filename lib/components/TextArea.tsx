@@ -1,7 +1,7 @@
 import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import { debounce } from 'lib/common/timer';
+import { inputDebounce } from 'lib/common/timer';
 import { useEffect, useRef, useState } from 'react';
 import type { TextInputProps } from './Input';
 
@@ -25,9 +25,6 @@ function getMarkupString(
 ): string {
   return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
 }
-
-// Prevent input parent change event from being called too often
-const textareaDebounce = debounce((onChange: () => void) => onChange(), 250);
 
 /**
  * ## Textarea
@@ -78,7 +75,8 @@ export function TextArea(props: Props) {
 
     if (!onChange) return;
     if (expensive) {
-      textareaDebounce(() => onChange?.(value, event));
+      const debounceTime = typeof expensive === 'number' ? expensive : 250;
+      inputDebounce(debounceTime)(() => onChange?.(value, event));
     } else {
       onChange(value, event);
     }

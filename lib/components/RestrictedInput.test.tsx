@@ -49,7 +49,7 @@ describe('RestrictedInput Component', () => {
     expect(onChange).toHaveBeenCalledWith(100, expect.anything());
   });
 
-  it('debounces onChange when expensive prop is true', () => {
+  it('debounces onChange when expensive prop is true (default 250ms)', () => {
     const onChange = mock();
     const { getByRole } = render(
       <RestrictedInput expensive onChange={onChange} />,
@@ -59,6 +59,30 @@ describe('RestrictedInput Component', () => {
     fireEvent.change(input, { target: { value: '100' } });
 
     expect(onChange).not.toHaveBeenCalled(); // debounce has not happened
+
+    act(() => {
+      jest.advanceTimersByTime(250); // now it should have happened
+    });
+    expect(onChange).toHaveBeenCalledWith(100, expect.anything());
+  });
+
+  it('debounces onChange when expensive prop is true (custom 550ms)', () => {
+    const onChange = mock();
+    const { getByRole } = render(
+      <RestrictedInput expensive={500} onChange={onChange} />,
+    );
+    const input = getByRole('spinbutton');
+
+    fireEvent.change(input, { target: { value: '100' } });
+
+    expect(onChange).not.toHaveBeenCalled(); // debounce has not happened
+
+    // sanity check :3
+    act(() => {
+      jest.advanceTimersByTime(250);
+    });
+
+    expect(onChange).not.toHaveBeenCalled(); // still should not have happened
 
     act(() => {
       jest.advanceTimersByTime(250); // now it should have happened

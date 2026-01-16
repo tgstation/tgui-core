@@ -1,6 +1,6 @@
 import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
-import { debounce } from '@common/timer';
+import { inputDebounce } from '@common/timer';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import { type RefObject, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
@@ -25,9 +25,10 @@ export type BaseInputProps<
    * Do this if it's performing expensive ops on each input, like filtering or
    * sending the value immediate to Byond (via act).
    *
-   * It will only fire once every 250ms.
+   * It will only fire once every 250ms by default. Pass in a number in ms
+   * for a custom fire rate
    */
-  expensive: boolean;
+  expensive: boolean | number;
   /** Fills the parent container */
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
@@ -108,9 +109,6 @@ export type TextInputProps<TElement = HTMLInputElement> = Partial<{
 }> &
   BaseInputProps<TElement>;
 
-// Prevent input parent change event from being called too often
-const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
-
 /**
  * ## Input
  *
@@ -151,7 +149,8 @@ export function Input(props: TextInputProps) {
     const value = event.currentTarget.value;
     setInnerValue(value);
     if (expensive) {
-      inputDebounce(() => onChange?.(value, event));
+      const debounceTime = typeof expensive === 'number' ? expensive : 250;
+      inputDebounce(debounceTime)(() => onChange?.(value, event));
     } else {
       onChange?.(value, event);
     }
