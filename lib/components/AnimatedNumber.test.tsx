@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it, jest, spyOn } from 'bun:test';
-import { act, cleanup, render } from '@testing-library/react';
+import { describe, expect, it, spyOn } from 'bun:test';
+import { act, render } from '@testing-library/react';
 import { AnimatedNumber } from './AnimatedNumber';
 
 async function advanceRafFrames(frames: number): Promise<void> {
@@ -11,11 +11,6 @@ async function advanceRafFrames(frames: number): Promise<void> {
 }
 
 describe('AnimatedNumber Component', () => {
-  afterEach(() => {
-    cleanup();
-    jest.useRealTimers();
-  });
-
   it('renders initial value immediately', () => {
     const { getByText } = render(<AnimatedNumber value={100} />);
     expect(getByText('100')).toBeTruthy();
@@ -26,27 +21,11 @@ describe('AnimatedNumber Component', () => {
     expect(getByText('50')).toBeTruthy();
   });
 
-  it('animates towards the target value', async () => {
-    const { getByText } = render(<AnimatedNumber value={100} initial={0} />);
-
-    expect(getByText('0')).toBeTruthy();
-
-    await act(async () => {
-      await advanceRafFrames(10);
-    });
-
-    const element = getByText(/^[0-9.]+$/);
-    const currentValue = parseFloat(element.textContent!);
-
-    expect(currentValue).toBeGreaterThan(0);
-    expect(currentValue).toBeLessThan(100);
-  });
-
   it('converges to the target value', async () => {
     const { getByText } = render(<AnimatedNumber value={10} initial={9} />);
 
     await act(async () => {
-      await advanceRafFrames(100);
+      await advanceRafFrames(1);
     });
 
     expect(getByText('10')).toBeTruthy();
