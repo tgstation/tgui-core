@@ -1,6 +1,6 @@
 import { isEscape, KEY } from '@common/keys';
 import { classes } from 'lib/common/react';
-import { debounce } from 'lib/common/timer';
+import { inputDebounce } from 'lib/common/timer';
 import { computeBoxClassName, computeBoxProps } from 'lib/common/ui';
 import { useEffect, useRef, useState } from 'react';
 import type { BaseInputProps } from './Input';
@@ -16,9 +16,6 @@ type Props = Partial<{
   onValidationChange: (isValid: boolean) => void;
 }> &
   BaseInputProps<HTMLInputElement, number>;
-
-// Prevent input parent change event from being called too often
-const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
 
 /**
  * ## RestrictedInput
@@ -62,7 +59,8 @@ export function RestrictedInput(props: Props) {
   ): void {
     if (!onChange) return;
     if (expensive) {
-      inputDebounce(() => onChange?.(newValue, event));
+      const debounceTime = typeof expensive === 'number' ? expensive : 250;
+      inputDebounce(debounceTime)(() => onChange?.(newValue, event));
     } else {
       onChange(newValue, event);
     }
