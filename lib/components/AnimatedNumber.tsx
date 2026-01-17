@@ -18,8 +18,6 @@ type Props = {
   initial: number;
 }>;
 
-type TickHandle = number;
-
 /** A small number. */
 const EPSILON = 10e-4;
 /** Animated numbers are animated at roughly 60 frames per second. */
@@ -39,7 +37,7 @@ const Q = 0.8333;
 export function AnimatedNumber(props: Props) {
   const { format, initial, value } = props;
 
-  const tickHandle = useRef<TickHandle | null>(null);
+  const tickHandle = useRef<number | null>(null);
   const lastTickTime = useRef<number | null>(null);
 
   const isSafe = initial !== undefined && isSafeNumber(initial);
