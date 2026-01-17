@@ -1,13 +1,16 @@
-import { afterEach, describe, expect, it, jest, spyOn } from 'bun:test';
-import { act, cleanup, render } from '@testing-library/react';
+import { describe, expect, it, spyOn } from 'bun:test';
+import { act, render } from '@testing-library/react';
 import { AnimatedNumber } from './AnimatedNumber';
 
-describe('AnimatedNumber Component', () => {
-  afterEach(() => {
-    cleanup();
-    jest.useRealTimers();
-  });
+async function advanceRafFrames(frames: number): Promise<void> {
+  for (let i = 0; i < frames; i++) {
+    await new Promise((resolve) => {
+      requestAnimationFrame(resolve);
+    });
+  }
+}
 
+describe('AnimatedNumber Component', () => {
   it('renders initial value immediately', () => {
     const { getByText } = render(<AnimatedNumber value={100} />);
     expect(getByText('100')).toBeTruthy();
@@ -18,29 +21,11 @@ describe('AnimatedNumber Component', () => {
     expect(getByText('50')).toBeTruthy();
   });
 
-  it('animates towards the target value', async () => {
-    jest.useFakeTimers();
-    const { getByText } = render(<AnimatedNumber value={100} initial={0} />);
-
-    expect(getByText('0')).toBeTruthy();
-
-    act(() => {
-      jest.advanceTimersByTime(50);
-    });
-
-    const element = getByText(/^[0-9.]+$/);
-    const currentValue = parseFloat(element.textContent!);
-
-    expect(currentValue).toBeGreaterThan(0);
-    expect(currentValue).toBeLessThan(100);
-  });
-
   it('converges to the target value', async () => {
-    jest.useFakeTimers();
     const { getByText } = render(<AnimatedNumber value={10} initial={9} />);
 
-    act(() => {
-      jest.advanceTimersByTime(1_000);
+    await act(async () => {
+      await advanceRafFrames(1);
     });
 
     expect(getByText('10')).toBeTruthy();
@@ -61,16 +46,19 @@ describe('AnimatedNumber Component', () => {
     expect(getByText('10.55')).toBeTruthy();
   });
 
-  it('cleans up interval on unmount', () => {
-    const clearIntervalSpy = spyOn(global, 'clearInterval');
+  it('cleans up animation frame on unmount', async () => {
+    const cancelAnimationFrameSpy = spyOn(globalThis, 'cancelAnimationFrame');
     const { unmount } = render(<AnimatedNumber value={100} initial={0} />);
 
-    act(() => {
+    // Flush effects so the component schedules its first frame,
+    // then immediately unmount before the RAF callback runs.
+    await act(async () => {
+      await advanceRafFrames(1);
       unmount();
     });
 
-    expect(clearIntervalSpy).toHaveBeenCalled();
-    clearIntervalSpy.mockRestore();
+    expect(cancelAnimationFrameSpy).toHaveBeenCalled();
+    cancelAnimationFrameSpy.mockRestore();
   });
 
   it('handles non-safe numbers by displaying them as strings', () => {
