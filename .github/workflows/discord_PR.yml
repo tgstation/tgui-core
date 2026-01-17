@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Announce new PR to Discord
+        shell: bash
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -16,18 +17,33 @@ jobs:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
-          curl -H "Content-Type: application/json" -X POST -d '{
-            "content": "New PR #${{ env.PR_NUMBER }} *opened* by
-            ${{ env.PR_AUTHOR }}: **${{ env.PR_TITLE }}**",
-            "embeds": [{
-              "description": "[View Pull Request](${{ env.PR_URL }})",
-              "color": 10738085,
-              "fields": [
-                {
-                  "name": "Author",
-                  "value": "${{ env.PR_AUTHOR }}",
-                  "inline": true
-                }
-              ]
-            }]
-          }' ${{ env.DISCORD_WEBHOOK }}
+          set -euo pipefail
+
+          payload=$(python3 - <<'PY'
+          import json
+          import os
+
+          pr_number = os.environ["PR_NUMBER"]
+          pr_title = os.environ["PR_TITLE"]
+          pr_author = os.environ["PR_AUTHOR"]
+          pr_url = os.environ["PR_URL"]
+
+          content = f"New PR #{pr_number} *opened* by {pr_author}: **{pr_title}**"
+          body = {
+              "content": content,
+              "embeds": [
+                  {
+                      "description": f"[View Pull Request]({pr_url})",
+                      "color": 10738085,
+                      "fields": [
+                          {"name": "Author", "value": pr_author, "inline": True},
+                      ],
+                  }
+              ],
+          }
+
+          print(json.dumps(body, ensure_ascii=False))
+          PY
+          )
+
+          curl -H "Content-Type: application/json" -X POST --data "$payload" "$DISCORD_WEBHOOK"
