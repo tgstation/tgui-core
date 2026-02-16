@@ -375,6 +375,7 @@ export const eventHandlers = [
   'onKeyDown',
   'onKeyUp',
   'onMouseDown',
+  'onMouseEnter',
   'onMouseLeave',
   'onMouseMove',
   'onMouseOver',
