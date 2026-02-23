@@ -369,11 +369,13 @@ export function computeTwClass(input: string | undefined): StyleMap {
 /** Short list of accepted DOM event handlers */
 export const eventHandlers = [
   'onClick',
+  'onAuxClick',
   'onContextMenu',
   'onDoubleClick',
   'onKeyDown',
   'onKeyUp',
   'onMouseDown',
+  'onMouseEnter',
   'onMouseLeave',
   'onMouseMove',
   'onMouseOver',
