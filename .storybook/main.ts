@@ -43,7 +43,7 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.tsx'],
 
   typescript: {
-    // check: true,
+    check: true,
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
       propFilter: (props, component) => {
@@ -55,6 +55,7 @@ const config: StorybookConfig = {
       },
       shouldExtractLiteralValuesFromEnum: true,
       shouldRemoveUndefinedFromOptional: true,
+      savePropValueAsString: true,
     },
   },
 };

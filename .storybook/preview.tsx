@@ -18,10 +18,12 @@ import {
 const preview: Preview = {
   tags: ['autodocs'],
 
-  decorators: [(Story, context) => {
-    document.documentElement.className = `theme-${context.globals.theme}`
-    return <Story />;
-  }],
+  decorators: [
+    (Story, context) => {
+      document.documentElement.className = `theme-${context.globals.theme}`;
+      return <Story />;
+    },
+  ],
 
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },

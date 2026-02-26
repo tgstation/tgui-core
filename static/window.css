@@ -64,11 +64,3 @@
   display: flex;
   gap: 5rem;
 }
-
-.Story__themeSelector {
-  width: 15rem;
-  color: var(--color-label);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}

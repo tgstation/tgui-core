@@ -1,8 +1,7 @@
-import { type ReactNode, useEffect, useState } from 'react';
+import type { ReactNode, } from 'react';
 import '../static/window.css';
 import { classes } from '@common/react';
-import { Dropdown, Icon } from '@components';
-import { themes } from './themes';
+import { Icon } from '@components';
 
 type Props = Partial<{
   children: ReactNode;
@@ -15,27 +14,8 @@ type Props = Partial<{
 export function Window(props: Props) {
   const { width = 475, height = 650, children, title = 'Untitled' } = props;
 
-  const [currentTheme, setCurrentTheme] = useState('default');
-
-  useEffect(() => {
-    document.documentElement.className = `theme-${currentTheme}`;
-  }, [currentTheme]);
-
   return (
-    <div
-      className={classes([
-        'Story__container',
-        currentTheme !== 'default' && `theme-${currentTheme}`,
-      ])}
-    >
-      <div className="Story__themeSelector">
-        Select a theme
-        <Dropdown
-          options={themes}
-          selected={currentTheme}
-          onSelected={setCurrentTheme}
-        />
-      </div>
+    <div className={'Story__container'}>
       <div style={{ width, height }} className="Window">
         <div className="Window__titlebar">
           <div className="Window__title">
