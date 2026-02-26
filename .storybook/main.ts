@@ -55,7 +55,6 @@ const config: StorybookConfig = {
       },
       shouldExtractLiteralValuesFromEnum: true,
       shouldRemoveUndefinedFromOptional: true,
-      savePropValueAsString: true,
     },
   },
   features: { interactions: false, backgrounds: false },
