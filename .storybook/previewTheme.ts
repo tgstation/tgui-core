@@ -7,5 +7,5 @@ export default create({
   appPreviewBg: 'hsl(0, 0%, 14%)',
   base: 'dark',
   brandTitle: 'TGUI-core',
-  brandUrl: './',
+  brandUrl: 'https://github.com/tgstation/tgui-core',
 });
