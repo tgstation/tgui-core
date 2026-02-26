@@ -1,51 +1,82 @@
-import type { ReactNode, } from 'react';
-import '../static/window.css';
-import { classes } from '@common/react';
-import { Icon } from '@components';
+import type { ComponentProps, PropsWithChildren } from 'react';
+import '../static/window.scss';
+import { type BooleanLike, classes } from '@common/react';
+import { type Box, Icon } from '@components';
+import { toTitleCase } from 'tgui-core/common/string';
+import { computeBoxClassName, computeBoxProps } from 'tgui-core/common/ui';
 
 type Props = Partial<{
-  children: ReactNode;
+  canClose: BooleanLike;
   height: number;
   title: string;
   width: number;
-}>;
+}> &
+  PropsWithChildren;
 
 /** A mock window purely for testing */
 export function Window(props: Props) {
-  const { width = 475, height = 650, children, title = 'Untitled' } = props;
+  const {
+    canClose = true,
+    width = 475,
+    height = 650,
+    children,
+    title = 'Untitled',
+  } = props;
+
+  // TitleBar component.
+  const finalTitle =
+    (typeof title === 'string' &&
+      title === title.toLowerCase() &&
+      toTitleCase(title)) ||
+    title;
 
   return (
-    <div className={'Story__container'}>
-      <div style={{ width, height }} className="Window">
-        <div className="Window__titlebar">
-          <div className="Window__title">
-            <Icon name="eye" className="Window__eye" size={1.5} />
-            {title}
-          </div>
-          <div className="Window__close">X</div>
+    <div style={{ width, height }} className="Window">
+      <div className="TitleBar">
+        <div className="TitleBar__title">
+          <Icon color="good" name="eye" className="TitleBar__statusIcon" />
+          <div className="TitleBar__title">{finalTitle}</div>
         </div>
-        {children}
+        {!!canClose && (
+          <div className="TitleBar__close">
+            <Icon className="TitleBar__close--icon" name="times" />
+          </div>
+        )}
       </div>
+      {/* rest is placed 32px under top bar */}
+      <div style={{ height: height - 32 }}>{children}</div>
     </div>
   );
 }
 
-type ContentProps = {
-  children: ReactNode;
-  scrollable?: boolean;
-};
+type ContentProps = Partial<{
+  className: string;
+  fitted: boolean;
+  scrollable: boolean;
+  vertical: boolean;
+}> &
+  ComponentProps<typeof Box> &
+  PropsWithChildren;
 
 function WindowContent(props: ContentProps) {
-  const { children, scrollable } = props;
+  const { children, className, fitted, scrollable, ...rest } = props;
 
   return (
     <div
       className={classes([
         'Layout__content',
         scrollable && 'Layout__content-Scrollable',
+        'Window__content',
+        className,
+        computeBoxClassName(rest),
       ])}
+      {...computeBoxProps(rest)}
     >
-      {children}
+      {fitted ? (
+        children
+      ) : (
+        <div className="Window__contentPadding">{children}</div>
+      )}
     </div>
   );
 }

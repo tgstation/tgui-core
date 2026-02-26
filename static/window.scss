@@ -1,0 +1,114 @@
+/* TGUI Window.scss */
+.Window {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+
+  inset: 0;
+  color: var(--color-text);
+  background-color: var(--color-base);
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-base-start) 0%,
+    var(--color-base-end) 100%
+  );
+}
+
+.Window__contentPadding {
+  margin: 0.5rem;
+  height: calc(100% - 1rem);
+}
+
+.Window__contentPadding:after {
+  height: 0;
+}
+
+.Layout__content--scrollable .Window__contentPadding:after {
+  content: "";
+  display: block;
+  height: 0.5rem;
+}
+
+/* Layout.scss */
+.Layout__content {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /* position: absolute; */
+  inset: 0;
+
+  // main.scss, NT Theme
+  background-image: url("../assets/bg-nanotrasen.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 70% 70%;
+
+  height: inherit; // hack, not in base layout.
+}
+
+.Layout__content--scrollable {
+  overflow-y: scroll;
+  margin-bottom: 0;
+}
+
+/* TitleBar.scss */
+.TitleBar {
+  user-select: none;
+  /* position: fixed; we are not fullscreen */
+  display: flex;
+  align-items: center;
+  /* width: 100vw; same with this, not fullscreen */
+  height: 32px;
+  background-color: var(--color-secondary);
+  border-bottom: var(--border-thickness-tiny) solid var(--color-border-dark);
+  box-shadow: 0px 0px 6px -1px var(--color-border-dark);
+  z-index: 101;
+
+  &__statusIcon {
+    text-align: center;
+    font-size: 20px;
+    transition: color var(--transition-time-slow);
+  }
+
+  &__title {
+    pointer-events: none;
+    display: inline-block;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--color-text-translucent-light);
+    font-size: 14px;
+  }
+
+  &__close {
+    cursor: var(--cursor-pointer);
+    opacity: 0.5;
+    pointer-events: all;
+    align-content: center;
+    text-align: center;
+    font-size: 16px;
+    height: 100%;
+    color: var(--color-text);
+    transition-property: background-color, opacity;
+    transition-duration: var(--transition-time-medium);
+    z-index: 102;
+
+    &:hover {
+      opacity: 1;
+      background-color: var(--button-background-danger);
+      transition-duration: 0s;
+    }
+  }
+
+  &__statusIcon,
+  &__close {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+  }
+}
+
+.Story__container {
+  display: flex;
+  gap: 5rem;
+}

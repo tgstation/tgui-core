@@ -58,6 +58,7 @@ const config: StorybookConfig = {
       savePropValueAsString: true,
     },
   },
+  features: { interactions: false },
 };
 
 export default config;
