@@ -55,21 +55,17 @@ const preview: Preview = {
 
   globalTypes: {
     theme: {
-      name: 'Theme',
       description: 'Global theme for components',
-      defaultValue: 'default',
       toolbar: {
+        title: 'Theme',
         icon: 'paintbrush',
         items: themes,
-        showName: true,
       },
     },
   },
 
   initialGlobals: {
-    backgrounds: {
-      value: 'section',
-    },
+    theme: 'default',
   },
 };
 
