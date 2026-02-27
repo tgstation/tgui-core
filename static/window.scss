@@ -1,6 +1,6 @@
 /* TGUI Window.scss */
 .Window {
-  border: 3px solid black;
+  box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 
