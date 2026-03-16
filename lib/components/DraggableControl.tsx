@@ -34,7 +34,7 @@ type Props = {
 } & Partial<{
   /** Animates the value if it was changed externally. */
   animated: boolean;
-  /** Disables the slider. */
+  /** Disables the control. */
   disabled: boolean;
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
