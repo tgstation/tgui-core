@@ -12,7 +12,7 @@
 
   &--disabled {
     cursor: default;
-    opacity: var(--button-disabled-opacity);
+    opacity: var(--slider-disabled-opacity);
     .Slider__cursor:before {
       display: none;
     }
