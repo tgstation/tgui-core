@@ -3,7 +3,7 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[yaml][markdown][scss][github-actions-workflow]": {
-    "editor.defaultFormatter": "prettier.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "editor.codeActionsOnSave": {
