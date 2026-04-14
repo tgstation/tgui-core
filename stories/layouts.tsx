@@ -5,13 +5,13 @@ import {
   useRef,
 } from 'react';
 import '../static/window.scss';
-import { type BooleanLike, classes } from '@common/react';
+import { classes } from '@common/react';
 import { type Box, Icon } from '@components';
 import { toTitleCase } from 'tgui-core/common/string';
 import { computeBoxClassName, computeBoxProps } from 'tgui-core/common/ui';
 
 type Props = Partial<{
-  canClose: BooleanLike;
+  canClose: boolean;
   height: number;
   title: string;
   width: number;
@@ -39,23 +39,74 @@ export function Window(props: Props) {
 
   return (
     <div ref={ref} style={{ width, height }} className="Window">
-      <div className="TitleBar">
-        <div className="TitleBar__title">
-          <Icon color="good" name="eye" className="TitleBar__statusIcon" />
-          <div className="TitleBar__title">{finalTitle}</div>
-        </div>
-        {!!canClose && (
-          <div className="TitleBar__close">
-            <Icon className="TitleBar__close--icon" name="times" />
-          </div>
-        )}
-      </div>
+      <TitleBar targetRef={ref} canClose={canClose} title={finalTitle} />
       {/* rest is placed 32px under top bar */}
       <div style={{ height: height - 32 }}>{children}</div>
       {/* Resize handlers */}
       <ResizeHandler targetRef={ref} axis="x" />
       <ResizeHandler targetRef={ref} axis="y" />
       <ResizeHandler targetRef={ref} axis="both" />
+    </div>
+  );
+}
+
+type TitleBarProps = {
+  title: string;
+  canClose: boolean;
+  targetRef: RefObject<HTMLDivElement | null>;
+};
+
+function TitleBar(props: TitleBarProps) {
+  const { targetRef, canClose, title } = props;
+
+  const windowPos = useRef({ x: 0, y: 0 });
+  const dragStartPos = useRef({ x: 0, y: 0 });
+  const lastDelta = useRef({ x: 0, y: 0 });
+
+  function handleDragStart(event: React.MouseEvent<HTMLDivElement>) {
+    if (!targetRef.current) {
+      return;
+    }
+
+    dragStartPos.current = { x: event.clientX, y: event.clientY };
+    document.addEventListener('mousemove', handleDragMove);
+    document.addEventListener('mouseup', handleDragEnd);
+    document.documentElement.classList.add('dragging', 'moving');
+  }
+
+  function handleDragMove(event: MouseEvent) {
+    if (!targetRef.current) {
+      return;
+    }
+
+    lastDelta.current = {
+      x: event.clientX - dragStartPos.current.x,
+      y: event.clientY - dragStartPos.current.y,
+    };
+
+    targetRef.current.style.transform = `translate(${windowPos.current.x + lastDelta.current.x}px, ${windowPos.current.y + lastDelta.current.y}px)`;
+  }
+
+  function handleDragEnd() {
+    windowPos.current.x += lastDelta.current.x;
+    windowPos.current.y += lastDelta.current.y;
+
+    document.removeEventListener('mousemove', handleDragMove);
+    document.removeEventListener('mouseup', handleDragEnd);
+    document.documentElement.classList.remove('dragging', 'moving');
+  }
+
+  return (
+    <div className="TitleBar" onMouseDown={handleDragStart}>
+      <div className="TitleBar__title">
+        <Icon color="good" name="eye" className="TitleBar__statusIcon" />
+        <div className="TitleBar__title">{title}</div>
+      </div>
+      {!!canClose && (
+        <div className="TitleBar__close">
+          <Icon className="TitleBar__close--icon" name="times" />
+        </div>
+      )}
     </div>
   );
 }
@@ -114,7 +165,7 @@ function ResizeHandler(props: ResizerProps) {
   return (
     <div
       className={`Window__ResizeHandler ${axis}`}
-      onMouseDown={(event) => handleDragStart(event)}
+      onMouseDown={handleDragStart}
     />
   );
 }
