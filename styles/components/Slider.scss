@@ -13,6 +13,7 @@
   &--disabled {
     cursor: default;
     opacity: var(--slider-disabled-opacity);
+
     .Slider__cursor:before {
       display: none;
     }
