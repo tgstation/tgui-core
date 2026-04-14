@@ -1,6 +1,7 @@
 import {
   type ComponentProps,
   type PropsWithChildren,
+  type ReactNode,
   type RefObject,
   useRef,
 } from 'react';
@@ -15,6 +16,7 @@ type Props = Partial<{
   height: number;
   title: string;
   width: number;
+  buttons: ReactNode;
 }> &
   PropsWithChildren;
 
@@ -25,7 +27,8 @@ export function Window(props: Props) {
     width = 475,
     height = 650,
     children,
-    title = 'Untitled',
+    buttons,
+    title = 'Mock Window',
   } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -39,7 +42,9 @@ export function Window(props: Props) {
 
   return (
     <div ref={ref} style={{ width, height }} className="Window">
-      <TitleBar targetRef={ref} canClose={canClose} title={finalTitle} />
+      <TitleBar targetRef={ref} canClose={canClose} title={finalTitle}>
+        {buttons}
+      </TitleBar>
       {/* rest is placed 32px under top bar */}
       <div style={{ height: height - 32 }}>{children}</div>
       {/* Resize handlers */}
@@ -53,11 +58,12 @@ export function Window(props: Props) {
 type TitleBarProps = {
   title: string;
   canClose: boolean;
+  children: ReactNode;
   targetRef: RefObject<HTMLDivElement | null>;
 };
 
 function TitleBar(props: TitleBarProps) {
-  const { targetRef, canClose, title } = props;
+  const { targetRef, canClose, title, children } = props;
 
   const windowPos = useRef({ x: 0, y: 0 });
   const dragStartPos = useRef({ x: 0, y: 0 });
@@ -102,6 +108,7 @@ function TitleBar(props: TitleBarProps) {
         <Icon color="good" name="eye" className="TitleBar__statusIcon" />
         <div className="TitleBar__title">{title}</div>
       </div>
+      {!!children && <div className="TitleBar__buttons">{children}</div>}
       {!!canClose && (
         <div className="TitleBar__close">
           <Icon className="TitleBar__close--icon" name="times" />
