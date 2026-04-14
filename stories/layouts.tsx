@@ -3,6 +3,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
   type RefObject,
+  useEffect,
   useRef,
 } from 'react';
 import '../static/window.scss';
@@ -39,6 +40,27 @@ export function Window(props: Props) {
       title === title.toLowerCase() &&
       toTitleCase(title)) ||
     title;
+
+  function centerUI() {
+    const rootElement = document.getElementById('storybook-root');
+    if (!rootElement || !ref.current) {
+      return;
+    }
+
+    const windowRect = rootElement.getBoundingClientRect();
+    const elementRect = ref.current.getBoundingClientRect();
+    const deltaX =
+      (windowRect.width - elementRect.width) / 2 - elementRect.left;
+    const deltaY =
+      (windowRect.height - elementRect.height) / 2 - elementRect.top;
+
+    ref.current.style.top = `${elementRect.top + deltaY}px`;
+    ref.current.style.left = `${elementRect.left + deltaX}px`;
+  }
+
+  useEffect(() => {
+    centerUI();
+  }, []);
 
   return (
     <div ref={ref} style={{ width, height }} className="Window">
