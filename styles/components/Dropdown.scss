@@ -36,6 +36,17 @@
     @include button.button-color();
   }
 
+  &__input {
+    display: flex;
+    overflow: hidden;
+    flex: 1;
+    font-family: var(--font-family);
+    font-size: base.em(12px);
+    line-height: base.em(16px);
+    height: base.em(22px);
+    border-radius: var(--button-border-radius);
+  }
+
   &__selected-text {
     flex: 1;
     display: inline-block;

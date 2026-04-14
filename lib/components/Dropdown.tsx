@@ -2,11 +2,12 @@ import { KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { unit } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
-import { type ReactNode, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Floating } from './Floating';
 import { Icon } from './Icon';
+import { Input } from './Input';
 
 type DropdownEntry = {
   displayText: ReactNode;
@@ -52,6 +53,8 @@ type Props = {
   fluid: boolean;
   /** Text to show when nothing has been selected. */
   placeholder: string;
+  /** Turns the dropdown button into a search textbox. Incompatible with Tiny */
+  searchInput: boolean;
   /** @deprecated If you want to allow dropdown breaks layout, set width 100% */
   clipSelectedText: boolean;
   /** Called when dropdown button is clicked */
@@ -98,12 +101,16 @@ export function Dropdown(props: Props) {
     options = [],
     over,
     placeholder = 'Select...',
+    searchInput,
     selected,
     fluid,
     width = 15,
   } = props;
 
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [displayedOptions, setDisplayedOptions] =
+    useState<DropdownOption[]>(options);
   const innerRef = useRef<HTMLDivElement>(null);
 
   const selectedIndex =
@@ -149,6 +156,22 @@ export function Dropdown(props: Props) {
     onSelected?.(getOptionValue(options[newIndex]));
   }
 
+  useEffect(() => {
+    if (selected && getOptionValue(selected)) {
+      setSearchQuery(getOptionValue(selected).toString());
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    setDisplayedOptions(
+      searchQuery
+        ? options.filter((option) =>
+            getOptionValue(option).toString().includes(searchQuery),
+          )
+        : options,
+    );
+  }, [searchQuery]);
+
   let placement: Placement = over ? 'top' : 'bottom';
   if (iconOnly) {
     placement = `${placement}-start` as Placement;
@@ -161,10 +184,10 @@ export function Dropdown(props: Props) {
         closeAfterInteract
         content={
           <div className="Dropdown__menu" ref={innerRef}>
-            {options.length === 0 ? (
+            {options.length === 0 && !!searchQuery ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
-              options.map((option) => {
+              displayedOptions.map((option) => {
                 const value = getOptionValue(option);
                 return (
                   <div
@@ -206,57 +229,67 @@ export function Dropdown(props: Props) {
         onOpenChange={setOpen}
         placement={placement}
       >
-        <div
-          className={classes([
-            'Dropdown__control',
-            `Button--color--${color}`,
-            disabled && 'Button--disabled',
-            iconOnly && 'Dropdown__control--icon-only',
-            className,
-          ])}
-          onClick={(event) => {
-            if (disabled && !open) {
-              return;
-            }
-            onClick?.(event);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === KEY.Enter && !disabled) {
+        {searchInput || !searchInput ? (
+          <Input
+            className={classes(['Dropdown__input', className])}
+            placeholder={searchQuery || placeholder}
+            disabled={disabled}
+            value={searchQuery}
+            onChange={setSearchQuery}
+          />
+        ) : (
+          <div
+            className={classes([
+              'Dropdown__control',
+              `Button--color--${color}`,
+              disabled && 'Button--disabled',
+              iconOnly && 'Dropdown__control--icon-only',
+              className,
+            ])}
+            onClick={(event) => {
+              if (disabled && !open) {
+                return;
+              }
               onClick?.(event);
-            }
-          }}
-          style={{ width: unit(width) }}
-        >
-          {icon && (
-            <Icon
-              className="Dropdown__icon"
-              name={icon}
-              rotation={iconRotation}
-              spin={iconSpin}
-            />
-          )}
-          {!iconOnly && (
-            <>
-              <span className="Dropdown__selected-text">
-                {displayText ||
-                  (selected && getOptionValue(selected)) ||
-                  placeholder}
-              </span>
+            }}
+            onKeyDown={(event) => {
+              if (event.key === KEY.Enter && !disabled) {
+                onClick?.(event);
+              }
+            }}
+            style={{ width: unit(width) }}
+          >
+            {icon && (
+              <Icon
+                className="Dropdown__icon"
+                name={icon}
+                rotation={iconRotation}
+                spin={iconSpin}
+              />
+            )}
+            {!iconOnly && (
+              <>
+                <span className="Dropdown__selected-text">
+                  {displayText ||
+                    (selected && getOptionValue(selected)) ||
+                    placeholder}
+                </span>
 
-              {!noChevron && (
-                <Icon
-                  className={classes([
-                    'Dropdown__icon',
-                    'Dropdown__icon--arrow',
-                    over && 'over',
-                    open && 'open',
-                  ])}
-                  name="chevron-down"
-                />
-              )}
-            </>
-          )}
-        </div>
+                {!noChevron && (
+                  <Icon
+                    className={classes([
+                      'Dropdown__icon',
+                      'Dropdown__icon--arrow',
+                      over && 'over',
+                      open && 'open',
+                    ])}
+                    name="chevron-down"
+                  />
+                )}
+              </>
+            )}
+          </div>
+        )}
       </Floating>
       {buttons && (
         <>
