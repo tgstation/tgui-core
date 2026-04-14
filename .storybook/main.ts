@@ -43,6 +43,7 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.tsx'],
 
   typescript: {
+    check: true,
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
       propFilter: (props, component) => {
@@ -52,8 +53,11 @@ const config: StorybookConfig = {
 
         return !boxProps.includes(props.name);
       },
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
     },
   },
+  features: { interactions: false, backgrounds: false },
 };
 
 export default config;
