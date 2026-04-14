@@ -12,12 +12,32 @@
   @return math.div($value, $value * 0 + 1);
 }
 
-// Increases perceptual color lightness.
+/* Darken color, to make it more readable if used as a background */
+@function bg($color) {
+  @return hsl(from $color h s calc(l - var(--adjust-color)));
+}
+
+/* Lighten color, to make it more readable if used as a text */
+@function fg($color) {
+  @return hsl(from $color h s calc(l + var(--adjust-color)));
+}
+
+/* Increases perceptual color lightness. */
 @function lighten($color, $amount) {
   @return color.adjust($color, $lightness: $amount * 1%, $space: hsl);
 }
 
-// Decreases perceptual color lightness.
+/* Decreases perceptual color lightness. */
 @function darken($color, $amount) {
   @return color.adjust($color, $lightness: -$amount * 1%, $space: hsl);
+}
+
+/* Converts px to em. Relies on the font-size variable. */
+@function em($px) {
+  @return calc($px / var(--font-size) * 1em);
+}
+
+/* Converts px to rem. Relies on the font-size variable. */
+@function rem($px) {
+  @return calc($px / var(--font-size) * 1rem);
 }

@@ -1,4 +1,4 @@
-@use "../base";
+@use "../functions" as fn;
 
 .Section {
   position: relative;
@@ -21,7 +21,7 @@
 }
 
 .Section__titleText {
-  font-size: base.em(14px);
+  font-size: fn.em(14px);
   font-weight: bold;
   color: var(--section-title-color);
 }
@@ -107,12 +107,12 @@
 
 // Level 2 section title
 .Section .Section .Section__titleText {
-  font-size: base.em(13px);
+  font-size: fn.em(13px);
 }
 
 // Level 3 section title
 .Section .Section .Section .Section__titleText {
-  font-size: base.em(12px);
+  font-size: fn.em(12px);
 }
 
 .Section--flex {
