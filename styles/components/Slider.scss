@@ -10,6 +10,15 @@
     }
   }
 
+  &--disabled {
+    cursor: default;
+    opacity: var(--slider-disabled-opacity);
+
+    .Slider__cursor:before {
+      display: none;
+    }
+  }
+
   &__cursor {
     position: absolute;
     inset: 0 calc(-1 * var(--space-xxs));

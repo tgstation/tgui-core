@@ -69,6 +69,7 @@ export function Slider(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
+    disabled,
     tickWhileDragging,
     format,
     maxValue,
@@ -94,6 +95,7 @@ export function Slider(props: Props) {
       dragMatrix={[1, 0]}
       {...{
         animated,
+        disabled,
         tickWhileDragging,
         format,
         maxValue,
@@ -131,6 +133,7 @@ export function Slider(props: Props) {
           <div
             className={classes([
               'Slider',
+              disabled && 'Slider--disabled',
               editing && 'Slider--editing',
               'ProgressBar',
               `ProgressBar--color--${effectiveColor}`,
