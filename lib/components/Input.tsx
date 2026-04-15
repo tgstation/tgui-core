@@ -27,6 +27,8 @@ export type BaseInputProps<TElement = HTMLInputElement> = Partial<{
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+  /** Will force an update when value changes even if the input isn't currently highlighted */
+  alwaysUpdate: boolean;
 }> &
   BoxProps<TElement>;
 
@@ -124,6 +126,7 @@ export function Input(props: Props) {
     placeholder,
     ref,
     selfClear,
+    alwaysUpdate,
     value,
     ...rest
   } = props;
@@ -181,13 +184,7 @@ export function Input(props: Props) {
 
   /** Updates the value on props change */
   useEffect(() => {
-    if (
-      inputRef.current &&
-      document.activeElement !== inputRef.current &&
-      value !== innerValue
-    ) {
-      setInnerValue(value ?? '');
-    }
+    setInnerValue(value ?? '');
   }, [value]);
 
   const boxProps = computeBoxProps(rest);

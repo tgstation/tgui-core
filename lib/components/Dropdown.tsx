@@ -158,7 +158,11 @@ export function Dropdown(props: Props) {
 
   useEffect(() => {
     if (selected && getOptionValue(selected)) {
-      setSearchQuery(getOptionValue(selected).toString());
+      setSearchQuery(
+        displayText?.toString() ||
+          (selected && getOptionValue(selected)).toString() ||
+          placeholder,
+      );
     }
   }, [selected]);
 
@@ -166,7 +170,13 @@ export function Dropdown(props: Props) {
     setDisplayedOptions(
       searchQuery
         ? options.filter((option) =>
-            getOptionValue(option).toString().includes(searchQuery),
+            (typeof option === 'string'
+              ? option
+              : option.displayText || getOptionValue(option)
+            )
+              .toString()
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase()),
           )
         : options,
     );
@@ -229,11 +239,12 @@ export function Dropdown(props: Props) {
         onOpenChange={setOpen}
         placement={placement}
       >
-        {searchInput || !searchInput ? (
+        {searchInput ? (
           <Input
             className={classes(['Dropdown__input', className])}
-            placeholder={searchQuery || placeholder}
+            placeholder={placeholder}
             disabled={disabled}
+            alwaysUpdate
             value={searchQuery}
             onChange={setSearchQuery}
           />
