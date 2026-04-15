@@ -245,7 +245,6 @@ export function Dropdown(props: Props) {
             className={classes(['Dropdown__input', className])}
             placeholder={placeholder}
             disabled={disabled}
-            alwaysUpdate
             value={searchQuery}
             onChange={setSearchQuery}
           />
