@@ -202,8 +202,9 @@ export function Input(props: TextInputProps) {
         document.activeElement !== inputRef.current &&
         value !== innerValue) ||
       alwaysUpdate
-    )
+    ) {
       setInnerValue(value ?? '');
+    }
   }, [value]);
 
   const boxProps = computeBoxProps(rest);
