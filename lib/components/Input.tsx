@@ -33,6 +33,8 @@ export type BaseInputProps<
   fluid: boolean;
   /** Mark this if you want to use a monospace font */
   monospace: boolean;
+  /** Will force an update when value changes even if the input isn't currently highlighted */
+  alwaysUpdate: boolean;
   /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
   onBlur: (value: TInput) => void;
   /**
@@ -135,6 +137,7 @@ export function Input(props: TextInputProps) {
     placeholder,
     ref,
     selfClear,
+    alwaysUpdate,
     spellcheck = false,
     value,
     ...rest
@@ -194,7 +197,13 @@ export function Input(props: TextInputProps) {
 
   /** Updates the value on props change */
   useEffect(() => {
-    setInnerValue(value ?? '');
+    if (
+      (inputRef.current &&
+        document.activeElement !== inputRef.current &&
+        value !== innerValue) ||
+      alwaysUpdate
+    )
+      setInnerValue(value ?? '');
   }, [value]);
 
   const boxProps = computeBoxProps(rest);

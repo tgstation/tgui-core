@@ -246,6 +246,7 @@ export function Dropdown(props: Props) {
             placeholder={placeholder}
             disabled={disabled}
             value={searchQuery}
+            alwaysUpdate
             onChange={setSearchQuery}
           />
         ) : (
