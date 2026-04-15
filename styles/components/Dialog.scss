@@ -1,3 +1,5 @@
+@use "../functions" as fn;
+
 .Dialog {
   position: fixed;
   inset: 0;
@@ -11,7 +13,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-family-mono);
-  font-size: em(14px);
+  font-size: fn.em(14px);
   background-color: var(--color-base);
 }
 
