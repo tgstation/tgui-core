@@ -39,7 +39,7 @@ type Data = {
   beaker: TransferableBeaker;
 };
 
-export const ChemDispenser = (props) => {
+export const ChemDispenser = (_props) => {
   const { act, data } = useBackend<Data>();
   const recording = !!data.recordingRecipe;
   const { recipeReagents = [], recipes = [], beaker } = data;
@@ -189,7 +189,7 @@ export const ChemDispenser = (props) => {
                 textColor={showPhCol ? chemical.pHCol : chemical.color}
                 width="129.5px"
                 lineHeight={1.75}
-                tooltip={'pH: ' + chemical.pH}
+                tooltip={`pH: ${chemical.pH}`}
                 style={{
                   textShadow: '1px 1px 0 black',
                 }}

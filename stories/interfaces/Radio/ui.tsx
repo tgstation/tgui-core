@@ -30,7 +30,7 @@ type RadioData = {
   radio_noises: number;
 };
 
-export const Radio = (props) => {
+export const Radio = (_props) => {
   const { act, data } = useBackend<RadioData>();
   const {
     freqlock,
@@ -74,11 +74,12 @@ export const Radio = (props) => {
             <LabeledList.Item label="Frequency">
               {freqlock ? (
                 <Box inline color="light-gray">
-                  {toFixed(freq / 10, 1) + ' kHz'}
+                  {`${toFixed(freq / 10, 1)} kHz`}
                 </Box>
               ) : (
                 <NumberInput
                   animated
+                  tickWhileDragging
                   unit="kHz"
                   step={0.2}
                   stepPixelSize={10}
@@ -86,7 +87,7 @@ export const Radio = (props) => {
                   maxValue={maxFrequency / 10}
                   value={freq}
                   format={(value) => toFixed(value, 1)}
-                  onDrag={(value) => setFreq(value)}
+                  onChange={(value) => setFreq(value)}
                 />
               )}
               {tunedChannel && (
@@ -131,7 +132,7 @@ export const Radio = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Radio Noise Volume">
               <Slider
-                onChange={(e, value) => {
+                onChange={(_e, value) => {
                   setVolume(value);
                 }}
                 minValue={0}
@@ -154,13 +155,14 @@ export const Radio = (props) => {
                       <Button
                         icon={channel.status ? 'check-square-o' : 'square-o'}
                         selected={channel.status}
-                        content={channel.name}
                         onClick={() =>
                           act('channel', {
                             channel: channel.name,
                           })
                         }
-                      />
+                      >
+                        {channel.name}
+                      </Button>
                     </Box>
                   ))}
                 </Stack>

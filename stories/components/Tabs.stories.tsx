@@ -3,6 +3,7 @@ import { Button, Section, Stack, Tabs } from '@components';
 import { type ComponentProps, useState } from 'react';
 import type { Meta, StoryObj } from 'storybook-react-rsbuild';
 import '../../styles/components/Tabs.scss';
+import { createUuid } from 'tgui-core/common/uuid';
 
 type StoryProps = ComponentProps<typeof Tabs>;
 
@@ -60,6 +61,35 @@ export const Default: Story = {
             title={`Vertical Tabs - Tab ${tab}`}
           >
             Selected tab: {tab}
+          </Section>
+        </Stack.Item>
+      </Stack>
+    );
+  },
+};
+
+export const Scrollable: Story = {
+  render() {
+    const [selectedTab, setSelectedTab] = useState(14);
+
+    return (
+      <Stack vertical width={50} height={20}>
+        <Stack.Item>
+          <Tabs scrollable>
+            {Array.from({ length: 25 }, (_, i) => (
+              <Tabs.Tab
+                key={`tab-${createUuid()}`}
+                selected={selectedTab === i}
+                onClick={() => setSelectedTab(i)}
+              >
+                Tab {i + 1}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Stack.Item>
+        <Stack.Item grow>
+          <Section fill title="Scrollable Tabs">
+            Selected tab: {selectedTab + 1}
           </Section>
         </Stack.Item>
       </Stack>

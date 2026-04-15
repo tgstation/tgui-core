@@ -90,3 +90,18 @@ export function isSafeNumber(value: number): boolean {
 export function rad2deg(rad: number): number {
   return rad * (180 / Math.PI);
 }
+
+/**
+ * Converts px to rem
+ */
+export function pxToRem(px: number, as: 'css' | 'string'): string;
+export function pxToRem(px: number, as: 'number'): number;
+export function pxToRem(
+  px: number,
+  as: 'css' | 'string' | 'number',
+): string | number {
+  const value = px / 12;
+  // Match CSS engine rounding (6 decimal places)
+  const rounded = Math.round(value * 1_000_000) / 1_000_000;
+  return as === 'number' ? rounded : `${rounded}rem`;
+}

@@ -97,7 +97,7 @@ const ApcContent = (props: Props) => {
   useEffect(() => {
     const status = isOperating ? ChannelStatus.Auto : ChannelStatus.Off;
 
-    setChannelSettings((prev) => [
+    setChannelSettings((_prev) => [
       { title: 'Equipment', status },
       { title: 'Lighting', status },
       { title: 'Environment', status },

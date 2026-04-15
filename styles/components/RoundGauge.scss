@@ -72,13 +72,13 @@ $pi: 3.1416;
   &.active {
     animation: RoundGauge__alertAnim var(--round-gauge-alert-animation)
       cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
-
-    ~ .RoundGauge__needle .RoundGauge__needleLine {
-      transform-origin: bottom;
-      animation: RoundGauge__needleAlertAnim
-        var(--round-gauge-needle-alert-animation) infinite;
-    }
   }
+}
+
+.RoundGauge__needle.active .RoundGauge__needleLine {
+  transform-origin: bottom;
+  animation: RoundGauge__needleAlertAnim
+    var(--round-gauge-needle-alert-animation) infinite;
 }
 
 .RoundGauge__alert.max {

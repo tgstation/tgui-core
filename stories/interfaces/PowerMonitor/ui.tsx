@@ -76,7 +76,7 @@ export function PowerMonitor() {
 
 const PEAK_DRAW = 500000;
 
-export function PowerMonitorContent(props) {
+export function PowerMonitorContent(_props) {
   const { data } = useBackend<Data>();
   const { history } = data;
 
@@ -155,7 +155,7 @@ export function PowerMonitorContent(props) {
   );
 }
 
-function StationAreas(props) {
+function StationAreas(_props) {
   const { data } = useBackend<Data>();
 
   const [sortByField, setSortByField] = useState('');

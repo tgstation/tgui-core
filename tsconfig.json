@@ -6,14 +6,13 @@
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "ScriptHost"],
     "module": "ESNext",
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "tgui-core/*": ["*"],
+      "tgui-core/*": ["lib/*"],
       "@common/*": ["lib/common/*.ts"],
       "@components": ["lib/components/index.ts"],
       "@stories/*": ["stories/*.ts", "stories/*.tsx"]

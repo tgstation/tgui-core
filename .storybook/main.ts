@@ -1,18 +1,29 @@
-import sass from 'sass';
 import type { StorybookConfig } from 'storybook-react-rsbuild';
+import {
+  booleanStyleMap,
+  eventHandlers,
+  stringStyleMap,
+} from '../lib/common/ui.ts';
+import type { BoxInternalProps } from '../lib/components/Box';
+
+const boxInternalProps: Array<keyof BoxInternalProps> = [
+  'as',
+  'children',
+  'className',
+  'id',
+  'style',
+  'tw',
+];
+
+const boxProps = [
+  ...Object.keys(stringStyleMap),
+  ...Object.keys(booleanStyleMap),
+  ...boxInternalProps,
+  ...eventHandlers,
+] as const;
 
 const config: StorybookConfig = {
-  addons: [
-    '@storybook/addon-docs',
-    {
-      name: 'storybook-addon-sass-postcss',
-      options: {
-        postcssLoaderOptions: {
-          implementation: sass,
-        },
-      },
-    },
-  ],
+  addons: ['@storybook/addon-docs'],
 
   framework: {
     name: 'storybook-react-rsbuild',
@@ -32,8 +43,21 @@ const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.tsx'],
 
   typescript: {
+    check: true,
     reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      propFilter: (props, component) => {
+        if (component.name === 'Box') {
+          return true;
+        }
+
+        return !boxProps.includes(props.name);
+      },
+      shouldExtractLiteralValuesFromEnum: true,
+      shouldRemoveUndefinedFromOptional: true,
+    },
   },
+  features: { interactions: false, backgrounds: false },
 };
 
 export default config;

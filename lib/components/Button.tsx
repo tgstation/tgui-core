@@ -3,6 +3,7 @@ import { type BooleanLike, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import {
+  type CSSProperties,
   createRef,
   type ReactNode,
   type RefObject,
@@ -42,6 +43,8 @@ type Props = Partial<{
   circular: boolean;
   /** Reduces the padding of the button */
   compact: boolean;
+  /** The styles to be passed to Button__content */
+  innerStyle: CSSProperties;
   /** Disables button and makes it semi-transparent */
   disabled: BooleanLike;
   /** Fill all available horizontal space */
@@ -83,6 +86,7 @@ export function Button(props: Props) {
     color,
     compact,
     content,
+    innerStyle,
     disabled,
     ellipsis,
     fluid,
@@ -165,6 +169,7 @@ export function Button(props: Props) {
           'Button__content',
           ellipsis && 'Button__content--ellipsis',
         ])}
+        style={innerStyle}
       >
         {icon && iconPosition !== 'right' && buttonIcon}
         {!ellipsis ? (
@@ -345,7 +350,11 @@ function ButtonInput(props: InputProps) {
         disabled && 'Button--disabled',
         `Button--color--${color}`,
       ])}
-      onClick={() => setEditing(true)}
+      onClick={() => {
+        if (!disabled) {
+          setEditing(true);
+        }
+      }}
       {...rest}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
@@ -425,6 +434,7 @@ function ButtonFile(props: FileProps) {
  * Buttons allow users to take actions, and make choices, with a single click.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-button--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace Button {
   /**

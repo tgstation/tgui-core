@@ -4,32 +4,17 @@ import {
   computeBoxClassName,
   computeBoxProps,
   computeTwClass,
+  type EventHandlers,
   type StringStyleMap,
 } from '@common/ui';
 import {
   type CSSProperties,
   createElement,
-  type KeyboardEventHandler,
-  type MouseEventHandler,
+  type HTMLAttributes,
   type ReactNode,
-  type UIEventHandler,
 } from 'react';
 
-type EventHandlers<TElement = HTMLDivElement> = Partial<{
-  onClick: MouseEventHandler<TElement>;
-  onContextMenu: MouseEventHandler<TElement>;
-  onDoubleClick: MouseEventHandler<TElement>;
-  onKeyDown: KeyboardEventHandler<TElement>;
-  onKeyUp: KeyboardEventHandler<TElement>;
-  onMouseDown: MouseEventHandler<TElement>;
-  onMouseLeave: MouseEventHandler<TElement>;
-  onMouseMove: MouseEventHandler<TElement>;
-  onMouseOver: MouseEventHandler<TElement>;
-  onMouseUp: MouseEventHandler<TElement>;
-  onScroll: UIEventHandler<TElement>;
-}>;
-
-type InternalProps = Partial<{
+export type BoxInternalProps = Partial<{
   /**
    * The component used for the root node.
    * @default <div>
@@ -67,13 +52,21 @@ type InternalProps = Partial<{
   tw: string;
 }>;
 
+type LiftedHTMLAttributes<TElement> = {
+  /** Whether this element is draggable.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/draggable
+   */
+  draggable?: HTMLAttributes<TElement>['draggable'];
+};
+
 // You may wonder why we don't just use ComponentProps<typeof Box> here.
 // This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
 // While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
 export interface BoxProps<TElement = HTMLDivElement>
-  extends InternalProps,
+  extends BoxInternalProps,
     BooleanStyleMap,
     StringStyleMap,
+    LiftedHTMLAttributes<TElement>,
     EventHandlers<TElement> {}
 
 // Don't you dare put this elsewhere

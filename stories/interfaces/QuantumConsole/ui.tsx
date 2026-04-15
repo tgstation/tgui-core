@@ -1,4 +1,5 @@
 import type { BooleanLike } from '@common/react';
+import { createUuid } from '@common/uuid';
 import {
   Button,
   Collapsible,
@@ -91,7 +92,7 @@ function getColor(difficulty: number) {
   }
 }
 
-export function QuantumConsole(props) {
+export function QuantumConsole(_props) {
   const { data } = useBackend<Data>();
 
   return (
@@ -104,7 +105,7 @@ export function QuantumConsole(props) {
   );
 }
 
-function AccessView(props) {
+function AccessView(_props) {
   const { act, data } = useBackend<Data>();
   const [tab, setTab] = useSharedState('tab', 0);
 
@@ -337,7 +338,7 @@ function DomainEntry(props: DomainEntryProps) {
   );
 }
 
-function AvatarDisplay(props) {
+function AvatarDisplay(_props) {
   const { act, data } = useBackend<Data>();
   if (!isConnected(data)) {
     return null;
@@ -445,8 +446,8 @@ function DisplayDetails(props: DisplayDetailsProps) {
 
   return (
     <Stack>
-      {Array.from({ length: amount }, (_, index) => (
-        <Stack.Item key={index}>
+      {Array.from({ length: amount }, (_) => (
+        <Stack.Item key={createUuid()}>
           <Icon color={color} name={icon} />
         </Stack.Item>
       ))}

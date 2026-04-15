@@ -92,6 +92,7 @@ type Props = Partial<{
  * - If an image is specified but for some reason cannot be displayed, there will be a spinner fallback until it is loaded.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-imagebutton--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ImageButton(props: Props) {
   const {
@@ -175,7 +176,7 @@ export function ImageButton(props: Props) {
         )}
       </div>
       {/** End of image container */}
-      {fluid ? (
+      {fluid && (title || children) ? (
         <div className="ImageButton__content">
           {title && (
             <span
@@ -192,7 +193,7 @@ export function ImageButton(props: Props) {
           )}
         </div>
       ) : (
-        !!children && <span className="ImageButton__content">{children}</span>
+        children && <span className="ImageButton__content">{children}</span>
       )}
     </div>
   );

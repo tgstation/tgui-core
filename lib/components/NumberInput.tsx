@@ -11,28 +11,28 @@ import { AnimatedNumber } from './AnimatedNumber';
 import { Box, type BoxProps } from './Box';
 
 type Props = Required<{
-  /** Highest possible value. */
-  maxValue: number;
-  /** Lowest possible value. */
-  minValue: number;
-  /** Adjust value by this amount when dragging the input. */
-  step: number;
   /** Value itself. */
   value: number | string;
 }> &
   Partial<{
+    /** Highest possible value. */
+    maxValue: number;
+    /** Lowest possible value. */
+    minValue: number;
+    /** Adjust value by this amount when dragging the input. */
+    step: number;
     /** Animates the value if it was changed externally. */
     animated: boolean;
     /** Makes the input field uneditable & non draggable to prevent user changes */
     disabled: boolean;
+    /** onChange also fires about every 500ms when you drag the input up and down. */
+    tickWhileDragging: boolean;
     /** Format value using this function before displaying it. */
     format: (value: number) => string;
     /** Adjusts the width to 100% of its parent container */
     fluid: boolean;
     /** An event which fires when you release the input or successfully enter a number. */
     onChange: (value: number) => void;
-    /** An event which fires about every 500ms when you drag the input up and down, on release and on manual editing. */
-    onDrag: (value: number) => void;
     /** Screen distance mouse needs to travel to adjust value by one `step`. */
     stepPixelSize: number;
     /** Unit to display to the right of value. */
@@ -55,6 +55,7 @@ type State = {
  * to fine tune the value, or single click it to manually type a number.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-numberinput--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export class NumberInput extends Component<Props, State> {
   // Ref to the input field to set focus & highlight
@@ -63,16 +64,22 @@ export class NumberInput extends Component<Props, State> {
   // After this time has elapsed we are in drag mode so no editing when dragging ends
   dragTimeout: NodeJS.Timeout;
 
-  // Call onDrag at this interval
+  // Call onChange if tickWhileDragging at this interval
   dragInterval: NodeJS.Timeout;
 
   // default values for the number input state
   state: State = {
-    currentValue: 0,
+    currentValue: Number(this.props.value ?? 0),
     dragging: false,
     editing: false,
     origin: 0,
-    previousValue: 0,
+    previousValue: Number(this.props.value ?? 0),
+  };
+
+  static defaultProps: Partial<Props> = {
+    minValue: Number.NEGATIVE_INFINITY,
+    maxValue: Number.POSITIVE_INFINITY,
+    step: 1,
   };
 
   componentDidMount(): void {
@@ -107,12 +114,12 @@ export class NumberInput extends Component<Props, State> {
     }, 250);
     this.dragInterval = setInterval(() => {
       const { dragging, currentValue, previousValue } = this.state;
-      const { onDrag } = this.props;
-      if (dragging && currentValue !== previousValue) {
+      const { onChange, tickWhileDragging } = this.props;
+      if (dragging && tickWhileDragging && currentValue !== previousValue) {
         this.setState({
           previousValue: currentValue,
         });
-        onDrag?.(currentValue);
+        onChange?.(currentValue);
       }
     }, 400);
 
@@ -121,7 +128,13 @@ export class NumberInput extends Component<Props, State> {
   };
 
   handleDragMove = (event: MouseEvent) => {
-    const { minValue, maxValue, step, stepPixelSize, disabled } = this.props;
+    const {
+      minValue = Number.NEGATIVE_INFINITY,
+      maxValue = Number.POSITIVE_INFINITY,
+      step = 1,
+      stepPixelSize,
+      disabled,
+    } = this.props;
     if (disabled) {
       return;
     }
@@ -159,7 +172,7 @@ export class NumberInput extends Component<Props, State> {
 
   handleDragEnd = (_event: MouseEvent) => {
     const { dragging, currentValue } = this.state;
-    const { onDrag, onChange, disabled } = this.props;
+    const { onChange, disabled } = this.props;
     if (disabled) {
       return;
     }
@@ -175,7 +188,6 @@ export class NumberInput extends Component<Props, State> {
     });
     if (dragging) {
       onChange?.(currentValue);
-      onDrag?.(currentValue);
     } else if (this.inputRef) {
       const input = this.inputRef.current;
       if (input) {
@@ -193,15 +205,15 @@ export class NumberInput extends Component<Props, State> {
 
   handleBlur: FocusEventHandler<HTMLInputElement> = (event) => {
     const { editing, previousValue } = this.state;
-    const { minValue, maxValue, onChange, onDrag, disabled } = this.props;
+    const { minValue, maxValue, onChange, disabled } = this.props;
     if (disabled || !editing) {
       return;
     }
 
     const targetValue = clamp(
       Number.parseFloat(event.target.value),
-      minValue,
-      maxValue,
+      minValue ?? 0,
+      maxValue ?? 100,
     );
     if (Number.isNaN(targetValue)) {
       this.setState({
@@ -217,12 +229,11 @@ export class NumberInput extends Component<Props, State> {
     });
     if (previousValue !== targetValue) {
       onChange?.(targetValue);
-      onDrag?.(targetValue);
     }
   };
 
   handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    const { minValue, maxValue, onChange, onDrag, disabled } = this.props;
+    const { minValue, maxValue, onChange, disabled } = this.props;
     if (disabled) {
       return;
     }
@@ -231,8 +242,8 @@ export class NumberInput extends Component<Props, State> {
     if (event.key === KEY.Enter) {
       const targetValue = clamp(
         Number.parseFloat(event.currentTarget.value),
-        minValue,
-        maxValue,
+        minValue ?? 0,
+        maxValue ?? 100,
       );
       if (Number.isNaN(targetValue)) {
         this.setState({
@@ -248,7 +259,6 @@ export class NumberInput extends Component<Props, State> {
       });
       if (previousValue !== targetValue) {
         onChange?.(targetValue);
-        onDrag?.(targetValue);
       }
     } else if (isEscape(event.key)) {
       this.setState({
@@ -312,7 +322,8 @@ export class NumberInput extends Component<Props, State> {
             className="NumberInput__bar"
             style={{
               height: `${clamp(
-                ((displayValue - minValue) / (maxValue - minValue)) * 100,
+                // biome-ignore lint/style/noNonNullAssertion: will never be undefined
+                ((displayValue - minValue!) / (maxValue! - minValue!)) * 100,
                 0,
                 100,
               )}%`,

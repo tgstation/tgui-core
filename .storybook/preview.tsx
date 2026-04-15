@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react';
+import { themes } from '../stories/themes';
 import previewTheme from './previewTheme.ts';
 
 import '../static/fonts.css';
@@ -16,10 +17,20 @@ import {
 
 const preview: Preview = {
   tags: ['autodocs'],
+
+  decorators: [
+    (Story, context) => {
+      document.documentElement.className = `theme-${context.globals.theme}`;
+      return <Story />;
+    },
+  ],
+
   parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
     backgrounds: {
-      default: 'Section',
-      values: [{ name: 'Section', value: 'rgba(0, 0, 0, 0.33)' }],
+      options: {
+        section: { name: 'Section', value: 'rgba(0, 0, 0, 0.33)' },
+      },
     },
     controls: {
       matchers: {
@@ -30,6 +41,7 @@ const preview: Preview = {
     docs: {
       theme: previewTheme,
       toc: false,
+      codePanel: true,
       page: () => (
         <>
           <Subtitle />
@@ -39,6 +51,21 @@ const preview: Preview = {
         </>
       ),
     },
+  },
+
+  globalTypes: {
+    theme: {
+      description: 'Global theme for components',
+      toolbar: {
+        title: 'Theme',
+        icon: 'paintbrush',
+        items: themes,
+      },
+    },
+  },
+
+  initialGlobals: {
+    theme: 'default',
   },
 };
 

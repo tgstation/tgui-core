@@ -21,6 +21,8 @@ type Props = {
   color: string;
   /** Disables the slider. */
   disabled: boolean;
+  /** onChange also fires when you drag the input. */
+  tickWhileDragging: boolean;
   /**
    * If set, this value will be used to set the fill percentage of the
    * progress bar filler independently of the main value.
@@ -33,8 +35,6 @@ type Props = {
    * the default value event for controls.
    */
   onChange: (event: Event, value: number) => void;
-  /** An event which fires only while dragging the slider. */
-  onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the slider based on whether the value lands in the
    * range between `from` and `to`.
@@ -63,16 +63,18 @@ type Props = {
  * Single click opens an input box to manually type in a number.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-slider--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function Slider(props: Props) {
   const {
     // Draggable props (passthrough)
     animated,
+    disabled,
+    tickWhileDragging,
     format,
     maxValue,
     minValue,
     onChange,
-    onDrag,
     step,
     stepPixelSize,
     unit,
@@ -93,11 +95,12 @@ export function Slider(props: Props) {
       dragMatrix={[1, 0]}
       {...{
         animated,
+        disabled,
+        tickWhileDragging,
         format,
         maxValue,
         minValue,
         onChange,
-        onDrag,
         step,
         stepPixelSize,
         unit,
@@ -130,6 +133,7 @@ export function Slider(props: Props) {
           <div
             className={classes([
               'Slider',
+              disabled && 'Slider--disabled',
               editing && 'Slider--editing',
               'ProgressBar',
               `ProgressBar--color--${effectiveColor}`,

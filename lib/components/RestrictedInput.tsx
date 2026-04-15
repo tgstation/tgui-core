@@ -1,6 +1,6 @@
 import { isEscape, KEY } from '@common/keys';
 import { classes } from 'lib/common/react';
-import { debounce } from 'lib/common/timer';
+import { inputDebounce } from 'lib/common/timer';
 import { computeBoxClassName, computeBoxProps } from 'lib/common/ui';
 import { useEffect, useRef, useState } from 'react';
 import type { BaseInputProps } from './Input';
@@ -12,62 +12,10 @@ type Props = Partial<{
   maxValue: number;
   /** Min value. 0 by default. */
   minValue: number;
-  /** Fires each time focus leaves the input, including if Esc or Enter are pressed */
-  onBlur: (value: number) => void;
-  /** Fires each time the input has been changed */
-  onChange: (value: number) => void;
-  /** Fires once the enter key is pressed */
-  onEnter: (value: number) => void;
-  /** Fires once the escape key is pressed */
-  onEscape: (value: number) => void;
   /** Fires on input validation change */
   onValidationChange: (isValid: boolean) => void;
-  /**
-   * Generally, input can handle its own state value. You might not NEED this.
-   *
-   * Use this if you want to hold the value in the parent for external
-   * manipulation. For instance:
-   *
-   * Clearing the input
-   *
-   * ```tsx
-   * const [value, setValue] = useState(1);
-   *
-   * return (
-   *  <>
-   *    <Button onClick={() => act('inputVal', {inputVal: value})}>
-   *      Submit
-   *    </Button>
-   *    <RestrictedInput
-   *      value={value}
-   *      onChange={setValue} />
-   *    <Button onClick={() => setValue(1)}>
-   *      Clear
-   *    </Button>
-   *  </>
-   * )
-   * ```
-   *
-   * Updating the value from the backend
-   *
-   * ```tsx
-   * const { data } = useBackend<Data>();
-   * const { valveSetting } = data;
-   *
-   * return (
-   *  <RestrictedInput
-   *    value={valveSetting}
-   *    onEnter={(value) => act('submit', { valveSetting: value })}
-   *  />
-   * )
-   * ```
-   */
-  value: number;
 }> &
-  BaseInputProps;
-
-// Prevent input parent change event from being called too often
-const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
+  BaseInputProps<HTMLInputElement, number>;
 
 /**
  * ## RestrictedInput
@@ -77,6 +25,7 @@ const inputDebounce = debounce((onChange: () => void) => onChange(), 250);
  * Has a special event for changes in validation states - `onValidationChange`.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-restrictedinput--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function RestrictedInput(props: Props) {
   const {
@@ -104,12 +53,16 @@ export function RestrictedInput(props: Props) {
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
 
-  function tryOnChange(newValue: number): void {
+  function tryOnChange(
+    newValue: number,
+    event?: React.ChangeEvent<HTMLInputElement>,
+  ): void {
     if (!onChange) return;
     if (expensive) {
-      inputDebounce(() => onChange(newValue));
+      const debounceTime = typeof expensive === 'number' ? expensive : 250;
+      inputDebounce(debounceTime)(() => onChange?.(newValue, event));
     } else {
-      onChange(newValue);
+      onChange(newValue, event);
     }
   }
 
@@ -120,7 +73,7 @@ export function RestrictedInput(props: Props) {
   function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
     const newValue = Number(event.target.value);
     setInnerValue(newValue);
-    tryOnChange(newValue);
+    tryOnChange(newValue, event);
   }
 
   function onKeyDownHandler(
@@ -130,13 +83,13 @@ export function RestrictedInput(props: Props) {
 
     if (event.key === KEY.Enter) {
       event.preventDefault();
-      onEnter?.(innerValue);
+      onEnter?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
     if (isEscape(event.key)) {
       event.preventDefault();
-      onEscape?.(innerValue);
+      onEscape?.(innerValue, event);
       inputRef.current?.blur();
       return;
     }
@@ -144,7 +97,7 @@ export function RestrictedInput(props: Props) {
       event.preventDefault();
       const newValue = innerValue * -1;
       setInnerValue(newValue);
-      tryOnChange(newValue);
+      tryOnChange(newValue, event as any);
       return;
     }
   }

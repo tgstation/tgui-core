@@ -17,6 +17,7 @@ type Props = {
  * [Box](https://github.com/tgstation/tgui-core/tree/main/lib/components/Box.tsx) instead.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-colorbox--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ColorBox(props: Props) {
   const { content, children, className, ...rest } = props;

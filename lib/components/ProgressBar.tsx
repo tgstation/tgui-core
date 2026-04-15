@@ -1,5 +1,5 @@
 import { CSS_COLORS } from '@common/constants';
-import { clamp01, keyOfMatchingRange, scale, toFixed } from '@common/math';
+import { clamp01, keyOfMatchingRange, scale } from '@common/math';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import type { CSSProperties, PropsWithChildren } from 'react';
@@ -44,9 +44,11 @@ type Props = {
    * ```
    *
    */
-  ranges: Record<string, [number, number]>;
+  ranges: Readonly<Record<string, Readonly<[number, number]>>>;
   /** Removes progress percentage text, makes no sense if children are present */
   empty: boolean;
+  /** The number of digits to appear after the percent's decimal point. */
+  fractionDigits: number;
 }> &
   BoxProps &
   PropsWithChildren;
@@ -57,6 +59,7 @@ type Props = {
  * Progress indicators inform users about the status of ongoing processes.
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-progressbar--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export function ProgressBar(props: Props) {
   const {
@@ -68,6 +71,7 @@ export function ProgressBar(props: Props) {
     ranges = {},
     empty,
     children,
+    fractionDigits = 0,
     ...rest
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
@@ -103,7 +107,9 @@ export function ProgressBar(props: Props) {
         style={fillStyles}
       />
       <div className="ProgressBar__content">
-        {hasContent ? children : !empty && `${toFixed(scaledValue * 100)}%`}
+        {hasContent
+          ? children
+          : !empty && `${(scaledValue * 100).toFixed(fractionDigits)}%`}
       </div>
     </div>
   );

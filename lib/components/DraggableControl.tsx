@@ -34,8 +34,12 @@ type Props = {
 } & Partial<{
   /** Animates the value if it was changed externally. */
   animated: boolean;
+  /** Disables the control. */
+  disabled: boolean;
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
+  /** onChange also fires when you drag the input. */
+  tickWhileDragging: boolean;
   /** Format the value using this function before displaying it. */
   format: (value: number) => string;
   /** The maximum value. */
@@ -47,12 +51,10 @@ type Props = {
    * number. This is the default value event for controls.
    */
   onChange: (event: Event, value: number) => void;
-  /** An event which fires when you drag the input. */
-  onDrag: (event: MouseEvent, value: number) => void;
   /** The step size. */
   step: number;
   /** The step size in pixels. */
-  stepPixelSize: number;
+  stepPixelSize: number | ((defaultStepPixelSize: number) => number);
   /** Whether to unclamp the value. */
   unclamped: boolean;
   /** The unit of the value. */
@@ -63,8 +65,6 @@ type Props = {
   Omit<BoxProps, 'children'>;
 
 const DEFAULT_UPDATE_RATE = 400;
-
-const ORIGIN_UNSET = -1;
 
 /** Reduces screen offset to a single number based on the matrix provided. */
 function getScalarScreenOffset(event: MouseEvent, matrix: number[]): number {
@@ -81,15 +81,16 @@ export function DraggableControl(props: Props) {
   const {
     // Our props
     animated,
+    disabled,
     children,
     dragMatrix = [1, 0],
+    tickWhileDragging,
     format,
     maxValue = Number.POSITIVE_INFINITY,
     minValue = Number.NEGATIVE_INFINITY,
     onChange,
-    onDrag,
     step = 1,
-    stepPixelSize = 1,
+    stepPixelSize,
     unclamped,
     unit,
     updateRate = DEFAULT_UPDATE_RATE,
@@ -105,8 +106,9 @@ export function DraggableControl(props: Props) {
 
   const dragging = useRef(false);
   const finalValue = useRef(props.value);
-  const internalValue = useRef(0);
-  const origin = useRef(ORIGIN_UNSET);
+  const originalValue = useRef<number | null>(0);
+  const origin = useRef<number | null>(0);
+  const finalStepPixelSize = useRef<number | null>(null);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dragIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -121,12 +123,28 @@ export function DraggableControl(props: Props) {
 
   /** Handed to the child component - onMouseDown  */
   function handleDragStart(event: React.MouseEvent<HTMLDivElement>): void {
-    if (editing) return;
+    if (editing || disabled) return;
+
+    if (typeof stepPixelSize !== 'number') {
+      const defaultStepPixelSize =
+        event.currentTarget.offsetWidth / ((maxValue - minValue) / step);
+      if (stepPixelSize === undefined) {
+        finalStepPixelSize.current = defaultStepPixelSize;
+      } else if (typeof stepPixelSize === 'function') {
+        finalStepPixelSize.current = stepPixelSize(defaultStepPixelSize);
+      } else {
+        throw new Error(
+          `Unsupported value for stepPixelSize of type ${typeof stepPixelSize}`,
+        );
+      }
+    } else {
+      finalStepPixelSize.current = stepPixelSize;
+    }
 
     document.body.style['pointer-events'] = 'none';
 
     origin.current = getScalarScreenOffset(event.nativeEvent, dragMatrix);
-    internalValue.current = props.value;
+    originalValue.current = props.value;
     dragging.current = true;
 
     document.addEventListener('mouseup', handleDragEnd);
@@ -142,14 +160,15 @@ export function DraggableControl(props: Props) {
       document.addEventListener('mousemove', handleDragMove);
 
       dragIntervalRef.current = setInterval(() => {
-        if (dragging.current) onDrag?.(event, props.value);
+        if (dragging.current && tickWhileDragging)
+          onChange?.(event, finalValue.current);
       }, updateRate);
     } else {
       setEditing(true);
 
       if (inputRef.current) {
         const input = inputRef.current;
-        input.value = internalValue.current.toString();
+        input.value = finalValue.current.toString();
 
         setTimeout(() => {
           input.focus();
@@ -163,28 +182,30 @@ export function DraggableControl(props: Props) {
 
   /** User has held mouse down and is moving */
   function handleDragMove(event: MouseEvent): void {
+    const currentOrigin = origin.current;
+    if (currentOrigin === null) {
+      throw new Error('Origin is unset.');
+    }
     const position = getScalarScreenOffset(event, dragMatrix);
-    const offset = position - origin.current;
-    const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
+    const offset = position - currentOrigin;
 
-    // Translate mouse movement to value
-    // Give it some headroom (by increasing clamp range by 1 step)
-    internalValue.current = clamp(
-      internalValue.current + (offset * step) / stepPixelSize,
-      minValue - step,
-      maxValue + step,
-    );
-
-    const clamped = clamp(
-      internalValue.current - (internalValue.current % step) + stepOffset,
+    const currentFinalStepPixelSize = finalStepPixelSize.current;
+    if (currentFinalStepPixelSize === null) {
+      throw new Error('Final step pixel size has not been computed.');
+    }
+    const currentOriginalValue = originalValue.current;
+    if (currentOriginalValue === null) {
+      throw new Error('Original value is unset.');
+    }
+    // change in value is based on offset from drag origin
+    const stepDifference = Math.trunc(offset / currentFinalStepPixelSize);
+    const newValue = clamp(
+      Math.floor(currentOriginalValue / step) * step + stepDifference * step,
       minValue,
       maxValue,
     );
-
-    finalValue.current = clamped;
-    setStateValue(clamped);
-
-    origin.current = position;
+    finalValue.current = newValue;
+    setStateValue(newValue);
   }
 
   /** Ends all drag/click events */
@@ -193,7 +214,9 @@ export function DraggableControl(props: Props) {
 
     if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
 
-    origin.current = ORIGIN_UNSET;
+    origin.current = null;
+    finalStepPixelSize.current = null;
+    originalValue.current = null;
 
     document.removeEventListener('mousemove', handleDragMove);
     document.removeEventListener('mouseup', handleDragEnd);
@@ -201,7 +224,6 @@ export function DraggableControl(props: Props) {
     if (!dragging.current) return; // user only clicked
 
     onChange?.(event, finalValue.current);
-    onDrag?.(event, finalValue.current);
     dragging.current = false;
   }
 
@@ -222,7 +244,6 @@ export function DraggableControl(props: Props) {
       return;
     }
 
-    internalValue.current = ourValue;
     finalValue.current = ourValue;
     setStateValue(ourValue);
 
@@ -258,6 +279,7 @@ export function DraggableControl(props: Props) {
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       ref={inputRef}
+      readOnly={disabled}
       style={{
         display: !editing ? 'none' : undefined,
         fontSize: fontSize as StyleProp,

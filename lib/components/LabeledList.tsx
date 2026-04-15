@@ -124,7 +124,7 @@ function LabeledListItem(props: LabeledListItemProps) {
         as="td"
         className="LabeledList__cell"
         color={color}
-        // @ts-ignore
+        // @ts-expect-error
         colSpan={buttons ? undefined : 2}
         textAlign={textAlign}
         verticalAlign={verticalAlign}
@@ -193,6 +193,7 @@ function LabeledListDivider(props: LabeledListDividerProps) {
  * ```
  *
  * - [View documentation on tgui core](https://tgstation.github.io/tgui-core/?path=/docs/components-labeledlist--docs)
+ * - [View inherited Box props](https://tgstation.github.io/tgui-core/?path=/docs/components-box--docs)
  */
 export namespace LabeledList {
   /** Adds some empty space between LabeledList items. */

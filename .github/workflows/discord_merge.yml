@@ -1,0 +1,39 @@
+name: Announce PR Merged
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  announce_merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Announce PR merged to Discord
+        shell: bash
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          MERGER: ${{ github.event.pull_request.merged_by.login }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -euo pipefail
+
+          payload=$(python3 - <<'PY'
+          import json
+          import os
+
+          pr_number = os.environ["PR_NUMBER"]
+          pr_title = os.environ["PR_TITLE"]
+          merger = os.environ["MERGER"]
+          pr_url = os.environ["PR_URL"]
+
+          content = f"PR #{pr_number} *merged* by {merger}: **{pr_title}**\n__<{pr_url}>__"
+          body = {"content": content}
+
+          print(json.dumps(body, ensure_ascii=False))
+          PY
+          )
+
+          curl -H "Content-Type: application/json" -X POST --data "$payload" "$DISCORD_WEBHOOK"
