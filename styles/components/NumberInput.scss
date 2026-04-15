@@ -1,4 +1,4 @@
-@use "../base";
+@use "../functions" as fn;
 
 .NumberInput {
   cursor: var(--cursor-n-resize);
@@ -6,7 +6,7 @@
   position: relative;
   display: inline-block;
   text-align: right;
-  line-height: base.em(17px);
+  line-height: fn.em(17px);
   padding: 0 var(--space-sm);
   margin-right: var(--space-xs);
   background-color: var(--number-input-background);
@@ -39,7 +39,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: base.em(3px);
+  width: fn.em(3px);
   box-sizing: border-box;
   border-bottom: var(--border-thickness-tiny) solid
     var(--number-input-border-color-active);
@@ -54,9 +54,9 @@
   border: 0;
   outline: 0;
   width: 100%;
-  font-size: base.em(12px);
-  line-height: base.em(17px);
-  height: base.em(17px);
+  font-size: fn.em(12px);
+  line-height: fn.em(17px);
+  height: fn.em(17px);
   margin: 0;
   padding: 0 var(--space-m);
   font-family: var(--font-family);

@@ -1,4 +1,4 @@
-@use "../base";
+@use "../functions" as fn;
 @use "./Button" as button;
 
 .Dropdown {
@@ -29,9 +29,9 @@
     overflow: hidden;
     flex: 1;
     font-family: var(--font-family);
-    font-size: base.em(12px);
-    line-height: base.em(16px);
-    height: base.em(22px);
+    font-size: fn.em(12px);
+    line-height: fn.em(16px);
+    height: fn.em(22px);
     border-radius: var(--button-border-radius);
     @include button.button-color();
   }
@@ -53,7 +53,7 @@
     align-content: center;
     text-align: center;
     height: 100%;
-    width: base.em(22px);
+    width: fn.em(22px);
     transition: transform var(--dropdown-transition);
 
     &--arrow {
@@ -73,7 +73,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-scrollbar-thumb) transparent;
-    max-height: base.em(200px);
+    max-height: fn.em(200px);
     padding: var(--space-sm);
 
     &--wrapper {
@@ -91,8 +91,8 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       font-family: var(--font-family);
-      font-size: base.em(12px);
-      line-height: base.em(16px);
+      font-size: fn.em(12px);
+      line-height: fn.em(16px);
       padding: var(--space-xs) var(--space-m);
       border-radius: var(--dropdown-entry-border-radius);
       transition: background-color var(--dropdown-entry-transition);
