@@ -24,18 +24,6 @@
     width: 100%;
   }
 
-  &__control {
-    display: flex;
-    overflow: hidden;
-    flex: 1;
-    font-family: var(--font-family);
-    font-size: base.em(12px);
-    line-height: base.em(16px);
-    height: base.em(22px);
-    border-radius: var(--button-border-radius);
-    @include button.button-color();
-  }
-
   &__input,
   &__control {
     display: flex;
@@ -47,7 +35,7 @@
     height: base.em(22px);
     border-radius: var(--button-border-radius);
   }
-  
+
   &__control {
     @include button.button-color();
   }
