@@ -161,8 +161,7 @@ export function Dropdown(props: Props) {
     if (selected && getOptionValue(selected)) {
       setSearchQuery(
         displayText?.toString() ||
-          (selected && getOptionValue(selected)).toString() ||
-          placeholder,
+          (selected && getOptionValue(selected)).toString(),
       );
     }
   }, [selected]);
