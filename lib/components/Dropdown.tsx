@@ -195,7 +195,7 @@ export function Dropdown(props: Props) {
         closeAfterInteract
         content={
           <div className="Dropdown__menu" ref={innerRef}>
-            {options.length === 0 && !!searchQuery ? (
+            {displayedOptions.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
               displayedOptions.map((option) => {

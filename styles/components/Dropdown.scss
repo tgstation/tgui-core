@@ -36,7 +36,8 @@
     @include button.button-color();
   }
 
-  &__input {
+  &__input,
+  &__control {
     display: flex;
     overflow: hidden;
     flex: 1;
@@ -45,6 +46,10 @@
     line-height: base.em(16px);
     height: base.em(22px);
     border-radius: var(--button-border-radius);
+  }
+  
+  &__control {
+    @include button.button-color();
   }
 
   &__selected-text {
