@@ -1,6 +1,7 @@
 /* TGUI Window.scss */
 .Window {
-  box-shadow: 3px 3px 5px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  box-shadow: 0px 6px 16px 3px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
 
@@ -12,6 +13,36 @@
     var(--color-base-start) 0%,
     var(--color-base-end) 100%
   );
+
+  &__ResizeHandler {
+    user-select: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+
+    &.x {
+      cursor: var(--cursor-e-resize);
+      width: var(--space-m);
+      height: 100%;
+    }
+
+    &.y {
+      cursor: var(--cursor-n-resize);
+      width: 100%;
+      height: var(--space-m);
+    }
+
+    &.both {
+      --size: calc(var(--space-m) * 2);
+
+      cursor: var(--cursor-se-resize);
+      width: var(--size);
+      height: var(--size);
+      transform: translate(25%, 25%);
+      z-index: 2;
+    }
+  }
 }
 
 .Window__contentPadding {
@@ -71,13 +102,23 @@
 
   &__title {
     pointer-events: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     color: var(--color-text-translucent-light);
     font-size: 14px;
+  }
+
+  &__buttons {
+    pointer-events: all;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    margin: 0 9px;
+    z-index: 102;
   }
 
   &__close {
