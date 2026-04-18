@@ -7,6 +7,7 @@ import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Floating } from './Floating';
 import { Icon } from './Icon';
+import { Input } from './Input';
 
 type DropdownEntry = {
   displayText: ReactNode;
@@ -52,6 +53,8 @@ type Props = {
   fluid: boolean;
   /** Text to show when nothing has been selected. */
   placeholder: string;
+  /** Turns the dropdown button into a search textbox. Incompatible with Tiny */
+  searchInput: boolean;
   /** @deprecated If you want to allow dropdown breaks layout, set width 100% */
   clipSelectedText: boolean;
   /** Called when dropdown button is clicked */
@@ -99,12 +102,14 @@ export function Dropdown(props: Props) {
     options = [],
     over,
     placeholder = 'Select...',
+    searchInput,
     selected,
     fluid,
     width = 15,
   } = props;
 
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const innerRef = useRef<HTMLDivElement>(null);
 
   const selectedIndex =
@@ -150,6 +155,18 @@ export function Dropdown(props: Props) {
     onSelected?.(getOptionValue(options[newIndex]));
   }
 
+  const displayedOptions = searchQuery
+    ? options.filter((option) =>
+        (typeof option === 'string'
+          ? option
+          : option.displayText || getOptionValue(option)
+        )
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()),
+      )
+    : options;
+
   let placement: Placement = over ? 'top' : 'bottom';
   if (iconOnly) {
     placement = `${placement}-start` as Placement;
@@ -162,10 +179,10 @@ export function Dropdown(props: Props) {
         closeAfterInteract
         content={
           <div className="Dropdown__menu" ref={innerRef}>
-            {options.length === 0 ? (
+            {displayedOptions.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
-              options.map((option) => {
+              displayedOptions.map((option) => {
                 const value = getOptionValue(option);
                 return (
                   <div
@@ -176,10 +193,12 @@ export function Dropdown(props: Props) {
                     key={value}
                     onClick={() => {
                       onSelected?.(value);
+                      setSearchQuery('');
                     }}
                     onKeyDown={(event) => {
                       if (event.key === KEY.Enter) {
                         onSelected?.(value);
+                        setSearchQuery('');
                       }
                     }}
                   >
@@ -207,57 +226,68 @@ export function Dropdown(props: Props) {
         onOpenChange={setOpen}
         placement={placement}
       >
-        <div
-          className={classes([
-            'Dropdown__control',
-            `Button--color--${color}`,
-            disabled && 'Button--disabled',
-            iconOnly && 'Dropdown__control--icon-only',
-            className,
-          ])}
-          onClick={(event) => {
-            if (disabled && !open) {
-              return;
-            }
-            onClick?.(event);
-          }}
-          onKeyDown={(event) => {
-            if (event.key === KEY.Enter && !disabled) {
+        {searchInput ? (
+          <Input
+            className={classes(['Dropdown__input', className])}
+            placeholder={displayText?.toString() || placeholder}
+            disabled={disabled}
+            value={searchQuery}
+            alwaysUpdate
+            onChange={setSearchQuery}
+          />
+        ) : (
+          <div
+            className={classes([
+              'Dropdown__control',
+              `Button--color--${color}`,
+              disabled && 'Button--disabled',
+              iconOnly && 'Dropdown__control--icon-only',
+              className,
+            ])}
+            onClick={(event) => {
+              if (disabled && !open) {
+                return;
+              }
               onClick?.(event);
-            }
-          }}
-          style={{ width: unit(width) }}
-        >
-          {icon && (
-            <Icon
-              className="Dropdown__icon"
-              name={icon}
-              rotation={iconRotation}
-              spin={iconSpin}
-            />
-          )}
-          {!iconOnly && (
-            <>
-              <span className="Dropdown__selected-text">
-                {displayText ||
-                  (selected && getOptionValue(selected)) ||
-                  placeholder}
-              </span>
+            }}
+            onKeyDown={(event) => {
+              if (event.key === KEY.Enter && !disabled) {
+                onClick?.(event);
+              }
+            }}
+            style={{ width: unit(width) }}
+          >
+            {icon && (
+              <Icon
+                className="Dropdown__icon"
+                name={icon}
+                rotation={iconRotation}
+                spin={iconSpin}
+              />
+            )}
+            {!iconOnly && (
+              <>
+                <span className="Dropdown__selected-text">
+                  {displayText ||
+                    (selected && getOptionValue(selected)) ||
+                    placeholder}
+                </span>
 
-              {!noChevron && (
-                <Icon
-                  className={classes([
-                    'Dropdown__icon',
-                    'Dropdown__icon--arrow',
-                    over && 'over',
-                    open && 'open',
-                  ])}
-                  name="chevron-down"
-                />
-              )}
-            </>
-          )}
-        </div>
+                {!noChevron && (
+                  <Icon
+                    className={classes([
+                      'Dropdown__icon',
+                      'Dropdown__icon--arrow',
+                      over && 'over',
+                      open && 'open',
+                    ])}
+                    name="chevron-down"
+                  />
+                )}
+              </>
+            )}
+          </div>
+        )}
       </Floating>
       {buttons && (
         <>
