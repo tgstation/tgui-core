@@ -2,7 +2,7 @@ import { KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { unit } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Floating } from './Floating';
@@ -110,8 +110,6 @@ export function Dropdown(props: Props) {
 
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [displayedOptions, setDisplayedOptions] =
-    useState<DropdownOption[]>(options);
   const innerRef = useRef<HTMLDivElement>(null);
 
   const selectedIndex =
@@ -157,21 +155,17 @@ export function Dropdown(props: Props) {
     onSelected?.(getOptionValue(options[newIndex]));
   }
 
-  useEffect(() => {
-    setDisplayedOptions(
-      searchQuery
-        ? options.filter((option) =>
-            (typeof option === 'string'
-              ? option
-              : option.displayText || getOptionValue(option)
-            )
-              .toString()
-              .toLowerCase()
-              .includes(searchQuery.toLowerCase()),
-          )
-        : options,
-    );
-  }, [searchQuery]);
+  const displayedOptions = searchQuery
+    ? options.filter((option) =>
+        (typeof option === 'string'
+          ? option
+          : option.displayText || getOptionValue(option)
+        )
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()),
+      )
+    : options;
 
   let placement: Placement = over ? 'top' : 'bottom';
   if (iconOnly) {
