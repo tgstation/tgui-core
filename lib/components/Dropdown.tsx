@@ -194,12 +194,17 @@ export function Dropdown(props: Props) {
 
   /** maxItem's floor. This is the minimum amount of items we want to allow to reasonably be able to read what we are looking at as a dropdown */
   const MIN_ITEMS = 3;
-  // Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px
-  // TGUI box unit = 12px, so each item is ~1.7 units
+  /** Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px **/
+  /** TGUI box unit = 12px, so each item is ~1.7 units **/
   const ITEM_HEIGHT_UNITS = 1.7;
+  /** capped at 25 for sanity mostly, the default is 10 items and you usually don't want to go much over that **/
+  const MAX_ITEMS = 25;
   const menuMaxHeight = maxItems
     ? {
-        maxHeight: unit(Math.max(maxItems, MIN_ITEMS) * ITEM_HEIGHT_UNITS),
+        maxHeight: unit(
+          Math.max(Math.min(maxItems, MAX_ITEMS), MIN_ITEMS) *
+            ITEM_HEIGHT_UNITS,
+        ),
         overflowY: 'auto' as const,
       }
     : undefined;
