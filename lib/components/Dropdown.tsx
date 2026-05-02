@@ -271,19 +271,42 @@ export function Dropdown(props: Props) {
         placement={placement}
       >
         {searchInput ? (
-          <Input
-            className={classes([
-              'Dropdown__input',
-              styledInput && 'Dropdown__input--styled',
-              className,
-            ])}
-            placeholder={displayText?.toString() || placeholder}
-            disabled={disabled}
-            value={searchQuery}
-            alwaysUpdate
-            onChange={setSearchQuery}
-            onBlur={handleBlur}
-          />
+          <div style={{ position: 'relative', display: 'flex', flex: 1 }}>
+            <Input
+              className={classes([
+                'Dropdown__input',
+                styledInput && 'Dropdown__input--styled',
+                className,
+              ])}
+              placeholder={displayText?.toString() || placeholder}
+              disabled={disabled}
+              value={searchQuery}
+              alwaysUpdate
+              onChange={setSearchQuery}
+              onBlur={handleBlur}
+              fluid
+            />
+            {!noChevron && (
+              <div
+                style={{
+                  position: 'absolute',
+                  right: '4px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  pointerEvents: 'none',
+                }}
+              >
+                <Icon
+                  className={classes([
+                    'Dropdown__icon',
+                    'Dropdown__icon--arrow',
+                    open && 'open',
+                  ])}
+                  name="chevron-down"
+                />
+              </div>
+            )}
+          </div>
         ) : (
           <div
             className={classes([
