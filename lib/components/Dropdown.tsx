@@ -192,7 +192,7 @@ export function Dropdown(props: Props) {
     placement = `${placement}-start` as Placement;
   }
 
-  /** MaxItem's floor. This is the minimum amount of items we want to  allow to reasonably be able to read what we are looking at as a dropdown */
+  /** maxItem's floor. This is the minimum amount of items we want to allow to reasonably be able to read what we are looking at as a dropdown */
   const MIN_ITEMS = 3;
   // Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px
   // TGUI box unit = 12px, so each item is ~1.7 units
