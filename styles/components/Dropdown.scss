@@ -37,14 +37,14 @@
     @include button.button-color();
   }
 
-&__input--styled {
-  --input-background: var(--button-background);
-  --input-border-color: var(--color-border-dark);
-  --input-border-color-focus: var(--color-border-dark);
-  --input-border-disabled: var(--color-border-dark);
-  --input-color: var(--button-color);
-  --input-color-placeholder: var(--button-color);
-}
+  &__input--styled {
+    --input-background: var(--button-background);
+    --input-border-color: var(--color-border-dark);
+    --input-border-color-focus: var(--color-border-dark);
+    --input-border-disabled: var(--color-border-dark);
+    --input-color: var(--button-color);
+    --input-color-placeholder: var(--button-color);
+  }
 
   &__selected-text {
     flex: 1;
