@@ -74,6 +74,14 @@ enum DIRECTION {
 
 const NONE = -1;
 
+/** Minimum number of items to display — if it's less than 3 items then a dropdown is probably not what you should be using */
+const MIN_ITEMS = 3;
+/** Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px
+ *  unit() multiplies by 12px, so each item is ~1.7 units */
+const ITEM_HEIGHT_UNITS = 1.7;
+/** Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
+const MAX_ITEMS = 25;
+
 function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
 }
@@ -116,7 +124,10 @@ export function Dropdown(props: Props) {
 
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [handleOpen, setHandleOpen] = useState<boolean | undefined>(undefined);
   const innerRef = useRef<HTMLDivElement>(null);
+  const justSelectedRef = useRef(false);
+  const enterPressedRef = useRef(false);
 
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
@@ -173,17 +184,19 @@ export function Dropdown(props: Props) {
       )
     : options;
 
-  const justSelectedRef = useRef(false);
-
   function handleBlur(value: string) {
-    if (justSelectedRef.current) {
-      justSelectedRef.current = false;
-      setSearchQuery('');
-      return;
-    }
-    if (value && displayedOptions.length > 0) {
+    /* If the user has typed something, and they pressed enter, select the first result */
+    if (
+      value &&
+      enterPressedRef.current &&
+      !justSelectedRef.current &&
+      displayedOptions.length > 0
+    ) {
       onSelected?.(getOptionValue(displayedOptions[0]));
     }
+    /* Otherwise clear the text input field */
+    justSelectedRef.current = false;
+    enterPressedRef.current = false;
     setSearchQuery('');
   }
 
@@ -192,13 +205,6 @@ export function Dropdown(props: Props) {
     placement = `${placement}-start` as Placement;
   }
 
-  /** maxItem's floor. This is the minimum amount of items we want to allow to reasonably be able to read what we are looking at as a dropdown */
-  const MIN_ITEMS = 3;
-  /** Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px **/
-  /** TGUI box unit = 12px, so each item is ~1.7 units **/
-  const ITEM_HEIGHT_UNITS = 1.7;
-  /** capped at 25 for sanity mostly, the default is 10 items and you usually don't want to go much over that **/
-  const MAX_ITEMS = 25;
   const menuMaxHeight = maxItems
     ? {
         maxHeight: unit(
@@ -268,6 +274,7 @@ export function Dropdown(props: Props) {
           }
         }}
         onOpenChange={setOpen}
+        handleOpen={handleOpen}
         placement={placement}
       >
         {searchInput ? (
@@ -282,6 +289,11 @@ export function Dropdown(props: Props) {
               disabled={disabled}
               value={searchQuery}
               alwaysUpdate
+              onEnter={() => {
+                enterPressedRef.current = true;
+                setHandleOpen(false);
+                setTimeout(() => setHandleOpen(undefined), 0);
+              }}
               onChange={setSearchQuery}
               onBlur={handleBlur}
               fluid
