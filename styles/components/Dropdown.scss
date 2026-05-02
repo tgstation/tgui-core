@@ -34,11 +34,17 @@
     line-height: base.em(16px);
     height: base.em(22px);
     border-radius: var(--button-border-radius);
-  }
-
-  &__control {
     @include button.button-color();
   }
+
+&__input--styled {
+  --input-background: var(--button-background);
+  --input-border-color: var(--color-border-dark);
+  --input-border-color-focus: var(--color-border-dark);
+  --input-border-disabled: var(--color-border-dark);
+  --input-color: var(--button-color);
+  --input-color-placeholder: var(--button-color);
+}
 
   &__selected-text {
     flex: 1;
@@ -128,4 +134,8 @@
   display: flex;
   justify-content: center;
   max-width: 2rem;
+}
+
+.Dropdown__input--styled.Input::placeholder {
+  font-style: normal;
 }

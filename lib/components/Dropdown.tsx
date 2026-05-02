@@ -43,6 +43,8 @@ type Props = {
   iconRotation: number;
   /** Whether or not the icon should spin */
   iconSpin: boolean;
+  /** Whether we want to make the search input styled like a regular dropdown button. */
+  styledInput: boolean;
   /** Width of the dropdown menu in box units. Default: 15 */
   menuWidth: string | number;
   /** Whether or not the arrow on the right hand side of the dropdown button is visible */
@@ -69,6 +71,8 @@ enum DIRECTION {
 }
 
 const NONE = -1;
+/** MaxHeight's floor. This is the smallest height that we want to allow to reasonably be able to read what we are looking at as a dropdown (displays 3 items) */
+const MIN_HEIGHT = 5.5;
 
 function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
@@ -95,6 +99,8 @@ export function Dropdown(props: Props) {
     iconRotation,
     iconSpin,
     iconOnly,
+    styledInput,
+    maxHeight,
     menuWidth,
     noChevron,
     onClick,
@@ -167,18 +173,36 @@ export function Dropdown(props: Props) {
       )
     : options;
 
+  const justSelectedRef = useRef(false);
+
+  function handleBlur(value: string) {
+    if (justSelectedRef.current) {
+      justSelectedRef.current = false;
+      setSearchQuery('');
+      return;
+    }
+    if (value && displayedOptions.length > 0) {
+      onSelected?.(getOptionValue(displayedOptions[0]));
+    }
+    setSearchQuery('');
+  }
+
   let placement: Placement = over ? 'top' : 'bottom';
   if (iconOnly) {
     placement = `${placement}-start` as Placement;
   }
 
+  const menuStyle = maxHeight
+    ? { maxHeight: unit(Math.max(typeof maxHeight === 'number' ? maxHeight : parseFloat(String(maxHeight)), MIN_HEIGHT)), overflowY: 'auto' as const }
+    : undefined;
+
   return (
-    <div className={classes(['Dropdown', fluid && 'Dropdown--fluid'])}>
+    <div className={classes(['Dropdown', fluid && 'Dropdown--fluid', styledInput && `Button--color--${color}`])}>
       <Floating
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
         content={
-          <div className="Dropdown__menu" ref={innerRef}>
+          <div className="Dropdown__menu" ref={innerRef} style={menuStyle}>
             {displayedOptions.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
@@ -192,11 +216,13 @@ export function Dropdown(props: Props) {
                     ])}
                     key={value}
                     onClick={() => {
+                      justSelectedRef.current = true;
                       onSelected?.(value);
                       setSearchQuery('');
                     }}
                     onKeyDown={(event) => {
                       if (event.key === KEY.Enter) {
+                        justSelectedRef.current = true;
                         onSelected?.(value);
                         setSearchQuery('');
                       }
@@ -219,7 +245,6 @@ export function Dropdown(props: Props) {
              * Floating uses async FloatingPortal,
              * the dropdown content is not yet ready when you open it.
              */
-
             scrollToElement(selectedIndex);
           }
         }}
@@ -228,12 +253,13 @@ export function Dropdown(props: Props) {
       >
         {searchInput ? (
           <Input
-            className={classes(['Dropdown__input', className])}
+            className={classes(['Dropdown__input', styledInput && 'Dropdown__input--styled', className])}
             placeholder={displayText?.toString() || placeholder}
             disabled={disabled}
             value={searchQuery}
             alwaysUpdate
             onChange={setSearchQuery}
+            onBlur={handleBlur}
           />
         ) : (
           <div
