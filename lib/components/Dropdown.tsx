@@ -45,6 +45,8 @@ type Props = {
   iconSpin: boolean;
   /** Whether we want to make the search input styled like a regular dropdown button. */
   styledInput: boolean;
+  /** Maximum number of items to display before having to scroll */
+  maxItems: number;
   /** Width of the dropdown menu in box units. Default: 15 */
   menuWidth: string | number;
   /** Whether or not the arrow on the right hand side of the dropdown button is visible */
@@ -71,8 +73,6 @@ enum DIRECTION {
 }
 
 const NONE = -1;
-/** MaxHeight's floor. This is the smallest height that we want to allow to reasonably be able to read what we are looking at as a dropdown (displays 3 items) */
-const MIN_HEIGHT = 5.5;
 
 function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
@@ -100,7 +100,7 @@ export function Dropdown(props: Props) {
     iconSpin,
     iconOnly,
     styledInput,
-    maxHeight,
+    maxItems,
     menuWidth,
     noChevron,
     onClick,
@@ -192,16 +192,14 @@ export function Dropdown(props: Props) {
     placement = `${placement}-start` as Placement;
   }
 
-  const menuStyle = maxHeight
+  /** MaxItem's floor. This is the minimum amount of items we want to  allow to reasonably be able to read what we are looking at as a dropdown */
+  const MIN_ITEMS = 3;
+  // Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px
+  // TGUI box unit = 12px, so each item is ~1.7 units
+  const ITEM_HEIGHT_UNITS = 1.7;
+  const menuMaxHeight = maxItems
     ? {
-        maxHeight: unit(
-          Math.max(
-            typeof maxHeight === 'number'
-              ? maxHeight
-              : parseFloat(String(maxHeight)),
-            MIN_HEIGHT,
-          ),
-        ),
+        maxHeight: unit(Math.max(maxItems, MIN_ITEMS) * ITEM_HEIGHT_UNITS),
         overflowY: 'auto' as const,
       }
     : undefined;
@@ -218,7 +216,7 @@ export function Dropdown(props: Props) {
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
         content={
-          <div className="Dropdown__menu" ref={innerRef} style={menuStyle}>
+          <div className="Dropdown__menu" ref={innerRef} style={menuMaxHeight}>
             {displayedOptions.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (

@@ -67,7 +67,7 @@ function DropdownStories() {
           onSelected={setSelected}
           options={defaultItems}
           selected={selected}
-          maxHeight={10}
+          maxHeight={6}
         />
       </Showcase>
       <Showcase title="Buttons">
