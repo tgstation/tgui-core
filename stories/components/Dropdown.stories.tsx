@@ -61,7 +61,7 @@ function DropdownStories() {
           selected={selected}
         />
       </Showcase>
-	  <Showcase title="MaxHeight">
+      <Showcase title="MaxHeight">
         <Dropdown
           displayText={displayText}
           onSelected={setSelected}
@@ -95,7 +95,7 @@ function DropdownStories() {
           options={defaultItems}
           selected={selected}
           searchInput
-		  styledInput
+          styledInput
         />
       </Showcase>
       <Showcase title="Disabled">
