@@ -61,6 +61,15 @@ function DropdownStories() {
           selected={selected}
         />
       </Showcase>
+	  <Showcase title="MaxHeight">
+        <Dropdown
+          displayText={displayText}
+          onSelected={setSelected}
+          options={defaultItems}
+          selected={selected}
+          maxHeight={10}
+        />
+      </Showcase>
       <Showcase title="Buttons">
         <Dropdown
           buttons
@@ -79,6 +88,16 @@ function DropdownStories() {
           searchInput
         />
       </Showcase>
+      <Showcase title="StyledInput Search">
+        <Dropdown
+          displayText={displayText}
+          onSelected={setSelected}
+          options={defaultItems}
+          selected={selected}
+          searchInput
+		  styledInput
+        />
+      </Showcase>
       <Showcase title="Disabled">
         <Dropdown
           disabled
@@ -88,7 +107,6 @@ function DropdownStories() {
           selected={selected}
         />
       </Showcase>
-
       <Showcase title="Tiny">
         <Dropdown
           icon="smile"
