@@ -193,11 +193,27 @@ export function Dropdown(props: Props) {
   }
 
   const menuStyle = maxHeight
-    ? { maxHeight: unit(Math.max(typeof maxHeight === 'number' ? maxHeight : parseFloat(String(maxHeight)), MIN_HEIGHT)), overflowY: 'auto' as const }
+    ? {
+        maxHeight: unit(
+          Math.max(
+            typeof maxHeight === 'number'
+              ? maxHeight
+              : parseFloat(String(maxHeight)),
+            MIN_HEIGHT,
+          ),
+        ),
+        overflowY: 'auto' as const,
+      }
     : undefined;
 
   return (
-    <div className={classes(['Dropdown', fluid && 'Dropdown--fluid', styledInput && `Button--color--${color}`])}>
+    <div
+      className={classes([
+        'Dropdown',
+        fluid && 'Dropdown--fluid',
+        styledInput && `Button--color--${color}`,
+      ])}
+    >
       <Floating
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
@@ -253,7 +269,11 @@ export function Dropdown(props: Props) {
       >
         {searchInput ? (
           <Input
-            className={classes(['Dropdown__input', styledInput && 'Dropdown__input--styled', className])}
+            className={classes([
+              'Dropdown__input',
+              styledInput && 'Dropdown__input--styled',
+              className,
+            ])}
             placeholder={displayText?.toString() || placeholder}
             disabled={disabled}
             value={searchQuery}
