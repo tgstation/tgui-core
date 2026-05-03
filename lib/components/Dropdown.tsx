@@ -78,9 +78,9 @@ const MIN_ITEMS = 3;
 /** Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
 const MAX_ITEMS = 25;
 
-/* dynamically compute the dropdown entry height **/
+/* dynamically compute the dropdown entry height */
 /* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
-/*  unit() multiplies by 12px, so each item is ~1.7 units by default */
+/* unit() multiplies by 12px, so each item is ~1.7 units by default */
 let _itemHeightUnits: number | null = null;
 
 function getItemHeightUnits(): number {
