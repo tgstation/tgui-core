@@ -278,7 +278,7 @@ export function Dropdown(props: Props) {
         placement={placement}
       >
         {searchInput ? (
-          <div style={{ position: 'relative', display: 'flex', flex: 1 }}>
+          <div className="Dropdown__input-wrapper">
             <Input
               className={classes([
                 'Dropdown__input',
@@ -299,15 +299,7 @@ export function Dropdown(props: Props) {
               fluid
             />
             {!noChevron && (
-              <div
-                style={{
-                  position: 'absolute',
-                  right: '4px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  pointerEvents: 'none',
-                }}
-              >
+              <div className="Dropdown__input-chevron">
                 <Icon
                   className={classes([
                     'Dropdown__icon',

@@ -36,6 +36,20 @@
     border-radius: var(--button-border-radius);
     @include button.button-color();
   }
+  
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    flex: 1;
+  }
+ 
+  &__input-chevron {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
 
   &__input--styled {
     --input-background: var(--button-background);
