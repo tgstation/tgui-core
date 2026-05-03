@@ -37,6 +37,10 @@
     @include button.button-color();
   }
   
+  &__control {
+    @include button.button-color();
+  }
+  
   &__input-wrapper {
     position: relative;
     display: flex;
@@ -49,15 +53,6 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-  }
-
-  &__input--styled {
-    --input-background: var(--button-background);
-    --input-border-color: var(--color-border-dark);
-    --input-border-color-focus: var(--color-border-dark);
-    --input-border-disabled: var(--color-border-dark);
-    --input-color: var(--button-color);
-    --input-color-placeholder: var(--button-color);
   }
 
   &__selected-text {
@@ -150,6 +145,15 @@
   max-width: 2rem;
 }
 
-.Dropdown__input--styled.Input::placeholder {
-  font-style: normal;
+.Dropdown__input--styled {
+  --input-background: var(--button-background);
+  --input-border-color: var(--color-border-dark);
+  --input-border-color-focus: var(--color-border-dark);
+  --input-border-disabled: var(--color-border-dark);
+  --input-color: var(--button-color);
+  --input-color-placeholder: var(--button-color);
+
+  &.Input::placeholder {
+    font-style: normal;
+  }
 }
