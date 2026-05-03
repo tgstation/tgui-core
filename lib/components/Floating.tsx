@@ -19,6 +19,7 @@ import {
   type CSSProperties,
   cloneElement,
   isValidElement,
+  type MutableRefObject,
   type ReactElement,
   type ReactNode,
   useEffect,
@@ -99,6 +100,11 @@ type Props = {
    * Called when mounted
    */
   onMounted: () => void;
+  /**
+   * Ref that will be populated with a function to imperatively close the floating element.
+   * Useful when you need to close without affecting interactions or open state control.
+   */
+  closeRef: MutableRefObject<(() => void) | null>;
 }>;
 
 /**
@@ -114,6 +120,7 @@ export function Floating(props: Props) {
     animationDuration,
     children,
     closeAfterInteract,
+    closeRef,
     content,
     contentAutoWidth,
     contentClasses,
@@ -162,6 +169,10 @@ export function Floating(props: Props) {
       });
     },
   });
+
+  if (closeRef) {
+    closeRef.current = () => context.onOpenChange(false);
+  }
 
   const { isMounted, status } = useTransitionStatus(context, {
     duration: animationDuration || 200,

@@ -97,7 +97,7 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-scrollbar-thumb) transparent;
-    max-height: base.em(200px);
+    max-height: var(--dropdown-menu-max-height);
     padding: var(--space-sm);
 
     &--wrapper {
@@ -116,7 +116,7 @@
       text-overflow: ellipsis;
       font-family: var(--font-family);
       font-size: base.em(12px);
-      line-height: base.em(16px);
+      line-height: var(--dropdown-entry-line-height-px);
       padding: var(--space-xs) var(--space-m);
       border-radius: var(--dropdown-entry-border-radius);
       transition: background-color var(--dropdown-entry-transition);

@@ -73,14 +73,41 @@ enum DIRECTION {
 }
 
 const NONE = -1;
-
 /** Minimum number of items to display — if it's less than 3 items then a dropdown is probably not what you should be using */
 const MIN_ITEMS = 3;
-/** Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px
- *  unit() multiplies by 12px, so each item is ~1.7 units */
-const ITEM_HEIGHT_UNITS = 1.7;
 /** Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
 const MAX_ITEMS = 25;
+
+/* dynamically compute the dropdown entry height **/
+/* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
+/*  unit() multiplies by 12px, so each item is ~1.7 units by default */
+let _itemHeightUnits: number | null = null;
+
+function getItemHeightUnits(): number {
+  if (_itemHeightUnits !== null) return _itemHeightUnits;
+  const fontSize = parseFloat(
+    getComputedStyle(document.body).getPropertyValue('--font-size'),
+  );
+
+  // Measure an actual entry element so we get the exact rendered height
+  const tempEntry = document.createElement('div');
+  tempEntry.className = 'Dropdown__menu--entry';
+  tempEntry.textContent = 'test';
+  document.body.appendChild(tempEntry);
+  const entryHeight = parseFloat(getComputedStyle(tempEntry).height);
+  document.body.removeChild(tempEntry);
+
+  _itemHeightUnits = entryHeight / fontSize;
+  console.log(
+    '[Dropdown] fontSize:',
+    fontSize,
+    'entryHeight:',
+    entryHeight,
+    'ITEM_HEIGHT_UNITS:',
+    _itemHeightUnits,
+  );
+  return _itemHeightUnits;
+}
 
 function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
@@ -124,10 +151,13 @@ export function Dropdown(props: Props) {
 
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [handleOpen, setHandleOpen] = useState<boolean | undefined>(undefined);
   const innerRef = useRef<HTMLDivElement>(null);
+  /* SearchInput: This is so when the user explicitly clicks a menu option, handleBlur knows not to carry out the auto-selection */
   const justSelectedRef = useRef(false);
+  /* SearchInput: This is so we can distinguish between blur caused by Enter and the blur caused by clicking away (so we don't auto select) */
   const enterPressedRef = useRef(false);
+  /* SearchInput: This is so we close the Floating after pressing enter in the searchInput */
+  const closeFloatingRef = useRef<(() => void) | null>(null);
 
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
@@ -192,6 +222,7 @@ export function Dropdown(props: Props) {
       !justSelectedRef.current &&
       displayedOptions.length > 0
     ) {
+      justSelectedRef.current = true;
       onSelected?.(getOptionValue(displayedOptions[0]));
     }
     /* Otherwise clear the text input field */
@@ -209,7 +240,7 @@ export function Dropdown(props: Props) {
     ? {
         maxHeight: unit(
           Math.max(Math.min(maxItems, MAX_ITEMS), MIN_ITEMS) *
-            ITEM_HEIGHT_UNITS,
+            getItemHeightUnits(),
         ),
         overflowY: 'auto' as const,
       }
@@ -274,7 +305,7 @@ export function Dropdown(props: Props) {
           }
         }}
         onOpenChange={setOpen}
-        handleOpen={handleOpen}
+        closeRef={closeFloatingRef}
         placement={placement}
       >
         {searchInput ? (
@@ -289,10 +320,13 @@ export function Dropdown(props: Props) {
               disabled={disabled}
               value={searchQuery}
               alwaysUpdate
+              onKeyDown={(event) => {
+                if (event.key === ' ')
+                  event.stopPropagation(); /* So you can search input spaces without closing the Floating */
+              }}
               onEnter={() => {
                 enterPressedRef.current = true;
-                setHandleOpen(false);
-                setTimeout(() => setHandleOpen(undefined), 0);
+                closeFloatingRef.current?.();
               }}
               onChange={setSearchQuery}
               onBlur={handleBlur}
