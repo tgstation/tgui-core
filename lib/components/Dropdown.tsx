@@ -98,14 +98,6 @@ function getItemHeightUnits(): number {
   document.body.removeChild(tempEntry);
 
   _itemHeightUnits = entryHeight / fontSize;
-  console.log(
-    '[Dropdown] fontSize:',
-    fontSize,
-    'entryHeight:',
-    entryHeight,
-    'ITEM_HEIGHT_UNITS:',
-    _itemHeightUnits,
-  );
   return _itemHeightUnits;
 }
 
