@@ -73,16 +73,17 @@ enum DIRECTION {
 }
 
 const NONE = -1;
-/** Minimum number of items to display — if it's less than 3 items then a dropdown is probably not what you should be using */
+/* Minimum number of items to display — if it's less than 3 items then a dropdown is probably not what you should be using */
 const MIN_ITEMS = 3;
-/** Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
+/* Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
 const MAX_ITEMS = 25;
 
-/* dynamically compute the dropdown entry height */
-/* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
-/* unit() multiplies by 12px, so each item is ~1.7 units by default */
+/* Lazily initialized module-level singleton, used for maxItems to determine the height of a dropdown menu item */
 let _itemHeightUnits: number | null = null;
 
+/* Dynamically compute the dropdown entry height */
+/* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
+/* unit() multiplies by 12px, so each item is ~1.7 units by default */
 function getItemHeightUnits(): number {
   if (_itemHeightUnits !== null) return _itemHeightUnits;
   const fontSize = parseFloat(
