@@ -36,10 +36,6 @@
     border-radius: var(--button-border-radius);
     @include button.button-color();
   }
-
-  &__control {
-    @include button.button-color();
-  }
   
   &__input-wrapper {
     position: relative;
