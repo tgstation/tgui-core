@@ -43,6 +43,10 @@ type Props = {
   iconRotation: number;
   /** Whether or not the icon should spin */
   iconSpin: boolean;
+  /** Whether we want to make the search input styled like a regular dropdown button. */
+  styledInput: boolean;
+  /** Maximum number of items to display before having to scroll */
+  maxItems: number;
   /** Width of the dropdown menu in box units. Default: 15 */
   menuWidth: string | number;
   /** Whether or not the arrow on the right hand side of the dropdown button is visible */
@@ -69,6 +73,34 @@ enum DIRECTION {
 }
 
 const NONE = -1;
+/* Minimum number of items to display — if it's less than 3 items then a dropdown is probably not what you should be using */
+const MIN_ITEMS = 3;
+/* Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
+const MAX_ITEMS = 25;
+
+/* Lazily initialized module-level singleton, used for maxItems to determine the height of a dropdown menu item */
+let _itemHeightUnits: number | null = null;
+
+/* Dynamically compute the dropdown entry height */
+/* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
+/* unit() multiplies by 12px, so each item is ~1.7 units by default */
+function getItemHeightUnits(): number {
+  if (_itemHeightUnits !== null) return _itemHeightUnits;
+  const fontSize = parseFloat(
+    getComputedStyle(document.body).getPropertyValue('--font-size'),
+  );
+
+  // Measure an actual entry element so we get the exact rendered height
+  const tempEntry = document.createElement('div');
+  tempEntry.className = 'Dropdown__menu--entry';
+  tempEntry.textContent = 'test';
+  document.body.appendChild(tempEntry);
+  const entryHeight = parseFloat(getComputedStyle(tempEntry).height);
+  document.body.removeChild(tempEntry);
+
+  _itemHeightUnits = entryHeight / fontSize;
+  return _itemHeightUnits;
+}
 
 function getOptionValue(option: DropdownOption): string | number {
   return typeof option === 'string' ? option : option.value;
@@ -95,6 +127,8 @@ export function Dropdown(props: Props) {
     iconRotation,
     iconSpin,
     iconOnly,
+    styledInput,
+    maxItems,
     menuWidth,
     noChevron,
     onClick,
@@ -111,6 +145,12 @@ export function Dropdown(props: Props) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const innerRef = useRef<HTMLDivElement>(null);
+  /* SearchInput: This is so when the user explicitly clicks a menu option, handleBlur knows not to carry out the auto-selection */
+  const justSelectedRef = useRef(false);
+  /* SearchInput: This is so we can distinguish between blur caused by Enter and the blur caused by clicking away (so we don't auto select) */
+  const enterPressedRef = useRef(false);
+  /* SearchInput: This is so we close the Floating after pressing enter in the searchInput */
+  const closeFloatingRef = useRef<(() => void) | null>(null);
 
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
@@ -167,18 +207,51 @@ export function Dropdown(props: Props) {
       )
     : options;
 
+  function handleBlur(value: string) {
+    /* If the user has typed something, and they pressed enter, select the first result */
+    if (
+      value &&
+      enterPressedRef.current &&
+      !justSelectedRef.current &&
+      displayedOptions.length > 0
+    ) {
+      justSelectedRef.current = true;
+      onSelected?.(getOptionValue(displayedOptions[0]));
+    }
+    /* Otherwise clear the text input field */
+    justSelectedRef.current = false;
+    enterPressedRef.current = false;
+    setSearchQuery('');
+  }
+
   let placement: Placement = over ? 'top' : 'bottom';
   if (iconOnly) {
     placement = `${placement}-start` as Placement;
   }
 
+  const menuMaxHeight = maxItems
+    ? {
+        maxHeight: unit(
+          Math.max(Math.min(maxItems, MAX_ITEMS), MIN_ITEMS) *
+            getItemHeightUnits(),
+        ),
+        overflowY: 'auto' as const,
+      }
+    : undefined;
+
   return (
-    <div className={classes(['Dropdown', fluid && 'Dropdown--fluid'])}>
+    <div
+      className={classes([
+        'Dropdown',
+        fluid && 'Dropdown--fluid',
+        styledInput && `Button--color--${color}`,
+      ])}
+    >
       <Floating
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
         content={
-          <div className="Dropdown__menu" ref={innerRef}>
+          <div className="Dropdown__menu" ref={innerRef} style={menuMaxHeight}>
             {displayedOptions.length === 0 ? (
               <div className="Dropdown__menu--entry">No options</div>
             ) : (
@@ -192,11 +265,13 @@ export function Dropdown(props: Props) {
                     ])}
                     key={value}
                     onClick={() => {
+                      justSelectedRef.current = true;
                       onSelected?.(value);
                       setSearchQuery('');
                     }}
                     onKeyDown={(event) => {
                       if (event.key === KEY.Enter) {
+                        justSelectedRef.current = true;
                         onSelected?.(value);
                         setSearchQuery('');
                       }
@@ -219,22 +294,50 @@ export function Dropdown(props: Props) {
              * Floating uses async FloatingPortal,
              * the dropdown content is not yet ready when you open it.
              */
-
             scrollToElement(selectedIndex);
           }
         }}
         onOpenChange={setOpen}
+        closeRef={closeFloatingRef}
         placement={placement}
       >
         {searchInput ? (
-          <Input
-            className={classes(['Dropdown__input', className])}
-            placeholder={displayText?.toString() || placeholder}
-            disabled={disabled}
-            value={searchQuery}
-            alwaysUpdate
-            onChange={setSearchQuery}
-          />
+          <div className="Dropdown__input-wrapper">
+            <Input
+              className={classes([
+                'Dropdown__input',
+                styledInput && 'Dropdown__input--styled',
+                className,
+              ])}
+              placeholder={displayText?.toString() || placeholder}
+              disabled={disabled}
+              value={searchQuery}
+              alwaysUpdate
+              onKeyDown={(event) => {
+                if (event.key === ' ')
+                  event.stopPropagation(); /* So you can search input spaces without closing the Floating */
+              }}
+              onEnter={() => {
+                enterPressedRef.current = true;
+                closeFloatingRef.current?.();
+              }}
+              onChange={setSearchQuery}
+              onBlur={handleBlur}
+              fluid
+            />
+            {!noChevron && (
+              <div className="Dropdown__input-chevron">
+                <Icon
+                  className={classes([
+                    'Dropdown__icon',
+                    'Dropdown__icon--arrow',
+                    open && 'open',
+                  ])}
+                  name="chevron-down"
+                />
+              </div>
+            )}
+          </div>
         ) : (
           <div
             className={classes([

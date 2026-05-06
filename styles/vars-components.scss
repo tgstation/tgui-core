@@ -18,6 +18,7 @@
  *
  * Made with love by Aylong (https://github.com/AyIong)
  */
+@use "./base";
 
 :root {
   /* BlockQuote */
@@ -54,6 +55,8 @@
   --divider-border: var(--border-thickness-small) solid var(--divider-color);
 
   /* Dropdown */
+  --dropdown-menu-max-height: #{base.em(200px)};
+  --dropdown-entry-line-height-px: #{base.em(16px)};
   --dropdown-transition: var(--transition-time-medium);
   --dropdown-menu-color: var(--color-text);
   --dropdown-menu-background: hsl(
