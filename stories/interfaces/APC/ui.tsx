@@ -5,25 +5,21 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
+  Stack,
 } from '@components';
 import { useEffect, useState } from 'react';
 import { Window } from '../../layouts';
-import { InterfaceLockNoticeBox } from '../common/InterfaceLockNoticeBox';
 import { useBackend } from './backend';
 
-type Props = {
-  locked: boolean;
-};
-
-export const Apc = (props: Props) => {
+export function Apc() {
   return (
     <Window width={450} height={445}>
       <Window.Content scrollable>
-        <ApcContent locked={props.locked} />
+        <ApcContent />
       </Window.Content>
     </Window>
   );
-};
+}
 
 const powerStatusMap = {
   2: {
@@ -83,9 +79,9 @@ type ChannelSetting = {
   status: ChannelStatus;
 };
 
-const ApcContent = (props: Props) => {
+const ApcContent = () => {
   const { act, data } = useBackend();
-  const { locked } = props;
+  const [locked, setLocked] = useState(true);
 
   const [isOperating, setIsOperating] = useState(!!data.isOperating);
   const [channelSettings, setChannelSettings] = useState<ChannelSetting[]>([
@@ -145,10 +141,18 @@ const ApcContent = (props: Props) => {
 
   return (
     <>
-      <InterfaceLockNoticeBox
-        siliconUser={data.remoteAccess || data.siliconUser}
-        preventLocking={data.remoteAccess}
-      />
+      <NoticeBox danger={!locked}>
+        <Stack fill align="center">
+          <Stack.Item grow>
+            Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
+          </Stack.Item>
+          <Stack.Item>
+            <Button icon="id-card" onClick={() => setLocked(!locked)}>
+              Swipe ID
+            </Button>
+          </Stack.Item>
+        </Stack>
+      </NoticeBox>
       <Section title="Power Status">
         <LabeledList>
           <LabeledList.Item

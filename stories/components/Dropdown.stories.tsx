@@ -70,6 +70,15 @@ function DropdownStories() {
           selected={selected}
         />
       </Showcase>
+      <Showcase title="Search">
+        <Dropdown
+          displayText={displayText}
+          onSelected={setSelected}
+          options={defaultItems}
+          selected={selected}
+          searchInput
+        />
+      </Showcase>
       <Showcase title="Disabled">
         <Dropdown
           disabled

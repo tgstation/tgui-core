@@ -34,6 +34,8 @@ type Props = {
 } & Partial<{
   /** Animates the value if it was changed externally. */
   animated: boolean;
+  /** Disables the control. */
+  disabled: boolean;
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
   /** onChange also fires when you drag the input. */
@@ -79,6 +81,7 @@ export function DraggableControl(props: Props) {
   const {
     // Our props
     animated,
+    disabled,
     children,
     dragMatrix = [1, 0],
     tickWhileDragging,
@@ -120,7 +123,7 @@ export function DraggableControl(props: Props) {
 
   /** Handed to the child component - onMouseDown  */
   function handleDragStart(event: React.MouseEvent<HTMLDivElement>): void {
-    if (editing) return;
+    if (editing || disabled) return;
 
     if (typeof stepPixelSize !== 'number') {
       const defaultStepPixelSize =
@@ -276,6 +279,7 @@ export function DraggableControl(props: Props) {
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       ref={inputRef}
+      readOnly={disabled}
       style={{
         display: !editing ? 'none' : undefined,
         fontSize: fontSize as StyleProp,

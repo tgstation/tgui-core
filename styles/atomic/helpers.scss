@@ -1,0 +1,19 @@
+.dragging {
+  pointer-events: none;
+}
+
+.moving {
+  cursor: var(--cursor-grab);
+}
+
+.resizing-x {
+  cursor: var(--cursor-e-resize);
+}
+
+.resizing-y {
+  cursor: var(--cursor-n-resize);
+}
+
+.resizing-both {
+  cursor: var(--cursor-se-resize);
+}
