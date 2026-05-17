@@ -108,7 +108,10 @@ function getItemHeightUnits(): number {
   document.body.removeChild(tempEntry);
 
   _itemHeightUnits =
-    Number.isNaN(entryHeight) || entryHeight === 0 || Number.isNaN(fontSize) || fontSize === 0
+    Number.isNaN(entryHeight) ||
+    entryHeight === 0 ||
+    Number.isNaN(fontSize) ||
+    fontSize === 0
       ? 1.7 // Fallback value, if all else fails
       : entryHeight / fontSize;
   return _itemHeightUnits;
