@@ -18,11 +18,12 @@ import {
 import {
   type CSSProperties,
   cloneElement,
+  forwardRef,
   isValidElement,
-  type MutableRefObject,
   type ReactElement,
   type ReactNode,
   useEffect,
+  useImperativeHandle,
   useState,
 } from 'react';
 
@@ -100,12 +101,12 @@ type Props = {
    * Called when mounted
    */
   onMounted: () => void;
-  /**
-   * Ref that will be populated with a function to imperatively close the floating element.
-   * Useful when you need to close without affecting interactions or open state control.
-   */
-  closeRef: MutableRefObject<(() => void) | null>;
 }>;
+
+export type FloatingHandle = {
+  /** Imperatively close the floating element. */
+  close: () => void;
+};
 
 /**
  * ## Floating
@@ -114,13 +115,12 @@ type Props = {
  *
  * - [Documentation](https://floating-ui.com/docs/react) for more information.
  */
-export function Floating(props: Props) {
+export const Floating = forwardRef<FloatingHandle, Props>(function Floating(props, ref) {
   const {
     allowedOutsideClasses,
     animationDuration,
     children,
     closeAfterInteract,
-    closeRef,
     content,
     contentAutoWidth,
     contentClasses,
@@ -170,9 +170,9 @@ export function Floating(props: Props) {
     },
   });
 
-  if (closeRef) {
-    closeRef.current = () => context.onOpenChange(false);
-  }
+  useImperativeHandle(ref, () => ({
+    close: () => context.onOpenChange(false),
+  }));
 
   const { isMounted, status } = useTransitionStatus(context, {
     duration: animationDuration || 200,
@@ -260,4 +260,4 @@ export function Floating(props: Props) {
         ))}
     </>
   );
-}
+});

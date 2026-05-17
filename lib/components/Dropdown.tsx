@@ -5,7 +5,7 @@ import type { Placement } from '@floating-ui/react';
 import { type ReactNode, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
-import { Floating } from './Floating';
+import { Floating, type FloatingHandle } from './Floating';
 import { Icon } from './Icon';
 import { Input } from './Input';
 
@@ -150,7 +150,7 @@ export function Dropdown(props: Props) {
   /* SearchInput: This is so we can distinguish between blur caused by Enter and the blur caused by clicking away (so we don't auto select) */
   const enterPressedRef = useRef(false);
   /* SearchInput: This is so we close the Floating after pressing enter in the searchInput */
-  const closeFloatingRef = useRef<(() => void) | null>(null);
+  const floatingRef = useRef<FloatingHandle>(null);
 
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
@@ -207,7 +207,7 @@ export function Dropdown(props: Props) {
       )
     : options;
 
-  function handleBlur(value: string) {
+  function handleBlur(value: string): void {
     /* If the user has typed something, and they pressed enter, select the first result */
     if (
       value &&
@@ -248,6 +248,7 @@ export function Dropdown(props: Props) {
       ])}
     >
       <Floating
+        ref={floatingRef}
         allowedOutsideClasses=".Dropdown__button"
         closeAfterInteract
         content={
@@ -298,7 +299,6 @@ export function Dropdown(props: Props) {
           }
         }}
         onOpenChange={setOpen}
-        closeRef={closeFloatingRef}
         placement={placement}
       >
         {searchInput ? (
@@ -319,7 +319,7 @@ export function Dropdown(props: Props) {
               }}
               onEnter={() => {
                 enterPressedRef.current = true;
-                closeFloatingRef.current?.();
+                floatingRef.current?.close();
               }}
               onChange={setSearchQuery}
               onBlur={handleBlur}
