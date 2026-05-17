@@ -2,13 +2,7 @@ import { KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { unit } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
-import {
-  type CSSProperties,
-  type ReactNode,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { type CSSProperties, type ReactNode, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 import { Button } from './Button';
 import { Floating, type FloatingHandle } from './Floating';
@@ -84,10 +78,23 @@ const MIN_ITEMS = 3;
 /* Capped at 25 for sanity — the default CSS maxHeight is 10 items basically */
 const MAX_ITEMS = 25;
 
+/* Lazily initialized module-level singleton, used for maxItems to determine the height of a dropdown menu item */
+/* Invalidated when CSS variables on :root change (e.g. theme switch) */
+let _itemHeightUnits: number | null = null;
+
+new MutationObserver(() => {
+  _itemHeightUnits = null;
+}).observe(document.documentElement, {
+  attributes: true,
+  attributeFilter: ['style'],
+});
+
 /* Dynamically compute the dropdown entry height */
 /* Each entry: line-height 1.333em (~16px) + space-xs padding top+bottom (~4px) = ~20px */
 /* unit() multiplies by 12px, so each item is ~1.7 units by default */
 function getItemHeightUnits(): number {
+  if (_itemHeightUnits !== null) return _itemHeightUnits;
+
   const fontSize = parseFloat(
     getComputedStyle(document.body).getPropertyValue('--font-size'),
   );
@@ -100,12 +107,11 @@ function getItemHeightUnits(): number {
   const entryHeight = parseFloat(getComputedStyle(tempEntry).height);
   document.body.removeChild(tempEntry);
 
-  return isNaN(entryHeight) ||
-    entryHeight === 0 ||
-    isNaN(fontSize) ||
-    fontSize === 0
-    ? 1.7 // Fallback value, if all else fails
-    : entryHeight / fontSize;
+  _itemHeightUnits =
+    isNaN(entryHeight) || entryHeight === 0 || isNaN(fontSize) || fontSize === 0
+      ? 1.7 // Fallback value, if all else fails
+      : entryHeight / fontSize;
+  return _itemHeightUnits;
 }
 
 function getOptionValue(option: DropdownOption): string | number {
@@ -235,15 +241,14 @@ export function Dropdown(props: Props) {
     placement = `${placement}-start` as Placement;
   }
 
-  const menuMaxHeight = useMemo(() => {
-    if (!maxItems) return undefined;
-    return {
-      '--dropdown-menu-max-height': unit(
-        Math.max(Math.min(maxItems, MAX_ITEMS), MIN_ITEMS) *
-          getItemHeightUnits(),
-      ),
-    } as CSSProperties;
-  }, [maxItems]);
+  const menuMaxHeight = maxItems
+    ? ({
+        '--dropdown-menu-max-height': unit(
+          Math.max(Math.min(maxItems, MAX_ITEMS), MIN_ITEMS) *
+            getItemHeightUnits(),
+        ),
+      } as CSSProperties)
+    : undefined;
 
   return (
     <div
