@@ -244,7 +244,7 @@ export function Dropdown(props: Props) {
       className={classes([
         'Dropdown',
         fluid && 'Dropdown--fluid',
-        styledInput && `Button--color--${color}`,
+        searchInput && styledInput && `Button--color--${color}`,
       ])}
     >
       <Floating
