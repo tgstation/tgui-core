@@ -82,6 +82,7 @@ const MAX_ITEMS = 25;
 /* Invalidated when CSS variables on :root change (e.g. theme switch) */
 let _itemHeightUnits: number | null = null;
 
+/* The singleton gets nulled whenever the style is changed by something so that it can be recalculated */
 new MutationObserver(() => {
   _itemHeightUnits = null;
 }).observe(document.documentElement, {
