@@ -1,8 +1,8 @@
 @use "sass:meta";
 
 // CSS Variables
-@use "./vars-colors";
-@use "./vars-values";
+@use "./base";
+@use "./colors";
 @use "./vars-components";
 
 // Core styles

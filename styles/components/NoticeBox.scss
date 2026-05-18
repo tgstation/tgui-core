@@ -1,4 +1,4 @@
-@use "../base";
+@use "../functions" as fn;
 @use "../colors";
 
 .NoticeBox {
@@ -12,8 +12,8 @@
   );
   background-image: repeating-linear-gradient(
     -45deg,
-    transparent 0 base.em(10px),
-    var(--notice-box-stripes) base.em(10px) base.em(20px)
+    transparent 0 fn.em(10px),
+    var(--notice-box-stripes) fn.em(10px) fn.em(20px)
   );
   color: var(--notice-box-color);
 }
