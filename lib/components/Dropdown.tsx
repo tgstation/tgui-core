@@ -317,7 +317,10 @@ export function Dropdown(props: Props) {
         placement={placement}
       >
         {searchInput ? (
-          <div className="Dropdown__input-wrapper">
+          <div
+            className="Dropdown__input-wrapper"
+            style={{ width: unit(width) }}
+          >
             <Input
               className={classes([
                 'Dropdown__input',
