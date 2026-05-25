@@ -15,7 +15,7 @@ type StyleCourier = (
  * Coverts our rem-like spacing unit into a CSS unit.
  */
 export const unit: UnitMapper = (value) => {
-  const fontSize = Number.parseFloat(getVariableValue('font-size'));
+  const fontSize = Number.parseFloat(getVariableValue('font-size')) || 12;
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px')) {
