@@ -1,8 +1,9 @@
+let cssVariableValueCache: { [key: string]: string } = {};
+
 /**
  * Extracts the value of a CSS variable from the document's root element and caches it.
  * Returns empty string if the variable is not defined or has an empty value.
  */
-let cssVariableValueCache: { [key: string]: string } = {};
 export function getCssVariableValue(variableName: string): string {
   if (variableName in cssVariableValueCache) {
     return cssVariableValueCache[variableName];
