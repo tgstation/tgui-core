@@ -12,12 +12,3 @@ export function zip<T extends unknown[][]>(...arr: T): Zip<T> {
     .fill(undefined)
     .map((_, i) => arr.map((a) => a[i])) as Zip<T>;
 }
-
-/**
- * Extracts the value of a CSS variable from the document's root element.
- * Returns empty string if the variable is not defined or has an empty value.
- */
-export function getVariableValue(variableName: string): string {
-  const styles = getComputedStyle(document.documentElement);
-  return styles.getPropertyValue(`--${variableName}`).trim() || '';
-}

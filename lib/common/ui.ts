@@ -1,7 +1,7 @@
 import type { CSSProperties, DOMAttributes } from 'react';
 import type { BoxProps } from '../components/Box';
-import { getVariableValue } from './collections.ts';
 import { CSS_COLORS } from './constants.ts';
+import { getCssVariableValue } from './css.ts';
 import { type BooleanLike, classes } from './react.ts';
 
 type UnitMapper = (value: unknown) => string | undefined;
@@ -15,7 +15,7 @@ type StyleCourier = (
  * Coverts our rem-like spacing unit into a CSS unit.
  */
 export const unit: UnitMapper = (value) => {
-  const fontSize = Number.parseFloat(getVariableValue('font-size')) || 12;
+  const fontSize = Number.parseFloat(getCssVariableValue('font-size')) || 12;
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px')) {
