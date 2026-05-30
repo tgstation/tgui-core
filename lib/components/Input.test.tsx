@@ -85,6 +85,32 @@ describe('Input Component', () => {
     expect(onChange).toHaveBeenCalledWith('100', expect.anything());
   });
 
+  it('debounces multiple input changes into a single onChange call', () => {
+    const onChange = mock();
+    const { container } = render(<Input expensive={500} onChange={onChange} />);
+    const input = container.querySelector('input')!;
+
+    // Machine is typing O_O
+    for (let i = 0; i <= 100; i++) {
+      fireEvent.change(input, {
+        target: {
+          value: String(i),
+        },
+      });
+
+      act(() => {
+        jest.advanceTimersByTime(10);
+      });
+    }
+    expect(onChange).not.toHaveBeenCalled(); // We need to wait until debounce timeout expired
+
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith('100', expect.anything());
+  });
+
   it('calls onEnter when Enter is pressed', () => {
     let enteredValue = '';
     const { container } = render(
