@@ -155,7 +155,6 @@ export function Input(props: TextInputProps) {
     if (expensive) {
       const debounceTime = typeof expensive === 'number' ? expensive : 250;
       inputDebounce(inputId, debounceTime)(() => onChange?.(value, event));
-      console.log(inputId);
     } else {
       onChange?.(value, event);
     }
