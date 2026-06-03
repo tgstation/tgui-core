@@ -2,7 +2,7 @@ import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
 import { inputDebounce } from 'lib/common/timer';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { TextInputProps } from './Input';
 
 type Props = Partial<{
@@ -64,6 +64,7 @@ export function TextArea(props: Props) {
   const textareaRef = ref ?? ourRef;
 
   const [innerValue, setInnerValue] = useState(value ?? '');
+  const textareaId = useId();
 
   function handleBlur(_event: React.FocusEvent<HTMLTextAreaElement>) {
     onBlur?.(innerValue);
@@ -76,7 +77,7 @@ export function TextArea(props: Props) {
     if (!onChange) return;
     if (expensive) {
       const debounceTime = typeof expensive === 'number' ? expensive : 250;
-      inputDebounce(debounceTime)(() => onChange?.(value, event));
+      inputDebounce(textareaId, debounceTime)(() => onChange?.(value, event));
     } else {
       onChange(value, event);
     }
