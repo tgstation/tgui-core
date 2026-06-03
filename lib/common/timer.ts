@@ -67,8 +67,8 @@ export function sleep(time: number): Promise<void> {
  * Prevent input parent change event from being called too often
  * @param dTime Debounce time, default is 250
  */
-const debounceCache = new Map();
-export function inputDebounce(dTime = 250) {
+const debounceCache = new Map<number, (onChange: () => void) => void>();
+export function inputDebounce(dTime: number = 250): (onChange: () => void) => void {
   let debounced = debounceCache.get(dTime);
   if (!debounced) {
     debounced = debounce((onChange: () => void) => onChange(), dTime);
