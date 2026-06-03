@@ -45,6 +45,12 @@ export const Expensive: Story = {
     onChange: (v) => console.log('New value: ', v),
     value: "I'm debounced!",
   },
+  render: (args) => (
+    <>
+      <Input {...args} />
+      <Input {...args} />
+    </>
+  ),
 };
 
 export const Fluid: Story = {

@@ -2,7 +2,7 @@ import { isEscape, KEY } from '@common/keys';
 import { classes } from '@common/react';
 import { inputDebounce } from '@common/timer';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import { type RefObject, useEffect, useRef, useState } from 'react';
+import { type RefObject, useEffect, useId, useRef, useState } from 'react';
 import type { BoxProps } from './Box';
 
 /** Takes two optional params: The dom element type & the input type */
@@ -147,13 +147,15 @@ export function Input(props: TextInputProps) {
   const inputRef = ref ?? ourRef;
 
   const [innerValue, setInnerValue] = useState(value ?? '');
+  const inputId = useId();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const value = event.currentTarget.value;
     setInnerValue(value);
     if (expensive) {
       const debounceTime = typeof expensive === 'number' ? expensive : 250;
-      inputDebounce(debounceTime)(() => onChange?.(value, event));
+      inputDebounce(inputId, debounceTime)(() => onChange?.(value, event));
+      console.log(inputId);
     } else {
       onChange?.(value, event);
     }

@@ -2,7 +2,7 @@ import { isEscape, KEY } from '@common/keys';
 import { classes } from 'lib/common/react';
 import { inputDebounce } from 'lib/common/timer';
 import { computeBoxClassName, computeBoxProps } from 'lib/common/ui';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { BaseInputProps } from './Input';
 
 type Props = Partial<{
@@ -52,6 +52,7 @@ export function RestrictedInput(props: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [innerValue, setInnerValue] = useState(value ?? minValue);
   const [isValid, setIsValid] = useState(true);
+  const inputId = useId();
 
   function tryOnChange(
     newValue: number,
@@ -60,7 +61,7 @@ export function RestrictedInput(props: Props) {
     if (!onChange) return;
     if (expensive) {
       const debounceTime = typeof expensive === 'number' ? expensive : 250;
-      inputDebounce(debounceTime)(() => onChange?.(newValue, event));
+      inputDebounce(inputId, debounceTime)(() => onChange?.(newValue, event));
     } else {
       onChange(newValue, event);
     }
