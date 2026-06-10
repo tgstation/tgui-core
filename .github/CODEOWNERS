@@ -1,8 +1,5 @@
 # Common Folders
-/assets/ @jlsnow301 @stylemistake @Aylong
 /lib/ @jlsnow301 @stylemistake @Aylong
-/static/ @jlsnow301 @stylemistake @Aylong
-/stories/ @jlsnow301 @stylemistake @Aylong
-/styles/ @jlsnow301 @stylemistake @Aylong
-/tests/ @jlsnow301 @stylemistake @Aylong
-/tools/ @jlsnow301 @stylemistake @Aylong
+/styles/ @ZeWaka @stylemistake @Aylong
+/tests/ @jlsnow301@ZeWaka
+/tools/ @jlsnow301 @ZeWaka
