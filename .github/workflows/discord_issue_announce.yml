@@ -21,7 +21,5 @@ jobs:
           steps.secrets_set.outputs.SECRETS_ENABLED
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          title: ${{ github.event.issue.user.login }} - ${{ github.event.issue.title }}
-          message: GET_ACTION
           include_image: false
           avatar_url: https://avatars.githubusercontent.com/u/1363778?s=200&v=4
