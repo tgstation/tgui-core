@@ -1,3 +1,5 @@
+import { getCssVariableValue } from './css';
+
 /**
  * Limits a number to the range between 'min' and 'max'.
  */
@@ -100,7 +102,8 @@ export function pxToRem(
   px: number,
   as: 'css' | 'string' | 'number',
 ): string | number {
-  const value = px / 12;
+  const fontSize = Number.parseFloat(getCssVariableValue('font-size')) || 12;
+  const value = px / fontSize;
   // Match CSS engine rounding (6 decimal places)
   const rounded = Math.round(value * 1_000_000) / 1_000_000;
   return as === 'number' ? rounded : `${rounded}rem`;
