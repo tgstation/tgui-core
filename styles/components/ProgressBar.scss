@@ -8,7 +8,8 @@
   min-height: var(--button-height);
   padding: 0 var(--space-m);
   background-color: var(--progress-bar-background);
-  border: var(--border-thickness-tiny) solid var(--progress-bar-color);
+  border: var(--border-thickness-tiny) solid;
+  border-color: var(--progress-bar-color);
   border-radius: var(--progress-bar-border-radius);
   transition: border-color var(--progress-bar-transition) ease-out;
 
