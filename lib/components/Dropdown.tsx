@@ -281,7 +281,7 @@ export function Dropdown(props: Props) {
                     ])}
                     key={value}
                     onMouseDown={(event) => {
-                    /* Prevent the search input from blurring before the click completes.
+                      /* Prevent the search input from blurring before the click completes.
                       So we don't get clicks on the menu itself being eaten by onBlur */
                       event.preventDefault();
                     }}
