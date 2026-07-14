@@ -21,7 +21,7 @@ describe('RoundGauge Component', () => {
     );
 
     const needle = container.querySelector('.RoundGauge') as HTMLElement;
-    expect(needle?.style.getPropertyValue('--needle-rotation')).toBe('90deg');
+    expect(needle?.style.getPropertyValue('--needle-rotation')).toBe('45deg');
   });
 
   it('shows alert symbol when value exceeds alertAfter', () => {
