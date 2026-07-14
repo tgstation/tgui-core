@@ -191,7 +191,10 @@ export function RoundGauge(props: Props) {
         >
           <g
             className="RoundGauge__needle"
-            transform={`rotate(${clampedValue * 180 - 90} 50 50)`}
+            style={{
+              transform: `rotate(${clampedValue * 180 - 90}deg)`,
+              transformOrigin: '50px 50px',
+            }}
           >
             <polygon
               className="RoundGauge__needleLine"

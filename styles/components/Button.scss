@@ -70,7 +70,8 @@
   }
 
   &__content {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     align-self: stretch;
 
     &--ellipsis {
