@@ -11,8 +11,8 @@ describe('RoundGauge Component', () => {
       <RoundGauge value={50} minValue={0} maxValue={100} />,
     );
 
-    const needle = container.querySelector('.RoundGauge__needle g');
-    expect(needle?.getAttribute('transform')).toBe('rotate(0 50 50)');
+    const needle = container.querySelector('.RoundGauge') as HTMLElement;
+    expect(needle?.style.getPropertyValue('--needle-rotation')).toBe('0deg');
   });
 
   it('clamps values outside the min/max range', () => {
@@ -20,8 +20,8 @@ describe('RoundGauge Component', () => {
       <RoundGauge value={150} minValue={0} maxValue={100} />,
     );
 
-    const needle = container.querySelector('.RoundGauge__needle g');
-    expect(needle?.getAttribute('transform')).toBe('rotate(90 50 50)');
+    const needle = container.querySelector('.RoundGauge') as HTMLElement;
+    expect(needle?.style.getPropertyValue('--needle-rotation')).toBe('45deg');
   });
 
   it('shows alert symbol when value exceeds alertAfter', () => {

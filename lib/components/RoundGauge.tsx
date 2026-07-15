@@ -124,8 +124,9 @@ export function RoundGauge(props: Props) {
         ])}
         {...computeBoxProps({
           style: {
-            fontSize: `${size}em`,
             position: 'relative',
+            fontSize: `${size}em`,
+            '--needle-rotation': `${clampedValue * 90 - 45}deg`,
             ...style,
           },
           ...rest,
@@ -189,10 +190,7 @@ export function RoundGauge(props: Props) {
             alertColor ? `active` : '',
           ])}
         >
-          <g
-            className="RoundGauge__needle"
-            transform={`rotate(${clampedValue * 180 - 90} 50 50)`}
-          >
+          <g className="RoundGauge__needle">
             <polygon
               className="RoundGauge__needleLine"
               points="46,50 50,0 54,50"

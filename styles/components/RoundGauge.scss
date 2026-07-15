@@ -50,6 +50,11 @@ $pi: 3.1416;
   transition: stroke var(--round-gauge-transition) ease-out;
 }
 
+.RoundGauge__needle {
+  transform: rotate(var(--needle-rotation));
+  transform-origin: bottom;
+}
+
 .RoundGauge__needle,
 .RoundGauge__ringFill {
   transition: transform var(--round-gauge-transition) ease-in-out;
