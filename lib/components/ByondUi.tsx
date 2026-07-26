@@ -1,6 +1,7 @@
 import { debounce } from '@common/timer';
 import { computeBoxProps } from '@common/ui';
 import { useEffect, useRef } from 'react';
+import { globalEvents } from 'tgui-core/common/events';
 import type { BoxProps } from './Box';
 
 type ByondUiElement = {
@@ -110,6 +111,9 @@ function getBoundingBox(element: HTMLDivElement): BoundingBox {
  * especially useful if you want to display a secondary game map in your
  * interface.
  *
+ * Note that you may need to call globalEvents.emit("window-geometry-finished")
+ * if you are not using the Window component.
+ *
  * Example:
  *
  * ```tsx
@@ -161,10 +165,15 @@ export function ByondUi(props: Props) {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
+    globalEvents.on('window-geometry-finished', handleResize);
+
+    // This can cause a double winset, but prevents any weird cases like where
+    // this gets mounted after Window.
     updateRender();
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      globalEvents.off('window-geometry-finished', handleResize);
       byondUiElement.current.unmount();
     };
   }, []);
