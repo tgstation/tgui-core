@@ -105,7 +105,7 @@ export function ImageButton(props: Props) {
     className,
     color,
     disabled,
-    dmDirection,
+    dmDirection = Direction.SOUTH,
     dmFallback,
     dmIcon,
     dmIconState,
