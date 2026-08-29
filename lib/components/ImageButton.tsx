@@ -160,6 +160,7 @@ export function ImageButton(props: Props) {
             icon={dmIcon}
             icon_state={dmIconState}
             width={`${imageSize}px`}
+            direction={dmDirection}
           />
         ) : asset ? (
           <Image
