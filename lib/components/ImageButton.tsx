@@ -105,6 +105,7 @@ export function ImageButton(props: Props) {
     className,
     color,
     disabled,
+    dmDirection,
     dmFallback,
     dmIcon,
     dmIconState,
@@ -153,6 +154,7 @@ export function ImageButton(props: Props) {
           />
         ) : dmIcon && dmIconState ? (
           <DmIcon
+            direction={dmDirection}
             fallback={
               dmFallback || <Fallback icon="spinner" size={imageSize} spin />
             }
@@ -160,7 +162,6 @@ export function ImageButton(props: Props) {
             icon={dmIcon}
             icon_state={dmIconState}
             width={`${imageSize}px`}
-            direction={dmDirection}
           />
         ) : asset ? (
           <Image
