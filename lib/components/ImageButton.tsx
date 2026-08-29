@@ -9,7 +9,7 @@ import { computeBoxProps } from '@common/ui';
 import type { Placement } from '@floating-ui/react';
 import type { ReactNode } from 'react';
 import type { BoxProps } from './Box';
-import { Direction, DmIcon } from './DmIcon';
+import { type Direction, DmIcon } from './DmIcon';
 import { Icon } from './Icon';
 import { Image } from './Image';
 import { Tooltip } from './Tooltip';
@@ -105,7 +105,7 @@ export function ImageButton(props: Props) {
     className,
     color,
     disabled,
-    dmDirection = Direction.SOUTH,
+    dmDirection,
     dmFallback,
     dmIcon,
     dmIconState,
