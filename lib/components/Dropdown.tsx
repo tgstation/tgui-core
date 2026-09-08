@@ -329,6 +329,7 @@ export function Dropdown(props: Props) {
             <Input
               className={classes([
                 'Dropdown__input',
+                !noChevron && 'Dropdown__input--chevron',
                 styledInput && 'Dropdown__input--styled',
                 className,
               ])}
@@ -354,6 +355,7 @@ export function Dropdown(props: Props) {
                   className={classes([
                     'Dropdown__icon',
                     'Dropdown__icon--arrow',
+                    styledInput && over && 'over',
                     open && 'open',
                   ])}
                   name="chevron-down"
