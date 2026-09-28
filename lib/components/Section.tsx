@@ -1,7 +1,7 @@
 import { addScrollableNode, removeScrollableNode } from '@common/events';
 import { canRender, classes } from '@common/react';
 import { computeBoxClassName, computeBoxProps } from '@common/ui';
-import { type ReactNode, type RefObject, useEffect, useRef } from 'react';
+import { type ReactNode, type RefObject, useCallback } from 'react';
 import type { BoxProps } from './Box';
 
 type Props = Partial<{
@@ -88,23 +88,28 @@ export function Section(props: Props) {
 
   const hasTitle = canRender(title) || canRender(buttons);
 
-  const ourRef = useRef<HTMLDivElement>(null);
-  const nodeRef = ref ?? ourRef;
+  const tracked = !!(scrollable || scrollableHorizontal);
 
-  useEffect(() => {
-    // Doesn't use early returns here as we're in useEffect
-    if (nodeRef.current) {
-      if (scrollable || scrollableHorizontal) {
-        addScrollableNode(nodeRef.current);
+  const contentRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (ref) {
+        ref.current = node;
       }
-    }
+      if (tracked) {
+        addScrollableNode(node);
+      }
 
-    return () => {
-      if (nodeRef.current) {
-        removeScrollableNode(nodeRef.current);
-      }
-    };
-  }, []);
+      return () => {
+        if (tracked) {
+          removeScrollableNode(node);
+        }
+        if (ref) {
+          ref.current = null;
+        }
+      };
+    },
+    [ref, tracked],
+  );
 
   return (
     <div
@@ -137,7 +142,7 @@ export function Section(props: Props) {
           onScroll={onScroll}
           // For posterity: the forwarded ref needs to be here specifically
           // to actually let things interact with the scrolling.
-          ref={nodeRef}
+          ref={contentRef}
         >
           {children}
         </div>

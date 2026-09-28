@@ -105,17 +105,14 @@ function releaseStolenFocus() {
 
 let focusedNode: HTMLElement | null = null;
 let lastVisitedNode: HTMLElement | null = null;
-const trackedNodes: HTMLElement[] = [];
+const trackedNodes = new WeakSet<HTMLElement>();
 
 export function addScrollableNode(node: HTMLElement) {
-  trackedNodes.push(node);
+  trackedNodes.add(node);
 }
 
 export function removeScrollableNode(node: HTMLElement) {
-  const index = trackedNodes.indexOf(node);
-  if (index >= 0) {
-    trackedNodes.splice(index, 1);
-  }
+  trackedNodes.delete(node);
 }
 
 function focusNearestTrackedParent(node: HTMLElement | null) {
@@ -124,7 +121,7 @@ function focusNearestTrackedParent(node: HTMLElement | null) {
   }
   const body = document.body;
   while (node && node !== body) {
-    if (trackedNodes.includes(node)) {
+    if (trackedNodes.has(node)) {
       // NOTE: Contains is a DOM4 method
       if (node.contains(focusedNode)) {
         return;
