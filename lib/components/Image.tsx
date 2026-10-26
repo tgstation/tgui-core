@@ -25,8 +25,11 @@ type Props = Partial<{
 const maxAttempts = 5;
 
 type RetryState = {
+  /** The src that failed */
   base: string;
+  /** The url we last put on the element */
   written: string;
+  /** How many retries this src has had */
   attempts: number;
 };
 
@@ -69,6 +72,7 @@ export function Image(props: Props) {
     objectFit,
   };
 
+  /** Retries a failed src a second later, up to maxAttempts times, without ever writing over a newer src */
   function handleError(event: React.SyntheticEvent<HTMLImageElement>): void {
     const imgElement = event.currentTarget;
     const current = imgElement.getAttribute('src') || '';
