@@ -24,6 +24,21 @@ type Props = Partial<{
 
 const maxAttempts = 5;
 
+type RetryState = {
+  base: string;
+  written: string;
+  attempts: number;
+};
+
+/** Adds the attempt number to a url, keeping its query and fragment */
+function withAttempt(url: string, attempt: number): string {
+  const hash = url.indexOf('#');
+  const head = hash < 0 ? url : url.slice(0, hash);
+  const fragment = hash < 0 ? '' : url.slice(hash);
+  const separator = head.includes('?') ? '&' : '?';
+  return `${head}${separator}attempt=${attempt}${fragment}`;
+}
+
 const transparentImg =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
@@ -44,7 +59,7 @@ export function Image(props: Props) {
     src = transparentImg,
     ...rest
   } = props;
-  const attempts = useRef(0);
+  const retry = useRef<RetryState>(null);
   const timer = useRef<NodeJS.Timeout>(null);
 
   const computedProps = computeBoxProps(rest);
@@ -55,16 +70,31 @@ export function Image(props: Props) {
   };
 
   function handleError(event: React.SyntheticEvent<HTMLImageElement>): void {
-    if (!fixErrors || attempts.current >= maxAttempts) {
+    const imgElement = event.currentTarget;
+    const current = imgElement.getAttribute('src') || '';
+
+    let state = retry.current;
+    if (!state || (current !== state.base && current !== state.written)) {
       if (timer.current) clearTimeout(timer.current);
+      timer.current = null;
+      state = { base: current, written: current, attempts: 0 };
+      retry.current = state;
+    }
+
+    if (!fixErrors || state.attempts >= maxAttempts) {
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = null;
       return;
     }
 
-    const imgElement = event.currentTarget;
+    if (timer.current) return;
 
     timer.current = setTimeout(() => {
-      imgElement.src = `${src}?attempt=${attempts.current}`;
-      attempts.current++;
+      timer.current = null;
+      if (imgElement.getAttribute('src') !== state.written) return;
+      state.written = withAttempt(state.base, state.attempts);
+      state.attempts++;
+      imgElement.src = state.written;
     }, 1000);
   }
 
