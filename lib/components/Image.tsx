@@ -79,23 +79,31 @@ export function Image(props: Props) {
 
     let state = retry.current;
     if (!state || (current !== state.base && current !== state.written)) {
-      if (timer.current) clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
       timer.current = null;
       state = { base: current, written: current, attempts: 0 };
       retry.current = state;
     }
 
     if (!fixErrors || state.attempts >= maxAttempts) {
-      if (timer.current) clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
       timer.current = null;
       return;
     }
 
-    if (timer.current) return;
+    if (timer.current) {
+      return;
+    }
 
     timer.current = setTimeout(() => {
       timer.current = null;
-      if (imgElement.getAttribute('src') !== state.written) return;
+      if (imgElement.getAttribute('src') !== state.written) {
+        return;
+      }
       state.written = withAttempt(state.base, state.attempts);
       state.attempts++;
       imgElement.src = state.written;
@@ -105,7 +113,9 @@ export function Image(props: Props) {
   /** Cleans up any stray timers */
   useEffect(() => {
     return () => {
-      if (timer.current) clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
     };
   }, []);
 
